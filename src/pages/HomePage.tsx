@@ -1,16 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-// import { getPost } from '../services/api';
-import Login from '../components/Login';
+import TopNavBar from '../components/common/TopNavBar';
+import ListCategories from '../components/common/ListCategories';
 
 export default function HomePage() {
-  // 리액트 쿼리 관련된 로직
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ['posts'], // queryFn: getPost,
-  });
-
   return (
     <>
-      <Login />
+      <TopNavBar />
+      <ListCategories />
     </>
   );
 }
