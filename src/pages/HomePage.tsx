@@ -1,16 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-// import { getPost } from '../services/api';
-import Login from '../components/Login';
+import { useSelector } from 'react-redux';
+
+import ListCategories from '../components/common/ListCategories';
+import TopNavBar from '../components/common/TopNavBar';
+import useSetMeetingList from '../hooks/useSetMeetingList';
+import { Meeting } from '../types/Meeting';
+
+type AppState = { appReducer: { meetingList: Meeting[] } };
 
 export default function HomePage() {
-  // 리액트 쿼리 관련된 로직
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ['posts'], // queryFn: getPost,
-  });
+  const { meetingList } = useSelector((state: AppState) => state.appReducer);
+  const { isLoading, isError } = useSetMeetingList();
 
   return (
     <>
-      <Login />
+      {isLoading ? <div>로딩중 입니다...</div> : null}
+      {isError ? <div>에러가 발생...</div> : null}
+      <TopNavBar />
+      <ListCategories />
     </>
   );
 }

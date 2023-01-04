@@ -13,12 +13,10 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['babel', 'prettier'],
-  plugins: ['babel', 'prettier'],
   rules: {
     indent: ['warn', 2],
     semi: ['warn', 'always'],
     quotes: ['warn', 'single'],
-    curly: 'warn',
     curly: 'warn',
     'jsx-quotes': ['warn', 'prefer-double'],
     'max-len': ['warn', { code: 100 }],
