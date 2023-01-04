@@ -10,7 +10,7 @@ export type Meeting = {
   platform: string;
   maxNum: number;
   secret: boolean;
-  'secret-password': string;
+  password: string;
   attend: boolean;
   attendantsNum: number;
   attendantsList: {
