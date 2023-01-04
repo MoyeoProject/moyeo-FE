@@ -1,14 +1,27 @@
+import { useMutation } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import useSetMeetings from '../../hooks/useSetMeetings';
+import { getSortbyMeetings } from '../../services/api';
+import { setMeetingList } from '../../slice';
 
 export default function ListCategories() {
-  const { isLoading, isError, handleClickSortby } = useSetMeetings();
+  const dispatch = useDispatch();
+
+  const sortMeetings = useMutation({
+    mutationFn: getSortbyMeetings,
+    onSuccess: (data) => {
+      alert('정렬완료!');
+      dispatch(setMeetingList(data?.data));
+    },
+  });
+
+  const handleClickSortby = (keyword: string) => {
+    sortMeetings.mutate(keyword);
+  };
 
   return (
     <>
-      {isLoading ? <div>로딩중 입니다...</div> : null}
-      {isError ? <div>에러가 발생...</div> : null}
       <div>
         <button type="button" onClick={() => handleClickSortby('new')}>
           신규모임
@@ -17,7 +30,6 @@ export default function ListCategories() {
           인기모임
         </button>
         <Link to="#">나의 모임</Link>
-        <div>모임리스트</div>
       </div>
     </>
   );
