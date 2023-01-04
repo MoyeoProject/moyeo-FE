@@ -9,11 +9,12 @@ const MEETINGS = '/meetings';
 
 export const getSortbyMeetings = async (keyword: string) => {
   const response = await mockURL.get(MEETINGS);
-  //+ `?sortby=${keyword}&category=`);
+  // + `?sortby=${keyword}&category=`
   return response;
 };
 
-export const searchMeetings = async ({ searchKeyword }: { searchKeyword: string }) => {
-  const response = await mockURL.get(MEETINGS + `?search=${searchKeyword}`);
+export const getSearchMeetings = async (keyword: string) => {
+  const response = await mockURL.get(MEETINGS);
+  // + `?search=${keyword}`
   return response;
 };
