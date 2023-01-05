@@ -1,7 +1,7 @@
 export type Meeting = {
   id: number;
   masterId: number;
-  isMaster: boolean;
+  master: boolean;
   title: string;
   category: string;
   startDate: string;
