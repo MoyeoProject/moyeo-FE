@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Meeting } from './types/Meeting';
-
-type AppState = { meetingList: Meeting[] };
+import { InitialState } from './types/AppTypes';
 
 export const app = createSlice({
   name: 'app',
   initialState: {
+    sortbyKeyword: '',
     meetingList: [],
   },
   reducers: {
-    setMeetingList: (state: AppState, { payload }) => {
+    setMeetingList: (state: InitialState, { payload }) => {
+      const { meetingList, sortbyKeyword } = payload;
       return {
-        meetingList: payload,
+        sortbyKeyword,
+        meetingList,
       };
     },
   },
