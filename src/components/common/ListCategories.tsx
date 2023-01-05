@@ -5,19 +5,24 @@ import { Link } from 'react-router-dom';
 import { getSortbyMeetings } from '../../services/api';
 import { setMeetingList } from '../../slice';
 
-export default function ListCategories() {
+type ListCategoriesProps = { currSortbyKeyword: string };
+
+export default function ListCategories({ currSortbyKeyword }: ListCategoriesProps) {
   const dispatch = useDispatch();
 
   const sortMeetings = useMutation({
     mutationFn: getSortbyMeetings,
-    onSuccess: (data) => {
-      alert('정렬완료!');
-      dispatch(setMeetingList(data?.data));
+    onSuccess: (data, variables) => {
+      const meetingList = data?.data;
+      const sortbyKeyword = variables;
+      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
     },
   });
 
   const handleClickSortby = (keyword: string) => {
-    sortMeetings.mutate(keyword);
+    currSortbyKeyword === keyword
+      ? alert('같은 카테고리라 서버데이터를 요청하지 않습니다!')
+      : sortMeetings.mutate(keyword);
   };
 
   return (

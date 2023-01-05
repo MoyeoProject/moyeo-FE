@@ -18,3 +18,7 @@ export type Meeting = {
     userProfileImg: string;
   }[];
 };
+
+export type InitialState = { sortbyKeyword: string; meetingList: Meeting[] };
+
+export type AppState = { appReducer: InitialState };

@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getSortbyMeetings } from '../services/api';
 import { setMeetingList } from '../slice';
 
-const DEFAULT_KEYWORD = 'popular';
+const sortbyKeyword = 'popular';
 
 type ReturnType = {
   isLoading: boolean;
@@ -15,14 +14,14 @@ type ReturnType = {
 export default function useSetMeetingList(): ReturnType {
   const dispatch = useDispatch();
 
-  const { isLoading, isError, data } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: ['meetings'],
-    queryFn: () => getSortbyMeetings(DEFAULT_KEYWORD),
+    queryFn: () => getSortbyMeetings(''),
+    onSuccess: (data) => {
+      const meetingList = data?.data;
+      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
+    },
   });
-
-  useEffect(() => {
-    dispatch(setMeetingList(data?.data));
-  }, []);
 
   return {
     isError,
