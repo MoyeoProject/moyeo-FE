@@ -1,16 +1,30 @@
 import styled from 'styled-components';
 
-export const ModalContentStyle = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
-  background-color: white;
-  border: 2px solid rgb(240, 240, 240);
-  border-radius: 12px;
+export const ModalWrap = styled.div`
+  width: 600px;
+  height: fit-content;
+  border-radius: 15px;
+  background-color: #fff;
   position: absolute;
-  width: 250px;
-  top: 70px;
-  left: calc(50% - 125px);
-  bottom: 70px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+`;
+
+export const Contents = styled.div`
+  margin: 100px auto;
+  text-align: center;
 `;
