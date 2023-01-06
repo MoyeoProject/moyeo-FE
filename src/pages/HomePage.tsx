@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 
 import SearchForm from '../components/SearchForm';
 import ListCategories from '../components/common/ListCategories';
+import ListItems from '../components/common/ListItems';
 import TopNavBar from '../components/common/TopNavBar';
 import useSetMeetingList from '../hooks/useSetMeetingList';
 import { AppState } from '../types/AppTypes';
@@ -17,6 +18,7 @@ export default function HomePage() {
       <TopNavBar />
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
+      <ListItems currMeetingList={meetingList} />
     </>
   );
 }
