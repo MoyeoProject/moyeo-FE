@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 
+import Calendar from '../components/Calendar';
 import SearchForm from '../components/SearchForm';
 import ListCategories from '../components/common/ListCategories';
 import ListItems from '../components/common/ListItems';
@@ -18,7 +19,8 @@ export default function HomePage() {
       <TopNavBar />
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
-      <ListItems currMeetingList={meetingList} />
+      {sortbyKeyword === 'calendar' ? <Calendar /> : null}
+      <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
     </>
   );
 }

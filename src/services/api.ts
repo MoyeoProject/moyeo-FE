@@ -18,3 +18,10 @@ export const getSearchMeetings = async (keyword: string) => {
   // + `?search=${keyword}`
   return response;
 };
+
+export const patchJoinMeeting = async (meetingId: number) => {
+  // 추후 patch로 변경
+  const response = await mockURL.get(MEETINGS);
+  // + `/${meetingId}/attendance`
+  return response;
+};
