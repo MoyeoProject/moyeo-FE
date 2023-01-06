@@ -1,13 +1,28 @@
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { patchJoinMeeting } from '../../services/api';
 import ModalContent from './ModalContent';
 
-export default function PostButton({ name, isSecret }: { name: string; isSecret: boolean | null }) {
+type PostButtonProps = {
+  name: string;
+  isSecret: boolean | null;
+  meetingId: number;
+};
+
+export default function PostButton({ name, isSecret, meetingId }: PostButtonProps) {
   const [showModal, setShowModal] = useState(false);
 
-  const handleClickJoin = () => {
-    console.log('참석하기');
+  const joinMeeting = useMutation({
+    mutationFn: patchJoinMeeting,
+    onSuccess: () => {
+      alert('참석완!');
+    },
+  });
+
+  const handleClickJoin = (meetingId: number) => {
+    joinMeeting.mutate(meetingId);
   };
 
   return isSecret ? (
@@ -16,10 +31,16 @@ export default function PostButton({ name, isSecret }: { name: string; isSecret:
         {name}
       </button>
       {showModal &&
-        createPortal(<ModalContent onClose={() => setShowModal(false)} />, document.body)}
+        createPortal(
+          <ModalContent
+            onClose={() => setShowModal(false)}
+            onClickJoin={() => handleClickJoin(meetingId)}
+          />,
+          document.body
+        )}
     </>
   ) : (
-    <button type="button" onClick={() => handleClickJoin()}>
+    <button type="button" onClick={() => handleClickJoin(meetingId)}>
       {name}
     </button>
   );

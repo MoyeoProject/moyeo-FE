@@ -29,11 +29,11 @@ export default function ListItems({ currMeetingList, sortbyKeyword }: ListItemsP
                 <button type="button">수정버튼</button>
               </Link>
             ) : meeting.attend ? (
-              <PostButton name={'취소'} isSecret={null} />
+              <PostButton name={'취소'} isSecret={null} meetingId={meeting.id} />
             ) : meeting.secret ? (
-              <PostButton name={'참여'} isSecret={true} />
+              <PostButton name={'참여'} isSecret={true} meetingId={meeting.id} />
             ) : (
-              <PostButton name={'참여'} isSecret={false} />
+              <PostButton name={'참여'} isSecret={false} meetingId={meeting.id} />
             ))}
         </li>
         // </Link>
