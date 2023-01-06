@@ -34,7 +34,9 @@ export default function ListCategories({ currSortbyKeyword }: ListCategoriesProp
         <button type="button" onClick={() => handleClickSortby('popular')}>
           인기모임
         </button>
-        <Link to="#">나의 모임</Link>
+        <button type="button" onClick={() => handleClickSortby('calendar')}>
+          나의 모임
+        </button>
       </div>
     </>
   );
