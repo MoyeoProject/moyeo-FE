@@ -18,7 +18,9 @@ export default function HomePage() {
       <TopNavBar />
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
-      <ListItems currMeetingList={meetingList} />
+      {meetingList && meetingList.length !== 0 ? (
+        <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
+      ) : null}
     </>
   );
 }
