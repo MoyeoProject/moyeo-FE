@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { postLogin } from '../services/api';
+import { LoginInputField } from '../types/AppTypes';
 import { KAKAO_AUTH_URL } from './KakaoLoginButton';
+import LoginButton from './LoginButton';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -43,10 +46,24 @@ const LoginForm = () => {
     });
   };
 
+  const mutateLogin = useMutation({
+    mutationFn: postLogin,
+  });
+
+  const handleClickLogin = ({ email, password }: LoginInputField) => {
+    email && password ? mutateLogin.mutate({ email, password }) : alert('값을 입력해주세요!');
+  };
+
+  const handleEnterKey = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.keyCode == 13) {
+      mutateLogin.mutate({ email, password });
+    }
+  };
+
   return (
     <>
       <h2>로그인</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onKeyUp={handleEnterKey}>
         <input
           type="email"
           name="email"
@@ -61,8 +78,8 @@ const LoginForm = () => {
           onChange={onChangeInput}
           placeholder="password"
         />
-        <button type="submit">로그인</button>
       </form>
+      <LoginButton loginInputField={state} onClickLogin={handleClickLogin} />
       <div
         onClick={() => {
           window.location.href = KAKAO_AUTH_URL;

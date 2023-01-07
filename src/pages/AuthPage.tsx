@@ -12,7 +12,6 @@ type signupProps = {
 
 const AuthPage = () => {
   // const isSignup = useSelector((state) => state);
-  // console.log(isSignup);
   // return <div>{!isSignup ? <LoginForm /> : <SignUpForm />}</div>;
 };
 
