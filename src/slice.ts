@@ -7,19 +7,27 @@ export const app = createSlice({
   initialState: {
     sortbyKeyword: '',
     meetingList: [],
+    currPageSize: 0,
   },
   reducers: {
     setMeetingList: (state: InitialState, { payload }) => {
       const { meetingList, sortbyKeyword } = payload;
       return {
+        ...state,
         sortbyKeyword,
         meetingList,
       };
     },
+    addMeetingList: (state: InitialState, { payload: { meetingList } }) => {
+      state.meetingList = [...state.meetingList, ...meetingList];
+    },
+    addCurrPageSize: (state: InitialState, { payload }) => {
+      state.currPageSize = payload;
+    },
   },
 });
 
-export const { setMeetingList } = app.actions;
+export const { setMeetingList, addMeetingList, addCurrPageSize } = app.actions;
 
 const appReducer = app.reducer;
 export default appReducer;

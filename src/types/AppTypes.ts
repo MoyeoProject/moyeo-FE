@@ -19,8 +19,8 @@ export type Meeting = {
   }[];
 };
 
-export type LoginInputField = { email: string; password: string };
+export type InitialState = { sortbyKeyword: string; meetingList: Meeting[]; currPageSize: number };
 
-export type InitialState = { sortbyKeyword: string; meetingList: Meeting[] };
+export type LoginInputField = { email: string; password: string };
 
 export type AppState = { appReducer: InitialState };
