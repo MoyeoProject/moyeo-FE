@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import useInfiniteScrollByPageId from '../../hooks/useInfiniteScrollByPageId';
 import { Meeting } from '../../types/AppTypes';
+import PostButton from './PostButton';
 
 type ListItemsProps = {
   currMeetingList: Meeting[];
@@ -29,16 +30,19 @@ export default function ListItems({ currMeetingList, sortbyKeyword }: ListItemsP
                 <p>{meeting.duration}</p>
                 <p>{meeting.platform}</p>
                 {meeting.secret ? <span>자물쇠 아이콘</span> : null}
-                {/* {meeting.attendantsList => attendant.userProfileImg} 3명까지만 프로필사진 보이고 나머지 인원수 표시*/}
-                {meeting.master ? (
-                  <span>수정 버튼</span>
-                ) : meeting.attend ? (
-                  <span>취소버튼</span>
-                ) : meeting.secret ? (
-                  <span>비밀번호 입력 참석버튼</span>
-                ) : (
-                  <span>참석버튼</span>
-                )}
+                {sortbyKeyword !== 'calendar' &&
+            /* {meeting.attendantsList => attendant.userProfileImg} 3명까지만 프로필사진 보이고 나머지 인원수 표시*/
+            (meeting.master ? (
+              <Link to="#">
+                <button type="button">수정버튼</button>
+              </Link>
+            ) : meeting.attend ? (
+              <PostButton name={'취소'} isSecret={null} meetingId={meeting.id} />
+            ) : meeting.secret ? (
+              <PostButton name={'참여'} isSecret={true} meetingId={meeting.id} />
+            ) : (
+              <PostButton name={'참여'} isSecret={false} meetingId={meeting.id} />
+            ))}
               </li>
             </Link>
           ))}
@@ -57,16 +61,19 @@ export default function ListItems({ currMeetingList, sortbyKeyword }: ListItemsP
                 <p>{meeting.duration}</p>
                 <p>{meeting.platform}</p>
                 {meeting.secret ? <span>자물쇠 아이콘</span> : null}
-                {/* {meeting.attendantsList => attendant.userProfileImg} 3명까지만 프로필사진 보이고 나머지 인원수 표시*/}
-                {meeting.master ? (
-                  <span>수정 버튼</span>
-                ) : meeting.attend ? (
-                  <span>취소버튼</span>
-                ) : meeting.secret ? (
-                  <span>비밀번호 입력 참석버튼</span>
-                ) : (
-                  <span>참석버튼</span>
-                )}
+                {sortbyKeyword !== 'calendar' &&
+            /* {meeting.attendantsList => attendant.userProfileImg} 3명까지만 프로필사진 보이고 나머지 인원수 표시*/
+            (meeting.master ? (
+              <Link to="#">
+                <button type="button">수정버튼</button>
+              </Link>
+            ) : meeting.attend ? (
+              <PostButton name={'취소'} isSecret={null} meetingId={meeting.id} />
+            ) : meeting.secret ? (
+              <PostButton name={'참여'} isSecret={true} meetingId={meeting.id} />
+            ) : (
+              <PostButton name={'참여'} isSecret={false} meetingId={meeting.id} />
+            ))}
               </li>
             </Link>
           ))}

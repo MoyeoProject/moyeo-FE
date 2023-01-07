@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import store from './store';
+import { GlobalStyle } from './styles/GlobalStyle';
 
 const queryClient = new QueryClient();
 
@@ -13,11 +14,12 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      {/* <React.StrictMode> */}
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-      {/* </React.StrictMode> */}
+      <React.StrictMode>
+        <BrowserRouter>
+          <GlobalStyle />
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
     </Provider>
   </QueryClientProvider>
 );

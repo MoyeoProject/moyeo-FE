@@ -21,4 +21,6 @@ export type Meeting = {
 
 export type InitialState = { sortbyKeyword: string; meetingList: Meeting[]; currPageSize: number };
 
+export type LoginInputField = { email: string; password: string };
+
 export type AppState = { appReducer: InitialState };

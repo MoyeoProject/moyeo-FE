@@ -14,6 +14,12 @@ module.exports = {
   },
   plugins: ['babel', 'prettier'],
   rules: {
+    'prettier/prettier': [
+      'warn',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     indent: ['warn', 2],
     semi: ['warn', 'always'],
     quotes: ['warn', 'single'],
