@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import KakaoLoginButton from './KakaoLoginButton';
+import { KAKAO_AUTH_URL } from './KakaoLoginButton';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -23,20 +23,19 @@ const LoginForm = () => {
     password: string;
   };
 
-  const handleAddtodo = async (state: user) => {
+  const handleLogin = async (state: user) => {
     const { email, password } = state;
-    const res = await axios.post('https://sparta-hippo.shop/api/user/login', {
+    const res = await axios.post('https://sparta-hippo.shop/api/users/login', {
       email: email,
       password: password,
     });
-    console.log(res);
     // window.location.href = '/';
+    // success / Error 처리 해야함
   };
 
-  const { mutate } = useMutation(handleAddtodo);
+  const { mutate } = useMutation(handleLogin);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(state);
     mutate(state);
     setState({
       email: '',
@@ -64,14 +63,13 @@ const LoginForm = () => {
         />
         <button type="submit">로그인</button>
       </form>
-      <KakaoLoginButton />
-
-      {/* <KakaoLoginButton
-        // onClick={() => {
-        //   window.location.href = KAKAO_AUTH_URL;
-        // }}
-        <span>카카오 로그인</span>
-      </KakaoLoginButton> */}
+      <div
+        onClick={() => {
+          window.location.href = KAKAO_AUTH_URL;
+        }}
+      >
+        카카오 로그인 하기
+      </div>
       <button
         onClick={() => {
           navigate('/signup');
