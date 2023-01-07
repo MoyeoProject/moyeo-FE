@@ -97,7 +97,7 @@ const SignUpForm = () => {
         {/* email 인증번호 모달 구현? 부분 */}
         <div style={{ border: '1px solid black' }}>
           <p>이메일로 온 인증번호를 입력해주세요</p>
-          <p>
+          <div>
             <input type={hidePassword ? 'password' : 'text'} />
             <span
               style={{ cursor: 'pointer' }}
@@ -107,7 +107,9 @@ const SignUpForm = () => {
             >
               👌
             </span>
-          </p>
+            <button>인증확인</button>
+            <span>시간설정? 몇분안에 하세요 </span>
+          </div>
         </div>
 
         <input

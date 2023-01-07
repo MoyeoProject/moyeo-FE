@@ -14,18 +14,17 @@ const kakaoLogin = (code: string | null) => {
     .get(`https://sparta-hippo.shop/api/users/kakao/callback?code=${code}`)
     .then((res) => {
       console.log(res);
-      // console.log(res.headers.authorization); // 토큰이 넘어올 것임
-      // const accessToken = res.headers.authorization;
-      // setAccessToken(accessToken);
-
-      // window.location.href = '/main'; // 토큰 받았았고 로그인됐으니 화면 전환시켜줌(메인으로)
+      console.log('토큰-', res.headers.authorization);
+      const accessToken = res.headers.authorization;
+      setAccessToken(accessToken);
+      window.location.href = '/main';
+      // 요청이 2번일어나서 화면을 바꿔주지 않으면 아래 에러도 같이 출력됨.
     })
     .catch((err: any) => {
       console.log('소셜로그인 에러', err);
-      // window.alert('로그인에 실패하였습니다.');
-      // window.location.href = '/'; // 로그인 실패하면 로그인화면으로 돌려보냄
+      window.alert('로그인에 실패하였습니다.');
+      window.location.href = '/';
     });
-  //   };
 };
 
 const KakaoLoginButton = () => {

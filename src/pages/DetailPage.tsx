@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 const DetailPage = () => {
   const navigate = useNavigate();
   const [categories, setCategoreis] = useState('intro');
+
+  // // 전체 데이터를 가져오는 hooks
+  // const { isLoading, data, isError, error, isFetching, refetch } =
+  // useSuperHeroData(onSuccess, onError);
+
   return (
     <>
       <div>
