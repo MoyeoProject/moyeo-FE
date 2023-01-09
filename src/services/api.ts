@@ -25,3 +25,16 @@ export const patchJoinMeeting = async (meetingId: number) => {
   // + `/${meetingId}/attendance`
   return response;
 };
+
+// Detail Page
+export const getDetailPage = async (id: string) => {
+  const res = await mockURL.get(MEETINGS);
+  // + `/${id}`
+  return res;
+};
+
+export const fetchCommentList = async (id: string) => {
+  const res = await mockURL.get(MEETINGS);
+  // +`/${id}/comments`
+  return res;
+};

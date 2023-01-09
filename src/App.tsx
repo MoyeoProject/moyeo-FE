@@ -12,7 +12,7 @@ export default function App() {
       <Route path="/" element={<LoginForm />} />
       <Route path="/main" element={<HomePage />} />
       <Route path="/signup" element={<SignUpForm />} />
-      <Route path="/detail/0" element={<DetailPage />} />
+      <Route path="/detail/:id" element={<DetailPage />} />
       <Route path="/api/users/kakao/callback" element={<KakaoLoginButton />} />
     </Routes>
   );

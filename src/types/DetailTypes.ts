@@ -1,0 +1,21 @@
+export type DetailTypes = {
+  id: string;
+  masterId: number;
+  master: boolean;
+  title: string;
+  category: string;
+  startDate: string;
+  startTime: string;
+  duration: string;
+  platform: string;
+  link: string | null;
+  content: string;
+  maxNum: number;
+  secret: boolean;
+  password: number | null;
+  attend: boolean;
+  alarm: boolean;
+  like_num: number;
+  hate_num: number;
+  children?: JSX.Element | JSX.Element[];
+};
