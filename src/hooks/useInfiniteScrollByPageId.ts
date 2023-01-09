@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { addMeetingList } from '../modules/homeSlice';
 import { getNextMeetings } from '../services/api';
-import { addMeetingList } from '../slice';
 import { Meeting } from '../types/AppTypes';
 
 export default function useInfiniteScrollByPageId(currMeetingList: Meeting[]) {

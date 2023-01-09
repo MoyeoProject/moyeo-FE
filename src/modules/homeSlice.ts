@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { InitialState } from './types/AppTypes';
+import { InitialState } from '../types/AppTypes';
 
-export const app = createSlice({
-  name: 'app',
+export const home = createSlice({
+  name: 'home',
   initialState: {
     sortbyKeyword: '',
     meetingList: [],
@@ -27,7 +27,7 @@ export const app = createSlice({
   },
 });
 
-export const { setMeetingList, addMeetingList, addCurrPageSize } = app.actions;
+export const { setMeetingList, addMeetingList, addCurrPageSize } = home.actions;
 
-const appReducer = app.reducer;
-export default appReducer;
+const homeReducer = home.reducer;
+export default homeReducer;
