@@ -14,6 +14,12 @@ module.exports = {
   },
   plugins: ['babel', 'prettier'],
   rules: {
+    'prettier/prettier': [
+      'warn',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     indent: ['warn', 2],
     semi: ['warn', 'always'],
     quotes: ['warn', 'single'],
@@ -23,7 +29,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
-    // 여기부터 새로 추가
     'no-trailing-spaces': 'warn',
     'brace-style': 'warn',
     'no-multi-spaces': 'warn',
@@ -35,7 +40,6 @@ module.exports = {
     'keyword-spacing': ['warn', { before: true, after: true }],
     'comma-spacing': ['warn', { before: false, after: true }],
     'comma-style': ['warn', 'last'],
-    'comma-dangle': ['warn', 'always-multiline'],
     'space-in-parens': ['warn', 'never'],
     'block-spacing': 'warn',
     'array-bracket-spacing': ['warn', 'never'],
