@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 
 import useChangeSearchField from '../hooks/useChangeSearchField';
+import { setMeetingList } from '../modules/homeSlice';
 import { getSearchMeetings } from '../services/api';
-import { setMeetingList } from '../slice';
 
 export default function SearchForm() {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 
+import { setMeetingList } from '../modules/homeSlice';
 import { getSortbyMeetings } from '../services/api';
-import { setMeetingList } from '../slice';
 
 const sortbyKeyword = 'popular';
 

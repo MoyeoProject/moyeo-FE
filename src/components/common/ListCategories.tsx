@@ -1,9 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
+import { setMeetingList } from '../../modules/homeSlice';
 import { getSortbyMeetings } from '../../services/api';
-import { setMeetingList } from '../../slice';
 
 type ListCategoriesProps = { currSortbyKeyword: string };
 

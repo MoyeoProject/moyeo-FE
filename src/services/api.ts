@@ -53,8 +53,8 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
 
   saveItem('isLogin', response?.headers.authorization as unknown as string);
   location.reload();
+};
 
-// Detail Page
 export const getDetailPage = async (id: string) => {
   const res = await mockURL.get(MEETINGS);
   // + `/${id}`
@@ -65,3 +65,4 @@ export const fetchCommentList = async (id: string) => {
   const res = await mockURL.get(MEETINGS);
   // +`/${id}/comments`
   return res;
+};

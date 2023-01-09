@@ -20,9 +20,9 @@ export default function HomePage() {
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
       {sortbyKeyword === 'calendar' ? <Calendar /> : null}
-      {meetingList && meetingList.length !== 0 && (
+      {/* {meetingList && meetingList.length !== 0 && (
         <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
-      )}
+      )} */}
     </>
   );
 }
