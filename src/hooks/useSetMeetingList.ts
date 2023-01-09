@@ -18,7 +18,7 @@ export default function useSetMeetingList(): ReturnType {
     queryKey: ['meetings'],
     queryFn: () => getSortbyMeetings(''),
     onSuccess: (data) => {
-      const meetingList = data?.data;
+      const { meetingList } = data?.data;
       dispatch(setMeetingList({ meetingList, sortbyKeyword }));
     },
   });

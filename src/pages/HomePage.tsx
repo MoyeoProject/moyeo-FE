@@ -1,16 +1,17 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Calendar from '../components/Calendar';
+import MeetingList from '../components/MeetingList';
 import SearchForm from '../components/SearchForm';
 import ListCategories from '../components/common/ListCategories';
-import ListItems from '../components/common/ListItems';
 import TopNavBar from '../components/common/TopNavBar';
 import useSetMeetingList from '../hooks/useSetMeetingList';
 import { AppState } from '../types/AppTypes';
 
 export default function HomePage() {
-  const { meetingList, sortbyKeyword } = useSelector((state: AppState) => state.appReducer);
   const { isLoading, isError } = useSetMeetingList();
+  const { meetingList, sortbyKeyword } = useSelector((state: AppState) => state.home);
 
   return (
     <>
@@ -19,10 +20,10 @@ export default function HomePage() {
       <TopNavBar />
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
-      {sortbyKeyword === 'calendar' ? <Calendar /> : null}
-      {/* {meetingList && meetingList.length !== 0 && (
-        <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
-      )} */}
+      {sortbyKeyword === 'calendar' && <Calendar />}
+      {meetingList && meetingList.length !== 0 && (
+        <MeetingList currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
+      )}
     </>
   );
 }
