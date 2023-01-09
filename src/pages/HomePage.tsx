@@ -14,13 +14,15 @@ export default function HomePage() {
 
   return (
     <>
-      {isLoading ? <div>로딩중 입니다...</div> : null}
-      {isError ? <div>에러가 발생...</div> : null}
+      {isLoading && <div>로딩중 입니다...</div>}
+      {isError && <div>에러가 발생...</div>}
       <TopNavBar />
       <ListCategories currSortbyKeyword={sortbyKeyword} />
       <SearchForm />
       {sortbyKeyword === 'calendar' ? <Calendar /> : null}
-      <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
+      {meetingList && meetingList.length !== 0 && (
+        <ListItems currMeetingList={meetingList} sortbyKeyword={sortbyKeyword} />
+      )}
     </>
   );
 }

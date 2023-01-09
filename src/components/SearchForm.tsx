@@ -11,9 +11,11 @@ export default function SearchForm() {
 
   const searchMeetings = useMutation({
     mutationFn: getSearchMeetings,
-    onSuccess: (data) => {
+    onSuccess: (data, variables) => {
       alert('검색완료!');
-      dispatch(setMeetingList(data?.data));
+      const meetingList = data?.data;
+      const sortbyKeyword = variables;
+      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
     },
   });
 

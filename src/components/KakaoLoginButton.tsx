@@ -5,11 +5,10 @@ export const KAKAO_AUTH_URL =
   'https://kauth.kakao.com/oauth/authorize?client_id=ced49bfdb65f5f152e2e43f12e88bd86&redirect_uri=http://localhost:3000/api/users/kakao/callback&response_type=code';
 
 const setAccessToken = (accessToken: any) => {
-  localStorage.setItem('is_login', accessToken);
+  localStorage.setItem('isLogin', accessToken);
 };
 
 const kakaoLogin = (code: string | null) => {
-  console.log(code);
   axios
     .get(`https://sparta-hippo.shop/api/users/kakao/callback?code=${code}`)
     .then((res) => {
@@ -20,13 +19,12 @@ const kakaoLogin = (code: string | null) => {
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
-      window.location.href = '/';
+      // window.location.href = '/';
     });
 };
 
 const KakaoLoginButton = () => {
   // 인가코드
-  console.log('호출 직전!!!');
   const code: string | null = new URL(window.location.href).searchParams.get('code');
   kakaoLogin(code);
   return <div>카카오 로그인 처리중...</div>;

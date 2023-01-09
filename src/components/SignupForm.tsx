@@ -17,7 +17,6 @@ const SignUpForm = () => {
   const [hidePassword, setHidePassword] = useState(false);
 
   const handleEmailCheck = (e: any) => {
-    console.log(email);
     e.preventDefault();
     if (email === '') {
       alert('이메일을 입력해주세요');
@@ -34,10 +33,8 @@ const SignUpForm = () => {
       const res = await axios.post(
         `https://sparta-hippo.shop/api/users/emailCertification?email=${email}`
       );
-      console.log(res);
     };
     const { mutate } = useMutation(emailAuth);
-    console.log(mutate);
     // matate에 emailcheck의 결과가 나오겠지?
     // 내가 서버에 유저 이메일 넘김 - 서버는 이메일 체크 후
     // T) FE에게 확인 코드 쿠키로 보냄 + 사용자 이메일로 확인코드 보냄 // F) Error
