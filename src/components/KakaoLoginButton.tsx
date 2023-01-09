@@ -14,8 +14,8 @@ const kakaoLogin = (code: string | null) => {
     .then((res) => {
       const accessToken = res.headers.authorization;
       setAccessToken(accessToken);
-      window.location.href = '/main';
-      // 요청이 2번일어나서 화면을 바꿔주지 않으면 아래 에러도 같이 출력됨.
+      // window.location.href = '/main';
+      console.log(res);
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
