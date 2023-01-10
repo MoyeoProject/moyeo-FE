@@ -1,18 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignupForm';
-
-type signupProps = {
-  isSignup: boolean;
-  setIsSignup: boolean;
-};
+import { useAppSelector } from '../store';
 
 const AuthPage = () => {
-  // const isSignup = useSelector((state) => state);
-  // return <div>{!isSignup ? <LoginForm /> : <SignUpForm />}</div>;
+  const isSignup = useAppSelector((state) => state.auth.isSignUp);
+  return <div>{!isSignup ? <LoginForm /> : <SignUpForm />}</div>;
 };
 
 export default AuthPage;

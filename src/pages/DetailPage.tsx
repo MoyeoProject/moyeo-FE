@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getDetailPage } from '../services/api';
+import DetailNavBar from '../components/common/DetailNavBar';
+import { getCommentList, getDetailPage } from '../services/api';
 
 // import { useDetailIntro } from '../hooks/useDetailList';
 
@@ -12,6 +13,7 @@ const DetailPage = () => {
   const navigate = useNavigate();
   const [categories, setCategoreis] = useState('intro');
 
+  // 기본요청 detail meetings
   const { id } = useParams();
   const { isLoading, data, isError } = useQuery(['detail'], () => {
     return getDetailPage(id as string);
@@ -21,20 +23,9 @@ const DetailPage = () => {
   return (
     <>
       {isLoading ? <h2>로딩중입니다</h2> : null}
-      {isError ? <h2>로딩중입니다</h2> : null}
-      <div className="detail_nav">
-        <button
-          onClick={() => {
-            navigate('/main');
-          }}
-        >
-          뒤로가기
-        </button>
-        <span>모임이름</span>
-        <button>알림아이콘</button>
-        <button>모임공유</button>
-        <button>수정아이콘</button>
-      </div>
+      {isError ? <h2>문제가 생겼습니다</h2> : null}
+      <DetailNavBar />
+      {/* <DetailCategories /> */}
 
       <div className="detail_tab">
         <button type="button" onClick={() => setCategoreis('intro')}>
@@ -50,7 +41,7 @@ const DetailPage = () => {
           <h2>소개</h2>
           <div>DetailIntro</div>
           <div>
-            <p>모임 이름 : {data ? data.data[0].title : null}</p>
+            <p>모임 이름 </p>
             <p>카테고리</p>
             <p>모임</p>
             <p>날짜</p>
@@ -66,7 +57,8 @@ const DetailPage = () => {
             <p>입장 링크 입력</p>
           </div>
         </>
-      ) : (
+      ) : null}
+      {categories === 'comment' ? (
         <>
           <h2>댓글</h2>
           <div>DetailComment</div>
@@ -91,7 +83,7 @@ const DetailPage = () => {
             <button>입력</button>
           </div>
         </>
-      )}
+      ) : null}
     </>
   );
 };

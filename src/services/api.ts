@@ -3,7 +3,7 @@ import axios from 'axios';
 import { loadItem, saveItem } from './storage';
 
 const baseURL = axios.create({
-  baseURL: 'http://52.79.64.171',
+  baseURL: 'https://sparta-hippo.shop/api',
   headers: {
     'Access-Control-Allow-Origin': '*',
     Authorization: `${loadItem('isLogin')}`,
@@ -18,6 +18,7 @@ const MEETINGS = '/api/meetings';
 const LOGIN = '/api/users/login';
 
 const MEETINGS_MOCK = '/meetings';
+const COMMENT_MOCK = '/comment';
 const NEXT_MOCK = '/next';
 
 export const getSortbyMeetings = async (keyword: string) => {
@@ -55,14 +56,17 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
   location.reload();
 };
 
+
 export const getDetailPage = async (id: string) => {
-  const res = await mockURL.get(MEETINGS);
+  const res = await mockURL.get(MEETINGS_MOCK);
   // + `/${id}`
+  console.log('detail-', res);
   return res;
 };
 
-export const fetchCommentList = async (id: string) => {
-  const res = await mockURL.get(MEETINGS);
+export const getCommentList = async (id: string) => {
+  const res = await mockURL.get(COMMENT_MOCK);
   // +`/${id}/comments`
+  console.log('comment-', res);
   return res;
 };
