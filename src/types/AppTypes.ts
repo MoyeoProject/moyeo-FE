@@ -19,7 +19,7 @@ export type Meeting = {
   }[];
 };
 
-export type InitialState = { sortbyKeyword: string; meetingList: Meeting[]; currPageSize: number };
+export type InitialState = { meetingList: Meeting[] };
 
 export type LoginInputField = { email: string; password: string };
 

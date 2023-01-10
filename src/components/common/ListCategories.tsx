@@ -3,25 +3,25 @@ import { useDispatch } from 'react-redux';
 
 import { setMeetingList } from '../../modules/homeSlice';
 import { getSortbyMeetings } from '../../services/api';
+import { loadItem, saveItem } from '../../services/storage';
 
-type ListCategoriesProps = { currSortbyKeyword: string };
-
-export default function ListCategories({ currSortbyKeyword }: ListCategoriesProps) {
+export default function ListCategories() {
   const dispatch = useDispatch();
 
   const sortMeetings = useMutation({
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
-      const meetingList = data?.data;
-      const sortbyKeyword = variables;
-      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
+      variables && saveItem('keyword', variables);
+      dispatch(setMeetingList(data));
+      location.reload();
     },
   });
 
   const handleClickSortby = (keyword: string) => {
-    currSortbyKeyword === keyword
-      ? alert('같은 카테고리라 서버데이터를 요청하지 않습니다!')
-      : sortMeetings.mutate(keyword);
+    if (loadItem('keyword') === keyword) {
+      alert('같은 카테고리라 서버데이터를 요청하지 않습니다!');
+    }
+    sortMeetings.mutate(keyword);
   };
 
   return (
