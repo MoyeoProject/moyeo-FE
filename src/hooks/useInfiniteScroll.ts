@@ -30,7 +30,7 @@ export default function useInfiniteScroll(currMeetingList: Meeting[]) {
 
         return keyword === 'popular'
           ? pageId.current
-          : lastMeetingList[lastMeetingList.length - 1].id;
+          : lastMeetingList.length !== 0 && lastMeetingList[lastMeetingList.length - 1].id;
       },
       onSuccess: (data) => {
         const nextMeetingList = data.pages[data.pages.length - 1].data.meetingList;
