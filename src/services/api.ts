@@ -27,16 +27,27 @@ export const getSortbyMeetings = async (keyword: string | null) => {
   return response;
 };
 
+export const getNextMeetings = async ({
+  meetingId,
+  keyword,
+}: {
+  meetingId: number;
+  keyword: string | null;
+}) => {
+  const query =
+    keyword === 'popular' || keyword === 'new'
+      ? `?sortby=${keyword}&category=&meetingId=${meetingId}`
+      : `/search?searchBy=${keyword}&category=&meetingId=${meetingId}`;
+
+  const response = await baseURL.get(MEETINGS + query);
+
+  return response.data;
+};
+
 export const patchJoinMeeting = async (meetingId: number) => {
   // 추후 patch로 변경
   const response = await mockURL.get(MEETINGS);
   // + `/${meetingId}/attendance`
-  return response;
-};
-
-export const getNextMeetings = async (meetingId: number) => {
-  const response = await mockURL.get(NEXT_MOCK);
-  // + `?meetingId=${meetingId}`
   return response;
 };
 
