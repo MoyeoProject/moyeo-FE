@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import useChangeSearchField from '../hooks/useChangeSearchField';
 import { setMeetingList } from '../modules/homeSlice';
-import { getSearchMeetings } from '../services/api';
+import { getSortbyMeetings } from '../services/api';
 import { saveItem } from '../services/storage';
 
 export default function SearchForm() {
@@ -11,7 +11,7 @@ export default function SearchForm() {
   const { searchField, handleChangeSearchField, handleClearInputField } = useChangeSearchField();
 
   const searchMeetings = useMutation({
-    mutationFn: getSearchMeetings,
+    mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       alert('검색완료!');
 

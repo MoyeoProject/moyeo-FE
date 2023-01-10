@@ -3,7 +3,7 @@ import axios from 'axios';
 import { loadItem, saveItem } from './storage';
 
 const baseURL = axios.create({
-  baseURL: 'http://52.79.64.171',
+  baseURL: 'https://sparta-hippo.shop/api',
   headers: {
     'Access-Control-Allow-Origin': '*',
     Authorization: `${loadItem('isLogin')}`,
@@ -14,21 +14,16 @@ const mockURL = axios.create({
   baseURL: 'http://localhost:3003',
 });
 
-const MEETINGS = '/api/meetings';
-const LOGIN = '/api/users/login';
+const MEETINGS = '/meetings';
+const LOGIN = '/users/login';
 
-const MEETINGS_MOCK = '/meetings';
-const NEXT_MOCK = '/next';
+export const getSortbyMeetings = async (keyword: string | null) => {
+  const query =
+    keyword === 'popular' || keyword === 'new'
+      ? `?sortby=${keyword}&category=`
+      : `/search?searchBy=${keyword}&category=`;
 
-export const getSortbyMeetings = async (keyword: string) => {
-  const response = await mockURL.get(MEETINGS_MOCK);
-  // + `?sortby=${keyword}&category=`
-  return response;
-};
-
-export const getSearchMeetings = async (keyword: string) => {
-  const response = await mockURL.get(MEETINGS_MOCK);
-  // + `/search?searchBy=${keyword}&category=`
+  const response = await baseURL.get(MEETINGS + query);
   return response;
 };
 
@@ -52,7 +47,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
   });
 
   saveItem('isLogin', response?.headers.authorization as unknown as string);
-  location.reload();
+  location.assign('/main');
 };
 
 export const getDetailPage = async (id: string) => {
