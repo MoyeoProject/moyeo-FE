@@ -8,8 +8,8 @@ export const home = createSlice({
     meetingList: [],
   },
   reducers: {
-    setMeetingList: (state: InitialState, { payload: { data } }) => {
-      const { meetingList } = data;
+    setMeetingList: (state: InitialState, { payload }) => {
+      const meetingList = payload && payload.data.data.meetingList;
       return {
         ...state,
         meetingList,
