@@ -13,7 +13,6 @@ export default function ListCategories() {
     onSuccess: (data, variables) => {
       variables && saveItem('keyword', variables);
       dispatch(setMeetingList(data));
-      location.reload();
     },
   });
 
