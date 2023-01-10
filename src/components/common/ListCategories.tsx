@@ -1,18 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
 
-import { setMeetingList } from '../../modules/homeSlice';
 import { getSortbyMeetings } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 
 export default function ListCategories() {
-  const dispatch = useDispatch();
-
   const sortMeetings = useMutation({
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       variables && saveItem('keyword', variables);
-      dispatch(setMeetingList(data));
+      location.reload();
     },
   });
 
