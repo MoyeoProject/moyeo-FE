@@ -14,18 +14,16 @@ const mockURL = axios.create({
   baseURL: 'http://localhost:3003',
 });
 
-const MEETINGS_MOCK = '/meetings';
-const NEXT_MOCK = '/next';
+const MEETINGS = '/meetings';
+const LOGIN = '/users/login';
 
-export const getSortbyMeetings = async (keyword: string) => {
-  const response = await mockURL.get(MEETINGS_MOCK);
-  // + `?sortby=${keyword}&category=`
-  return response;
-};
+export const getSortbyMeetings = async (keyword: string | null) => {
+  const query =
+    keyword === 'popular' || keyword === 'new'
+      ? `?sortby=${keyword}&category=`
+      : `/search?searchBy=${keyword}&category=`;
 
-export const getSearchMeetings = async (keyword: string) => {
-  const response = await mockURL.get(MEETINGS_MOCK);
-  // + `/search?searchBy=${keyword}&category=`
+  const response = await baseURL.get(MEETINGS + query);
   return response;
 };
 
