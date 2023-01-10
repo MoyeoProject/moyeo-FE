@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import useChangeSearchField from '../hooks/useChangeSearchField';
 import { setMeetingList } from '../modules/homeSlice';
 import { getSearchMeetings } from '../services/api';
+import { saveItem } from '../services/storage';
 
 export default function SearchForm() {
   const dispatch = useDispatch();
@@ -13,9 +14,9 @@ export default function SearchForm() {
     mutationFn: getSearchMeetings,
     onSuccess: (data, variables) => {
       alert('검색완료!');
-      const meetingList = data?.data;
-      const sortbyKeyword = variables;
-      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
+
+      variables && saveItem('keyword', variables);
+      dispatch(setMeetingList(data));
     },
   });
 
