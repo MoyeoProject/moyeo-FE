@@ -1,5 +1,5 @@
 export type DetailTypes = {
-  id: string;
+  id: number;
   masterId: number;
   master: boolean;
   title: string;
@@ -15,7 +15,23 @@ export type DetailTypes = {
   password: number | null;
   attend: boolean;
   alarm: boolean;
-  like_num: number;
-  hate_num: number;
+  likenum: number;
+  hatenum: number;
   children?: JSX.Element | JSX.Element[];
+};
+
+export type MemberTypes = {
+  followed: boolean;
+  profileUrl: string;
+  userId: number;
+  username: string;
+};
+
+export type CommentTypes = {
+  commentId: number;
+  username: string;
+  profileUrl: string;
+  comment: string;
+  createdAt: string;
+  deleted: boolean;
 };

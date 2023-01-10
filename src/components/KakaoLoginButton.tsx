@@ -22,12 +22,12 @@ const kakaoLogin = (code: string | null) => {
       localStorage.setItem('username', res.data.data.username);
       localStorage.setItem('profileUrl', res.data.data.profileUrl);
       console.log('thdud', res);
-      // window.location.href = '/main';
+      window.location.href = '/main';
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
       console.log(err);
-      // window.location.href = '/';
+      window.location.href = '/';
     });
 };
 

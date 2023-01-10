@@ -16,7 +16,7 @@ const DetailNavBar = () => {
         <span>모임이름</span>
         <button>알림아이콘</button>
         <button>모임공유</button>
-        <button>수정아이콘</button>
+        <button>수정</button>
       </div>
     </div>
   );
