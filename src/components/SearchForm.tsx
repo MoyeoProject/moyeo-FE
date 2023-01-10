@@ -1,21 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
 
 import useChangeSearchField from '../hooks/useChangeSearchField';
-import { setMeetingList } from '../modules/homeSlice';
-import { getSearchMeetings } from '../services/api';
+import { getSortbyMeetings } from '../services/api';
+import { saveItem } from '../services/storage';
 
 export default function SearchForm() {
-  const dispatch = useDispatch();
   const { searchField, handleChangeSearchField, handleClearInputField } = useChangeSearchField();
 
   const searchMeetings = useMutation({
-    mutationFn: getSearchMeetings,
+    mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       alert('검색완료!');
-      const meetingList = data?.data;
-      const sortbyKeyword = variables;
-      dispatch(setMeetingList({ meetingList, sortbyKeyword }));
+      variables && saveItem('keyword', variables);
+      location.reload();
     },
   });
 
