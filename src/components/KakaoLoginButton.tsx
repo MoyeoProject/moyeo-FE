@@ -1,25 +1,33 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 
-export const KAKAO_AUTH_URL =
-  'https://kauth.kakao.com/oauth/authorize?client_id=ced49bfdb65f5f152e2e43f12e88bd86&redirect_uri=http://localhost:3000/api/users/kakao/callback&response_type=code';
+const baseURL = axios.create({
+  baseURL: 'https://sparta-hippo.shop/api',
+});
+const CLIENT_ID = 'ced49bfdb65f5f152e2e43f12e88bd86';
+const REDIRECT_URL = 'http://localhost:3000/api/users/kakao/callback';
+
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`;
 
 const setAccessToken = (accessToken: any) => {
   localStorage.setItem('isLogin', accessToken);
 };
 
 const kakaoLogin = (code: string | null) => {
-  axios
-    .get(`https://sparta-hippo.shop/api/users/kakao/callback?code=${code}`)
+  baseURL
+    .get(`users/kakao/callback?code=${code}`)
     .then((res) => {
       const accessToken = res.headers.authorization;
       setAccessToken(accessToken);
-      // window.location.href = '/main';
-      console.log(res);
+      localStorage.setItem('username', res.data.data.username);
+      localStorage.setItem('profileUrl', res.data.data.profileUrl);
+      console.log('thdud', res);
+      window.location.href = '/main';
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
-      // window.location.href = '/';
+      console.log(err);
+      window.location.href = '/';
     });
 };
 

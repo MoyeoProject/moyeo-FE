@@ -1,16 +1,19 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { isSignup } from '../modules/authSlice';
 import { postLogin } from '../services/api';
+import { useAppDispatch } from '../store';
 import { LoginInputField } from '../types/AppTypes';
 import { KAKAO_AUTH_URL } from './KakaoLoginButton';
 import LoginButton from './LoginButton';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -19,31 +22,6 @@ const LoginForm = () => {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
-  };
-
-  type user = {
-    email: string;
-    password: string;
-  };
-
-  const handleLogin = async (state: user) => {
-    const { email, password } = state;
-    const res = await axios.post('https://sparta-hippo.shop/api/users/login', {
-      email: email,
-      password: password,
-    });
-    // window.location.href = '/';
-    // success / Error 처리 해야함
-  };
-
-  const { mutate } = useMutation(handleLogin);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    mutate(state);
-    setState({
-      email: '',
-      password: '',
-    });
   };
 
   const mutateLogin = useMutation({
@@ -63,7 +41,7 @@ const LoginForm = () => {
   return (
     <>
       <h2>로그인</h2>
-      <form onSubmit={handleSubmit} onKeyUp={handleEnterKey}>
+      <form onKeyUp={handleEnterKey}>
         <input
           type="email"
           name="email"
@@ -89,7 +67,7 @@ const LoginForm = () => {
       </div>
       <button
         onClick={() => {
-          navigate('/signup');
+          dispatch(isSignup(true));
         }}
       >
         회원가입 하러 가기

@@ -61,14 +61,34 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
   location.assign('/main');
 };
 
-export const getDetailPage = async (id: string) => {
-  const res = await mockURL.get(MEETINGS);
-  // + `/${id}`
+// id는 number로 넘어가야 하는데 에러
+export const getDetailPage = async (id: any) => {
+  // const res = await mockURL.get(MEETINGS_MOCK);
+  const res = await baseURL.get(`meetings/${id}`);
   return res;
 };
 
-export const fetchCommentList = async (id: string) => {
-  const res = await mockURL.get(MEETINGS);
-  // +`/${id}/comments`
+export const getAttendList = async (meetingId: any) => {
+  // const res = await mockURL.get('/attend');
+  const res = await baseURL.get(`/meetings/${meetingId}/attendants`); // 위api id랑 같음
+  return res;
+};
+
+export const getCommentPage = async (meetingId: any) => {
+  // const res = await mockURL.get('/comment');
+  const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
+  // console.log(res);
+  return res;
+};
+
+export const addComment = async ({ id, comment }: any) => {
+  const res = await baseURL.post(`/meetings/${id}/comments?commentId=`, { comment });
+  console.log(res);
+  return res;
+};
+
+export const delComment = async ({ id, commetnId }: any) => {
+  const res = await baseURL.delete(`/meetings/${id}/comments/${commetnId}`);
+  console.log(res);
   return res;
 };
