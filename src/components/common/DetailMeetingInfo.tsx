@@ -1,18 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getDetailPage } from '../../services/api';
 
-const DetailMeetingInfo = () => {
-  const { id } = useParams();
-  const { data, isLoading, isError } = useQuery(['detail', id], () => {
-    return getDetailPage(id);
-  });
-  // const d = data?.data;
-  const d = data?.data.data;
-  console.log(data);
+const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
+  const date = data?.startTime.split('T')[0];
+  const time = data?.startTime.split('T')[1];
+
   return (
     <>
       {isLoading ? <h2>로딩중입니다</h2> : null}
@@ -20,16 +13,16 @@ const DetailMeetingInfo = () => {
       <MeetingBox>
         <div className="meeting">
           <img />
-          <p>모임 이름 : {d?.title}</p>
-          <span>👍{d?.likeNum}</span>
-          <span>👍{d?.hateNum}</span>
-          <p>모임 소개 : {d?.content}</p>
+          <p>모임 이름 : {data?.title}</p>
+          <span>👍{data?.likeNum}</span>
+          <span>👍{data?.hateNum}</span>
+          <p>모임 소개 : {data?.content}</p>
         </div>
         <div className="meetingInfo">
-          <p>날짜: {d?.startDate}</p>
-          <p>모임 시간: {d?.startTime}</p>
-          <p>모임 기간: {d?.duration}</p>
-          <p>이용 플랫폼: {d?.platform}</p>
+          <p>날짜: {date}</p>
+          <p>모임 시간: {time}</p>
+          <p>모임 기간: {data?.duration}</p>
+          <p>이용 플랫폼: {data?.platform}</p>
         </div>
       </MeetingBox>
     </>

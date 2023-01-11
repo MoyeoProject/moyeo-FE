@@ -20,7 +20,6 @@ const Comment = () => {
   const useAddComment = () => {
     return useMutation(addComment, {
       onSuccess: (data) => {
-        console.log(data);
         QueryClient.invalidateQueries(['Comment', id]);
       },
     });
@@ -34,11 +33,9 @@ const Comment = () => {
   const useDelComment = () => {
     return useMutation(delComment, {
       onSuccess: (data) => {
-        console.log(data);
         QueryClient.invalidateQueries(['Comment', id]);
       },
       onError: (data: any) => {
-        console.log(data);
         alert(data?.response.data.statusMsg);
       },
     });
@@ -47,7 +44,6 @@ const Comment = () => {
   const { mutate: delCommentItem } = useDelComment();
   const handleDelComment = (commetnId: any) => {
     delCommentItem({ id, commetnId });
-    console.log();
   };
 
   return (

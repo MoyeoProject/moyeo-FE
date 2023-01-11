@@ -35,17 +35,14 @@ const SignUpForm = () => {
     axios
       .post('https://reqres.in/api/register', email)
       .then((res) => {
-        console.log(res);
         alert('이메일 인증번호를 적어주세요');
       })
       .catch((err) => {
-        console.log(err);
         alert('이메일 주소를 확인해주세요');
       });
   };
 
   const handleEmailCheck = () => {
-    console.log('입력email-', email);
     const mock = { email: 'eve.holt@reqres.in', password: 'cityslicka' };
     emailCheckApi(mock);
   };
@@ -55,11 +52,9 @@ const SignUpForm = () => {
     axios
       .get('http://localhost:3003/authCheck')
       .then((res) => {
-        console.log(res);
         setEmailAuth(true);
       })
       .catch((err) => {
-        console.log(err);
         alert('인증번호가 틀렸습니다');
         setEmailAuth(false);
       });
@@ -71,21 +66,17 @@ const SignUpForm = () => {
   // 회원가입
   const signupApi = async (signupUser: { email: string; password: string }) => {
     // const signupApi = async (signupUser: { email: string; username: string; password: string }) => {
-    console.log(signupUser);
     await axios
       .post('https://reqres.in/api/register', signupUser)
       .then((res) => {
-        console.log(res);
         // window.location.href = '/';
       })
       .catch((err) => {
         alert('회원가입 실패');
-        console.log(err);
       });
   };
 
   const handleClickSignup = () => {
-    console.log(emailAuth, email, username, password, passwordCheck);
     const signupUser = {
       email: 'eve.holt@reqres.in',
       password: 'pistol',
@@ -95,7 +86,6 @@ const SignUpForm = () => {
     //   username: username,
     //   password: 'pistol',
     // };
-    console.log(signupUser);
     signupApi(signupUser);
   };
 

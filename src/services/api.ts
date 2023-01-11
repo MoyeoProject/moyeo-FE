@@ -73,10 +73,20 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     });
 };
 
-// id는 number로 넘어가야 하는데 에러
 export const getDetailPage = async (id: any) => {
   // const res = await mockURL.get(MEETINGS_MOCK);
   const res = await baseURL.get(`meetings/${id}`);
+  return res;
+};
+
+export const getAlarm = async ({ id }: any) => {
+  const res = await baseURL.patch(`/meetings/${id}/alarm`);
+  console.log(res);
+  return res;
+};
+
+export const meetingAttend = async (meetingId: any) => {
+  const res = await baseURL.patch(`/meetings/${meetingId}/attendance`);
   return res;
 };
 
@@ -89,18 +99,15 @@ export const getAttendList = async (meetingId: any) => {
 export const getCommentPage = async (meetingId: any) => {
   // const res = await mockURL.get('/comment');
   const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
-  // console.log(res);
   return res;
 };
 
 export const addComment = async ({ id, comment }: any) => {
   const res = await baseURL.post(`/meetings/${id}/comments?commentId=`, { comment });
-  console.log(res);
   return res;
 };
 
 export const delComment = async ({ id, commetnId }: any) => {
   const res = await baseURL.delete(`/meetings/${id}/comments/${commetnId}`);
-  console.log(res);
   return res;
 };
