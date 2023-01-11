@@ -21,9 +21,17 @@ export default function SearchForm() {
     handleClearInputField();
   };
 
+  const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode == 13) {
+      searchMeetings.mutate(searchField);
+      handleClearInputField();
+    }
+  };
+
   return (
     <div>
       <input
+        onKeyUp={handleEnterKey}
         type="text"
         value={searchField ? searchField : ''}
         placeholder="검색어 입력..."

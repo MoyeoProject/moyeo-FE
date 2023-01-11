@@ -52,13 +52,17 @@ export const patchJoinMeeting = async (meetingId: number) => {
 };
 
 export const postLogin = async (userInfo: { email: string; password: string }) => {
-  const response = await baseURL.post(LOGIN, userInfo).catch((err) => {
-    alert(err.response.data.statusMsg);
-    location.reload();
-  });
-
-  saveItem('isLogin', response?.headers.authorization as unknown as string);
-  location.assign('/main');
+  await baseURL
+    .post(LOGIN, userInfo)
+    .then((res) => {
+      saveItem('isLogin', res?.headers.authorization as unknown as string);
+      saveItem('keyword', 'popular');
+      location.assign('/main');
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+      location.assign('/');
+    });
 };
 
 // id는 number로 넘어가야 하는데 에러
