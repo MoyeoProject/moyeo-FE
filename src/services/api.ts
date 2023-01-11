@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { loadItem, saveItem } from './storage';
@@ -79,20 +80,19 @@ export const getDetailPage = async (id: any) => {
   return res;
 };
 
-export const getAlarm = async ({ id }: any) => {
+export const getAlarmApi = async (id: any) => {
   const res = await baseURL.patch(`/meetings/${id}/alarm`);
-  console.log(res);
   return res;
 };
 
-export const meetingAttend = async (meetingId: any) => {
+export const meetAttendExitApi = async (meetingId: any) => {
   const res = await baseURL.patch(`/meetings/${meetingId}/attendance`);
   return res;
 };
 
 export const getAttendList = async (meetingId: any) => {
   // const res = await mockURL.get('/attend');
-  const res = await baseURL.get(`/meetings/${meetingId}/attendants`); // 위api id랑 같음
+  const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
 

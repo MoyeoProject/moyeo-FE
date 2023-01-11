@@ -24,12 +24,12 @@ const DetailPage = () => {
       <DetailNavBar data={detailData} />
 
       {/* <DetailCategories /> */}
-      <div className="detail_tab">
+      <div style={{ margin: '15px' }}>
         <button type="button" onClick={() => setCategoreis('intro')}>
-          소개
+          소개 --- /
         </button>
         <button type="button" onClick={() => setCategoreis('comment')}>
-          댓글
+          / ----댓글
         </button>
       </div>
 
@@ -38,7 +38,7 @@ const DetailPage = () => {
           <>
             <p>소개</p>
             <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
-            <DetailAttendList />
+            <DetailAttendList  data={detailData} />
             <DetailButton />
           </>
         ) : (

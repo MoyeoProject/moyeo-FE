@@ -21,7 +21,7 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
         <div className="meetingInfo">
           <p>날짜: {date}</p>
           <p>모임 시간: {time}</p>
-          <p>모임 기간: {data?.duration}</p>
+          <p>모임 기간: {data?.duration}시간</p>
           <p>이용 플랫폼: {data?.platform}</p>
         </div>
       </MeetingBox>
