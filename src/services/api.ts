@@ -85,14 +85,14 @@ export const getAlarmApi = async (id: any) => {
   return res;
 };
 
-export const meetingAttend = async (meetingId: any) => {
+export const meetAttendExitApi = async (meetingId: any) => {
   const res = await baseURL.patch(`/meetings/${meetingId}/attendance`);
   return res;
 };
 
 export const getAttendList = async (meetingId: any) => {
   // const res = await mockURL.get('/attend');
-  const res = await baseURL.get(`/meetings/${meetingId}/attendants`); 
+  const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
 

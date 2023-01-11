@@ -10,10 +10,8 @@ const DetailAttendList = () => {
   const { data: member } = useQuery(['member'], () => {
     return getAttendList(id);
   });
-
   return (
     <Box>
-      {/* {member?.data.map((m: MemberTypes) => { */}
       {member?.data.data.map((m: MemberTypes) => {
         return (
           <MemberBox key={m.userId}>

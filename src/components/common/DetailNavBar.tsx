@@ -4,12 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { isMaster } from '../../modules/authSlice';
-import { getAlarmApi, meetingAttend } from '../../services/api';
+import { getAlarmApi, meetAttendExitApi } from '../../services/api';
 import { useAppSelector } from '../../store';
 import { DetailTypes } from '../../types/DetailTypes';
 
 const DetailNavBar = ({ data }: any) => {
   const { id } = useParams();
+  const QueryClient = useQueryClient();
   const navigate = useNavigate();
   const isMaster = useAppSelector((state) => state.auth.isMaster);
 
@@ -18,19 +19,31 @@ const DetailNavBar = ({ data }: any) => {
   const handleClickMeetingEdit = (id: any) => {
     // 모임 수정페이지로 이동
   };
-  const handleClickExit = (id: any) => {
-    // meetingAttend(id);
+
+  const useMeetAttendExit = () => {
+    return useMutation(meetAttendExitApi, {
+      onSuccess: () => {
+        QueryClient.invalidateQueries();
+      },
+      onError: (err: any) => {
+        return alert(err.response.data.statusMsg);
+      },
+    });
+  };
+
+  const { mutate: meetAttendExit } = useMeetAttendExit();
+  const handleClickAttnedExit = (id: any) => {
+    meetAttendExit(id);
   };
 
   const useGetAlarm = () => {
-    const QueryClient = useQueryClient();
     return useMutation(getAlarmApi, {
       onSuccess: () => {
         QueryClient.invalidateQueries();
       },
     });
   };
-  
+
   const { mutate: getAlarm } = useGetAlarm();
   const handleClickAlarm = (id: any) => {
     getAlarm(id);
@@ -66,10 +79,10 @@ const DetailNavBar = ({ data }: any) => {
         ) : (
           <button
             onClick={() => {
-              handleClickExit(id);
+              handleClickAttnedExit(id);
             }}
           >
-            모임 나가기
+            {data?.attend ? '모임 나가기' : '모임 참석하기'}
           </button>
         )}
       </div>
