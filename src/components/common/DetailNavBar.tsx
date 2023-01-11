@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { isMaster } from '../../modules/authSlice';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
 import { useAppSelector } from '../../store';
 import { DetailTypes } from '../../types/DetailTypes';
@@ -12,9 +11,9 @@ const DetailNavBar = ({ data }: any) => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
-  const isMaster = useAppSelector((state) => state.auth.isMaster);
 
-  // console.log('기본data', data);
+  // console.log('기본data', data); 내일 다시시작
+  // data?.attend ? : alert('모임 참석하기 후, 알람 설정이 가능합니다');
 
   const handleClickMeetingEdit = (id: any) => {
     // 모임 수정페이지로 이동
@@ -68,7 +67,7 @@ const DetailNavBar = ({ data }: any) => {
           {data?.alarm ? '알림 활성화' : '알림 비활성화'}
         </button>
         <button>모임공유</button>
-        {isMaster ? (
+        {data?.master ? (
           <button
             onClick={() => {
               handleClickMeetingEdit(id);

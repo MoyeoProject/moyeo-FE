@@ -38,7 +38,7 @@ const DetailPage = () => {
           <>
             <p>소개</p>
             <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
-            <DetailAttendList />
+            <DetailAttendList  data={detailData} />
             <DetailButton />
           </>
         ) : (

@@ -5,23 +5,37 @@ import styled from 'styled-components';
 import { getAttendList } from '../../services/api';
 import { MemberTypes } from '../../types/DetailTypes';
 
-const DetailAttendList = () => {
+const DetailAttendList = ({ data }: any) => {
   const { id } = useParams();
   const { data: member } = useQuery(['member'], () => {
     return getAttendList(id);
   });
+  const isMaster = data?.master;
   return (
     <Box>
       {member?.data.data.map((m: MemberTypes) => {
         return (
-          <MemberBox key={m.userId}>
+          <MemberBox key={m.userId} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
               {/* <p>방장 정보?</p> */}
-              <img src={m.profileUrl} style={{ width: '30px' }} />
+              <img
+                src={
+                  m.profileUrl !== null
+                    ? m.profileUrl
+                    : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
+                }
+                style={{ width: '30px', height: '30px', borderRadius: '50%' }}
+              />
               <span>{m.username}</span>
             </div>
-            <button>팔로우</button>
-            <button>내보내기</button>
+            {isMaster ? (
+              <>
+                <button>팔로우</button>
+                <button>내보내기</button>
+              </>
+            ) : (
+              <button>팔로우</button>
+            )}
           </MemberBox>
         );
       })}
