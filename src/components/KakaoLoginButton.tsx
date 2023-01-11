@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
 });
+
+// const CLIENT_ID = '' + process.env.REACT_APP_KAKAO_CLIENT_ID;
+// const REDIRECT_URL = '' + process.env.REACT_APP_KAKAO_REDIRECT_URL;
+
 const CLIENT_ID = 'ced49bfdb65f5f152e2e43f12e88bd86';
 const REDIRECT_URL = 'http://localhost:3000/api/users/kakao/callback';
 
@@ -21,13 +25,12 @@ const kakaoLogin = (code: string | null) => {
       setAccessToken(accessToken);
       localStorage.setItem('username', res.data.data.username);
       localStorage.setItem('profileUrl', res.data.data.profileUrl);
-      console.log('thdud', res);
-      window.location.href = '/main';
+      // window.location.href = '/main';
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
       console.log(err);
-      window.location.href = '/';
+      // window.location.href = '/';
     });
 };
 

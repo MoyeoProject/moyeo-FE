@@ -3,6 +3,8 @@
 /.pnp
 .pnp.js
 db.json
+.env
+memo.txt
 
 # production
 /build
