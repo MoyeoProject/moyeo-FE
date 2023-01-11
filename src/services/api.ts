@@ -45,20 +45,32 @@ export const getNextMeetings = async ({
 };
 
 export const patchJoinMeeting = async (meetingId: number) => {
-  // 추후 patch로 변경
-  const response = await mockURL.get(MEETINGS);
-  // + `/${meetingId}/attendance`
+  const response = await baseURL
+    .patch(MEETINGS + `/${meetingId}/attendance`)
+    .then((res) => {
+      res.data.data ? alert('참석완!') : alert('취소완!');
+      location.reload();
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+      location.reload();
+    });
+
   return response;
 };
 
 export const postLogin = async (userInfo: { email: string; password: string }) => {
-  const response = await baseURL.post(LOGIN, userInfo).catch((err) => {
-    alert(err.response.data.statusMsg);
-    location.reload();
-  });
-
-  saveItem('isLogin', response?.headers.authorization as unknown as string);
-  location.assign('/main');
+  await baseURL
+    .post(LOGIN, userInfo)
+    .then((res) => {
+      saveItem('isLogin', res?.headers.authorization as unknown as string);
+      saveItem('keyword', 'popular');
+      location.assign('/main');
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+      location.assign('/');
+    });
 };
 
 export const getDetailPage = async (id: any) => {

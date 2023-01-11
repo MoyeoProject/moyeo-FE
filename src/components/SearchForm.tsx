@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 
-import useChangeSearchField from '../hooks/useChangeSearchField';
+import useChangeInputField from '../hooks/useChangeInputField';
 import { getSortbyMeetings } from '../services/api';
 import { saveItem } from '../services/storage';
 
 export default function SearchForm() {
-  const { searchField, handleChangeSearchField, handleClearInputField } = useChangeSearchField();
+  const { inputField, handleChangeinputField, handleClearInputField } = useChangeInputField();
 
   const searchMeetings = useMutation({
     mutationFn: getSortbyMeetings,
@@ -21,15 +21,23 @@ export default function SearchForm() {
     handleClearInputField();
   };
 
+  const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode == 13) {
+      searchMeetings.mutate(inputField);
+      handleClearInputField();
+    }
+  };
+
   return (
     <div>
       <input
+        onKeyUp={handleEnterKey}
         type="text"
-        value={searchField ? searchField : ''}
+        value={inputField ? inputField : ''}
         placeholder="검색어 입력..."
-        onChange={(e) => handleChangeSearchField(e)}
+        onChange={(e) => handleChangeinputField(e)}
       />
-      <button type="button" onClick={() => handleClickSearch(searchField)}>
+      <button type="button" onClick={() => handleClickSearch(inputField)}>
         검색
       </button>
     </div>

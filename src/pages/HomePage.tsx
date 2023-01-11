@@ -36,9 +36,7 @@ export default function HomePage() {
       <ListCategories />
       <SearchForm />
       {sortbyKeyword === 'calendar' && <Calendar />}
-      {data && data?.data.data.meetingList.length !== 0 && (
-        <MeetingList currMeetingList={meetingList || data?.data.data.meetingList} />
-      )}
+      {meetingList && meetingList.length !== 0 && <MeetingList currMeetingList={meetingList} />}
     </>
   );
 }
