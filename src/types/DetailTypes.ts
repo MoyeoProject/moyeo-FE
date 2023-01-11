@@ -1,23 +1,21 @@
 export type DetailTypes = {
-  id: number;
-  masterId: number;
-  master: boolean;
-  title: string;
-  category: string;
-  startDate: string;
-  startTime: string;
-  duration: string;
-  platform: string;
-  link: string | null;
-  content: string;
-  maxNum: number;
-  secret: boolean;
-  password: number | null;
-  attend: boolean;
   alarm: boolean;
-  likenum: number;
-  hatenum: number;
-  children?: JSX.Element | JSX.Element[];
+  attend: boolean;
+  category: string;
+  content: string;
+  duration: number;
+  hateNum: number;
+  id: number;
+  likeNum: number;
+  link: string;
+  master: boolean;
+  masterId: number;
+  maxNum: number;
+  password: number;
+  platform: string;
+  secret: boolean;
+  startTime: string;
+  title: string;
 };
 
 export type MemberTypes = {

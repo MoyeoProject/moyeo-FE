@@ -25,11 +25,10 @@ const kakaoLogin = (code: string | null) => {
       setAccessToken(accessToken);
       localStorage.setItem('username', res.data.data.username);
       localStorage.setItem('profileUrl', res.data.data.profileUrl);
-      // window.location.href = '/main';
+      window.location.href = '/detail/3';
     })
     .catch((err: any) => {
       window.alert('로그인에 실패하였습니다.');
-      console.log(err);
       // window.location.href = '/';
     });
 };

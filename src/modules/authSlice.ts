@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type IsState = { isSignUp: boolean };
+export type IsState = {
+  isSignUp: boolean;
+  isMaster: boolean;
+};
 
 const initialState = {
   isSignUp: false,
+  isMaster: true,
 };
 
 const authSlice = createSlice({
@@ -13,10 +17,13 @@ const authSlice = createSlice({
     isSignup: (state: IsState, action) => {
       state.isSignUp = action.payload;
     },
+    isMaster: (state: IsState, action) => {
+      state.isMaster = action.payload;
+    },
   },
 });
 
-export const { isSignup } = authSlice.actions;
+export const { isSignup, isMaster } = authSlice.actions;
 
 const isSignupReducer = authSlice.reducer;
 export default isSignupReducer;
