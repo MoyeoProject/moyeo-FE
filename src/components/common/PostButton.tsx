@@ -16,9 +16,6 @@ export default function PostButton({ name, isSecret, meetingId }: PostButtonProp
 
   const joinMeeting = useMutation({
     mutationFn: patchJoinMeeting,
-    onSuccess: () => {
-      alert('참석완!');
-    },
   });
 
   const handleClickJoin = (meetingId: number) => {
