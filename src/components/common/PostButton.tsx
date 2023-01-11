@@ -3,15 +3,17 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { patchJoinMeeting } from '../../services/api';
-import ModalContent from './ModalContent';
+import { Meeting } from '../../types/AppTypes';
+import ModalForm from './ModalForm';
 
 type PostButtonProps = {
   name: string;
-  isSecret: boolean | null;
-  meetingId: number;
+  currMeeting: Meeting;
 };
 
-export default function PostButton({ name, isSecret, meetingId }: PostButtonProps) {
+export default function PostButton({ name, currMeeting }: PostButtonProps) {
+  const { secret, id, password } = currMeeting;
+
   const [showModal, setShowModal] = useState(false);
 
   const joinMeeting = useMutation({
@@ -22,22 +24,25 @@ export default function PostButton({ name, isSecret, meetingId }: PostButtonProp
     joinMeeting.mutate(meetingId);
   };
 
-  return isSecret ? (
+  return secret ? (
     <>
       <button type="button" onClick={() => setShowModal(true)}>
         {name}
       </button>
       {showModal &&
         createPortal(
-          <ModalContent
+          <ModalForm
             onClose={() => setShowModal(false)}
-            onClickJoin={() => handleClickJoin(meetingId)}
+            onClickJoin={handleClickJoin}
+            meetingId={id}
+            password={password}
+            name={name}
           />,
           document.body
         )}
     </>
   ) : (
-    <button type="button" onClick={() => handleClickJoin(meetingId)}>
+    <button type="button" onClick={() => handleClickJoin(id)}>
       {name}
     </button>
   );
