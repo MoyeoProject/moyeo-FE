@@ -7,7 +7,7 @@ export type IsState = {
 
 const initialState = {
   isSignUp: false,
-  isMaster: true,
+  isMaster: false,
 };
 
 const authSlice = createSlice({
