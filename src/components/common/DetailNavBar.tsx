@@ -4,16 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
-import { useAppSelector } from '../../store';
 import { DetailTypes } from '../../types/DetailTypes';
 
 const DetailNavBar = ({ data }: any) => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
-
-  // console.log('기본data', data); 내일 다시시작
-  // data?.attend ? : alert('모임 참석하기 후, 알람 설정이 가능합니다');
 
   const handleClickMeetingEdit = (id: any) => {
     // 모임 수정페이지로 이동
@@ -33,6 +29,8 @@ const DetailNavBar = ({ data }: any) => {
   const { mutate: meetAttendExit } = useMeetAttendExit();
   const handleClickAttnedExit = (id: any) => {
     meetAttendExit(id);
+    // ClickAttnedExit(id);
+    // Detail Button이랑 겹침 공통으로 쓸 수 있게 hook으로 빼보기
   };
 
   const useGetAlarm = () => {
@@ -45,7 +43,7 @@ const DetailNavBar = ({ data }: any) => {
 
   const { mutate: getAlarm } = useGetAlarm();
   const handleClickAlarm = (id: any) => {
-    getAlarm(id);
+    data?.attend ? getAlarm(id) : alert('모임 참석하기 후, 알람 설정이 가능합니다');
   };
 
   return (
@@ -64,7 +62,10 @@ const DetailNavBar = ({ data }: any) => {
             handleClickAlarm(id);
           }}
         >
-          {data?.alarm ? '알림 활성화' : '알림 비활성화'}
+          <img
+            style={{ width: '30px' }}
+            src={data?.alarm ? '/img/alarmOn.png' : '/img/alarmOff.png'}
+          />
         </button>
         <button>모임공유</button>
         {data?.master ? (
