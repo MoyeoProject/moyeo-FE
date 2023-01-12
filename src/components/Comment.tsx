@@ -51,26 +51,28 @@ const Comment = () => {
       {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null}
       <div>
-        {/* {data?.data.map((d: CommentTypes) => { */}
-        {data?.data.data.map((d: CommentTypes) => {
-          return (
-            <CommentBox key={d.commentId}>
-              <img src={d.profileUrl} style={{ width: '30px' }} />
-              <div>
-                <p>{d.username}</p>
-                <p>{d.comment}</p>
-              </div>
-              <p>{d.createdAt}</p>
-              <button
-                onClick={() => {
-                  handleDelComment(d.commentId);
-                }}
-              >
-                삭제
-              </button>
-            </CommentBox>
-          );
-        })}
+        {data?.data.data === undefined
+          ? null
+          : data?.data.data.map((d: CommentTypes) => {
+              return (
+                <CommentBox key={d.commentId}>
+                  <img src={d.profileUrl} style={{ width: '30px' }} />
+                  <div>
+                    <p>{d.username}</p>
+                    <p>{d.comment}</p>
+                  </div>
+                  <p>{d.createdAt}</p>
+                  <button
+                    onClick={() => {
+                      handleDelComment(d.commentId);
+                    }}
+                  >
+                    삭제
+                  </button>
+                </CommentBox>
+              );
+            })}
+
         <InputBox>
           <input
             type="text"
