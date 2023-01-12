@@ -38,8 +38,8 @@ const DetailPage = () => {
           <>
             <p>소개</p>
             <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
-            <DetailAttendList  data={detailData} />
-            <DetailButton />
+            <DetailAttendList data={detailData} />
+            <DetailButton data={detailData} />
           </>
         ) : (
           <>
