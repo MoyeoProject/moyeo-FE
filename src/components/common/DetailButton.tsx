@@ -9,14 +9,12 @@ const DetailButton = ({ data }: any) => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
 
-  const handleClickAttnedExit = () => {
-    console.log('참석/취소버튼 api같음');
-  };
   const meetingLink = () => {
     // 모임 입장 링크 입력
   };
   const meetingEntrance = () => {
-    // 멤버 모임입장
+    // 멤버 모임입장, 링크로 이동
+    alert(`${data.platform}으로 입장합니다`);
   };
 
   const useMeetAttendExit = () => {
@@ -33,8 +31,6 @@ const DetailButton = ({ data }: any) => {
   const { mutate: meetAttendExit } = useMeetAttendExit();
   const handleClickAttned = (id: any) => {
     meetAttendExit(id);
-    // ClickAttnedExit(id);
-    // DetailNavBar랑 겹침 공통으로 쓸 수 있게 hook으로 빼보기
   };
 
   return (
