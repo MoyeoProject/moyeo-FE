@@ -16,7 +16,7 @@ export default function ModalForm({
   password,
   name,
 }: ModalFormProps) {
-  const { inputField, handleChangeinputField, handleClearInputField } = useChangeInputField();
+  const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
 
   const handleConfirmPassword = (keyword: string) => {
     keyword === password ? onClickJoin(meetingId) : alert('비밀번호가 틀렸습니다!');
@@ -33,7 +33,7 @@ export default function ModalForm({
             value={inputField ? inputField : ''}
             placeholder="비밀번호를 입력해주세요"
             minLength={4}
-            onChange={(e) => handleChangeinputField(e)}
+            onChange={(e) => handleChangeInputField(e)}
           />
           <button onClick={() => handleConfirmPassword(inputField)}>{name}</button>
         </Contents>

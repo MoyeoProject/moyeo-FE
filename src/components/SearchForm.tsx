@@ -5,7 +5,7 @@ import { getSortbyMeetings } from '../services/api';
 import { saveItem } from '../services/storage';
 
 export default function SearchForm() {
-  const { inputField, handleChangeinputField, handleClearInputField } = useChangeInputField();
+  const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
 
   const searchMeetings = useMutation({
     mutationFn: getSortbyMeetings,
@@ -35,7 +35,7 @@ export default function SearchForm() {
         type="text"
         value={inputField ? inputField : ''}
         placeholder="검색어 입력..."
-        onChange={(e) => handleChangeinputField(e)}
+        onChange={(e) => handleChangeInputField(e)}
       />
       <button type="button" onClick={() => handleClickSearch(inputField)}>
         검색

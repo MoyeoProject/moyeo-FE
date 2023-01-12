@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function useChangeInputField() {
   const [inputField, setInputField] = useState('');
 
-  const handleChangeinputField = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInputField = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event;
@@ -16,7 +16,7 @@ export default function useChangeInputField() {
 
   return {
     inputField,
-    handleChangeinputField,
+    handleChangeInputField,
     handleClearInputField,
   };
 }

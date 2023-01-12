@@ -24,3 +24,16 @@ export type InitialState = { meetingList: Meeting[] };
 export type LoginInputField = { email: string; password: string };
 
 export type HomeState = { home: InitialState };
+
+export type PostForm = {
+  title: string;
+  category: string;
+  startTime: string;
+  duration: string;
+  platform: string;
+  link: string;
+  content: string;
+  maxNum: number | null;
+  secret: boolean;
+  secretPassword: number | null;
+};
