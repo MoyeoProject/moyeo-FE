@@ -24,14 +24,16 @@ const kakaoLogin = (code: string | null) => {
     .then((res) => {
       const accessToken = res.headers.authorization;
       setAccessToken(accessToken);
-      localStorage.setItem('userId', res.data.data.id);
-      localStorage.setItem('username', res.data.data.username);
-      localStorage.setItem('profileUrl', res.data.data.profileUrl);
+      saveItem('userId', res.data.data.id);
+      saveItem('username', res.data.data.username);
+      saveItem('profileUrl', res.data.data.profileUrl);
       saveItem('keyword', 'popular');
-      window.location.href = '/main';
+      console.log(res);
+      // window.location.href = '/main';
     })
-    .catch(() => {
-      window.alert('로그인에 실패하였습니다.');
+    .catch((err) => {
+      console.log(err);
+      // window.alert('로그인에 실패하였습니다.');
       // window.location.href = '/';
     });
 };
