@@ -15,7 +15,7 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
           <img />
           <p>모임 이름 : {data?.title}</p>
           <span>👍{data?.likeNum}</span>
-          <span>👍{data?.hateNum}</span>
+          <span>👎{data?.hateNum}</span>
           <p>모임 소개 : {data?.content}</p>
         </div>
         <div className="meetingInfo">
