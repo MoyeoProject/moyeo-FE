@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import useIntersect from '../hooks/useIntersect';
 import { loadItem } from '../services/storage';
@@ -20,7 +22,9 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
       <ul>
         {currMeetingList.map((meeting) => (
           <li key={meeting.id}>
-            <ListContent currMeeting={meeting} />
+            <Link to={`/detail/${meeting.id}`}>
+              <ListContent currMeeting={meeting} />
+            </Link>
             {sortbyKeyword === 'calendar' ? null : <ButtonContent currMeeting={meeting} />}
           </li>
         ))}

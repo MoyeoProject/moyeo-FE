@@ -23,4 +23,4 @@ export type InitialState = { meetingList: Meeting[] };
 
 export type LoginInputField = { email: string; password: string };
 
-export type AppState = { home: InitialState };
+export type HomeState = { home: InitialState };

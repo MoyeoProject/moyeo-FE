@@ -11,13 +11,13 @@ import TopNavBar from '../components/common/TopNavBar';
 import { setMeetingList } from '../modules/homeSlice';
 import { getSortbyMeetings } from '../services/api';
 import { loadItem } from '../services/storage';
-import { AppState } from '../types/AppTypes';
+import { HomeState } from '../types/AppTypes';
 
 export default function HomePage() {
   const dispatch = useDispatch();
 
   const sortbyKeyword = loadItem('keyword');
-  const { meetingList } = useSelector((state: AppState) => state.home);
+  const { meetingList } = useSelector((state: HomeState) => state.home);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['meetings'],
@@ -32,7 +32,7 @@ export default function HomePage() {
     <>
       {isLoading && <div>로딩중 입니다...</div>}
       {isError && <div>에러가 발생...</div>}
-      <TopNavBar />
+      <TopNavBar name={'home'} />
       <ListCategories />
       <SearchForm />
       {sortbyKeyword === 'calendar' && <Calendar />}
