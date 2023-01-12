@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+
+import { saveItem } from '../services/storage';
 
 const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
@@ -26,6 +27,7 @@ const kakaoLogin = (code: string | null) => {
       localStorage.setItem('userId', res.data.data.id);
       localStorage.setItem('username', res.data.data.username);
       localStorage.setItem('profileUrl', res.data.data.profileUrl);
+      saveItem('keyword', 'popular');
       window.location.href = '/main';
     })
     .catch(() => {

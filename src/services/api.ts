@@ -1,4 +1,3 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { loadItem, saveItem } from './storage';
@@ -9,10 +8,6 @@ const baseURL = axios.create({
     'Access-Control-Allow-Origin': '*',
     Authorization: `${loadItem('isLogin')}`,
   },
-});
-
-const mockURL = axios.create({
-  baseURL: 'http://localhost:3003',
 });
 
 const MEETINGS = '/meetings';
