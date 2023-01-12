@@ -12,7 +12,12 @@ const DetailNavBar = ({ data }: any) => {
   const navigate = useNavigate();
 
   const handleClickMeetingEdit = (id: any) => {
-    // 모임 수정페이지로 이동
+    alert('모임 수정페이지로 이동 - 연결 준비 중입니다');
+    // navigate('')
+  };
+
+  const handleClickShareLink = () => {
+    alert('모임공유 준비중입니다');
   };
 
   const useMeetAttendExit = () => {
@@ -29,8 +34,6 @@ const DetailNavBar = ({ data }: any) => {
   const { mutate: meetAttendExit } = useMeetAttendExit();
   const handleClickAttnedExit = (id: any) => {
     meetAttendExit(id);
-    // ClickAttnedExit(id);
-    // Detail Button이랑 겹침 공통으로 쓸 수 있게 hook으로 빼보기
   };
 
   const useGetAlarm = () => {
@@ -67,7 +70,7 @@ const DetailNavBar = ({ data }: any) => {
             src={data?.alarm ? '/img/alarmOn.png' : '/img/alarmOff.png'}
           />
         </button>
-        <button>모임공유</button>
+        <button onClick={handleClickShareLink}>모임공유</button>
         {data?.master ? (
           <button
             onClick={() => {

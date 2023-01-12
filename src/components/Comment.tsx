@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { addComment, delComment, getCommentPage } from '../services/api';
+import { addComment, delelteComment, getCommentPage } from '../services/api';
 import { CommentTypes } from '../types/DetailTypes';
 
 const Comment = () => {
@@ -31,7 +31,7 @@ const Comment = () => {
   };
 
   const useDelComment = () => {
-    return useMutation(delComment, {
+    return useMutation(delelteComment, {
       onSuccess: (data) => {
         QueryClient.invalidateQueries(['Comment', id]);
       },

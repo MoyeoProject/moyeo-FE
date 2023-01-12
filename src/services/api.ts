@@ -105,7 +105,12 @@ export const addComment = async ({ id, comment }: any) => {
   return res;
 };
 
-export const delComment = async ({ id, commetnId }: any) => {
+export const delelteComment = async ({ id, commetnId }: any) => {
   const res = await baseURL.delete(`/meetings/${id}/comments/${commetnId}`);
+  return res;
+};
+
+export const meetingLinkInpitApi = async ({ platform, link, id }: any) => {
+  const res = await baseURL.patch(`/meetings/${id}/link`, { platform, link });
   return res;
 };
