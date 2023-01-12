@@ -29,12 +29,12 @@ const kakaoLogin = (code: string | null) => {
       saveItem('profileUrl', res.data.data.profileUrl);
       saveItem('keyword', 'popular');
       console.log(res);
-      // window.location.href = '/main';
+      window.location.href = '/main';
     })
     .catch((err) => {
       console.log(err);
-      // window.alert('로그인에 실패하였습니다.');
-      // window.location.href = '/';
+      window.alert('로그인에 실패하였습니다.');
+      window.location.href = '/';
     });
 };
 
