@@ -19,6 +19,10 @@ export default function ModalAccordionButton({
   const { modals, handleShowModal, handleCloseModal } = useShowModalAccordion();
   const currModal = modals.find((modal) => modal.name === name);
 
+  const onClickTimeConfirm = (startDate: string) => {
+    handleCloseModal(name);
+  };
+
   return (
     <>
       {currModal && (
@@ -37,6 +41,7 @@ export default function ModalAccordionButton({
                 name={currModal.name}
                 title={currModal.title}
                 options={currModal.options}
+                onClickTimeConfirm={onClickTimeConfirm}
                 onClickConfirm={(e) => onClickConfirm(e, () => handleCloseModal(name))}
                 onClose={() => handleCloseModal(name)}
               />,

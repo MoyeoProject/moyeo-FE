@@ -25,14 +25,14 @@ const modalData: Modal[] = [
   },
   {
     name: 'startDate',
-    title: '날짜',
+    title: '모임 날짜',
     content: '날짜를 선택해주세요',
     isOpen: false,
     options: null,
   },
   {
     name: 'startTime',
-    title: '시간',
+    title: '모임 시간',
     content: '시간을 선택해주세요',
     isOpen: false,
     options: null,
