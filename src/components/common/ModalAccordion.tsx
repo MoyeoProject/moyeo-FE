@@ -31,9 +31,14 @@ export default function ModalAccordion({
         <p>{title}</p>
         {name === 'startDate' ? (
           <>
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} inline />
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              minDate={new Date()}
+              inline
+            />
             <button
-              type="button"
+              type="submit"
               onClick={() => startDate && onClickTimeConfirm(calcStartDate(startDate))}
               disabled={false}
             >

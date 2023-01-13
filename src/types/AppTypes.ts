@@ -28,6 +28,7 @@ export type HomeState = { home: InitialState };
 export type PostForm = {
   title: string;
   category: string;
+  startDate: string;
   startTime: string;
   duration: string;
   platform: string;
