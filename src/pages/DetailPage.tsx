@@ -8,10 +8,10 @@ import DetailButton from '../components/common/DetailButton';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
 import { getDetailPage } from '../services/api';
-import { useAppSelector } from '../store';
+import { loadItem, saveItem } from '../services/storage';
 
 const DetailPage = () => {
-  const [categories, setCategoreis] = useState('intro');
+  const categories = loadItem('detailKeyword');
 
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery(['detail', id], () => {
@@ -22,13 +22,23 @@ const DetailPage = () => {
   return (
     <div style={{ width: '370px' }}>
       <DetailNavBar data={detailData} />
-
-      {/* <DetailCategories /> */}
+      <button onClick={() => localStorage.getItem('detailKeyword')}>바뀌라</button>
       <div style={{ margin: '15px' }}>
-        <button type="button" onClick={() => setCategoreis('intro')}>
+        <button
+          onClick={() => {
+            saveItem('detailKeyword', 'intro');
+            window.location.reload();
+          }}
+        >
           소개 --- /
         </button>
-        <button type="button" onClick={() => setCategoreis('comment')}>
+
+        <button
+          onClick={() => {
+            saveItem('detailKeyword', 'comment');
+            window.location.reload();
+          }}
+        >
           / ----댓글
         </button>
       </div>
