@@ -10,12 +10,12 @@ const postFormData: PostForm = {
   content: '',
   startDate: '',
   startTime: '',
-  duration: '',
+  duration: null,
   platform: '',
   link: '',
   maxNum: null,
   secret: false,
-  secretPassword: null,
+  password: '',
 };
 
 export default function useChangePostForm() {
@@ -38,7 +38,12 @@ export default function useChangePostForm() {
 
     setPostForm({
       ...postForm,
-      [name]: value,
+      [name]:
+        name === 'maxNum'
+          ? +value.replace('명', '')
+          : name === 'duration'
+          ? +value.replace('시간', '')
+          : value,
     });
   };
 
@@ -56,11 +61,28 @@ export default function useChangePostForm() {
     });
   };
 
+  const handleChangePassword = (password: string) => {
+    setPostForm({
+      ...postForm,
+      password,
+    });
+  };
+
+  const handleChangeSecret = (secret: boolean) => {
+    setPostForm({
+      ...postForm,
+      secret,
+      password: secret ? postForm.password : '',
+    });
+  };
+
   return {
     postForm,
     handleChangeInputField,
     handleSubmitForm,
     handleChangeStartTime,
     handleChangeStartDate,
+    handleChangePassword,
+    handleChangeSecret,
   };
 }
