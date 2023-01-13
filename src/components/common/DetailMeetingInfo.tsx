@@ -8,8 +8,8 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
 
   return (
     <>
-      {isLoading ? <h2>로딩중입니다</h2> : null}
-      {isError ? <h2>문제가 생겼습니다</h2> : null}
+      {/* {isLoading ? <h2>로딩중입니다</h2> : null}
+      {isError ? <h2>문제가 생겼습니다</h2> : null} */}
       <MeetingBox>
         <div className="meeting">
           <img />

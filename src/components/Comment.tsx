@@ -10,7 +10,6 @@ import { CommentTypes } from '../types/DetailTypes';
 const Comment = () => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
-
   const [comment, setComment] = useState('');
 
   const { isLoading, data, isError } = useQuery(['Comment', id], () => {
@@ -48,8 +47,8 @@ const Comment = () => {
 
   return (
     <>
-      {isLoading ? <h2>로딩중입니다</h2> : null}
-      {isError ? <h2>문제가 생겼습니다</h2> : null}
+      {/* {isLoading ? <h2>로딩중입니다</h2> : null}
+      {isError ? <h2>문제가 생겼습니다</h2> : null} */}
       <div>
         {data?.data.data === undefined
           ? null
