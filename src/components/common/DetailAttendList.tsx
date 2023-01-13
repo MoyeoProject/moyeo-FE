@@ -26,22 +26,19 @@ const DetailAttendList = ({ data }: any) => {
             {m.userId === masterId ? (
               <>
                 <Member>
-                  <img
-                    src={
-                      m.profileUrl !== null
-                        ? m.profileUrl
-                        : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-                    }
-                    style={{
-                      width: '30px',
-                      height: '30px',
-                      borderRadius: '50%',
-                      border: '1px solid black',
-                    }}
-                  />
-                  <span>🎖️</span>
+                  <div className="masterParents">
+                    <img
+                      src={
+                        m.profileUrl !== null
+                          ? m.profileUrl
+                          : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
+                      }
+                    />
+                    <span className="master">🎖️</span>
+                  </div>
                   <span>{m.username}</span>
                 </Member>
+                <Follow>팔로우</Follow>
               </>
             ) : (
               <>
@@ -52,22 +49,16 @@ const DetailAttendList = ({ data }: any) => {
                         ? m.profileUrl
                         : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
                     }
-                    style={{
-                      width: '30px',
-                      height: '30px',
-                      borderRadius: '50%',
-                      border: '1px solid black',
-                    }}
                   />
                   <span>{m.username}</span>
                 </Member>
                 {data?.master ? (
                   <div>
-                    <button>팔로우</button>
-                    <button>내보내기</button>
+                    <Out>내보내기</Out>
+                    <Follow>팔로우</Follow>
                   </div>
                 ) : (
-                  <button>팔로우</button>
+                  <Follow>팔로우</Follow>
                 )}
               </>
             )}
@@ -78,27 +69,62 @@ const DetailAttendList = ({ data }: any) => {
   );
 };
 const Box = styled.div`
-  border: 1px solid gray;
   margin-bottom: 15px;
   p {
     font-size: 12px;
     color: #666666;
     font-weight: 700;
+    margin-bottom: 12px;
     span {
       color: #aaaaaa;
     }
   }
 `;
 const MemberBox = styled.div`
+  height: 64px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
+  margin-bottom: 4px;
+`;
+const Follow = styled.button`
+  width: 65px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: #e2806d;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+`;
+const Out = styled(Follow)`
+  background-color: #aaaaaa;
+  margin-right: 8px;
 `;
 const Member = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  .masterParents {
+    position: relative;
+  }
+  .master {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    margin-right: 11px;
+  }
+  span {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 
 export default DetailAttendList;

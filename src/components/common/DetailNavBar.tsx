@@ -15,7 +15,7 @@ const DetailNavBar = ({ data }: any) => {
     alert('모임 수정페이지로 이동 - 연결 준비 중입니다');
     // navigate('')
   };
-
+  const meetingTitle = data?.title;
   const handleClickShareLink = () => {
     alert('모임공유 준비중입니다');
   };
@@ -25,7 +25,7 @@ const DetailNavBar = ({ data }: any) => {
         QueryClient.invalidateQueries();
         console.log(data.data.data === undefined);
         data?.data.data !== undefined
-          ? alert('모임에 참가하였습니다')
+          ? alert(`"${meetingTitle}" 모임에 오신걸 환영합니다!`)
           : alert('모임을 취소하셨습니다');
       },
       onError: (err: any) => {
@@ -95,11 +95,12 @@ const DetailNavBar = ({ data }: any) => {
   );
 };
 const NavBox = styled.div`
+  padding: 16px;
+  box-sizing: border-box;
   height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
   box-sizing: border-box;
 `;
 const NavArrow = styled.div`

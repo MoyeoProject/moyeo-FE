@@ -35,7 +35,6 @@ const DetailCategoriesBox = styled.div`
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
-
   /* 블러처리. */
 `;
 const CaregoriesButton = styled.button`

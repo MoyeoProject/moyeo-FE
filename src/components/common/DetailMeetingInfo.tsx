@@ -10,7 +10,7 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null} */}
-      <MeetingBox>
+      <>
         <TitleBox>
           <div className="titleIntroBox">
             {/* 카테고리 이미지 */}
@@ -37,11 +37,10 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
             </div>
           </div>
         </InfoBox>
-      </MeetingBox>
+      </>
     </>
   );
 };
-const MeetingBox = styled.div``;
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
