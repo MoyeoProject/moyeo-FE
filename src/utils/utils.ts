@@ -5,3 +5,13 @@ export const calcStartDate = (startDate: Date) => {
 
   return `${year}-${month}-${date}`;
 };
+
+export const calcStartTime = (startTime: string) => {
+  const [time, modifier] = startTime.split(' ');
+  const [hours, minutes] = time.split(':');
+
+  let newHours = hours === '12' ? '00' : hours;
+  newHours = modifier === 'pm' ? String(parseInt(hours, 10) + 12) : newHours;
+
+  return `${newHours}:${minutes}:00`;
+};

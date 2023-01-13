@@ -9,19 +9,17 @@ export default function ModalAccordionButton({
   name,
   postForm,
   onClickConfirm,
+  onClickTimeConfirm,
 }: {
   name: string;
   postForm: any;
   onClickConfirm: (e: React.ChangeEvent<HTMLFormElement>, callback: () => void) => void;
+  onClickTimeConfirm: (startDate: string, callback: () => void) => void;
 }) {
   const { id } = useParams();
 
   const { modals, handleShowModal, handleCloseModal } = useShowModalAccordion();
   const currModal = modals.find((modal) => modal.name === name);
-
-  const onClickTimeConfirm = (startDate: string) => {
-    handleCloseModal(name);
-  };
 
   return (
     <>
@@ -41,7 +39,9 @@ export default function ModalAccordionButton({
                 name={currModal.name}
                 title={currModal.title}
                 options={currModal.options}
-                onClickTimeConfirm={onClickTimeConfirm}
+                onClickTimeConfirm={(startTime) =>
+                  onClickTimeConfirm(startTime, () => handleCloseModal(name))
+                }
                 onClickConfirm={(e) => onClickConfirm(e, () => handleCloseModal(name))}
                 onClose={() => handleCloseModal(name)}
               />,
