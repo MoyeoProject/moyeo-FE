@@ -19,11 +19,14 @@ const DetailNavBar = ({ data }: any) => {
   const handleClickShareLink = () => {
     alert('모임공유 준비중입니다');
   };
-
   const useMeetAttendExit = () => {
     return useMutation(meetAttendExitApi, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         QueryClient.invalidateQueries();
+        console.log(data.data.data === undefined);
+        data?.data.data !== undefined
+          ? alert('모임에 참가하였습니다')
+          : alert('모임을 취소하셨습니다');
       },
       onError: (err: any) => {
         return alert(err.response.data.statusMsg);
@@ -51,52 +54,73 @@ const DetailNavBar = ({ data }: any) => {
 
   return (
     <NavBox>
-      <div className="detail_nav">
-        <button
-          onClick={() => {
-            navigate('/main');
-          }}
-        >
-          뒤로가기
-        </button>
-        <span>{data?.title}</span>
-        <button
+      <NavArrow
+        onClick={() => {
+          navigate('/main');
+        }}
+      >
+        ◀
+      </NavArrow>
+      <NavTitle>{data?.title}</NavTitle>
+      <NavButtonBox>
+        <div
           onClick={() => {
             handleClickAlarm(id);
           }}
         >
-          <img
-            style={{ width: '30px' }}
-            src={data?.alarm ? '/img/alarmOn.png' : '/img/alarmOff.png'}
-          />
-        </button>
-        <button onClick={handleClickShareLink}>모임공유</button>
+          {data?.alarm ? <span>🔔</span> : <span>🔕</span>}
+        </div>
+        <div onClick={handleClickShareLink}>
+          <span>🔗</span>
+        </div>
         {data?.master ? (
-          <button
+          <div
             onClick={() => {
               handleClickMeetingEdit(id);
             }}
           >
-            모임 정보 수정
-          </button>
+            <span>✒️</span>
+          </div>
         ) : (
-          <button
+          <div
             onClick={() => {
               handleClickAttnedExit(id);
             }}
           >
-            {data?.attend ? '모임 나가기' : '모임 참석하기'}
-          </button>
+            {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
+          </div>
         )}
-      </div>
+      </NavButtonBox>
     </NavBox>
   );
 };
 const NavBox = styled.div`
-  .detail_nav {
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  box-sizing: border-box;
+`;
+const NavArrow = styled.div`
+  font-size: 20px;
+  cursor: pointer;
+`;
+const NavTitle = styled.p`
+  width: 100%;
+  padding: 0 10px;
+`;
+const NavButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  div {
+    width: 25px;
+    height: 25px;
+    margin-left: 12px;
+    span {
+      font-size: 20px;
+      cursor: pointer;
+    }
   }
 `;
 

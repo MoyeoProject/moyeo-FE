@@ -11,15 +11,21 @@ const DetailAttendList = ({ data }: any) => {
     return getAttendList(id);
   });
   const masterId = data?.masterId;
+  const maxNum = data?.maxNum;
+  const currentNum = member?.data.data.length;
 
   return (
     <Box>
+      <p>
+        참여인원 {currentNum}
+        <span> / {maxNum}</span>
+      </p>
       {member?.data.data.map((m: MemberTypes) => {
         return (
-          <MemberBox key={m.userId} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <MemberBox key={m.userId}>
             {m.userId === masterId ? (
               <>
-                <div>
+                <Member>
                   <img
                     src={
                       m.profileUrl !== null
@@ -35,11 +41,11 @@ const DetailAttendList = ({ data }: any) => {
                   />
                   <span>🎖️</span>
                   <span>{m.username}</span>
-                </div>
+                </Member>
               </>
             ) : (
               <>
-                <div>
+                <Member>
                   <img
                     src={
                       m.profileUrl !== null
@@ -54,7 +60,7 @@ const DetailAttendList = ({ data }: any) => {
                     }}
                   />
                   <span>{m.username}</span>
-                </div>
+                </Member>
                 {data?.master ? (
                   <div>
                     <button>팔로우</button>
@@ -74,10 +80,25 @@ const DetailAttendList = ({ data }: any) => {
 const Box = styled.div`
   border: 1px solid gray;
   margin-bottom: 15px;
+  p {
+    font-size: 12px;
+    color: #666666;
+    font-weight: 700;
+    span {
+      color: #aaaaaa;
+    }
+  }
 `;
 const MemberBox = styled.div`
   display: flex;
-  padding: 10px;
+  justify-content: space-between;
   box-sizing: border-box;
 `;
+const Member = styled.div`
+  border: 1px solid red;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 export default DetailAttendList;
