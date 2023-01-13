@@ -27,6 +27,7 @@ const kakaoLogin = (code: string | null) => {
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
+      saveItem('detailKeyword', 'intro');
       saveItem('keyword', 'popular');
       window.location.href = '/main';
     })

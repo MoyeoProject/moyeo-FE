@@ -25,7 +25,7 @@ const DetailPage = () => {
     <DetailBox>
       <DetailNavBar data={detailData} />
       <DetailCategories />
-      <div>
+      <DetailMiniBox>
         {categories === 'intro' ? (
           <>
             <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
@@ -37,13 +37,16 @@ const DetailPage = () => {
             <Comment />
           </>
         )}
-      </div>
+      </DetailMiniBox>
     </DetailBox>
   );
 };
 const DetailBox = styled.div`
   width: 370px;
-  border: 1px solid red;
+  margin: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+`;
+const DetailMiniBox = styled.div`
   padding: 16px;
   box-sizing: border-box;
 `;

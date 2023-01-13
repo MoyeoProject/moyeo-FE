@@ -61,6 +61,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     .then((res) => {
       saveItem('isLogin', res?.headers.authorization as unknown as string);
       saveItem('keyword', 'popular');
+      saveItem('detailKeyword', 'intro');
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
