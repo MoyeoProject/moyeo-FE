@@ -30,11 +30,12 @@ export default function useChangePostForm() {
 
   const handleSubmitForm = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { value } = event.target.category;
+    const { name } = event.target;
+    const { value } = event.target[name];
 
     setPostForm({
       ...postForm,
-      category: value,
+      [name]: value,
     });
   };
 

@@ -1,27 +1,35 @@
 import { ModalWrap, Overlay } from '../../styles/ModalFormStyle';
 
 type ModalAccordionProps = {
+  name: string;
+  title: string;
+  options: string[] | null;
   onClickConfirm: (event: React.ChangeEvent<HTMLFormElement>) => void;
   onClose: () => void;
 };
 
-const options = ['공부하자', '게임하자', '밥먹자', '수다떨자', '술먹자'];
-
-export default function ModalAccordion({ onClickConfirm, onClose }: ModalAccordionProps) {
+export default function ModalAccordion({
+  name,
+  title,
+  options,
+  onClickConfirm,
+  onClose,
+}: ModalAccordionProps) {
   return (
     <Overlay>
       <ModalWrap>
         <button onClick={onClose}>Close</button>
-        <p>모임 주제</p>
-        <form onSubmit={onClickConfirm}>
-          {options.map((option) => {
-            return (
-              <label key={option} htmlFor={option}>
-                <input id={option} type="radio" name="category" value={option} />
-                {option}
-              </label>
-            );
-          })}
+        <p>{title}</p>
+        <form name={name} onSubmit={onClickConfirm}>
+          {options &&
+            options.map((option) => {
+              return (
+                <label key={option} htmlFor={option}>
+                  <input id={option} type="radio" name={name} value={option} />
+                  {option}
+                </label>
+              );
+            })}
           <button type="submit" disabled={false}>
             확인
           </button>
