@@ -3,15 +3,15 @@ import { Contents, ModalWrap, Overlay } from '../../styles/ModalFormStyle';
 
 type ModalFormProps = {
   onClose: () => void;
-  onClickJoin: (meetingId: number) => void;
+  onClickConfirm: any;
   meetingId: number;
-  password: string;
+  password: string | boolean;
   name: string;
 };
 
 export default function ModalForm({
   onClose,
-  onClickJoin,
+  onClickConfirm,
   meetingId,
   password,
   name,
@@ -19,22 +19,30 @@ export default function ModalForm({
   const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
 
   const handleConfirmPassword = (keyword: string) => {
-    keyword === password ? onClickJoin(meetingId) : alert('비밀번호가 틀렸습니다!');
-    handleClearInputField();
+    if (name === '참여') {
+      keyword === password ? onClickConfirm(meetingId, null) : alert('비밀번호가 틀렸습니다!');
+      handleClearInputField();
+    }
+    keyword ? onClickConfirm(keyword, () => onClose()) : alert('비밀번호를 입력해주세요!');
   };
 
   return (
     <Overlay>
       <ModalWrap>
-        <button onClick={onClose}>Close</button>
+        <label htmlFor="password">비밀번호</label>
         <Contents>
           <input
+            id="password"
             type="password"
+            maxLength={4}
             value={inputField ? inputField : ''}
-            placeholder="비밀번호를 입력해주세요"
+            placeholder={
+              name === '등록하기' ? '최대 4자까지 입력이 가능해요' : '비밀번호를 입력해주세요'
+            }
             minLength={4}
             onChange={(e) => handleChangeInputField(e)}
           />
+          <button onClick={onClose}>취소</button>
           <button onClick={() => handleConfirmPassword(inputField)}>{name}</button>
         </Contents>
       </ModalWrap>

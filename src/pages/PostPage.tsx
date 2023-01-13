@@ -1,5 +1,6 @@
 import { TimePicker } from 'antd';
 
+import Toggle from '../components/Toggle';
 import ModalAccordionButton from '../components/common/ModalAccordionButton';
 import TopNavBar from '../components/common/TopNavBar';
 import useChangePostForm from '../hooks/useChangePostForm';
@@ -11,7 +12,10 @@ export default function PostPage() {
     handleSubmitForm,
     handleChangeStartTime,
     handleChangeStartDate,
+    handleChangePassword,
+    handleChangeSecret,
   } = useChangePostForm();
+
   const { title, content, link } = postForm;
 
   const handleClickConfirm = (event: React.ChangeEvent<HTMLFormElement>, callback: () => void) => {
@@ -24,9 +28,19 @@ export default function PostPage() {
     callback();
   };
 
+  const handleClickConfirmPassword = (password: string, callback: () => void) => {
+    handleChangePassword(password);
+    callback();
+  };
+
+  const handleClickConfirmSecret = (secret: any) => {
+    handleChangeSecret(secret);
+  };
+
   return (
     <>
       <TopNavBar name={'post'} />
+
       <br />
       <br />
 
@@ -47,7 +61,6 @@ export default function PostPage() {
         maxLength={20}
         onChange={(e) => handleChangeInputField(e)}
       />
-
       <label htmlFor="content">소개</label>
       <input
         type="text"
@@ -56,15 +69,16 @@ export default function PostPage() {
         value={content}
         onChange={(e) => handleChangeInputField(e)}
       />
-      <br />
-      <br />
-
       <ModalAccordionButton
         name={'platform'}
         postForm={postForm}
         onClickConfirm={handleClickConfirm}
         onClickTimeConfirm={handleClickTimeConfirm}
       />
+
+      <br />
+      <br />
+
       <h2>모임은 어디에서 언제 시작하나요?</h2>
       <label htmlFor="link">링크</label>
       <input
@@ -74,9 +88,6 @@ export default function PostPage() {
         value={link}
         onChange={(e) => handleChangeInputField(e)}
       />
-      <br />
-      <br />
-
       <ModalAccordionButton
         name={'startDate'}
         postForm={postForm}
@@ -91,6 +102,7 @@ export default function PostPage() {
         onClickConfirm={handleClickConfirm}
         onClickTimeConfirm={handleClickTimeConfirm}
       />
+
       <br />
       <br />
 
@@ -102,7 +114,11 @@ export default function PostPage() {
         onClickTimeConfirm={handleClickTimeConfirm}
       />
       <p>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</p>
-      <br />
+      <label htmlFor="secret">공개 설정</label>
+      <Toggle
+        onClickConfirmPassword={handleClickConfirmPassword}
+        onClickConfirmSecret={handleClickConfirmSecret}
+      />
     </>
   );
 }

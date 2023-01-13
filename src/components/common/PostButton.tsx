@@ -33,7 +33,7 @@ export default function PostButton({ name, currMeeting }: PostButtonProps) {
         createPortal(
           <ModalForm
             onClose={() => setShowModal(false)}
-            onClickJoin={handleClickJoin}
+            onClickConfirm={handleClickJoin}
             meetingId={id}
             password={password}
             name={name}
