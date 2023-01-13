@@ -11,8 +11,6 @@ const DetailButton = ({ data }: any) => {
   const [linkInput, setLinkInput] = useState(false);
   const QueryClient = useQueryClient();
 
-  console.log(data);
-
   const useMeetingLinkInput = () => {
     return useMutation(meetingLinkInpitApi, {
       onSuccess: () => {
@@ -38,9 +36,10 @@ const DetailButton = ({ data }: any) => {
     if (data.link) {
       alert(`${data.platform}으로 입장합니다`);
       window.location.href = `/${data.link}`;
-    } else {
-      alert('모임 시작 30분 전부터 입장 가능합니다');
     }
+    // else {
+    //   alert('모임 시작 30분 전부터 입장 가능합니다');
+    // }
   };
 
   return (
