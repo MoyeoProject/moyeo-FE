@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Comment from '../components/Comment';
 import DetailAttendList from '../components/common/DetailAttendList';
 import DetailButton from '../components/common/DetailButton';
+import DetailCategories from '../components/common/DetailCategories';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
 import { getDetailPage } from '../services/api';
@@ -20,46 +22,29 @@ const DetailPage = () => {
   const detailData = data?.data.data;
 
   return (
-    <div style={{ width: '370px' }}>
+    <DetailBox>
       <DetailNavBar data={detailData} />
-      <button onClick={() => localStorage.getItem('detailKeyword')}>바뀌라</button>
-      <div style={{ margin: '15px' }}>
-        <button
-          onClick={() => {
-            saveItem('detailKeyword', 'intro');
-            window.location.reload();
-          }}
-        >
-          소개 --- /
-        </button>
-
-        <button
-          onClick={() => {
-            saveItem('detailKeyword', 'comment');
-            window.location.reload();
-          }}
-        >
-          / ----댓글
-        </button>
-      </div>
-
+      <DetailCategories />
       <div>
         {categories === 'intro' ? (
           <>
-            <p>소개</p>
             <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
             <DetailAttendList data={detailData} />
             <DetailButton data={detailData} />
           </>
         ) : (
           <>
-            <p>댓글</p>
             <Comment />
           </>
         )}
       </div>
-    </div>
+    </DetailBox>
   );
 };
-
+const DetailBox = styled.div`
+  width: 370px;
+  border: 1px solid red;
+  padding: 16px;
+  box-sizing: border-box;
+`;
 export default DetailPage;
