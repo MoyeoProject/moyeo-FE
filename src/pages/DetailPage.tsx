@@ -42,8 +42,6 @@ const DetailPage = () => {
   );
 };
 const DetailBox = styled.div`
-  width: 370px;
-  margin: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 `;
 const DetailMiniBox = styled.div`

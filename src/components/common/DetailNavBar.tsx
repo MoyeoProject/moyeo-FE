@@ -1,29 +1,33 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
-import { DetailTypes } from '../../types/DetailTypes';
+import { ShareDataTypes } from '../../types/DetailTypes';
+import KakaoShareButton from '../KakaoShareButton';
 
 const DetailNavBar = ({ data }: any) => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
 
+  const meetingTitle = data?.title;
+  const shareData = {
+    link: `detail/${data?.id}`,
+    title: data?.title,
+    content: data?.content,
+  };
+
   const handleClickMeetingEdit = (id: any) => {
     alert('모임 수정페이지로 이동 - 연결 준비 중입니다');
     // navigate('')
   };
-  const meetingTitle = data?.title;
-  const handleClickShareLink = () => {
-    alert('모임공유 준비중입니다');
-  };
+
   const useMeetAttendExit = () => {
     return useMutation(meetAttendExitApi, {
       onSuccess: (data) => {
         QueryClient.invalidateQueries();
-        console.log(data.data.data === undefined);
         data?.data.data !== undefined
           ? alert(`"${meetingTitle}" 모임에 오신걸 환영합니다!`)
           : alert('모임을 취소하셨습니다');
@@ -70,9 +74,7 @@ const DetailNavBar = ({ data }: any) => {
         >
           {data?.alarm ? <span>🔔</span> : <span>🔕</span>}
         </div>
-        <div onClick={handleClickShareLink}>
-          <span>🔗</span>
-        </div>
+        <KakaoShareButton shareData={shareData} />
         {data?.master ? (
           <div
             onClick={() => {
