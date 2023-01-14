@@ -9,6 +9,11 @@ export const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   list-style: none;
 }
+body{
+  width: 375px;
+  /* height: 812px; 세로는 정확히 모르겠어서  */
+  margin: 20px auto;
+}
 a {
   color: #000;
   :visited {

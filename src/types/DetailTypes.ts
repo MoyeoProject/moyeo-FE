@@ -33,3 +33,9 @@ export type CommentTypes = {
   createdAt: string;
   deleted: boolean;
 };
+
+export type ShareDataTypes = {
+  link: string;
+  title: string;
+  content: string;
+};

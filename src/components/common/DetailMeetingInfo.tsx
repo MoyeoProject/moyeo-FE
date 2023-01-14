@@ -5,7 +5,6 @@ import { getDetailPage } from '../../services/api';
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
   const date = data?.startTime.split('T')[0];
   const time = data?.startTime.split('T')[1];
-  // console.log(data);
   return (
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
