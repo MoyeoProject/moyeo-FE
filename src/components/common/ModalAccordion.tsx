@@ -51,7 +51,18 @@ export default function ModalAccordion({
               options.map((option) => {
                 return (
                   <label key={option} htmlFor={option}>
-                    <input id={option} type="radio" name={name} value={option} />
+                    <input
+                      id={option}
+                      type="radio"
+                      name={name}
+                      value={
+                        name === 'maxNum'
+                          ? `${option}명`
+                          : name === 'duration'
+                          ? `${option}시간`
+                          : option
+                      }
+                    />
                     {option}
                   </label>
                 );
