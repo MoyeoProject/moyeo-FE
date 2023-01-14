@@ -6,11 +6,8 @@ const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
 });
 
-// const CLIENT_ID = '' + process.env.REACT_APP_KAKAO_CLIENT_ID;
-// const REDIRECT_URL = '' + process.env.REACT_APP_KAKAO_REDIRECT_URL;
-
-const CLIENT_ID = 'ced49bfdb65f5f152e2e43f12e88bd86';
-const REDIRECT_URL = 'http://localhost:3000/api/users/kakao/callback';
+const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+const REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`;
 
