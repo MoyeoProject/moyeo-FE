@@ -28,10 +28,11 @@ export default function ModalAccordionButton({
           <label htmlFor={currModal.name}>{currModal.title}</label>
           <button
             type="button"
-            disabled={(id && name === 'category') || (id && name === 'category') ? true : false}
+            disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
             onClick={() => handleShowModal(currModal.name)}
           >
             {postForm[currModal.name] ? postForm[currModal.name] : currModal.content}
+            {name === 'maxNum' ? '명' : name === 'duration' ? '시간' : null}
           </button>
           {currModal.isOpen &&
             createPortal(
