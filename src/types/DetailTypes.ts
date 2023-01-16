@@ -19,10 +19,10 @@ export type DetailTypes = {
 };
 
 export type MemberTypes = {
-  followed: boolean;
-  profileUrl: string;
-  userId: number;
-  username: string;
+  followed?: boolean;
+  profileUrl?: string;
+  userId?: number;
+  username?: string;
 };
 
 export type CommentTypes = {
@@ -38,4 +38,8 @@ export type ShareDataTypes = {
   link: string;
   title: string;
   content: string;
+};
+
+export type ParamsId = {
+  id: string;
 };
