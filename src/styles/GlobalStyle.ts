@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 body{
   width: 375px;
