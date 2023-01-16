@@ -8,29 +8,42 @@ import ModalAccordionButton from '../components/common/ModalAccordionButton';
 import TopNavBar from '../components/common/TopNavBar';
 import useChangePostForm from '../hooks/useChangePostForm';
 import { editMeeting, postMeeting } from '../services/api';
+import { loadItem } from '../services/storage';
 import { calcStartTime } from '../utils/utils';
 
 export default function PostPage() {
   const { id } = useParams();
 
+  const tmp = loadItem('currPost');
+  const currPost = tmp && JSON.parse(tmp);
+
   const { postForm, handleChangeInputField } = useChangePostForm();
   const { title, content, link } = postForm;
 
-  const { handleSubmit, register, control, setValue } = useForm<FieldValues>({
-    defaultValues: {
-      title: '',
-      category: '',
-      startDate: '',
-      startTime: '',
-      duration: '',
-      platform: '',
-      link: '',
-      content: '',
-      maxNum: '',
-      secret: false,
-      password: '',
-    },
-  });
+  const defaultValues =
+    id && currPost
+      ? currPost
+      : {
+          title: '',
+          category: '',
+          startDate: '',
+          startTime: '',
+          duration: '',
+          platform: '',
+          link: '',
+          content: '',
+          maxNum: '',
+          secret: false,
+          password: '',
+        };
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<FieldValues>({ defaultValues });
 
   const mutateEditMeeting = useMutation({
     mutationFn: editMeeting,
@@ -55,13 +68,11 @@ export default function PostPage() {
         <p>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</p>
         <label htmlFor="title">모임 이름</label>
         <input
-          {...register('title', {
-            required: true,
-            maxLength: 20,
-          })}
+          {...register('title', { required: true })}
           type="text"
           id="title"
-          placeholder="모임 이름을 입력해주세요 0/20"
+          maxLength={20}
+          placeholder={currPost ? currPost.title : '모임 이름을 입력해주세요 0/20'}
           value={title}
           onChange={(e) => handleChangeInputField(e)}
         />
@@ -70,7 +81,7 @@ export default function PostPage() {
           {...register('content', { required: true })}
           type="text"
           id="content"
-          placeholder="모두가 즐거운 대화를 나눠요!"
+          placeholder={currPost ? currPost.content : '모두가 즐거운 대화를 나눠요!'}
           value={content}
           onChange={(e) => handleChangeInputField(e)}
         />
@@ -85,7 +96,7 @@ export default function PostPage() {
           {...register('link', { required: false })}
           type="text"
           id="link"
-          placeholder="링크를 입력해주세요"
+          placeholder={currPost ? currPost.link : '링크를 입력해주세요'}
           value={link}
           onChange={(e) => handleChangeInputField(e)}
         />

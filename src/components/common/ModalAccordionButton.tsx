@@ -31,10 +31,7 @@ export default function ModalAccordionButton({
               <input
                 type="button"
                 onClick={() => handleShowModal(currModal.name)}
-                value={
-                  value +
-                  (value && name === 'maxNum' ? '명' : value && name === 'duration' ? '시간' : '')
-                }
+                value={value}
                 disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
                 {...register(name, { required: true })}
               />

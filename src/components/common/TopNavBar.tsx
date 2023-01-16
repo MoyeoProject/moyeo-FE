@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+import { removeItem } from '../../services/storage';
+
 export default function TopNavBar({ name }: { name: string }) {
   const { id } = useParams();
 
   const handleClickLogout = () => {
     location.assign('/');
     localStorage.clear();
+  };
+
+  const handleClickBack = () => {
+    history.back();
+    removeItem('currPost');
   };
 
   return name === 'home' ? (
@@ -21,7 +28,7 @@ export default function TopNavBar({ name }: { name: string }) {
   ) : name === 'post' ? (
     id ? (
       <>
-        <button type="button" onClick={() => history.back()}>
+        <button type="button" onClick={() => handleClickBack()}>
           {'<'}
         </button>
         <p>모임 수정하기</p>
@@ -31,7 +38,7 @@ export default function TopNavBar({ name }: { name: string }) {
       </>
     ) : (
       <>
-        <button type="button" onClick={() => history.back()}>
+        <button type="button" onClick={() => handleClickBack()}>
           {'<'}
         </button>
         <p>모임 생성하기</p>
