@@ -21,7 +21,7 @@ const modalData: Modal[] = [
     title: '이용 플랫폼',
     content: '플랫폼을 선택해주세요',
     isOpen: false,
-    options: ['GATHER TOWN', 'DISCORD', 'ZOOM', 'GOOGLE MEET', 'ZEP', 'OTT', '기타'],
+    options: ['GATHER_TOWN', 'DISCORD', 'ZOOM', 'GOOGLE_MEET', 'ZEP', 'OTT', 'ETC'],
   },
   {
     name: 'startDate',

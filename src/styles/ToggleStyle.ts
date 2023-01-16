@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-export const ToggleWrapper = styled.div``;
-
 export const ToggleButton = styled.button`
   background-color: ${(props: { secret: boolean }) => (!props.secret ? 'none' : 'rgb(51,30,190)')};
   width: 130px;
