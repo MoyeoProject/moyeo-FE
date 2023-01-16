@@ -30,11 +30,11 @@ export type PostForm = {
   category: string;
   startDate: string;
   startTime: string;
-  duration: number | null;
+  duration: string;
   platform: string;
   link: string;
   content: string;
-  maxNum: number | null;
+  maxNum: string;
   secret: boolean;
-  password: string | boolean;
+  password: string;
 };
