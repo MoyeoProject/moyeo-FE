@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
+import { saveItem } from '../../services/storage';
 import { ShareDataTypes } from '../../types/DetailTypes';
 import KakaoShareButton from '../KakaoShareButton';
 
@@ -61,6 +62,7 @@ const DetailNavBar = ({ data }: any) => {
       <NavArrow
         onClick={() => {
           navigate('/main');
+          saveItem('detailKeyword', 'intro');
         }}
       >
         ◀
