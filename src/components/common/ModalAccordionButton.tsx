@@ -1,20 +1,18 @@
 import { createPortal } from 'react-dom';
+import { Control, Controller, FieldValues, UseFormRegister } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 import useShowModalAccordion from '../../hooks/useShowModalAccordion';
-import { PostForm } from '../../types/AppTypes';
 import ModalAccordion from './ModalAccordion';
 
 export default function ModalAccordionButton({
+  register,
+  control,
   name,
-  postForm,
-  onClickConfirm,
-  onClickTimeConfirm,
 }: {
+  register: UseFormRegister<FieldValues>;
+  control: Control<FieldValues>;
   name: string;
-  postForm: any;
-  onClickConfirm: (e: React.ChangeEvent<HTMLFormElement>, callback: () => void) => void;
-  onClickTimeConfirm: (startDate: string, callback: () => void) => void;
 }) {
   const { id } = useParams();
 
@@ -26,25 +24,30 @@ export default function ModalAccordionButton({
       {currModal && (
         <>
           <label htmlFor={currModal.name}>{currModal.title}</label>
-          <button
-            type="button"
-            disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
-            onClick={() => handleShowModal(currModal.name)}
-          >
-            {postForm[currModal.name] ? postForm[currModal.name] : currModal.content}
-            {name === 'maxNum' ? '명' : name === 'duration' ? '시간' : null}
-          </button>
+          <Controller
+            name={name}
+            control={control}
+            render={({ field: { value } }) => (
+              <input
+                type="button"
+                onClick={() => handleShowModal(currModal.name)}
+                value={
+                  value +
+                  (value && name === 'maxNum' ? '명' : value && name === 'duration' ? '시간' : '')
+                }
+                disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
+                {...register(name, { required: true })}
+              />
+            )}
+          />
           {currModal.isOpen &&
             createPortal(
               <ModalAccordion
                 name={currModal.name}
                 title={currModal.title}
                 options={currModal.options}
-                onClickTimeConfirm={(startTime) =>
-                  onClickTimeConfirm(startTime, () => handleCloseModal(name))
-                }
-                onClickConfirm={(e) => onClickConfirm(e, () => handleCloseModal(name))}
                 onClose={() => handleCloseModal(name)}
+                control={control}
               />,
               document.body
             )}
