@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { getAttendList } from '../../services/api';
 import { MemberTypes } from '../../types/DetailTypes';
+import FollowButton from './FollowButton';
 
 const DetailAttendList = ({ data }: any) => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const DetailAttendList = ({ data }: any) => {
                   </div>
                   <span>{m.username}</span>
                 </Member>
-                <Follow>팔로우</Follow>
+                <FollowButton userId={m.userId} followed={m.followed} />
               </>
             ) : (
               <>
@@ -55,10 +56,10 @@ const DetailAttendList = ({ data }: any) => {
                 {data?.master ? (
                   <div>
                     <Out>내보내기</Out>
-                    <Follow>팔로우</Follow>
+                    <FollowButton userId={m.userId} followed={m.followed} />
                   </div>
                 ) : (
-                  <Follow>팔로우</Follow>
+                  <FollowButton userId={m.userId} followed={m.followed} />
                 )}
               </>
             )}
@@ -88,7 +89,7 @@ const MemberBox = styled.div`
   box-sizing: border-box;
   margin-bottom: 4px;
 `;
-const Follow = styled.button`
+const Out = styled.button`
   width: 65px;
   height: 32px;
   border-radius: 4px;
@@ -97,8 +98,6 @@ const Follow = styled.button`
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
-`;
-const Out = styled(Follow)`
   background-color: #aaaaaa;
   margin-right: 8px;
 `;

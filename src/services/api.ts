@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
+import { MemberTypes } from '../types/DetailTypes';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -158,5 +159,10 @@ export const delelteComment = async ({ id, commetnId }: any) => {
 
 export const meetingLinkInpitApi = async ({ platform, link, id }: any) => {
   const res = await baseURL.patch(`/meetings/${id}/link`, { platform, link });
+  return res;
+};
+
+export const makeFollowApi = async ({ userId }: MemberTypes) => {
+  const res = await baseURL.post(`/follow/${userId}`);
   return res;
 };

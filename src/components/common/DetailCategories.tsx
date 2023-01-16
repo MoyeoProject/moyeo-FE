@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { loadItem, saveItem } from '../../services/storage';
 
 const DetailCategories = () => {
-  const categories = loadItem('detailKeyword');
 
   return (
     <DetailCategoriesBox>
