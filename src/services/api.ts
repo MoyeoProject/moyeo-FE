@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { FieldValues } from 'react-hook-form';
 
-import { loadItem, saveItem } from './storage';
+import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
@@ -46,6 +47,50 @@ export const patchJoinMeeting = async (meetingId: number) => {
     .then((res) => {
       res.data.data ? alert('참석완!') : alert('취소완!');
       location.reload();
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+      location.reload();
+    });
+
+  return response;
+};
+
+export const postMeeting = async (postForm: FieldValues) => {
+  const response = await baseURL
+    .post(MEETINGS, postForm)
+    .then((res) => {
+      res.data.data && alert(res.data.statusMsg);
+      history.back();
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+    });
+
+  return response;
+};
+
+export const getEditingMeeting = async (id: number) => {
+  const response = await baseURL
+    .get(MEETINGS + `/${id}/update`)
+    .then((res) => {
+      saveItem('currPost', JSON.stringify(res?.data.data));
+      location.reload();
+    })
+    .catch((err) => {
+      alert(err.response.data.statusMsg);
+    });
+
+  return response;
+};
+
+export const editMeeting = async ({ id, postForm }: { id: number; postForm: FieldValues }) => {
+  const response = await baseURL
+    .patch(MEETINGS + `/${id}`, postForm)
+    .then((res) => {
+      alert(res.data.statusMsg);
+      removeItem('currPost');
+      history.back();
     })
     .catch((err) => {
       alert(err.response.data.statusMsg);
