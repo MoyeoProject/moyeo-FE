@@ -1,17 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useForm } from 'react-hook-form';
 
 import { patchJoinMeeting } from '../../services/api';
 import { Meeting } from '../../types/AppTypes';
 import ModalForm from './ModalForm';
 
-type PostButtonProps = {
-  name: string;
-  currMeeting: Meeting;
-};
-
-export default function PostButton({ name, currMeeting }: PostButtonProps) {
+export default function PostButton({ name, currMeeting }: { name: string; currMeeting: Meeting }) {
   const { secret, id, password } = currMeeting;
 
   const [showModal, setShowModal] = useState(false);
@@ -24,6 +20,8 @@ export default function PostButton({ name, currMeeting }: PostButtonProps) {
     joinMeeting.mutate(meetingId);
   };
 
+  const { setValue } = useForm();
+
   return secret ? (
     <>
       <button type="button" onClick={() => setShowModal(true)}>
@@ -32,11 +30,12 @@ export default function PostButton({ name, currMeeting }: PostButtonProps) {
       {showModal &&
         createPortal(
           <ModalForm
-            onClose={() => setShowModal(false)}
-            onClickConfirm={handleClickJoin}
-            meetingId={id}
-            password={password}
             name={name}
+            setValue={setValue}
+            password={password}
+            meetingId={id}
+            onClickConfirm={handleClickJoin}
+            onClose={() => setShowModal(false)}
           />,
           document.body
         )}

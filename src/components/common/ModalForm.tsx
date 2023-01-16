@@ -1,29 +1,30 @@
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
+
 import useChangeInputField from '../../hooks/useChangeInputField';
 import { Contents, ModalWrap, Overlay } from '../../styles/ModalFormStyle';
 
 type ModalFormProps = {
+  name: string;
+  password: string | null;
+  meetingId: number | null;
   onClose: () => void;
   onClickConfirm: any;
-  meetingId: number;
-  password: string | boolean;
-  name: string;
+  setValue: UseFormSetValue<FieldValues>;
 };
 
 export default function ModalForm({
+  name,
+  password,
+  meetingId,
   onClose,
   onClickConfirm,
-  meetingId,
-  password,
-  name,
+  setValue,
 }: ModalFormProps) {
-  const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
+  const { inputField, handleChangeInputField } = useChangeInputField();
 
-  const handleConfirmPassword = (keyword: string) => {
-    if (name === '참여') {
-      keyword === password ? onClickConfirm(meetingId, null) : alert('비밀번호가 틀렸습니다!');
-      handleClearInputField();
-    }
-    keyword ? onClickConfirm(keyword, () => onClose()) : alert('비밀번호를 입력해주세요!');
+  const handleClickConfirm = () => {
+    setValue('password', inputField);
+    onClose();
   };
 
   return (
@@ -35,15 +36,14 @@ export default function ModalForm({
             id="password"
             type="password"
             maxLength={4}
-            value={inputField ? inputField : ''}
+            value={inputField}
+            onChange={(e) => handleChangeInputField(e)}
             placeholder={
               name === '등록하기' ? '최대 4자까지 입력이 가능해요' : '비밀번호를 입력해주세요'
             }
-            minLength={4}
-            onChange={(e) => handleChangeInputField(e)}
           />
           <button onClick={onClose}>취소</button>
-          <button onClick={() => handleConfirmPassword(inputField)}>{name}</button>
+          <button onClick={() => handleClickConfirm()}>{name}</button>
         </Contents>
       </ModalWrap>
     </Overlay>
