@@ -12,15 +12,27 @@ import DetailNavBar from '../components/common/DetailNavBar';
 import { getDetailPage } from '../services/api';
 import { loadItem, saveItem } from '../services/storage';
 
+
 const DetailPage = () => {
   const categories = loadItem('detailKeyword');
 
-  const { id } = useParams();
-  const { data, isLoading, isError } = useQuery(['detail', id], () => {
-    return getDetailPage(id);
-  });
+  const {id} = useParams();
+  const { data, isLoading, isError } = useQuery(
+    ['detail', id],
+    () => {
+      return getDetailPage(id);
+    },
+    {
+      // 로딩중일때, 이전 데이터 유지하기 속성 ( 새로고침이라 큰 상관없나. )
+      keepPreviousData: true,
+    }
+  );
+
   const detailData = data?.data.data;
 
+  if (isLoading) {
+    return <h2>로딩중</h2>;
+  }
   return (
     <DetailBox>
       <DetailNavBar data={detailData} />
