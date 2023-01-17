@@ -71,6 +71,8 @@ const DetailAttendList = ({ data }: any) => {
 };
 const Box = styled.div`
   margin-bottom: 15px;
+  padding: 0 16px;
+  box-sizing: border-box;
   p {
     font-size: 12px;
     color: #666666;

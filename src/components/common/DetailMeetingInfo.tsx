@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 
+import { ReactComponent as Frame_category } from '../../assets/Frame_category.svg';
+import { ReactComponent as Frame_platform } from '../../assets/Frame_platform.svg';
 import { getDetailPage } from '../../services/api';
 
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
-  const date = data?.startTime.split('T')[0];
-  const time = data?.startTime.split('T')[1];
   return (
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null} */}
-      <>
-        <TitleBox>
-          <div className="titleIntroBox">
-            {/* 카테고리 이미지 */}
-            <img src="/img/ex.png" />
+      <DetailInfoBox>
+        <MeetingBox>
+          <div className="meetingBox">
+            <div className="icon">
+              <Frame_category />
+            </div>
             <div>
               <p className="meetingTitle">{data?.title}</p>
               <span>👍{data?.likeNum}</span>
@@ -21,33 +22,38 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
             </div>
           </div>
           <p className="titleIntroText">{data?.content}</p>
-        </TitleBox>
+        </MeetingBox>
         <InfoBox>
           <p>{data?.title}</p>
           <div className="infoBoxContent">
-            <img src="/img/ex.png" />
-            {/* <img src={`${data?.platform}`} /> */}
-            {/* 플랫폼 로고 이미지는 누가주는가? */}
+            <div className="icon">
+              <Frame_platform />
+            </div>
             <div>
-              <p>📆 {date}</p>
+              <p>📆 {data?.startDate}</p>
               <p>
-                🕓 {time} {data?.duration}시간
+                🕓 {data?.startTime} {data?.duration}시간
               </p>
             </div>
           </div>
         </InfoBox>
-      </>
+      </DetailInfoBox>
     </>
   );
 };
-const TitleBox = styled.div`
+const DetailInfoBox = styled.div`
+  height: 240px;
+  padding: 0 16px;
+  box-sizing: border-box;
+`;
+const MeetingBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 32px;
-  .titleIntroBox {
+  .meetingBox {
     display: flex;
     margin-bottom: 20px;
-    img {
+    .icon {
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -83,7 +89,7 @@ const InfoBox = styled.div`
   }
   .infoBoxContent {
     display: flex;
-    img {
+    .icon {
       width: 48px;
       height: 48px;
       border-radius: 50%;

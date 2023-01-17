@@ -41,6 +41,7 @@ const DetailNavBar = ({ data }: any) => {
 
   const { mutate: meetAttendExit } = useMeetAttendExit();
   const handleClickAttnedExit = (id: any) => {
+    console.log('나가기');
     meetAttendExit(id);
   };
 
@@ -99,13 +100,12 @@ const DetailNavBar = ({ data }: any) => {
   );
 };
 const NavBox = styled.div`
+  height: 56px;
   padding: 16px;
   box-sizing: border-box;
-  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
 `;
 const NavArrow = styled.div`
   font-size: 20px;
