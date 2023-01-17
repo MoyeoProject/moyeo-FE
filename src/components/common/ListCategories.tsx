@@ -24,6 +24,7 @@ export default function ListCategories() {
       <Categories>
         {buttons.map((button) => (
           <CategoryButton
+            key={button.keyword}
             type="button"
             onClick={() => sortMeetings.mutate(button.keyword)}
             focus={button.keyword === loadItem('keyword') ? !button.focus : button.focus}
