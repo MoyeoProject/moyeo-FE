@@ -5,6 +5,7 @@ import { loadItem, saveItem } from '../../services/storage';
 
 const DetailCategories = () => {
 
+  
   return (
     <DetailCategoriesBox>
       <CaregoriesButton
