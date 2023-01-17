@@ -12,22 +12,18 @@ const Comment = () => {
   const QueryClient = useQueryClient();
   const [comment, setComment] = useState('');
 
-  const { isLoading, data, isError, fetchNextPage } = useInfiniteQuery(
+  const { isLoading, data, isError, fetchNextPage,  } = useInfiniteQuery(
     ['Comment', id],
     () => {
       return getCommentPage(id);
     },
     {
       getNextPageParam: (_lastPage, pages) => {
-        if (pages.length < 4) {
-          return pages.length + 1;
-        } else {
-          return undefined;
-        }
+        // console.log(pages, _lastPage);
       },
     }
   );
-
+  console.log(data);
   const handleScroll = () => {
     // 스크롤 기준이 document라서.. 내가 원하는 곳에서 무한스크롤 안됨
     // 그럼 어떻게 해야 할까?
