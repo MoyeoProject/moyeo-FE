@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getSortbyMeetings } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
-import { Categories, CategoryButton } from '../../styles/ListCategoriesStyle';
+import { Categories, CategoryButton } from '../../styles/SortbyCategoriesStyle';
 
 const buttons = [
   { name: '인기모임', focus: false, keyword: 'popular' },
@@ -10,7 +10,7 @@ const buttons = [
   { name: '나의 모임', focus: false, keyword: 'calendar' },
 ];
 
-export default function ListCategories() {
+export default function SortbyCategories() {
   const sortMeetings = useMutation({
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {

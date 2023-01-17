@@ -6,7 +6,9 @@ import plus_icon from '../../assets/plus_icon.svg';
 import profile_icon from '../../assets/profile_icon.svg';
 import { removeItem } from '../../services/storage';
 import { RightBox, TopBar, TopNavBarWrap } from '../../styles/TopNavBarStyle';
-import ListCategories from './ListCategories';
+import Categories from './Categories';
+import SearchForm from './SearchForm';
+import SortbyCategories from './SortbyCategories';
 
 export default function TopNavBar({ name }: { name: string }) {
   const { id } = useParams();
@@ -31,7 +33,9 @@ export default function TopNavBar({ name }: { name: string }) {
           </Link>
         </RightBox>
       </TopBar>
-      <ListCategories />
+      <SortbyCategories />
+      <SearchForm />
+      <Categories />
     </TopNavBarWrap>
   ) : (
     <TopNavBarWrap>

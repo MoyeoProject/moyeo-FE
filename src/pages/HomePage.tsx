@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import Calendar from '../components/Calendar';
 import MeetingList from '../components/MeetingList';
-import SearchForm from '../components/SearchForm';
 import TopNavBar from '../components/common/TopNavBar';
 import { setMeetingList } from '../modules/homeSlice';
 import { getSortbyMeetings } from '../services/api';
@@ -34,7 +33,6 @@ export default function HomePage() {
       {isLoading && <div>로딩중 입니다...</div>}
       {isError && <div>에러가 발생...</div>}
       <TopNavBar name={'home'} />
-      <SearchForm />
       {sortbyKeyword === 'calendar' && <Calendar />}
       {meetingList && meetingList.length !== 0 && <MeetingList currMeetingList={meetingList} />}
     </>
