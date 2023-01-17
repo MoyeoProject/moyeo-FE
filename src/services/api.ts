@@ -144,7 +144,6 @@ export const getAttendList = async (meetingId: any) => {
 export const getCommentPage = async (meetingId: any) => {
   // const res = await mockURL.get('/comment');
   const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
-  console.log(res.data.data);
   return res;
 };
 

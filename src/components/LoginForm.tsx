@@ -1,11 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { isSignup } from '../modules/authSlice';
 import { postLogin } from '../services/api';
 import { useAppDispatch } from '../store';
+import { ButtonBox } from '../styles/DetailPageStyle';
+import { InputFormBox, LoginFormBox } from '../styles/LoginFormStyle';
 import { LoginInputField } from '../types/AppTypes';
 import { KAKAO_AUTH_URL } from './KakaoLoginButton';
 import LoginButton from './LoginButton';
@@ -39,40 +40,58 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <h2>로그인</h2>
-      <form onKeyUp={handleEnterKey}>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={onChangeInput}
-          placeholder="이메일작성"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={onChangeInput}
-          placeholder="password"
-        />
-      </form>
-      <LoginButton loginInputField={state} onClickLogin={handleClickLogin} />
-      <div
-        onClick={() => {
-          window.location.href = KAKAO_AUTH_URL;
-        }}
-      >
-        카카오 로그인 하기
+    <LoginFormBox>
+      <div>
+        <InputFormBox onKeyUp={handleEnterKey}>
+          <div className="inputBox">
+            <label>이메일</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={onChangeInput}
+              placeholder="이메일을 입력하세요"
+            />
+          </div>
+          <div className="inputBox">
+            <label>비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={onChangeInput}
+              placeholder="비밀번호를 입력하세요"
+            />
+          </div>
+        </InputFormBox>
+        <ButtonBox>
+          <LoginButton loginInputField={state} onClickLogin={handleClickLogin} />
+          <div className="line">
+            <hr />
+            <p>또는</p>
+            <hr />
+          </div>
+          <button
+            onClick={() => {
+              window.location.href = KAKAO_AUTH_URL;
+            }}
+          >
+            카카오 로그인 하기
+          </button>
+          <div className="moveText">
+            <span>비밀번호 재설정</span>
+            <span> | </span>
+            <span
+              onClick={() => {
+                dispatch(isSignup(true));
+              }}
+            >
+              회원가입
+            </span>
+          </div>
+        </ButtonBox>
       </div>
-      <button
-        onClick={() => {
-          dispatch(isSignup(true));
-        }}
-      >
-        회원가입 하러 가기
-      </button>
-    </>
+    </LoginFormBox>
   );
 };
 

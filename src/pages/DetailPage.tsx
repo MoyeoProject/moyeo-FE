@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import Comment from '../components/Comment';
 import DetailAttendList from '../components/common/DetailAttendList';
@@ -10,11 +8,11 @@ import DetailCategories from '../components/common/DetailCategories';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
 import { getDetailPage } from '../services/api';
-import { loadItem, saveItem } from '../services/storage';
+import { loadItem } from '../services/storage';
+import { ButtonBox, DetailBox, DetailMainBox, DetailTopBox } from '../styles/DetailPageStyle';
 
 const DetailPage = () => {
   const categories = loadItem('detailKeyword');
-
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery(
     ['detail', id],
@@ -55,32 +53,5 @@ const DetailPage = () => {
     </DetailBox>
   );
 };
-const DetailBox = styled.div`
-  height: 812px;
-  /* height: 612px; */
-  position: relative;
-  overflow-y: scroll;
-  box-sizing: border-box;
-  border: 1px solid gray;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-const DetailTopBox = styled.div`
-  width: 375px;
-  position: sticky;
-  top: 0px;
-  box-sizing: border-box;
-  background-color: white;
-  z-index: 10;
-`;
-const DetailMainBox = styled.div`
-  position: relative;
-`;
-const ButtonBox = styled.div`
-  position: sticky;
-  bottom: 0;
-  padding: 16px;
-  box-sizing: border-box;
-`;
+
 export default DetailPage;
