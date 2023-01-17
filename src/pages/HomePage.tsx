@@ -18,12 +18,14 @@ export default function HomePage() {
   const sortbyKeyword = loadItem('keyword');
   const { meetingList } = useSelector((state: HomeState) => state.home);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['meetings'],
     queryFn: () => getSortbyMeetings(sortbyKeyword),
+    enabled: false,
   });
 
   useEffect(() => {
+    refetch();
     dispatch(setMeetingList(data));
   }, [data?.data.data.meetingList]);
 
