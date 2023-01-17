@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { isSignup } from '../modules/authSlice';
 import { postLogin } from '../services/api';
 import { useAppDispatch } from '../store';
+import { ButtonBox } from '../styles/DetailPageStyle';
+import { InputFormBox, LoginFormBox } from '../styles/LoginFormStyle';
 import { LoginInputField } from '../types/AppTypes';
 import { KAKAO_AUTH_URL } from './KakaoLoginButton';
 import LoginButton from './LoginButton';
@@ -94,42 +94,5 @@ const LoginForm = () => {
     </LoginFormBox>
   );
 };
-const LoginFormBox = styled.div`
-  width: 100%;
-`;
-const InputFormBox = styled.form`
-  .inputBox {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-    & > label {
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-    & > input {
-      height: 52px;
-      padding-left: 12px;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-    & > input::placeholder {
-      color: #aaaaaa;
-    }
-  }
-`;
-const ButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0;
-  text-align: center;
-  color: #666666;
-  & > button {
-    margin: 16px 0;
-    height: 52px;
-    border-radius: 8px;
-  }
-  .moveText {
-    cursor: pointer;
-  }
-`;
+
 export default LoginForm;

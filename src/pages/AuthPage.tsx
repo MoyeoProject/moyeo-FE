@@ -10,11 +10,11 @@ const AuthPage = () => {
 };
 
 const AuthPageBox = styled.div`
-  border: 1px solid gray;
   height: 812px;
   padding: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid gray;
 `;
 export default AuthPage;
