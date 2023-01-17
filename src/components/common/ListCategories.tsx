@@ -2,6 +2,13 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getSortbyMeetings } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
+import { Categories, CategoryButton } from '../../styles/ListCategoriesStyle';
+
+const buttons = [
+  { name: '인기모임', focus: false, keyword: 'popular' },
+  { name: '신규모임', focus: false, keyword: 'new' },
+  { name: '나의 모임', focus: false, keyword: 'calendar' },
+];
 
 export default function ListCategories() {
   const sortMeetings = useMutation({
@@ -12,26 +19,20 @@ export default function ListCategories() {
     },
   });
 
-  const handleClickSortby = (keyword: string) => {
-    if (loadItem('keyword') === keyword) {
-      alert('같은 카테고리라 서버데이터를 요청하지 않습니다!');
-    }
-    sortMeetings.mutate(keyword);
-  };
-
   return (
     <>
-      <div>
-        <button type="button" onClick={() => handleClickSortby('new')}>
-          신규모임
-        </button>
-        <button type="button" onClick={() => handleClickSortby('popular')}>
-          인기모임
-        </button>
-        <button type="button" onClick={() => handleClickSortby('calendar')}>
-          나의 모임
-        </button>
-      </div>
+      <Categories>
+        {buttons.map((button) => (
+          <CategoryButton
+            key={button.keyword}
+            type="button"
+            onClick={() => sortMeetings.mutate(button.keyword)}
+            focus={button.keyword === loadItem('keyword') ? !button.focus : button.focus}
+          >
+            {button.name}
+          </CategoryButton>
+        ))}
+      </Categories>
     </>
   );
 }
