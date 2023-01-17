@@ -100,7 +100,7 @@ const DetailButton = ({ data }: any) => {
   );
 };
 const Button = styled.button`
-  width: 100%;
+  width: 343px;
   height: 54px;
   border-radius: 8px;
   background-color: #e2806d;

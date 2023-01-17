@@ -13,7 +13,6 @@ export const GlobalStyle = createGlobalStyle`
 }
 body{
   width: 375px;
-  /* height: 812px; 세로는 정확히 모르겠어서  */
   margin: 20px auto;
 }
 a {
