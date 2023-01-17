@@ -1,8 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 
-import useChangeInputField from '../hooks/useChangeInputField';
-import { getSortbyMeetings } from '../services/api';
-import { saveItem } from '../services/storage';
+import search_icon from '../../assets/search_icon.svg';
+import useChangeInputField from '../../hooks/useChangeInputField';
+import { getSortbyMeetings } from '../../services/api';
+import { saveItem } from '../../services/storage';
+import { InputField, SearchFormWrap } from '../../styles/SearchFormStyle';
 
 export default function SearchForm() {
   const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
@@ -29,17 +31,19 @@ export default function SearchForm() {
   };
 
   return (
-    <div>
-      <input
-        onKeyUp={handleEnterKey}
-        type="text"
-        value={inputField ? inputField : ''}
-        placeholder="검색어 입력..."
-        onChange={(e) => handleChangeInputField(e)}
-      />
-      <button type="button" onClick={() => handleClickSearch(inputField)}>
-        검색
-      </button>
-    </div>
+    <SearchFormWrap>
+      <InputField>
+        <button type="button" onClick={() => handleClickSearch(inputField)}>
+          <img src={search_icon} />
+        </button>
+        <input
+          type="text"
+          placeholder="Search"
+          onKeyUp={handleEnterKey}
+          value={inputField ? inputField : ''}
+          onChange={(e) => handleChangeInputField(e)}
+        />
+      </InputField>
+    </SearchFormWrap>
   );
 }
