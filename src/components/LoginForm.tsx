@@ -2,11 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ReactComponent as LoginLogo } from '../assets/Loginlogo.svg';
 import { isSignup } from '../modules/authSlice';
 import { postLogin } from '../services/api';
 import { useAppDispatch } from '../store';
-import { ButtonBox } from '../styles/DetailPageStyle';
-import { InputFormBox, LoginFormBox } from '../styles/LoginFormStyle';
+import { InputFormBox, LoginButtonBox, LoginFormBox } from '../styles/LoginFormStyle';
 import { LoginInputField } from '../types/AppTypes';
 import { KAKAO_AUTH_URL } from './KakaoLoginButton';
 import LoginButton from './LoginButton';
@@ -41,7 +41,10 @@ const LoginForm = () => {
 
   return (
     <LoginFormBox>
-      <div>
+      <div className="logoBox">
+        <LoginLogo />
+      </div>
+      <div className='loginBox'>
         <InputFormBox onKeyUp={handleEnterKey}>
           <div className="inputBox">
             <label>이메일</label>
@@ -64,7 +67,7 @@ const LoginForm = () => {
             />
           </div>
         </InputFormBox>
-        <ButtonBox>
+        <LoginButtonBox>
           <LoginButton loginInputField={state} onClickLogin={handleClickLogin} />
           <div className="line">
             <hr />
@@ -89,7 +92,7 @@ const LoginForm = () => {
               회원가입
             </span>
           </div>
-        </ButtonBox>
+        </LoginButtonBox>
       </div>
     </LoginFormBox>
   );
