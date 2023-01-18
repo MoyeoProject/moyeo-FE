@@ -28,11 +28,11 @@ export default function ButtonContent({ currMeeting }: { currMeeting: Meeting })
           </PostButtonStyle>
         </Link>
       ) : attend ? (
-        <PostButton name={'취소'} currMeeting={currMeeting} />
+        <PostButton currMeeting={currMeeting} />
       ) : secret ? (
-        <PostButton name={'참여'} currMeeting={currMeeting} />
+        <PostButton currMeeting={currMeeting} />
       ) : (
-        <PostButton name={'참여'} currMeeting={currMeeting} />
+        <PostButton currMeeting={currMeeting} />
       )}
     </>
   );
