@@ -27,22 +27,27 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
   return (
     <>
       {userId == myId ? null : (
-        <FollowStyleButton color={isFollow ? '#aaaaaa' : '#e2806d'} onClick={handleClickFollow}>
-          {isFollow ? '팔로우 취소' : '팔로우'}
+        <FollowStyleButton
+          BGcolor={isFollow ? '#E9E9E9' : '#9CC8D2'}
+          color={isFollow ? '#666666' : '#FFFFFF'}
+          fontWeight={isFollow ? '500' : '700'}
+          onClick={handleClickFollow}
+        >
+          {isFollow ? '언 팔로우' : '팔로우'}
         </FollowStyleButton>
       )}
     </>
   );
 };
 
-const FollowStyleButton = styled.button`
+const FollowStyleButton = styled.button<{ BGcolor: string; color: string; fontWeight: string }>`
   width: 65px;
   height: 32px;
   border-radius: 4px;
-  background-color: ${(props) => props.color};
-  color: white;
+  color: ${(props) => props.color};
+  font-weight: ${(props) => props.fontWeight};
   font-size: 12px;
-  font-weight: 700;
   line-height: 16px;
+  background-color: ${(props) => props.BGcolor};
 `;
 export default FollowButton;

@@ -56,6 +56,7 @@ const DetailAttendList = ({ data }: any) => {
                 {data?.master ? (
                   <div>
                     <Out>내보내기</Out>
+                    {/* <FollowButton userId={m.userId} followed={m.followed} /> */}
                     <FollowButton userId={m.userId} followed={m.followed} />
                   </div>
                 ) : (
@@ -69,6 +70,5 @@ const DetailAttendList = ({ data }: any) => {
     </Box>
   );
 };
-
 
 export default DetailAttendList;

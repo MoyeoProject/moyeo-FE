@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../store';
 const DetailCategories = () => {
   return (
     <DetailCategoriesBox>
-      <CaregoriesButton
+      <button
         // categories = {categories}
         onClick={() => {
           saveItem('detailKeyword', 'intro');
@@ -16,31 +16,39 @@ const DetailCategories = () => {
         }}
       >
         소개
-      </CaregoriesButton>
-      <CaregoriesButton
+      </button>
+      <button
         onClick={() => {
           saveItem('detailKeyword', 'comment');
           window.location.reload();
         }}
       >
         댓글
-      </CaregoriesButton>
+      </button>
     </DetailCategoriesBox>
   );
 };
+
 const DetailCategoriesBox = styled.div`
   height: 44px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   /* 블러처리. */
+  button {
+    width: 168px;
+    height: 100%;
+    margin-right: 8px;
+    border-bottom: 2px solid #9cc8d2;
+    color: #aaaaaa;
+    font-weight: 700;
+    background-color: white;
+  }
+  button:last-child {
+    margin-right: 0;
+  }
 `;
-const CaregoriesButton = styled.button`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  /* 버튼 클릭하면 왔다갔다 */
-`;
+
 export default DetailCategories;

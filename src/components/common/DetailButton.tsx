@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { meetingLinkInpitApi } from '../../services/api';
+import { ButtonDisabled, ButtonEdit, MasterButton, MasterLinkInput } from '../../styles/DetailButtonStyle';
 
 const DetailButton = ({ data }: any) => {
   const { id } = useParams();
@@ -99,49 +100,5 @@ const DetailButton = ({ data }: any) => {
     </>
   );
 };
-const Button = styled.button`
-  width: 343px;
-  height: 54px;
-  border-radius: 8px;
-  background-color: #e2806d;
-  color: white;
-  font-weight: 700;
-`;
-const ButtonDisabled = styled(Button)`
-  background-color: #aaaaaa;
-  cursor: default;
-`;
-const ButtonEdit = styled(Button)`
-  background-color: #aaaaaa;
-`;
-const MasterLinkInput = styled.div`
-  width: 100%;
-  height: 54px;
-  display: flex;
-  justify-content: space-between;
-  input {
-    width: 90%;
-    padding-left: 10px;
-    border: 1px solid #e2806d;
-    border-radius: 8px;
-    :focus {
-      outline: 1px solid #e2806d;
-    }
-  }
-  button {
-    border-radius: 8px;
-    background-color: #e2806d;
-    height: 100%;
-    width: 70px;
-    color: white;
-    font-weight: 700;
-  }
-  .cancle {
-    background-color: #aaaaaa;
-  }
-`;
-const MasterButton = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+
 export default DetailButton;

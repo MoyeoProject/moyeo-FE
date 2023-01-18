@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
+import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
 import { saveItem } from '../../services/storage';
+import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
 import { ShareDataTypes } from '../../types/DetailTypes';
 import KakaoShareButton from '../KakaoShareButton';
 
@@ -60,15 +61,16 @@ const DetailNavBar = ({ data }: any) => {
 
   return (
     <NavBox>
-      <NavArrow
+      <div
+        className="navArrow"
         onClick={() => {
           navigate('/main');
           saveItem('detailKeyword', 'intro');
         }}
       >
-        ◀
-      </NavArrow>
-      <NavTitle>{data?.title}</NavTitle>
+        <ChevronLeft />
+      </div>
+      <p className="navTitle">{data?.title}</p>
       <NavButtonBox>
         <div
           onClick={() => {
@@ -99,34 +101,5 @@ const DetailNavBar = ({ data }: any) => {
     </NavBox>
   );
 };
-const NavBox = styled.div`
-  height: 56px;
-  padding: 16px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const NavArrow = styled.div`
-  font-size: 20px;
-  cursor: pointer;
-`;
-const NavTitle = styled.p`
-  width: 100%;
-  padding: 0 10px;
-`;
-const NavButtonBox = styled.div`
-  display: flex;
-  align-items: center;
-  div {
-    width: 25px;
-    height: 25px;
-    margin-left: 12px;
-    span {
-      font-size: 20px;
-      cursor: pointer;
-    }
-  }
-`;
 
 export default DetailNavBar;

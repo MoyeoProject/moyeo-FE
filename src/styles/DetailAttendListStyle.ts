@@ -25,14 +25,13 @@ export const MemberBox = styled.div`
 export const Out = styled.button`
   width: 65px;
   height: 32px;
-  border-radius: 4px;
-  background-color: #e2806d;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 16px;
-  background-color: #aaaaaa;
   margin-right: 8px;
+  border-radius: 4px;
+  background-color: #e9e9e9;
+  color: #666666;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
 `;
 export const Member = styled.div`
   display: flex;
@@ -50,7 +49,6 @@ export const Member = styled.div`
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid gray;
     margin-right: 11px;
   }
   & > span {

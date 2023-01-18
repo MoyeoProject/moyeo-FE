@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const DetailBox = styled.div`
   height: 812px;
   position: relative;
-  border: 1px solid gray;
   background-color: white;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -23,7 +22,6 @@ export const DetailMainBox = styled.div`
   position: relative;
 `;
 export const ButtonBox = styled.div`
-  border: 1px solid red;
   position: sticky;
   bottom: 0;
   padding: 16px;
