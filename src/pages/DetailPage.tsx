@@ -8,8 +8,8 @@ import DetailCategories from '../components/common/DetailCategories';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
 import { getDetailPage } from '../services/api';
-import { loadItem } from '../services/storage';
-import { ButtonBox, DetailBox, DetailMainBox, DetailTopBox } from '../styles/DetailPageStyle';
+import { loadItem, saveItem } from '../services/storage';
+import { DetailBox } from '../styles/DetailPageStyle';
 
 const DetailPage = () => {
   const categories = loadItem('detailKeyword');
@@ -24,33 +24,35 @@ const DetailPage = () => {
       keepPreviousData: true,
     }
   );
-
   const detailData = data?.data.data;
+
   if (isLoading) {
     return <h2>로딩중</h2>;
   }
   return (
-    <DetailBox>
-      <DetailTopBox>
-        <DetailNavBar data={detailData} />
-        <DetailCategories />
-      </DetailTopBox>
-      <DetailMainBox>
-        {categories === 'intro' ? (
-          <>
-            <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
-            <DetailAttendList data={detailData} />
-            <ButtonBox>
-              <DetailButton data={detailData} />
-            </ButtonBox>
-          </>
-        ) : (
-          <>
-            <Comment />
-          </>
-        )}
-      </DetailMainBox>
-    </DetailBox>
+    <>
+      <DetailBox>
+        <div className="detailTopBox">
+          <DetailNavBar data={detailData} />
+          <DetailCategories />
+        </div>
+        <div className="detailMainBox">
+          {categories === 'intro' ? (
+            <>
+              <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
+              <DetailAttendList data={detailData} />
+              <div className="buttonBox">
+                <DetailButton data={detailData} />
+              </div>
+            </>
+          ) : (
+            <>
+              <Comment />
+            </>
+          )}
+        </div>
+      </DetailBox>
+    </>
   );
 };
 

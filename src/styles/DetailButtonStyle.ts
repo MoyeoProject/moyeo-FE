@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+export const ButtonBasic = styled.button`
   width: 343px;
   height: 54px;
   border-radius: 8px;
@@ -8,15 +8,23 @@ export const Button = styled.button`
   color: white;
   font-weight: 700;
 `;
-export const ButtonDisabled = styled(Button)`
+export const ButtonDisabled = styled(ButtonBasic)`
   background-color: #aaaaaa;
   cursor: default;
 `;
-export const ButtonEdit = styled(Button)`
+export const ButtonEdit = styled(ButtonBasic)`
   color: #666666;
   font-weight: 500;
   background-color: #e9e9e9;
 `;
+export const MasterButton = styled.div`
+  width: 343px;
+  display: flex;
+  flex-grow: 1 1;
+  justify-content: space-between;
+`;
+
+// --------버튼 스타일 정리
 export const MasterLinkInput = styled.div`
   width: 100%;
   height: 54px;
@@ -44,8 +52,4 @@ export const MasterLinkInput = styled.div`
     font-weight: 500;
     background-color: #e9e9e9;
   }
-`;
-export const MasterButton = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
