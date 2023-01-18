@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
 import { getEditingMeeting } from '../services/api';
+import { PostButtonStyle } from '../styles/PostButtonStyle';
 import { Meeting } from '../types/AppTypes';
 import PostButton from './common/PostButton';
 
@@ -22,9 +23,9 @@ export default function ButtonContent({ currMeeting }: { currMeeting: Meeting })
     <>
       {master ? (
         <Link to={`/post/${id}`}>
-          <button type="button" onClick={() => handleClickEdit()}>
-            수정버튼
-          </button>
+          <PostButtonStyle type="button" onClick={() => handleClickEdit()}>
+            수정
+          </PostButtonStyle>
         </Link>
       ) : attend ? (
         <PostButton name={'취소'} currMeeting={currMeeting} />

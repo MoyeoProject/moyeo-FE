@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useForm } from 'react-hook-form';
 
 import { patchJoinMeeting } from '../../services/api';
+import { PostButtonStyle } from '../../styles/PostButtonStyle';
 import { Meeting } from '../../types/AppTypes';
 import ModalForm from './ModalForm';
 
@@ -24,9 +25,9 @@ export default function PostButton({ name, currMeeting }: { name: string; currMe
 
   return secret ? (
     <>
-      <button type="button" onClick={() => setShowModal(true)}>
+      <PostButtonStyle type="button" onClick={() => setShowModal(true)}>
         {name}
-      </button>
+      </PostButtonStyle>
       {showModal &&
         createPortal(
           <ModalForm
@@ -41,8 +42,8 @@ export default function PostButton({ name, currMeeting }: { name: string; currMe
         )}
     </>
   ) : (
-    <button type="button" onClick={() => handleClickJoin(id)}>
+    <PostButtonStyle type="button" onClick={() => handleClickJoin(id)}>
       {name}
-    </button>
+    </PostButtonStyle>
   );
 }
