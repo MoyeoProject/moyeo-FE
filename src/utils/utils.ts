@@ -15,3 +15,16 @@ export const calcStartTime = (startTime: string) => {
 
   return `${newHours}:${minutes}:00`;
 };
+
+export const setTime = (startTime: string) => {
+  return startTime.split(':').slice(0, 2).join(':');
+};
+
+export const setDate = (startDate: string) => {
+  return startDate
+    .split('-')
+    .map((date, i) => {
+      return i === 0 ? date.slice(2, 4) : date;
+    })
+    .join('.');
+};
