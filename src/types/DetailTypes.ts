@@ -44,3 +44,9 @@ export type ShareDataTypes = {
 export type ParamsId = {
   id: string;
 };
+
+export type MeetingLinkAddType = {
+  link?: string;
+  platform: string;
+  id: string;
+};
