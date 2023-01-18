@@ -1,30 +1,21 @@
-import { useRef } from 'react';
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
-
 import useChangeInputField from '../../hooks/useChangeInputField';
-import { Contents, ModalWrap, Overlay } from '../../styles/ModalFormStyle';
+import { ModalButton } from '../../styles/ButtonStyle';
+import { ButtonsWrap, InputField, ModalFormWrap, Overlay } from '../../styles/ModalFormStyle';
 
 type ModalFormProps = {
-  setValue: UseFormSetValue<FieldValues>;
   onClose: () => void;
-  onClickConfirm: any;
+  onClickConfirm: (inputField: string) => void;
 };
 
-export default function ModalForm({ setValue, onClose, onClickConfirm }: ModalFormProps) {
+export default function ModalForm({ onClose, onClickConfirm }: ModalFormProps) {
   const { inputField, handleChangeInputField } = useChangeInputField();
-  const modalRef = useRef(null);
-
-  const handleClickConfirm = () => {
-    setValue('password', inputField);
-    onClose();
-  };
 
   return (
     <Overlay>
-      <ModalWrap ref={modalRef}>
-        <label htmlFor="password">비밀번호</label>
-        <Contents>
-          <input
+      <ModalFormWrap>
+        <p>비밀번호</p>
+        <>
+          <InputField
             id="password"
             type="password"
             value={inputField}
@@ -32,14 +23,16 @@ export default function ModalForm({ setValue, onClose, onClickConfirm }: ModalFo
             onChange={(e) => handleChangeInputField(e)}
             placeholder={'최대 4자까지 입력이 가능해요'}
           />
-          <button onClick={onClose}>취소</button>
-          <button
-            onClick={() => (onClickConfirm ? onClickConfirm(inputField) : handleClickConfirm())}
-          >
-            {onClickConfirm ? '확인' : '등록하기'}
-          </button>
-        </Contents>
-      </ModalWrap>
+          <ButtonsWrap>
+            <ModalButton isColor={false} onClick={onClose}>
+              취소
+            </ModalButton>
+            <ModalButton isColor={true} onClick={() => onClickConfirm(inputField)}>
+              확인
+            </ModalButton>
+          </ButtonsWrap>
+        </>
+      </ModalFormWrap>
     </Overlay>
   );
 }
