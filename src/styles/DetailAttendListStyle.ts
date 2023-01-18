@@ -37,13 +37,9 @@ export const Member = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  .masterParents {
-    position: relative;
-  }
-  .master {
-    position: absolute;
-    top: 0;
-    right: 0;
+  & > div {
+    display: flex;
+    align-items: center;
   }
   img {
     width: 48px;
@@ -51,7 +47,8 @@ export const Member = styled.div`
     border-radius: 50%;
     margin-right: 11px;
   }
-  & > span {
+  span {
+    margin-right: 4px; 
     font-size: 14px;
     line-height: 20px;
   }

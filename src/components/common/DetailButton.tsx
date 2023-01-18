@@ -1,99 +1,68 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from 'antd';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useParams } from 'react-router-dom';
 
-import { meetingLinkInpitApi } from '../../services/api';
-import { ButtonDisabled, ButtonEdit, MasterButton, MasterLinkInput } from '../../styles/DetailButtonStyle';
+import {
+  ButtonBasic,
+  ButtonDisabled,
+  ButtonEdit,
+  MasterButton,
+} from '../../styles/DetailButtonStyle';
+import DetailMeetLinkButton from '../DetailMeetLinkButton';
 
 const DetailButton = ({ data }: any) => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [link, setLink] = useState('');
-  const [linkInput, setLinkInput] = useState(false);
-  const QueryClient = useQueryClient();
+  const [showModal, setShowModal] = useState(false);
 
-  const useMeetingLinkInput = () => {
-    return useMutation(meetingLinkInpitApi, {
-      onSuccess: (data) => {
-        alert('모임 링크가 개설되었습니다');
-        QueryClient.invalidateQueries(['link', id]);
-        console.log('링크생성', data);
-        window.location.reload();
-      },
-      onError: (data: any) => {
-        alert(data?.response.data.statusMsg);
-      },
-    });
-  };
-
-  const { mutate: meetingLinkInput } = useMeetingLinkInput();
-  const meetingLinkInputBtn = () => {
-    if (link === '') {
-      alert('링크를 입력해주세요');
-      return;
-    }
-    meetingLinkInput({ link, platform: data.platform, id });
+  const meetingLinkedit = () => {
+    // 입장링크 수정
   };
 
   const meetingEntranceBtn = () => {
     if (data.link) {
       alert(`${data.platform}으로 입장합니다`);
-      window.location.href = `${data.link}`;
+      window.open(`http://${data?.link}`);
     }
     // else {
-    //   alert('모임 시작 30분 전부터 입장 가능합니다');
+    //  알람기능 되면 test
+    //  alert('모임 시작 30분 전부터 입장 가능합니다');
     // }
   };
-
   return (
     <>
       {data?.master ? (
         <>
-          {linkInput ? (
-            <MasterLinkInput>
-              <input
-                placeholder="입장 링크를 입력해주세요"
-                value={link}
-                onChange={(e) => {
-                  setLink(e.target.value);
-                }}
-              />
-              <button className="enter" onClick={meetingLinkInputBtn}>
-                입력
-              </button>
-              <button
-                className="cancle"
-                onClick={() => {
-                  setLinkInput(false);
-                }}
-              >
-                취소
-              </button>
-            </MasterLinkInput>
-          ) : data?.link !== '' ? (
+          {data?.link !== '' ? (
             <MasterButton>
-              <Button onClick={meetingEntranceBtn}>모임입장</Button>
-              <ButtonEdit
-                onClick={() => {
-                  setLinkInput(true);
-                }}
-              >
-                입장 링크 수정
-              </ButtonEdit>
+              <ButtonBasic onClick={meetingEntranceBtn}>모임입장</ButtonBasic>
+              <ButtonEdit onClick={() => setShowModal(true)}>입장 링크 수정</ButtonEdit>
+              {showModal &&
+                createPortal(
+                  <DetailMeetLinkButton
+                    platform={data?.platform}
+                    isEdit={true}
+                    onClose={() => setShowModal(false)}
+                  />,
+                  document.body
+                )}
             </MasterButton>
           ) : (
-            <Button
-              onClick={() => {
-                setLinkInput(true);
-              }}
-            >
-              입장 링크를 입력해주세요
-            </Button>
+            <>
+              <ButtonBasic onClick={() => setShowModal(true)}>입장 링크를 입력해주세요</ButtonBasic>
+              {showModal &&
+                createPortal(
+                  <DetailMeetLinkButton
+                    platform={data?.platform}
+                    isEdit={false}
+                    onClose={() => setShowModal(false)}
+                  />,
+                  document.body
+                )}
+            </>
           )}
         </>
       ) : data?.attend ? (
-        <Button onClick={meetingEntranceBtn}>모임 입장</Button>
+        <ButtonBasic onClick={meetingEntranceBtn}>모임 입장</ButtonBasic>
       ) : (
         <ButtonDisabled>모임에 참석한 후 입장 가능합니다</ButtonDisabled>
       )}

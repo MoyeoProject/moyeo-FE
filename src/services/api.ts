@@ -110,11 +110,9 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
 };
 
 export const getDetailPage = async (id: any) => {
-  // const res = await mockURL.get(MEETINGS_MOCK);
   const res = await baseURL.get(`meetings/${id}`);
   return res;
 };
-
 export const getAlarmApi = async (id: any) => {
   const res = await baseURL.patch(`/meetings/${id}/alarm`);
   return res;
@@ -149,6 +147,7 @@ export const delelteComment = async ({ id, commetnId }: any) => {
 
 export const meetingLinkInpitApi = async ({ platform, link, id }: any) => {
   const res = await baseURL.patch(`/meetings/${id}/link`, { platform, link });
+  console.log(res);
   return res;
 };
 

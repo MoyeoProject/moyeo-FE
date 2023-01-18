@@ -7,12 +7,16 @@ export const CommentBox = styled.div`
 `;
 export const CommentViewBox = styled.div`
   /* height: 376px; */
-  height: 676px;
+  height: 692px;
   padding-bottom: 36px;
   box-sizing: border-box;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
+  }
+  & > p {
+    text-align: center;
+    color: #aaaaaa;
   }
 `;
 export const CommentItem = styled.div<{ align: string; bgColor: string }>`
@@ -52,9 +56,10 @@ export const InputBox = styled.div`
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%);
   width: 100%;
-  height: 36px;
+  padding: 16px 0;
+  box-sizing: border-box;
   background-color: white;
   & > form {
     width: 342px;
