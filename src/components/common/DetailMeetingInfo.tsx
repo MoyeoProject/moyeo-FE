@@ -2,7 +2,15 @@ import styled from 'styled-components';
 
 import { ReactComponent as Frame_category } from '../../assets/Frame_category.svg';
 import { ReactComponent as Frame_platform } from '../../assets/Frame_platform.svg';
-import { DetailInfoBox, InfoBox, MeetingBox } from '../../styles/DetailMeetingInfoStyle';
+import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
+import { ReactComponent as CalendarDetail } from '../../assets/calendar_detail.svg';
+import { ReactComponent as ClockIcon } from '../../assets/clock_icon.svg';
+import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
+import {
+  DetailInfoBox,
+  MeetingCategoryBox,
+  MeetingInfoBox,
+} from '../../styles/DetailMeetingInfoStyle';
 
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
   return (
@@ -10,33 +18,47 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null} */}
       <DetailInfoBox>
-        <MeetingBox>
+        <MeetingCategoryBox>
           <div className="meetingBox">
-            <div className="icon">
+            <div className="FrameIcon">
               <Frame_category />
             </div>
             <div>
               <p className="meetingTitle">{data?.title}</p>
-              <span>👍{data?.likeNum}</span>
-              <span>👎{data?.hateNum}</span>
+              <div className="iconBox">
+                <div>
+                  <GoodIcon />
+                  <p>{data?.likeNum}</p>
+                </div>
+                <div>
+                  <BadIcon />
+                  <p>{data?.hateNum}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <p className="titleIntroText">{data?.content}</p>
-        </MeetingBox>
-        <InfoBox>
+          <p className="meetingText">{data?.content}</p>
+        </MeetingCategoryBox>
+        <MeetingInfoBox>
           <p>{data?.title}</p>
-          <div className="infoBoxContent">
-            <div className="icon">
+          <div className="infoContentBox">
+            <div className="FrameIcon">
               <Frame_platform />
             </div>
-            <div>
-              <p>📆 {data?.startDate}</p>
-              <p>
-                🕓 {data?.startTime} {data?.duration}시간
-              </p>
+            <div className="dateInfo">
+              <div>
+                <CalendarDetail />
+                <p>{data?.startDate}</p>
+              </div>
+              <div>
+                <ClockIcon />
+                <p>
+                  {data?.startTime} {data?.duration}시간
+                </p>
+              </div>
             </div>
           </div>
-        </InfoBox>
+        </MeetingInfoBox>
       </DetailInfoBox>
     </>
   );
