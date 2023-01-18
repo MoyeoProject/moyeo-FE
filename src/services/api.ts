@@ -43,17 +43,7 @@ export const getNextMeetings = async ({
 };
 
 export const patchJoinMeeting = async (meetingId: number) => {
-  const response = await baseURL
-    .patch(MEETINGS + `/${meetingId}/attendance`)
-    .then((res) => {
-      res.data.data ? alert('참석완!') : alert('취소완!');
-      location.reload();
-    })
-    .catch((err) => {
-      alert(err.response.data.statusMsg);
-      location.reload();
-    });
-
+  const response = await baseURL.patch(MEETINGS + `/${meetingId}/attendance`);
   return response;
 };
 
