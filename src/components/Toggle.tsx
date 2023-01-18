@@ -41,10 +41,7 @@ export default function Toggle({
       {showModal &&
         createPortal(
           <ModalForm
-            name={'등록하기'}
             setValue={setValue}
-            password={null}
-            meetingId={null}
             onClickConfirm={null}
             onClose={() => setShowModal(false)}
           />,
