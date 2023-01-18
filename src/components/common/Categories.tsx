@@ -9,7 +9,7 @@ export default function Categories() {
   return (
     <CategoriesWrap>
       {categories?.map((category) => (
-        <Category>
+        <Category key={category}>
           <img src={category_img} />
           <p>{category}</p>
         </Category>

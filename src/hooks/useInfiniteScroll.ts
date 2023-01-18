@@ -36,6 +36,7 @@ export default function useInfiniteScroll(currMeetingList: Meeting[]) {
         const nextMeetingList = data.pages[data.pages.length - 1].data.meetingList;
         dispatch(addMeetingList(nextMeetingList));
       },
+      enabled: false,
     }
   );
 
