@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FieldValues, useForm } from 'react-hook-form';
 
 import { patchJoinMeeting } from '../../services/api';
-import { PostButtonStyle } from '../../styles/PostButtonStyle';
+import { HomeButton } from '../../styles/ButtonStyle';
 import { Meeting } from '../../types/AppTypes';
 import ModalForm from './ModalForm';
 
@@ -32,6 +31,8 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
       if (inputField === password) {
         joinMeeting.mutate(id);
         setShowModal(false);
+      } else if (inputField === '') {
+        alert('비밀번호를 입력해주세요.');
       } else {
         alert('비밀번호가 틀렸습니다!');
       }
@@ -41,26 +42,20 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
     }
   };
 
-  const { setValue } = useForm<FieldValues>();
-
   return !isAttend && secret ? (
     <>
-      <PostButtonStyle type="button" onClick={() => setShowModal(true)}>
+      <HomeButton type="button" onClick={() => setShowModal(true)}>
         {!isAttend ? '참여' : '취소'}
-      </PostButtonStyle>
+      </HomeButton>
       {showModal &&
         createPortal(
-          <ModalForm
-            setValue={setValue}
-            onClickConfirm={handleClickJoin}
-            onClose={() => setShowModal(false)}
-          />,
+          <ModalForm onClickConfirm={handleClickJoin} onClose={() => setShowModal(false)} />,
           document.body
         )}
     </>
   ) : (
-    <PostButtonStyle type="button" onClick={() => handleClickJoin(null)}>
+    <HomeButton type="button" onClick={() => handleClickJoin(null)}>
       {!isAttend ? '참여' : '취소'}
-    </PostButtonStyle>
+    </HomeButton>
   );
 }
