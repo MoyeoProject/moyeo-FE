@@ -21,6 +21,11 @@ export default function Toggle({
     setValue('password', '');
   };
 
+  const handleClickConfirm = (inputField: string) => {
+    setValue('password', inputField);
+    setShowModal(false);
+  };
+
   return (
     <>
       <input {...register('secret')} disabled />
@@ -40,11 +45,7 @@ export default function Toggle({
       />
       {showModal &&
         createPortal(
-          <ModalForm
-            setValue={setValue}
-            onClickConfirm={null}
-            onClose={() => setShowModal(false)}
-          />,
+          <ModalForm onClickConfirm={handleClickConfirm} onClose={() => setShowModal(false)} />,
           document.body
         )}
     </>
