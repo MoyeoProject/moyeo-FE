@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
+import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
 import { getAttendList } from '../../services/api';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
@@ -27,17 +28,17 @@ const DetailAttendList = ({ data }: any) => {
             {m.userId === masterId ? (
               <>
                 <Member>
-                  <div className="masterParents">
-                    <img
-                      src={
-                        m.profileUrl !== null
-                          ? m.profileUrl
-                          : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-                      }
-                    />
-                    <span className="master">🎖️</span>
+                  <img
+                    src={
+                      m.profileUrl !== null
+                        ? m.profileUrl
+                        : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
+                    }
+                  />
+                  <div>
+                    <span>{m.username}</span>
+                    <FramePlusIcon />
                   </div>
-                  <span>{m.username}</span>
                 </Member>
                 <FollowButton userId={m.userId} followed={m.followed} />
               </>
