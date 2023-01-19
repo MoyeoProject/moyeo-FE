@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-import { ModalFormWrap, Overlay } from '../../styles/ModalFormStyle';
+import { ModalWrap, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
 
 type ModalAccordionProps = {
@@ -25,7 +25,7 @@ export default function ModalAccordion({
 
   return (
     <Overlay>
-      <ModalFormWrap>
+      <ModalWrap>
         <p>{title}</p>
         {name === 'startDate' ? (
           <>
@@ -81,7 +81,7 @@ export default function ModalAccordion({
             </button>
           </>
         )}
-      </ModalFormWrap>
+      </ModalWrap>
     </Overlay>
   );
 }
