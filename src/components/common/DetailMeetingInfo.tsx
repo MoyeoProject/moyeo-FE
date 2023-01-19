@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 import { ReactComponent as Frame_category } from '../../assets/Frame_category.svg';
 import { ReactComponent as Frame_platform } from '../../assets/Frame_platform.svg';
 import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
@@ -11,8 +9,12 @@ import {
   MeetingCategoryBox,
   MeetingInfoBox,
 } from '../../styles/DetailMeetingInfoStyle';
+import { setDate, setTime } from '../../utils/utils';
 
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
+  const time = setTime(data?.startTime);
+  const today = setDate(data?.startDate);
+
   return (
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
@@ -48,12 +50,12 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
             <div className="dateInfo">
               <div>
                 <CalendarDetail />
-                <p>{data?.startDate}</p>
+                <p>{today}</p>
               </div>
               <div>
                 <ClockIcon />
                 <p>
-                  {data?.startTime} {data?.duration}시간
+                  {time} {data?.duration} 시간 ~
                 </p>
               </div>
             </div>
