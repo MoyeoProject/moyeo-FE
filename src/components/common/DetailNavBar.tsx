@@ -6,7 +6,7 @@ import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
-import { ShareDataTypes } from '../../types/DetailTypes';
+import { ParamsId } from '../../types/DetailTypes';
 import KakaoShareButton from '../KakaoShareButton';
 
 const DetailNavBar = ({ data }: any) => {
@@ -23,8 +23,7 @@ const DetailNavBar = ({ data }: any) => {
   };
 
   const handleClickMeetingEdit = (id: any) => {
-    alert('모임 수정페이지로 이동 - 연결 준비 중입니다');
-    // navigate('')
+    navigate(`/post/${id}`);
   };
 
   const useMeetAttendExit = () => {

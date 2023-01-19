@@ -33,7 +33,7 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
           fontWeight={isFollow ? '500' : '700'}
           onClick={handleClickFollow}
         >
-          {isFollow ? '언 팔로우' : '팔로우'}
+          {isFollow ? '팔로우취소' : '팔로우'}
         </FollowStyleButton>
       )}
     </>
