@@ -17,13 +17,6 @@ const DetailPage = () => {
   const { data, isLoading, isError } = useQuery(
     ['detail', id],
     () => {
-      // if (!loadItem('isLogin')) {
-      //   alert(
-      //     '"모여"에 초대받으셨군요! 환영합니다😊 로그인 / 회원가입이 필요한 페이지가 있을 수 있습티다'
-      //   );
-      // }
-      // saveItem('detailKeyword', 'intro');
-      // console.log(loadItem('detailKeyword'));
       return getDetailPage(id);
     },
     {

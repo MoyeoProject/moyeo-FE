@@ -18,7 +18,6 @@ const Comment = () => {
   const { isLoading, data, isError } = useQuery(['Comment', id], () => {
     return getCommentPage(id);
   });
-
   const useAddComment = () => {
     return useMutation(addComment, {
       onSuccess: () => {

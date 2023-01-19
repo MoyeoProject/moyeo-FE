@@ -10,7 +10,6 @@ const DetailCategories = () => {
   return (
     <DetailCategoriesBox>
       <button
-        // categories = {categories}
         onClick={() => {
           saveItem('detailKeyword', 'intro');
           window.location.reload();
