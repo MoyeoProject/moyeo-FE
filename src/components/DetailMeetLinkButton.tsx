@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { meetingLinkInpitApi } from '../services/api';
 import { ModalButton } from '../styles/ButtonStyle';
-import { ButtonsWrap, InputField, ModalFormWrap, Overlay } from '../styles/ModalFormStyle';
+import { InputField } from '../styles/FormStyle';
+import { ButtonsBox, ModalWrap, Overlay } from '../styles/ModalStyle';
 
 type DetailModalFormProps = {
   onClose: () => void;
@@ -42,7 +42,7 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
 
   return (
     <Overlay>
-      <ModalFormWrap>
+      <ModalWrap>
         <InputField
           placeholder={isEdit ? '수정된 링크를 입력해주세요' : '입장 링크를 입력해주세요'}
           value={link}
@@ -50,15 +50,15 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
             setLink(e.target.value);
           }}
         />
-        <ButtonsWrap>
+        <ButtonsBox>
           <ModalButton onClick={meetingLinkInputBtn} isColor={true}>
             {isEdit ? '수정완료' : '입력'}
           </ModalButton>
           <ModalButton onClick={onClose} isColor={false}>
             취소
           </ModalButton>
-        </ButtonsWrap>
-      </ModalFormWrap>
+        </ButtonsBox>
+      </ModalWrap>
     </Overlay>
   );
 };

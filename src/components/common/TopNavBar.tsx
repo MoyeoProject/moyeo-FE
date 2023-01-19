@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+import left_arrow_icon from '../../assets/left_arrow_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
 import profile_icon from '../../assets/profile_icon.svg';
 import { removeItem } from '../../services/storage';
-import { RightBox, TopBar, TopNavBarWrap } from '../../styles/TopNavBarStyle';
+import { LeftBox, RightBox, TopBar, TopNavBarWrap } from '../../styles/TopNavBarStyle';
 import Categories from './Categories';
 import SearchForm from './SearchForm';
 import SortbyCategories from './SortbyCategories';
@@ -39,10 +40,12 @@ export default function TopNavBar({ name }: { name: string }) {
     </TopNavBarWrap>
   ) : (
     <TopNavBarWrap>
-      <button type="button" onClick={() => handleClickBack()}>
-        {'<'}
-      </button>
-      <p>{id ? '모임 수정하기' : '모임 생성하기'}</p>
+      <LeftBox>
+        <button type="button" onClick={() => handleClickBack()}>
+          <img src={left_arrow_icon} />
+        </button>
+        <p>{id ? '모임 수정하기' : '모임 생성하기'}</p>
+      </LeftBox>
     </TopNavBarWrap>
   );
 }

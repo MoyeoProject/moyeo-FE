@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalFormWrap = styled.div`
+export const ModalWrap = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,7 +17,7 @@ export const ModalFormWrap = styled.div`
   }
 `;
 
-export const ButtonsWrap = styled.div`
+export const ButtonsBox = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -32,19 +32,4 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-`;
-
-export const InputField = styled.input`
-  width: 100%;
-  padding: 16px 12px;
-  border: 1px solid #f4f4f4;
-  border-radius: 10px;
-  font-size: 16px;
-  background-color: #f9f9f9;
-  :focus {
-    outline: none;
-  }
-  ::placeholder {
-    color: #aaaaaa;
-  }
 `;
