@@ -9,6 +9,7 @@ import TopNavBar from '../components/common/TopNavBar';
 import useChangePostForm from '../hooks/useChangePostForm';
 import { editMeeting, postMeeting } from '../services/api';
 import { loadItem } from '../services/storage';
+import { PostButton } from '../styles/ButtonStyle';
 import {
   FormAlert,
   FormContents,
@@ -131,7 +132,7 @@ export default function PostPage() {
             <Toggle register={register} setValue={setValue} />
           </FormContents>
 
-          <button type="submit">{id ? '수정완료' : '작성완료'}</button>
+          <PostButton type="submit">{id ? '수정완료' : '작성완료'}</PostButton>
         </form>
       </FormWrap>
     </>
