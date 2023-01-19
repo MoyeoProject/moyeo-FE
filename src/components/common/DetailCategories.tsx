@@ -6,6 +6,7 @@ import { loadItem, saveItem } from '../../services/storage';
 import { useAppDispatch } from '../../store';
 
 const DetailCategories = () => {
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   return (
     <DetailCategoriesBox>
       <button
@@ -19,8 +20,14 @@ const DetailCategories = () => {
       </button>
       <button
         onClick={() => {
-          saveItem('detailKeyword', 'comment');
-          window.location.reload();
+          {
+            kakaoShareUser
+              ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+                ? location.replace('/')
+                : null
+              : saveItem('detailKeyword', 'comment');
+            window.location.reload();
+          }
         }}
       >
         댓글
