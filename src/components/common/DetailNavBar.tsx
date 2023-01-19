@@ -4,12 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
-import { saveItem } from '../../services/storage';
+import { loadItem, saveItem } from '../../services/storage';
 import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
 import { ShareDataTypes } from '../../types/DetailTypes';
 import KakaoShareButton from '../KakaoShareButton';
 
 const DetailNavBar = ({ data }: any) => {
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const { id } = useParams();
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
@@ -35,6 +36,11 @@ const DetailNavBar = ({ data }: any) => {
           : alert('모임을 취소하셨습니다');
       },
       onError: (err: any) => {
+        if (kakaoShareUser) {
+          if (confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')) {
+            location.replace('/');
+          }
+        }
         return alert(err.response.data.statusMsg);
       },
     });
@@ -64,8 +70,14 @@ const DetailNavBar = ({ data }: any) => {
       <div
         className="navArrow"
         onClick={() => {
-          navigate('/main');
-          saveItem('detailKeyword', 'intro');
+          {
+            kakaoShareUser
+              ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+                ? location.replace('/')
+                : null
+              : navigate('/main');
+            saveItem('detailKeyword', 'intro');
+          }
         }}
       >
         <ChevronLeft />
