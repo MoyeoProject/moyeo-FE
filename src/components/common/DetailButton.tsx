@@ -1,9 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useParams } from 'react-router-dom';
 
-import { loadItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
 import DetailMeetLinkButton from '../DetailMeetLinkButton';
 
@@ -62,7 +60,7 @@ const DetailButton = ({ data, member }: any) => {
         <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true}>
           모임 입장
         </ButtonBasic>
-      ) : member.length === data.maxNum ? (
+      ) : member?.length === data?.maxNum ? (
         <ButtonBasic activeBtn={false}>정원이 다 찼습니다</ButtonBasic>
       ) : (
         <ButtonBasic activeBtn={false}>모임에 참석한 후 입장 가능합니다</ButtonBasic>

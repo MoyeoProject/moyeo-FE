@@ -147,7 +147,6 @@ export const delelteComment = async ({ id, commentId }: any) => {
 
 export const meetingLinkInpitApi = async ({ platform, link, id }: any) => {
   const res = await baseURL.patch(`/meetings/${id}/link`, { platform, link });
-  console.log(res);
   return res;
 };
 
