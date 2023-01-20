@@ -8,7 +8,7 @@ import { Meeting } from '../../types/AppTypes';
 import ModalForm from './ModalForm';
 
 export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
-  const { secret, id, attend, password } = currMeeting;
+  const { secret, id, attend, password, maxNum, attendantsNum } = currMeeting;
 
   const [isAttend, setIsAttend] = useState(attend);
   const [showModal, setShowModal] = useState(false);
@@ -19,9 +19,11 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
       alert(data.response.data.statusMsg);
     },
     onSuccess: (data) => {
-      typeof data.data.data === 'object'
-        ? alert('참석을 완료했습니다.')
-        : alert('모임에서 나왔습니다.');
+      if (typeof data.data.data === 'object') {
+        alert('참석을 완료했습니다.');
+      } else {
+        alert('모임에서 나왔습니다.');
+      }
       setIsAttend((prev) => !prev);
     },
   });
@@ -34,7 +36,7 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
       } else if (inputField === '') {
         alert('비밀번호를 입력해주세요.');
       } else {
-        alert('비밀번호가 틀렸습니다!');
+        alert('비밀번호를 다시 입력해주세요.');
       }
     } else {
       joinMeeting.mutate(id);
@@ -42,14 +44,22 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
     }
   };
 
+  const handleClickModal = (isOpen: boolean) => {
+    if (maxNum !== attendantsNum) {
+      setShowModal(isOpen);
+    } else {
+      alert('정원이 초과되었습니다.');
+    }
+  };
+
   return !isAttend && secret ? (
     <>
-      <HomeButton type="button" onClick={() => setShowModal(true)}>
+      <HomeButton type="button" onClick={() => handleClickModal(true)}>
         {!isAttend ? '참여' : '취소'}
       </HomeButton>
       {showModal &&
         createPortal(
-          <ModalForm onClickConfirm={handleClickJoin} onClose={() => setShowModal(false)} />,
+          <ModalForm onClickConfirm={handleClickJoin} onClose={() => handleClickModal(false)} />,
           document.body
         )}
     </>
