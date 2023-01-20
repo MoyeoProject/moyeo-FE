@@ -12,14 +12,13 @@ export default function SearchForm() {
   const searchMeetings = useMutation({
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
-      alert('검색완료!');
       variables && saveItem('keyword', variables);
       location.reload();
     },
   });
 
   const handleClickSearch = (keyword: string) => {
-    keyword ? searchMeetings.mutate(keyword) : alert('검색어를 입력해주세요!');
+    keyword ? searchMeetings.mutate(keyword) : alert('검색어를 입력해주세요.');
     handleClearInputField();
   };
 
