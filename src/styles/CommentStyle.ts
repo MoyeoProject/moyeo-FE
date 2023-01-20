@@ -45,6 +45,7 @@ export const CommentItem = styled.div<{ align: string; bgColor: string }>`
       border-radius: 8px;
       color: ${(props) => props.color};
       background-color: ${(props) => props.bgColor};
+      cursor: pointer;
     }
   }
   .date {

@@ -33,6 +33,7 @@ export type CommentTypes = {
   createdAt: string;
   deleted: boolean;
   id?: string;
+  myComment?: boolean;
 };
 
 export type ShareDataTypes = {

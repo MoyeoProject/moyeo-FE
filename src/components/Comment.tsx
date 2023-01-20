@@ -30,7 +30,7 @@ const Comment = () => {
   const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment === '') {
-      alert('댓글을 작성해주세요');
+      alert('댓글을 작성해주세요.');
       return;
     }
     addCommentItem({ id, comment });
@@ -49,8 +49,10 @@ const Comment = () => {
   };
 
   const { mutate: delCommentItem } = useDelComment();
-  const handleDelComment = (commetnId: any) => {
-    delCommentItem({ id, commetnId });
+  const handleDelComment = (commentId: any) => {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      delCommentItem({ id, commentId });
+    }
   };
 
   return (
@@ -79,21 +81,23 @@ const Comment = () => {
                   )}
                   <div>
                     {c.username === myUsername ? null : <p className="username">{c.username}</p>}
-                    <div className="userComment">{c.comment}</div>
+                    {c.username === myUsername ? (
+                      <div
+                        className="userComment"
+                        onClick={() => {
+                          handleDelComment(c.commentId);
+                        }}
+                      >
+                        {c.comment}
+                      </div>
+                    ) : (
+                      <div className="userComment"> {c.comment} </div>
+                    )}
                   </div>
                 </div>
 
                 {c.username !== myUsername ? (
                   <p className="date">{c.createdAt.split('T')[1].split('.')[0]}</p>
-                ) : null}
-                {c.username === myUsername ? (
-                  <button
-                    onClick={() => {
-                      handleDelComment(c.commentId);
-                    }}
-                  >
-                    🗑️
-                  </button>
                 ) : null}
               </CommentItem>
             );
