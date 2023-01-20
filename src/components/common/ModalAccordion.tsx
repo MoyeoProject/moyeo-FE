@@ -1,12 +1,15 @@
+import ko from 'date-fns/locale/ko';
 import { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
 import modal_plus_icon from '../../assets/modal_plus_icon.svg';
 import { PostButton } from '../../styles/ButtonStyle';
-import { ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
+import { CalendarBox, ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
+
+registerLocale('ko', ko);
 
 type ModalAccordionProps = {
   name: string;
@@ -24,7 +27,15 @@ export default function ModalAccordion({
   control,
 }: ModalAccordionProps) {
   const [startDate, setStartDate] = useState<Date>(new Date());
-  const [option, setOption] = useState<string | null>(null);
+  const [option, setOption] = useState<string | number | null>(null);
+
+  const MyContainer = ({ className, children }: { className: any; children: any }) => {
+    return (
+      <div style={{ position: 'relative' }}>
+        <div style={{}}>{children}</div>
+      </div>
+    );
+  };
 
   return (
     <Overlay>
@@ -36,14 +47,16 @@ export default function ModalAccordion({
               name={name}
               control={control}
               render={({ field: { onChange } }) => (
-                <>
+                <CalendarBox>
                   <DatePicker
+                    inline
+                    locale="ko"
                     selected={startDate}
                     onChange={(date: Date) => {
                       setStartDate(date);
                     }}
                     minDate={new Date()}
-                    inline
+                    calendarContainer={MyContainer}
                   />
                   <PostButton
                     type="button"
@@ -55,7 +68,7 @@ export default function ModalAccordion({
                   >
                     확인
                   </PostButton>
-                </>
+                </CalendarBox>
               )}
             />
           </>
@@ -74,7 +87,9 @@ export default function ModalAccordion({
                           type="button"
                           onClick={(event) => {
                             const { innerHTML } = event.currentTarget;
-                            setOption(innerHTML);
+                            name === 'duration' || name === 'maxNum'
+                              ? setOption(+innerHTML)
+                              : setOption(innerHTML);
                           }}
                         >
                           {option}

@@ -52,3 +52,7 @@ export const OptionsBox = styled.div`
     }
   }
 `;
+
+export const CalendarBox = styled.div`
+  text-align: center;
+`;
