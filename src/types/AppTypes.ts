@@ -44,3 +44,11 @@ export type PostForm = {
   secret: boolean;
   password: string;
 };
+
+export type Modal = {
+  name: string;
+  title: string;
+  content: string | null;
+  isOpen: boolean;
+  options: string[] | null;
+};

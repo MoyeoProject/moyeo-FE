@@ -1,12 +1,6 @@
 import { useState } from 'react';
 
-type Modal = {
-  name: string;
-  title: string;
-  content: string | null;
-  isOpen: boolean;
-  options: string[] | null;
-};
+import { Modal } from '../types/AppTypes';
 
 const modalData: Modal[] = [
   {

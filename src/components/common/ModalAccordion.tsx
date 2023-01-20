@@ -5,7 +5,7 @@ import { Control, Controller, FieldValues } from 'react-hook-form';
 
 import modal_plus_icon from '../../assets/modal_plus_icon.svg';
 import { PostButton } from '../../styles/ButtonStyle';
-import { CategorySelectorBox, ModalTitle, ModalWrap, Overlay } from '../../styles/ModalStyle';
+import { ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
 
 type ModalAccordionProps = {
@@ -68,7 +68,7 @@ export default function ModalAccordion({
                 {options &&
                   options.map((option) => {
                     return (
-                      <CategorySelectorBox key={option}>
+                      <OptionsBox key={option}>
                         <img src={modal_plus_icon} />
                         <button
                           type="button"
@@ -79,7 +79,7 @@ export default function ModalAccordion({
                         >
                           {option}
                         </button>
-                      </CategorySelectorBox>
+                      </OptionsBox>
                     );
                   })}
                 <PostButton

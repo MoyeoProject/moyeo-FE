@@ -25,4 +25,11 @@ a {
 button {
   cursor: pointer;
 }
+input, textarea, button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+}
 `;

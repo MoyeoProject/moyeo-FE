@@ -1,7 +1,7 @@
 import useChangeInputField from '../../hooks/useChangeInputField';
 import { ModalButton } from '../../styles/ButtonStyle';
 import { InputField } from '../../styles/FormStyle';
-import { ButtonsBox, ModalWrap, Overlay } from '../../styles/ModalStyle';
+import { ButtonsBox, ModalTitle, ModalWrap, Overlay } from '../../styles/ModalStyle';
 
 type ModalFormProps = {
   onClose: () => void;
@@ -14,7 +14,7 @@ export default function ModalForm({ onClose, onClickConfirm }: ModalFormProps) {
   return (
     <Overlay>
       <ModalWrap>
-        <p>비밀번호</p>
+        <ModalTitle align={'start'}>비밀번호</ModalTitle>
         <>
           <InputField
             id="password"

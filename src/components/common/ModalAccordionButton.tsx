@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Control, Controller, FieldValues, UseFormRegister } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import bottom_arrow_icon from '../../assets/bottom_arrow_icon.svg';
 import useShowModalAccordion from '../../hooks/useShowModalAccordion';
 import { ArrowImg, FormLabel, InputField, InputFieldBox } from '../../styles/FormStyle';
+import { Modal } from '../../types/AppTypes';
 import ModalAccordion from './ModalAccordion';
 
 export default function ModalAccordionButton({
@@ -16,10 +18,15 @@ export default function ModalAccordionButton({
   control: Control<FieldValues>;
   name: string;
 }) {
+  const [contents, setContents] = useState<Modal | undefined>();
   const { id } = useParams();
 
   const { modals, handleShowModal, handleCloseModal } = useShowModalAccordion();
-  const currModal = modals.find((modal) => modal.name === name);
+  const currModal = modals?.find((modal) => modal.name === name);
+
+  useEffect(() => {
+    setContents(currModal);
+  }, []);
 
   return (
     <>
@@ -32,8 +39,10 @@ export default function ModalAccordionButton({
             render={({ field: { value } }) => (
               <InputFieldBox>
                 <InputField
-                  type="button"
+                  readOnly
+                  type="text"
                   value={value}
+                  placeholder={value ? value : currModal.content}
                   disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
                   onClick={() => handleShowModal(currModal.name)}
                   {...register(name, { required: true })}

@@ -46,6 +46,7 @@ export const InputField = styled.input`
   border-radius: 10px;
   font-size: 16px;
   background-color: #f9f9f9;
+  cursor: auto;
   :focus {
     outline: none;
   }
