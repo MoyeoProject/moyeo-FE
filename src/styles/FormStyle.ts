@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const FormWrap = styled.div`
-  padding: 32px 16px;
-  margin-top: 52px;
+  padding: 0 16px;
+  padding-top: 84px;
+  padding-bottom: 32px;
   background-color: #fff;
 `;
 
