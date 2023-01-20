@@ -32,4 +32,7 @@ input, textarea, button {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
 }
+.react-datepicker__month-container {
+  width: 100%;
+}
 `;

@@ -41,7 +41,10 @@ export default function ModalAccordionButton({
                 <InputField
                   readOnly
                   type="text"
-                  value={value}
+                  value={
+                    value +
+                    (value && name === 'maxNum' ? '명' : value && name === 'duration' ? '시간' : '')
+                  }
                   placeholder={value ? value : currModal.content}
                   disabled={(id && name === 'category') || (id && name === 'maxNum') ? true : false}
                   onClick={() => handleShowModal(currModal.name)}
