@@ -51,11 +51,11 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
           }}
         />
         <ButtonsBox>
-          <ModalButton onClick={meetingLinkInputBtn} isColor={true}>
-            {isEdit ? '수정완료' : '입력'}
-          </ModalButton>
           <ModalButton onClick={onClose} isColor={false}>
             취소
+          </ModalButton>
+          <ModalButton onClick={meetingLinkInputBtn} isColor={true}>
+            {isEdit ? '수정완료' : '입력'}
           </ModalButton>
         </ButtonsBox>
       </ModalWrap>
