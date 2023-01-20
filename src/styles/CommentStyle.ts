@@ -54,11 +54,10 @@ export const CommentItem = styled.div<{ align: string; bgColor: string }>`
   }
 `;
 export const InputBox = styled.div`
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  top: 812px;
   left: 50%;
-  transform: translate(-50%);
-  width: 100%;
+  transform: translate(-50%, -100%);
   padding: 16px 0;
   box-sizing: border-box;
   background-color: white;

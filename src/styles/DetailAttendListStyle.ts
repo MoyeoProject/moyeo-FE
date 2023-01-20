@@ -41,14 +41,16 @@ export const Member = styled.div`
     display: flex;
     align-items: center;
   }
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+  .imgBox {
     margin-right: 11px;
+    & > img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
   }
   span {
-    margin-right: 4px; 
+    margin-right: 4px;
     font-size: 14px;
     line-height: 20px;
   }

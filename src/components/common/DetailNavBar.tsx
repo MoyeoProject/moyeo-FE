@@ -30,9 +30,7 @@ const DetailNavBar = ({ data }: any) => {
     return useMutation(meetAttendExitApi, {
       onSuccess: (data) => {
         QueryClient.invalidateQueries();
-        data?.data.data !== undefined
-          ? alert(`"${meetingTitle}" 모임에 오신걸 환영합니다!`)
-          : alert('모임을 취소하셨습니다');
+        data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
       },
       onError: (err: any) => {
         if (kakaoShareUser) {
@@ -101,7 +99,13 @@ const DetailNavBar = ({ data }: any) => {
         ) : (
           <div
             onClick={() => {
-              handleClickAttnedExit(id);
+              if (!data?.attend) {
+                handleClickAttnedExit(id);
+              }
+              if (data?.attend && confirm('정말 나가시겠습니까?')) {
+                handleClickAttnedExit(id);
+                return;
+              }
             }}
           >
             {data?.attend ? <span>➡️</span> : <span>⬅️</span>}

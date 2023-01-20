@@ -18,12 +18,14 @@ export const DetailBox = styled.div`
   }
   .detailMainBox {
     position: relative;
-    height: 692px;
+    margin-bottom: 85px;
   }
   .buttonBox {
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    top: 812px;
+    transform: translateY(-100%);
     padding: 16px;
     box-sizing: border-box;
+    background-color: white;
   }
 `;

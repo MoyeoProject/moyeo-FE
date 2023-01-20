@@ -35,10 +35,10 @@ const SignUpForm = () => {
     axios
       .post('https://reqres.in/api/register', email)
       .then((res) => {
-        alert('이메일 인증번호를 적어주세요');
+        alert('이메일 인증번호를 적어주세요.');
       })
       .catch((err) => {
-        alert('이메일 주소를 확인해주세요');
+        alert('이메일 주소를 확인해주세요.');
       });
   };
 
@@ -55,7 +55,7 @@ const SignUpForm = () => {
         setEmailAuth(true);
       })
       .catch((err) => {
-        alert('인증번호가 틀렸습니다');
+        alert('인증번호가 틀렸습니다.');
         setEmailAuth(false);
       });
   };
@@ -72,7 +72,7 @@ const SignUpForm = () => {
         // window.location.href = '/';
       })
       .catch((err) => {
-        alert('회원가입 실패');
+        alert('회원가입 실패.');
       });
   };
 

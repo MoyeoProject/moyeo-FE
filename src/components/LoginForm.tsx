@@ -30,7 +30,9 @@ const LoginForm = () => {
   });
 
   const handleClickLogin = ({ email, password }: LoginInputField) => {
-    email && password ? mutateLogin.mutate({ email, password }) : alert('값을 입력해주세요!');
+    email && password
+      ? mutateLogin.mutate({ email, password })
+      : alert('이메일과 비밀번호를 확인해주세요.');
   };
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLFormElement>) => {
@@ -44,7 +46,7 @@ const LoginForm = () => {
       <div className="logoBox">
         <LoginLogo />
       </div>
-      <div className='loginBox'>
+      <div className="loginBox">
         <InputFormBox onKeyUp={handleEnterKey}>
           <div className="inputBox">
             <label>이메일</label>

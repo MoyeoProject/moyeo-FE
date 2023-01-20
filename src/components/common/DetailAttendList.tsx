@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
-import Frame_user from '../../assets/category_img.svg';
+import { ReactComponent as Frame_user } from '../../assets/Frame_user.svg';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
 import FollowButton from './FollowButton';
@@ -29,13 +29,9 @@ const DetailAttendList = ({ data, member }: any) => {
             {m.userId === masterId ? (
               <>
                 <Member>
-                  <img
-                    src={
-                      m.profileUrl !== null
-                        ? m.profileUrl
-                        : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-                    }
-                  />
+                  <div className="imgBox">
+                    {m.profileUrl !== null ? <img src={m.profileUrl} /> : <Frame_user />}
+                  </div>
                   <div>
                     <span>{m.username}</span>
                     <FramePlusIcon />
@@ -46,13 +42,9 @@ const DetailAttendList = ({ data, member }: any) => {
             ) : (
               <>
                 <Member>
-                  <img
-                    src={
-                      m.profileUrl !== null
-                        ? m.profileUrl
-                        : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-                    }
-                  />
+                  <div className="imgBox">
+                    {m.profileUrl !== null ? <img src={m.profileUrl} /> : <Frame_user />}
+                  </div>
                   <span>{m.username}</span>
                 </Member>
                 {data?.master ? (

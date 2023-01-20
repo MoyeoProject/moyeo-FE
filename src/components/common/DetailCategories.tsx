@@ -6,11 +6,8 @@ import { loadItem, saveItem } from '../../services/storage';
 import { useAppDispatch } from '../../store';
 
 const DetailCategories = () => {
-  // const [isSelect, setIsSelect] = useState(false);
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const isSelect = loadItem('detailKeyword');
-  // isSelect === 'intro' ? console.log(true) : null;
-  // isSelect === 'comment' ? console.log(true) : null;
 
   return (
     <DetailCategoriesBox>

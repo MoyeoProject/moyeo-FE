@@ -21,7 +21,7 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
   const useMeetingLinkInput = () => {
     return useMutation(meetingLinkInpitApi, {
       onSuccess: (data) => {
-        alert('모임 링크가 개설되었습니다');
+        alert('모임 링크가 개설되었습니다.');
         QueryClient.invalidateQueries(['link', id]);
         window.location.reload();
       },
@@ -34,7 +34,7 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
   const { mutate: meetingLinkInput } = useMeetingLinkInput();
   const meetingLinkInputBtn = () => {
     if (link === '') {
-      alert('링크를 입력해주세요');
+      alert('링크를 입력해주세요.');
       return;
     }
     meetingLinkInput({ link, id, platform });
@@ -44,7 +44,7 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
     <Overlay>
       <ModalWrap>
         <InputField
-          placeholder={isEdit ? '수정된 링크를 입력해주세요' : '입장 링크를 입력해주세요'}
+          placeholder={isEdit ? '수정된 링크를 입력해주세요.' : '입장 링크를 입력해주세요.'}
           value={link}
           onChange={(e) => {
             setLink(e.target.value);
