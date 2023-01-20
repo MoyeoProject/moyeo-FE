@@ -55,7 +55,7 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
               <div>
                 <ClockIcon />
                 <p>
-                  {time} {data?.duration} 시간 ~
+                  {time} ~ {data?.duration}시간
                 </p>
               </div>
             </div>

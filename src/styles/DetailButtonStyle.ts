@@ -1,30 +1,24 @@
 import styled from 'styled-components';
 
-export const ButtonBasic = styled.button`
+export const ButtonBasic = styled.button<{ activeBtn: boolean; cursor?: boolean }>`
   width: 343px;
   height: 54px;
   border-radius: 8px;
-  background-color: #9cc8d2;
-  color: white;
-  font-weight: 700;
-`;
-export const ButtonDisabled = styled(ButtonBasic)`
-  background-color: #aaaaaa;
-  cursor: default;
-`;
-export const ButtonEdit = styled(ButtonBasic)`
-  color: #666666;
-  font-weight: 500;
-  background-color: #e9e9e9;
+  background-color: ${(props) => (props.activeBtn ? '#9cc8d2' : '#F4F4F4')};
+  color: ${(props) => (props.activeBtn ? 'white' : '#666666')};
+  font-weight: '700';
+  cursor: ${(props) => (props.cursor ? 'pointer' : 'default')};
 `;
 export const MasterButton = styled.div`
   width: 343px;
   display: flex;
   flex-grow: 1 1;
   justify-content: space-between;
+  button:first-child {
+    margin-right: 8px;
+  }
 `;
 
-// --------버튼 스타일 정리
 export const MasterLinkInput = styled.div`
   width: 100%;
   height: 54px;

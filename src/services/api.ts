@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
-import { MemberTypes } from '../types/DetailTypes';
+import { CommentTypes, MemberTypes } from '../types/DetailTypes';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -140,8 +140,8 @@ export const addComment = async ({ id, comment }: any) => {
   return res;
 };
 
-export const delelteComment = async ({ id, commetnId }: any) => {
-  const res = await baseURL.delete(`/meetings/${id}/comments/${commetnId}`);
+export const delelteComment = async ({ id, commentId }: any) => {
+  const res = await baseURL.delete(`/meetings/${id}/comments/${commentId}`);
   return res;
 };
 

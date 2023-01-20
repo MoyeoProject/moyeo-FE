@@ -7,24 +7,27 @@ import DetailButton from '../components/common/DetailButton';
 import DetailCategories from '../components/common/DetailCategories';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
-import { getDetailPage } from '../services/api';
+import { getAttendList, getDetailPage } from '../services/api';
 import { loadItem, saveItem } from '../services/storage';
 import { DetailBox } from '../styles/DetailPageStyle';
 
 const DetailPage = () => {
   const categories = loadItem('detailKeyword');
   const { id } = useParams();
-  const { data, isLoading, isError } = useQuery(
-    ['detail', id],
-    () => {
-      return getDetailPage(id);
-    },
-    {
-      // 로딩중일때, 이전 데이터 유지하기 속성
-      keepPreviousData: true,
-    }
-  );
-  const detailData = data?.data.data;
+  const {
+    data: detail,
+    isLoading,
+    isError,
+  } = useQuery(['detail', id], () => {
+    return getDetailPage(id);
+  });
+
+  const { data: member } = useQuery(['member'], () => {
+    return getAttendList(id);
+  });
+
+  const detailData = detail?.data.data;
+  const memberData = member?.data.data;
 
   if (isLoading) {
     return <h2>로딩중</h2>;
@@ -48,9 +51,9 @@ const DetailPage = () => {
           {categories === 'intro' ? (
             <>
               <DetailMeetingInfo data={detailData} isLoading={isLoading} isError={isError} />
-              <DetailAttendList data={detailData} />
+              <DetailAttendList data={detailData} member={memberData} />
               <div className="buttonBox">
-                <DetailButton data={detailData} />
+                <DetailButton data={detailData} member={memberData} />
               </div>
             </>
           ) : (

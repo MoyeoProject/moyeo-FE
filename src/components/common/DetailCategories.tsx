@@ -6,18 +6,25 @@ import { loadItem, saveItem } from '../../services/storage';
 import { useAppDispatch } from '../../store';
 
 const DetailCategories = () => {
+  // const [isSelect, setIsSelect] = useState(false);
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+  const isSelect = loadItem('detailKeyword');
+  // isSelect === 'intro' ? console.log(true) : null;
+  // isSelect === 'comment' ? console.log(true) : null;
+
   return (
     <DetailCategoriesBox>
-      <button
+      <Button
+        selectButton={isSelect === 'intro' ? true : false}
         onClick={() => {
           saveItem('detailKeyword', 'intro');
           window.location.reload();
         }}
       >
         소개
-      </button>
-      <button
+      </Button>
+      <Button
+        selectButton={isSelect === 'comment' ? true : false}
         onClick={() => {
           {
             kakaoShareUser
@@ -30,7 +37,7 @@ const DetailCategories = () => {
         }}
       >
         댓글
-      </button>
+      </Button>
     </DetailCategoriesBox>
   );
 };
@@ -43,15 +50,15 @@ const DetailCategoriesBox = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   /* 블러처리. */
-  button {
-    width: 168px;
-    height: 100%;
-    margin-right: 8px;
-    border-bottom: 2px solid #9cc8d2;
-    color: #aaaaaa;
-    font-weight: 700;
-    background-color: white;
-  }
+`;
+const Button = styled.button<{ selectButton: boolean }>`
+  width: 168px;
+  height: 100%;
+  margin-right: 8px;
+  border-bottom: ${(props) => (props.selectButton ? '2px solid #9cc8d2' : null)};
+  color: #aaaaaa;
+  font-weight: 700;
+  background-color: white;
   button:last-child {
     margin-right: 0;
   }

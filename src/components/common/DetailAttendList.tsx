@@ -2,27 +2,28 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
-import { getAttendList } from '../../services/api';
+import Frame_user from '../../assets/category_img.svg';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
 import FollowButton from './FollowButton';
 
-const DetailAttendList = ({ data }: any) => {
-  const { id } = useParams();
-  const { data: member } = useQuery(['member'], () => {
-    return getAttendList(id);
-  });
+// type DetailAttendType = {
+//   data: DetailTypes[]
+//   member: MemberTypes[]
+//  서로 다른 두 데이터를 props으로 넘길
+// }
+
+const DetailAttendList = ({ data, member }: any) => {
   const masterId = data?.masterId;
   const maxNum = data?.maxNum;
-  const currentNum = member?.data.data.length;
-
+  const currentNum = member?.length;
   return (
     <Box>
       <p>
         참여인원 {currentNum}
         <span> / {maxNum}</span>
       </p>
-      {member?.data.data.map((m: MemberTypes) => {
+      {member?.map((m: MemberTypes) => {
         return (
           <MemberBox key={m.userId}>
             {m.userId === masterId ? (

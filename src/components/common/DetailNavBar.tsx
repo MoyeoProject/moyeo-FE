@@ -47,7 +47,6 @@ const DetailNavBar = ({ data }: any) => {
 
   const { mutate: meetAttendExit } = useMeetAttendExit();
   const handleClickAttnedExit = (id: any) => {
-    console.log('나가기');
     meetAttendExit(id);
   };
 
