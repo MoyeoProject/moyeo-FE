@@ -11,10 +11,12 @@ export const ModalWrap = styled.div`
   background-color: #fff;
   transform: translate(-50%, -50%);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-  & > p {
-    margin: 16px 0;
-    font-weight: 700;
-  }
+`;
+
+export const ModalTitle = styled.p`
+  text-align: ${(props: { align: string }) => props.align};
+  padding: 16px 0;
+  font-weight: 700;
 `;
 
 export const ButtonsBox = styled.div`
@@ -32,4 +34,21 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
+`;
+
+export const OptionsBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 16px 12px;
+  & > button {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #aaaaaa;
+    background-color: transparent;
+    :focus,
+    :hover {
+      color: #000;
+    }
+  }
 `;
