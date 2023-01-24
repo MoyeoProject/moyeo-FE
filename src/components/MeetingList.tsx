@@ -16,12 +16,29 @@ type ListItemsProps = {
 export default function MeetingList({ currMeetingList }: ListItemsProps) {
   const sortbyKeyword = loadItem('keyword');
 
-  const { onIntersect } = useInfiniteScroll(currMeetingList);
+  const { onIntersect, nextMeetingList } = useInfiniteScroll(currMeetingList);
   const intersectRef = useIntersect(onIntersect);
 
   return (
     <MeetingListWrap>
       {currMeetingList.map((meeting) => (
+        <MeetingWrap key={meeting.id}>
+          <Link to={`/detail/${meeting.id}`}>
+            <ListContent currMeeting={meeting} />
+          </Link>
+          {sortbyKeyword === 'calendar' ? null : (
+            <div>
+              {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
+                <AttendantsContent attendantsList={meeting.attendantsList} />
+              ) : (
+                <div></div>
+              )}
+              <ButtonContent currMeeting={meeting} />
+            </div>
+          )}
+        </MeetingWrap>
+      ))}
+      {nextMeetingList?.map((meeting) => (
         <MeetingWrap key={meeting.id}>
           <Link to={`/detail/${meeting.id}`}>
             <ListContent currMeeting={meeting} />

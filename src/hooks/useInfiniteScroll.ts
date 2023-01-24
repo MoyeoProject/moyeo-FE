@@ -1,19 +1,15 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { addMeetingList } from '../modules/homeSlice';
 import { getNextMeetings } from '../services/api';
 import { loadItem } from '../services/storage';
 import { Meeting } from '../types/AppTypes';
 
 export default function useInfiniteScroll(currMeetingList: Meeting[]) {
-  const dispatch = useDispatch();
-
   const keyword = loadItem('keyword');
   const pageId = useRef<number>(1);
 
-  const { fetchNextPage } = useInfiniteQuery(
+  const { fetchNextPage, data } = useInfiniteQuery(
     ['nextMeetings'],
     ({
       pageParam = keyword === 'popular'
@@ -32,13 +28,10 @@ export default function useInfiniteScroll(currMeetingList: Meeting[]) {
           ? pageId.current
           : lastMeetingList.length !== 0 && lastMeetingList[lastMeetingList.length - 1].id;
       },
-      onSuccess: (data) => {
-        const nextMeetingList = data.pages[data.pages.length - 1].data.meetingList;
-        dispatch(addMeetingList(nextMeetingList));
-      },
-      enabled: false,
     }
   );
+
+  const nextMeetingList = data?.pages.map((page) => page.data.meetingList).flat();
 
   const onIntersect = useCallback(
     (entry: IntersectionObserverEntry, observer: IntersectionObserver): void => {
@@ -48,5 +41,5 @@ export default function useInfiniteScroll(currMeetingList: Meeting[]) {
     []
   );
 
-  return { onIntersect };
+  return { onIntersect, nextMeetingList };
 }
