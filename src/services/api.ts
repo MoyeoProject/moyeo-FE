@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
-import { CommentTypes, MemberTypes } from '../types/DetailTypes';
+import { CommentTypes, MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -109,11 +109,11 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     });
 };
 
-export const getDetailPage = async (id: any) => {
+export const getDetailPage = async (id: string | undefined) => {
   const res = await baseURL.get(`meetings/${id}`);
   return res;
 };
-export const getAlarmApi = async (id: any) => {
+export const getAlarmApi = async (id: string | undefined) => {
   const res = await baseURL.patch(`/meetings/${id}/alarm`);
   return res;
 };
@@ -123,29 +123,35 @@ export const meetAttendExitApi = async (meetingId: any) => {
   return res;
 };
 
-export const getAttendList = async (meetingId: any) => {
+export const getAttendList = async (meetingId: string | undefined) => {
   // const res = await mockURL.get('/attend');
   const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
-
-export const getCommentPage = async (meetingId: any) => {
+// { id, postForm }: { id: number; postForm: FieldValues }
+export const getCommentPage = async (meetingId: string | undefined) => {
   // const res = await mockURL.get('/comment');
   const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
   return res;
 };
 
-export const addComment = async ({ id, comment }: any) => {
+export const addComment = async ({ id, comment }: { id: string | undefined; comment: string }) => {
   const res = await baseURL.post(`/meetings/${id}/comments?commentId=`, { comment });
   return res;
 };
 
-export const delelteComment = async ({ id, commentId }: any) => {
+export const delelteComment = async ({
+  id,
+  commentId,
+}: {
+  id: string | undefined;
+  commentId: number;
+}) => {
   const res = await baseURL.delete(`/meetings/${id}/comments/${commentId}`);
   return res;
 };
 
-export const meetingLinkInpitApi = async ({ platform, link, id }: any) => {
+export const meetingLinkInpitApi = async ({ platform, link, id }: MeetingLinkAddType) => {
   const res = await baseURL.patch(`/meetings/${id}/link`, { platform, link });
   return res;
 };

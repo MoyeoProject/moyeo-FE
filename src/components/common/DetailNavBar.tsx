@@ -1,28 +1,31 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
-import { ParamsId } from '../../types/DetailTypes';
+import { DetailMeetPassword } from '../DetailMeetLinkButton';
+
 import KakaoShareButton from '../KakaoShareButton';
 
 const DetailNavBar = ({ data }: any) => {
+  const [showModal, setShowModal] = useState(false);
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const { id } = useParams();
+
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const meetingTitle = data?.title;
   const shareData = {
     link: `detail/${data?.id}`,
     title: data?.title,
     content: data?.content,
   };
 
-  const handleClickMeetingEdit = (id: any) => {
+  const handleClickMeetingEdit = (id: string | undefined) => {
     navigate(`/post/${id}`);
   };
 
@@ -42,9 +45,8 @@ const DetailNavBar = ({ data }: any) => {
       },
     });
   };
-
   const { mutate: meetAttendExit } = useMeetAttendExit();
-  const handleClickAttnedExit = (id: any) => {
+  const handleClickAttnedExit = (id: string | undefined) => {
     meetAttendExit(id);
   };
 
@@ -55,9 +57,8 @@ const DetailNavBar = ({ data }: any) => {
       },
     });
   };
-
   const { mutate: getAlarm } = useGetAlarm();
-  const handleClickAlarm = (id: any) => {
+  const handleClickAlarm = (id: string | undefined) => {
     data?.attend ? getAlarm(id) : alert('모임 참석하기 후, 알람 설정이 가능합니다');
   };
 
@@ -99,8 +100,14 @@ const DetailNavBar = ({ data }: any) => {
         ) : (
           <div
             onClick={() => {
+              if (!data?.attend && data?.secret) {
+                console.log('비밀번호방');
+                setShowModal(true);
+                return;
+              }
               if (!data?.attend) {
                 handleClickAttnedExit(id);
+                return;
               }
               if (data?.attend && confirm('정말 나가시겠습니까?')) {
                 handleClickAttnedExit(id);
@@ -111,6 +118,8 @@ const DetailNavBar = ({ data }: any) => {
             {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
           </div>
         )}
+        {showModal &&
+          createPortal(<DetailMeetPassword onClose={() => setShowModal(false)} />, document.body)}
       </NavButtonBox>
     </NavBox>
   );

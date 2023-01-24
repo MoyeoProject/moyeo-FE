@@ -32,22 +32,29 @@ export type CommentTypes = {
   comment: string;
   createdAt: string;
   deleted: boolean;
-  id?: string;
-  myComment?: boolean;
+  id?: string | undefined;
+  myComment: boolean;
 };
 
-export type ShareDataTypes = {
+export type CommentArray = {
+  CommentTypes: [];
+};
+
+export type KakaoShareTypes = {
+  shareData: [];
+};
+export type shareData = {
   link: string;
   title: string;
   content: string;
 };
 
 export type ParamsId = {
-  id: string;
+  id: string | null;
 };
 
 export type MeetingLinkAddType = {
   link?: string;
   platform: string;
-  id: string;
+  id: string | undefined;
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
-import DetailMeetLinkButton from '../DetailMeetLinkButton';
+import { DetailMeetLinkButton } from '../DetailMeetLinkButton';
 
 const DetailButton = ({ data, member }: any) => {
   const [showModal, setShowModal] = useState(false);
@@ -16,17 +16,17 @@ const DetailButton = ({ data, member }: any) => {
     //  alert('모임 시작 30분 전부터 입장 가능합니다');
     // }
   };
-
+  console.log(data);
   return (
     <>
       {data?.master ? (
         <>
           {data?.link !== '' ? (
             <MasterButton>
-              <ButtonBasic activeBtn={true} onClick={meetingEntranceBtn}>
+              <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
                 모임입장
               </ButtonBasic>
-              <ButtonBasic activeBtn={false} onClick={() => setShowModal(true)}>
+              <ButtonBasic activeBtn={false} cursorAct={true} onClick={() => setShowModal(true)}>
                 입장 링크 수정
               </ButtonBasic>
               {showModal &&
@@ -57,9 +57,15 @@ const DetailButton = ({ data, member }: any) => {
           )}
         </>
       ) : data?.attend ? (
-        <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true}>
-          모임 입장
-        </ButtonBasic>
+        !data?.link ? (
+          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={false} cursorAct={false}>
+            링크 개설 전 입니다
+          </ButtonBasic>
+        ) : (
+          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true} cursorAct={true}>
+            모임 입장
+          </ButtonBasic>
+        )
       ) : member?.length === data?.maxNum ? (
         <ButtonBasic activeBtn={false}>정원이 다 찼습니다</ButtonBasic>
       ) : (

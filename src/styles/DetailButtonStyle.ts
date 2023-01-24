@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const ButtonBasic = styled.button<{ activeBtn: boolean; cursor?: boolean }>`
+export const ButtonBasic = styled.button<{ activeBtn: boolean; cursorAct?: boolean }>`
   width: 343px;
   height: 54px;
   border-radius: 8px;
   background-color: ${(props) => (props.activeBtn ? '#9cc8d2' : '#F4F4F4')};
   color: ${(props) => (props.activeBtn ? 'white' : '#666666')};
   font-weight: '700';
-  cursor: ${(props) => (props.cursor ? 'pointer' : 'default')};
+  cursor: ${(props) => (props.cursorAct ? 'pointer' : 'default')};
 `;
 export const MasterButton = styled.div`
   width: 343px;

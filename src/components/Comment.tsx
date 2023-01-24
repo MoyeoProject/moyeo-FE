@@ -48,7 +48,7 @@ const Comment = () => {
   };
 
   const { mutate: delCommentItem } = useDelComment();
-  const handleDelComment = (commentId: any) => {
+  const handleDelComment = (commentId: number) => {
     if (confirm('정말 삭제하시겠습니까?')) {
       delCommentItem({ id, commentId });
     }
