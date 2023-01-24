@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { meetingLinkInpitApi } from '../services/api';
+import { meetAttendExitApi, meetingLinkInpitApi } from '../services/api';
 import { ModalButton } from '../styles/ButtonStyle';
 import { InputField } from '../styles/FormStyle';
 import { ButtonsBox, ModalWrap, Overlay } from '../styles/ModalStyle';
@@ -13,7 +13,7 @@ type DetailModalFormProps = {
   isEdit: boolean;
 };
 
-const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProps) => {
+export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProps) => {
   const QueryClient = useQueryClient();
   const { id } = useParams();
   const [link, setLink] = useState('');
@@ -63,4 +63,56 @@ const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProp
   );
 };
 
-export default DetailMeetLinkButton;
+type DetailMeetPasswordProps = {
+  onClose: () => void;
+};
+
+export const DetailMeetPassword = ({ onClose }: DetailMeetPasswordProps) => {
+  const QueryClient = useQueryClient();
+  const { id } = useParams();
+  const [password, setPassword] = useState('');
+
+  const useMeetAttendExit = () => {
+    return useMutation(meetAttendExitApi, {
+      onSuccess: (data) => {
+        QueryClient.invalidateQueries();
+        data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
+      },
+      onError: (err: any) => {
+        return alert(err.response.data.statusMsg);
+      },
+    });
+  };
+  const { mutate: meetAttendExit } = useMeetAttendExit();
+  const handleClickAttnedExit = (id: any) => {
+    if (password === '') {
+      alert('비밀번호를 입력해주세요.');
+      return;
+    }
+    // if (password === )
+    console.log(id)
+    meetAttendExit({ id });
+  };
+
+  return (
+    <Overlay>
+      <ModalWrap>
+        <InputField
+          placeholder="비밀번호를 입력해주세요"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <ButtonsBox>
+          <ModalButton onClick={onClose} isColor={false}>
+            취소
+          </ModalButton>
+          <ModalButton onClick={handleClickAttnedExit} isColor={true}>
+            입력
+          </ModalButton>
+        </ButtonsBox>
+      </ModalWrap>
+    </Overlay>
+  );
+};

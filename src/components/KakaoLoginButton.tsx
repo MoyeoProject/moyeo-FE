@@ -11,8 +11,10 @@ const REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`;
 
-const setAccessToken = (accessToken: any) => {
-  localStorage.setItem('isLogin', accessToken);
+const setAccessToken = (accessToken: string | undefined) => {
+  if (accessToken) {
+    localStorage.setItem('isLogin', accessToken);
+  }
 };
 
 const kakaoLogin = (code: string | null) => {
