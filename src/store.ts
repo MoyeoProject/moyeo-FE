@@ -3,13 +3,9 @@ import { useSelector } from 'react-redux';
 import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 
 import authReducer from './modules/authSlice';
-import homeReducer from './modules/homeSlice';
 
 const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    home: homeReducer,
-  },
+  reducer: { auth: authReducer },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
   }),
