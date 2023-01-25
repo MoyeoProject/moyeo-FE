@@ -17,7 +17,6 @@ export const DetailBox = styled.div`
     z-index: 10;
   }
   .detailMainBox {
-    position: relative;
     margin-bottom: 85px;
   }
   .buttonBox {
