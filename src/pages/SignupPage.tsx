@@ -1,13 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { isSignup } from '../modules/authSlice';
 import { emailAuthNumberApi, emailCheckApi } from '../services/api';
-import { loadItem } from '../services/storage';
-import { useAppDispatch } from '../store';
 import { AuthButtonBox, AuthFormBox, SignupBox } from '../styles/LoginFormStyle';
 
 type SignUp = {
@@ -22,7 +17,6 @@ type SignUp = {
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState<string>('');
   const [emailCheck, setEmailCheck] = useState(false);
@@ -57,7 +51,7 @@ const SignUpForm = () => {
   const handleClickEamilAuth = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     console.log(authNumber, email);
-    // emailAuthNumberApi({ email, authNumber });
+    emailAuthNumberApi({ email, authNumber });
     if (!emailCheck) {
       alert('이메일 인증을 먼저 해주세요.');
       return;

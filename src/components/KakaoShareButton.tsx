@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { ShareDataTypes } from '../types/DetailTypes';
-
 const KakaoShareButton = (shareData: any) => {
   useEffect(() => {
     const script = document.createElement('script');
