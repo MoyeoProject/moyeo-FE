@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const Categories = styled.div`
+export const SortbyWrap = styled.div`
   display: flex;
   justify-content: space-evenly;
 `;
 
-export const CategoryButton = styled.button`
+export const SortbyButton = styled.button`
   width: 30%;
   font-size: 16px;
   font-weight: 500;

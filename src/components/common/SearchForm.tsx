@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import search_icon from '../../assets/search_icon.svg';
 import useChangeInputField from '../../hooks/useChangeInputField';
@@ -9,22 +9,28 @@ import { InputField, SearchFormWrap } from '../../styles/SearchFormStyle';
 export default function SearchForm() {
   const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
 
+  const queryClient = useQueryClient();
+
   const searchMeetings = useMutation({
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       variables && saveItem('keyword', variables);
-      location.reload();
+      queryClient.invalidateQueries({ queryKey: ['meetings'] });
     },
   });
 
   const handleClickSearch = (keyword: string) => {
-    keyword ? searchMeetings.mutate(keyword) : alert('검색어를 입력해주세요.');
+    if (keyword) {
+      searchMeetings.mutate(keyword);
+    } else {
+      alert('검색어를 입력해주세요.');
+    }
     handleClearInputField();
   };
 
-  const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>, keyword: string) => {
     if (event.keyCode == 13) {
-      searchMeetings.mutate(inputField);
+      searchMeetings.mutate(keyword);
       handleClearInputField();
     }
   };
@@ -38,7 +44,7 @@ export default function SearchForm() {
         <input
           type="text"
           placeholder="Search"
-          onKeyUp={handleEnterKey}
+          onKeyUp={(e) => handleEnterKey(e, inputField)}
           value={inputField ? inputField : ''}
           onChange={(e) => handleChangeInputField(e)}
         />

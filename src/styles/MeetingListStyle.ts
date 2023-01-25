@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MeetingListWrap = styled.ul`
   padding: 0 16px;
-  padding-top: 287px;
+  padding-top: 402px;
   padding-bottom: 8px;
   background-color: #f9f9f9;
 `;
