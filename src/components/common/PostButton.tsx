@@ -29,37 +29,26 @@ export default function PostButton({ currMeeting }: { currMeeting: Meeting }) {
   });
 
   const handleClickJoin = (inputField: string | null) => {
-    if (inputField !== null) {
-      if (inputField === password) {
-        joinMeeting.mutate(id);
-        setShowModal(false);
-      } else if (inputField === '') {
-        alert('비밀번호를 입력해주세요.');
-      } else {
-        alert('비밀번호를 다시 입력해주세요.');
-      }
-    } else {
-      joinMeeting.mutate(id);
-      setShowModal(false);
-    }
-  };
-
-  const handleClickModal = (isOpen: boolean) => {
-    if (maxNum !== attendantsNum) {
-      setShowModal(isOpen);
-    } else {
-      alert('정원이 초과되었습니다.');
-    }
+    joinMeeting.mutate(id);
+    setShowModal(false);
   };
 
   return !isAttend && secret ? (
     <>
-      <HomeButton type="button" onClick={() => handleClickModal(true)}>
-        {!isAttend ? '참여' : '취소'}
+      <HomeButton
+        type="button"
+        onClick={() => setShowModal(true)}
+        disabled={maxNum !== attendantsNum ? false : true}
+      >
+        {maxNum === attendantsNum ? '마감' : !isAttend ? '참여' : '취소'}
       </HomeButton>
       {showModal &&
         createPortal(
-          <ModalForm onClickConfirm={handleClickJoin} onClose={() => handleClickModal(false)} />,
+          <ModalForm
+            password={password}
+            onClickConfirm={handleClickJoin}
+            onClose={() => setShowModal(false)}
+          />,
           document.body
         )}
     </>

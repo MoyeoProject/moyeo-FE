@@ -38,11 +38,18 @@ export const Overlay = styled.div`
 
 export const OptionsBox = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: ${(props: { name: string }) =>
+    props.name === 'duration' || props.name === 'maxNum' ? 'center' : ' flex-start'};
   align-items: center;
-  margin: 16px 12px;
+  margin: ${(props: { name: string }) =>
+    props.name === 'duration' || props.name === 'maxNum' ? '0 12px' : '16px 12px'};
+  border-bottom: ${(props: { name: string }) =>
+    props.name === 'duration' || props.name === 'maxNum' ? '1px solid #E1E1E1' : ' none'};
   & > button {
-    margin-left: 8px;
+    margin-left: ${(props: { name: string }) =>
+      props.name === 'duration' || props.name === 'maxNum' ? 0 : ' 8px'};
+    padding: ${(props: { name: string }) =>
+      props.name === 'duration' || props.name === 'maxNum' ? '12px' : 0};
     font-size: 16px;
     color: #aaaaaa;
     background-color: transparent;
