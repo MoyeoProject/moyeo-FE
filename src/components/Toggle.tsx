@@ -62,7 +62,11 @@ export default function Toggle({
 
         {showModal &&
           createPortal(
-            <ModalForm onClickConfirm={handleClickConfirm} onClose={() => setShowModal(false)} />,
+            <ModalForm
+              password={null}
+              onClickConfirm={handleClickConfirm}
+              onClose={() => setShowModal(false)}
+            />,
             document.body
           )}
       </ToggleContents>

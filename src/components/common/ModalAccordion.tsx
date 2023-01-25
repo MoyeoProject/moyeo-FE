@@ -1,10 +1,11 @@
 import ko from 'date-fns/locale/ko';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
 import modal_plus_icon from '../../assets/modal_plus_icon.svg';
+import useCloseModal from '../../hooks/useCloseModal';
 import { PostButton } from '../../styles/ButtonStyle';
 import { CalendarBox, ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
@@ -29,6 +30,9 @@ export default function ModalAccordion({
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [option, setOption] = useState<string | number | null>(null);
 
+  const modalRef = useRef(null);
+  useCloseModal(modalRef, onClose);
+
   const MyContainer = ({ className, children }: { className: any; children: any }) => {
     return (
       <div style={{ position: 'relative' }}>
@@ -39,7 +43,7 @@ export default function ModalAccordion({
 
   return (
     <Overlay>
-      <ModalWrap>
+      <ModalWrap ref={modalRef}>
         <ModalTitle align={'center'}>{title}</ModalTitle>
         {name === 'startDate' ? (
           <>
@@ -81,8 +85,10 @@ export default function ModalAccordion({
                 {options &&
                   options.map((option) => {
                     return (
-                      <OptionsBox key={option}>
-                        <img src={modal_plus_icon} />
+                      <OptionsBox name={name} key={option}>
+                        {name === 'duration' || name === 'maxNum' ? null : (
+                          <img src={modal_plus_icon} />
+                        )}
                         <button
                           type="button"
                           onClick={(event) => {
