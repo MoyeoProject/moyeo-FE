@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { ShareDataTypes } from '../types/DetailTypes';
-
 const KakaoShareButton = (shareData: any) => {
   useEffect(() => {
     const script = document.createElement('script');
@@ -10,6 +8,8 @@ const KakaoShareButton = (shareData: any) => {
     document.body.appendChild(script);
   }, []);
 
+  // const data: shareData[] = shareData?.shareData;
+  // const { link, title, content }: shareData = shareData?.shareData;
   const { link, title, content } = shareData?.shareData;
   const KakaoShareLink = () => {
     if (window.Kakao) {

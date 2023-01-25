@@ -109,6 +109,27 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     });
 };
 
+export const emailCheckApi = async (email: string) => {
+  const res = await baseURL.get(`users/mail-code/create?email=${email}`);
+  return res;
+};
+
+export const emailAuthNumberApi = async ({
+  email,
+  authNumber,
+}: {
+  email: string;
+  authNumber: string;
+}) => {
+  console.log(email, authNumber);
+  // const res = await baseURL.get(`users/mail-code/confirm?&ePw=${authNumber}`, {
+  //   email,
+  //   ePw: authNumber,
+  // });
+  // console.log(res);
+  // return res;
+};
+
 export const getDetailPage = async (id: string | undefined) => {
   const res = await baseURL.get(`meetings/${id}`);
   return res;
@@ -124,13 +145,10 @@ export const meetAttendExitApi = async (meetingId: any) => {
 };
 
 export const getAttendList = async (meetingId: string | undefined) => {
-  // const res = await mockURL.get('/attend');
   const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
-// { id, postForm }: { id: number; postForm: FieldValues }
 export const getCommentPage = async (meetingId: string | undefined) => {
-  // const res = await mockURL.get('/comment');
   const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
   return res;
 };
