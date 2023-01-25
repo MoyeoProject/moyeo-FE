@@ -5,6 +5,7 @@ export type Meeting = {
   title: string;
   content: string;
   category: string;
+  startDate: string;
   startTime: string;
   duration: string;
   platform: string;
@@ -17,6 +18,11 @@ export type Meeting = {
     userId: number;
     userProfileImg: string;
   }[];
+};
+
+export type AttendantsList = {
+  userId: number;
+  userProfileImg: string;
 };
 
 export type InitialState = { meetingList: Meeting[] };
@@ -37,4 +43,12 @@ export type PostForm = {
   maxNum: string;
   secret: boolean;
   password: string;
+};
+
+export type Modal = {
+  name: string;
+  title: string;
+  content: string | null;
+  isOpen: boolean;
+  options: string[] | null;
 };

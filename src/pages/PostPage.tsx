@@ -9,6 +9,16 @@ import TopNavBar from '../components/common/TopNavBar';
 import useChangePostForm from '../hooks/useChangePostForm';
 import { editMeeting, postMeeting } from '../services/api';
 import { loadItem } from '../services/storage';
+import { PostButton } from '../styles/ButtonStyle';
+import {
+  FormAlert,
+  FormContents,
+  FormLabel,
+  FormTitle,
+  FormWrap,
+  InputField,
+  TimeInputField,
+} from '../styles/FormStyle';
 import { calcStartTime } from '../utils/utils';
 
 export default function PostPage() {
@@ -37,17 +47,12 @@ export default function PostPage() {
           password: '',
         };
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    setValue,
-    formState: { errors },
-  } = useForm<FieldValues>({ defaultValues });
+  const { handleSubmit, register, control, setValue } = useForm<FieldValues>({ defaultValues });
 
   const mutateEditMeeting = useMutation({
     mutationFn: editMeeting,
   });
+
   const mutatePostMeeting = useMutation({
     mutationFn: postMeeting,
   });
@@ -59,76 +64,77 @@ export default function PostPage() {
   return (
     <>
       <TopNavBar name={'post'} />
-      <br />
-      <br />
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>모임에 대해 설명해주세요!</h2>
-        <ModalAccordionButton register={register} control={control} name={'category'} />
-        <p>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</p>
-        <label htmlFor="title">모임 이름</label>
-        <input
-          {...register('title', { required: true })}
-          type="text"
-          id="title"
-          maxLength={20}
-          placeholder={currPost ? currPost.title : '모임 이름을 입력해주세요 0/20'}
-          value={title}
-          onChange={(e) => handleChangeInputField(e)}
-        />
-        <label htmlFor="content">소개</label>
-        <input
-          {...register('content', { required: true })}
-          type="text"
-          id="content"
-          placeholder={currPost ? currPost.content : '모두가 즐거운 대화를 나눠요!'}
-          value={content}
-          onChange={(e) => handleChangeInputField(e)}
-        />
-        <ModalAccordionButton register={register} control={control} name={'platform'} />
-
-        <br />
-        <br />
-
-        <h2>모임은 어디에서 언제 시작하나요?</h2>
-        <label htmlFor="link">링크</label>
-        <input
-          {...register('link', { required: false })}
-          type="text"
-          id="link"
-          placeholder={currPost ? currPost.link : '링크를 입력해주세요'}
-          value={link}
-          onChange={(e) => handleChangeInputField(e)}
-        />
-        <ModalAccordionButton register={register} control={control} name={'startDate'} />
-        <label htmlFor="startTime">모임 시간</label>
-        <Controller
-          name="startTime"
-          control={control}
-          render={({ field: { onChange } }) => (
-            <TimePicker
-              {...register('startTime', { required: true })}
-              use12Hours
-              format="hh:mm a"
-              onChange={(value, dateString) => {
-                onChange(calcStartTime(dateString));
-              }}
+      <FormWrap>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormTitle>모임에 대해 설명해주세요!</FormTitle>
+          <FormContents>
+            <ModalAccordionButton register={register} control={control} name={'category'} />
+            <FormAlert>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</FormAlert>
+            <FormLabel htmlFor="title">모임 이름</FormLabel>
+            <InputField
+              {...register('title', { required: true })}
+              type="text"
+              id="title"
+              maxLength={20}
+              placeholder={currPost ? currPost.title : '모임 이름을 입력해주세요'}
+              value={title}
+              onChange={(e) => handleChangeInputField(e)}
             />
-          )}
-        />
-        <ModalAccordionButton register={register} control={control} name={'duration'} />
+            <FormLabel htmlFor="content">소개</FormLabel>
+            <InputField
+              {...register('content', { required: true })}
+              type="text"
+              id="content"
+              placeholder={currPost ? currPost.content : '모두가 즐거운 대화를 나눠요!'}
+              value={content}
+              onChange={(e) => handleChangeInputField(e)}
+            />
+            <ModalAccordionButton register={register} control={control} name={'platform'} />
+          </FormContents>
 
-        <br />
-        <br />
+          <FormTitle>모임은 어디에서 언제 시작하나요?</FormTitle>
+          <FormContents>
+            <FormLabel htmlFor="link">링크</FormLabel>
+            <InputField
+              {...register('link', { required: false })}
+              type="text"
+              id="link"
+              placeholder={currPost ? currPost.link : '링크를 입력해주세요'}
+              value={link}
+              onChange={(e) => handleChangeInputField(e)}
+            />
+            <ModalAccordionButton register={register} control={control} name={'startDate'} />
+            <FormLabel htmlFor="startTime">모임 시간</FormLabel>
+            <Controller
+              name="startTime"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <TimeInputField>
+                  <TimePicker
+                    {...register('startTime', { required: true })}
+                    use12Hours
+                    format="hh:mm a"
+                    placeholder="시간을 선택해주세요"
+                    onChange={(value, dateString) => {
+                      onChange(calcStartTime(dateString));
+                    }}
+                  />
+                </TimeInputField>
+              )}
+            />
+            <ModalAccordionButton register={register} control={control} name={'duration'} />
+          </FormContents>
 
-        <h2>모임은 몇 명이 어떻게 들어오나요?</h2>
-        <ModalAccordionButton register={register} control={control} name={'maxNum'} />
-        <p>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</p>
-        <label htmlFor="secret">공개 설정</label>
-        <Toggle register={register} setValue={setValue} />
+          <FormTitle>모임은 몇 명이 어떻게 들어오나요?</FormTitle>
+          <FormContents>
+            <ModalAccordionButton register={register} control={control} name={'maxNum'} />
+            <FormAlert>모임 생성 이후 변경이 불가능하니 신중하게 선택해주세요!</FormAlert>
+            <Toggle register={register} setValue={setValue} />
+          </FormContents>
 
-        <button type="submit">{id ? '수정완료' : '작성완료'}</button>
-      </form>
+          <PostButton type="submit">{id ? '수정완료' : '작성완료'}</PostButton>
+        </form>
+      </FormWrap>
     </>
   );
 }

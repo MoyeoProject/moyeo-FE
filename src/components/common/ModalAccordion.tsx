@@ -1,10 +1,16 @@
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import ko from 'date-fns/locale/ko';
+import { useRef, useState } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-import { ModalWrap, Overlay } from '../../styles/ModalFormStyle';
+import modal_plus_icon from '../../assets/modal_plus_icon.svg';
+import useCloseModal from '../../hooks/useCloseModal';
+import { PostButton } from '../../styles/ButtonStyle';
+import { CalendarBox, ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
+
+registerLocale('ko', ko);
 
 type ModalAccordionProps = {
   name: string;
@@ -21,65 +27,95 @@ export default function ModalAccordion({
   onClose,
   control,
 }: ModalAccordionProps) {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [option, setOption] = useState<string | number | null>(null);
+
+  const modalRef = useRef(null);
+  useCloseModal(modalRef, onClose);
+
+  const MyContainer = ({ className, children }: { className: any; children: any }) => {
+    return (
+      <div style={{ position: 'relative' }}>
+        <div style={{}}>{children}</div>
+      </div>
+    );
+  };
 
   return (
     <Overlay>
-      <ModalWrap>
-        <p>{title}</p>
+      <ModalWrap ref={modalRef}>
+        <ModalTitle align={'center'}>{title}</ModalTitle>
         {name === 'startDate' ? (
           <>
             <Controller
               name={name}
               control={control}
               render={({ field: { onChange } }) => (
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => {
-                    if (date) {
+                <CalendarBox>
+                  <DatePicker
+                    inline
+                    locale="ko"
+                    selected={startDate}
+                    onChange={(date: Date) => {
                       setStartDate(date);
-                      onChange(calcStartDate(date));
-                    }
-                  }}
-                  minDate={new Date()}
-                  inline
-                />
+                    }}
+                    minDate={new Date()}
+                    calendarContainer={MyContainer}
+                  />
+                  <PostButton
+                    type="button"
+                    onClick={() => {
+                      onChange(calcStartDate(startDate));
+                      onClose();
+                    }}
+                    disabled={!startDate ? true : false}
+                  >
+                    확인
+                  </PostButton>
+                </CalendarBox>
               )}
             />
-            <button type="button" onClick={onClose} disabled={false}>
-              확인
-            </button>
           </>
         ) : (
-          <>
-            {options &&
-              options.map((option) => {
-                return (
-                  <Controller
-                    key={option}
-                    name={name}
-                    control={control}
-                    render={({ field: { onChange } }) => (
-                      <label key={option} htmlFor={option}>
-                        <input
-                          type="radio"
-                          id={option}
-                          name={name}
-                          onChange={(event) => {
-                            const { id } = event.target;
-                            name === 'maxNum' || name === 'duration' ? onChange(+id) : onChange(id);
+          <Controller
+            name={name}
+            control={control}
+            render={({ field: { onChange } }) => (
+              <>
+                {options &&
+                  options.map((option) => {
+                    return (
+                      <OptionsBox name={name} key={option}>
+                        {name === 'duration' || name === 'maxNum' ? null : (
+                          <img src={modal_plus_icon} />
+                        )}
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            const { innerHTML } = event.currentTarget;
+                            name === 'duration' || name === 'maxNum'
+                              ? setOption(+innerHTML)
+                              : setOption(innerHTML);
                           }}
-                        />
-                        {option}
-                      </label>
-                    )}
-                  />
-                );
-              })}
-            <button type="button" onClick={onClose} disabled={false}>
-              확인
-            </button>
-          </>
+                        >
+                          {option}
+                        </button>
+                      </OptionsBox>
+                    );
+                  })}
+                <PostButton
+                  type="button"
+                  onClick={() => {
+                    onChange(option);
+                    onClose();
+                  }}
+                  disabled={!option ? true : false}
+                >
+                  확인
+                </PostButton>
+              </>
+            )}
+          />
         )}
       </ModalWrap>
     </Overlay>

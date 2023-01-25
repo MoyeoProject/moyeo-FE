@@ -1,98 +1,69 @@
-import styled from 'styled-components';
-
-import { getDetailPage } from '../../services/api';
+import { ReactComponent as Frame_category } from '../../assets/Frame_category.svg';
+import { ReactComponent as Frame_platform } from '../../assets/Frame_platform.svg';
+import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
+import { ReactComponent as CalendarDetail } from '../../assets/calendar_detail.svg';
+import { ReactComponent as ClockIcon } from '../../assets/clock_icon.svg';
+import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
+import {
+  DetailInfoBox,
+  MeetingCategoryBox,
+  MeetingInfoBox,
+} from '../../styles/DetailMeetingInfoStyle';
+import { setDate, setTime } from '../../utils/utils';
 
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
-  const date = data?.startTime.split('T')[0];
-  const time = data?.startTime.split('T')[1];
+  const time = setTime(data?.startTime);
+  const today = setDate(data?.startDate);
+
   return (
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null} */}
-      <>
-        <TitleBox>
-          <div className="titleIntroBox">
-            {/* 카테고리 이미지 */}
-            <img src="/img/ex.png" />
+      <DetailInfoBox>
+        <MeetingCategoryBox>
+          <div className="meetingBox">
+            <div className="FrameIcon">
+              <Frame_category />
+            </div>
             <div>
               <p className="meetingTitle">{data?.title}</p>
-              <span>👍{data?.likeNum}</span>
-              <span>👎{data?.hateNum}</span>
+              <div className="iconBox">
+                <div>
+                  <GoodIcon />
+                  <p>{data?.likeNum}</p>
+                </div>
+                <div>
+                  <BadIcon />
+                  <p>{data?.hateNum}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <p className="titleIntroText">{data?.content}</p>
-        </TitleBox>
-        <InfoBox>
+          <p className="meetingText">{data?.content}</p>
+        </MeetingCategoryBox>
+        <MeetingInfoBox>
           <p>{data?.title}</p>
-          <div className="infoBoxContent">
-            <img src="/img/ex.png" />
-            {/* <img src={`${data?.platform}`} /> */}
-            {/* 플랫폼 로고 이미지는 누가주는가? */}
-            <div>
-              <p>📆 {date}</p>
-              <p>
-                🕓 {time} {data?.duration}시간
-              </p>
+          <div className="infoContentBox">
+            <div className="FrameIcon">
+              <Frame_platform />
+            </div>
+            <div className="dateInfo">
+              <div>
+                <CalendarDetail />
+                <p>{today}</p>
+              </div>
+              <div>
+                <ClockIcon />
+                <p>
+                  {time} ~ {data?.duration}시간
+                </p>
+              </div>
             </div>
           </div>
-        </InfoBox>
-      </>
+        </MeetingInfoBox>
+      </DetailInfoBox>
     </>
   );
 };
-const TitleBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 32px;
-  .titleIntroBox {
-    display: flex;
-    margin-bottom: 20px;
-    img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-right: 11px;
-    }
-    .meetingTitle {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    div span {
-      margin-right: 10px;
-      color: #aaaaaa;
-    }
-  }
-  .titleIntroText {
-    white-space: nowrap;
-    overflow: hidden;
-    line-height: 24px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #666666;
-  }
-`;
-const InfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 32px;
-  p {
-    font-size: 12px;
-    font-weight: 500;
-    color: #666666;
-    margin-bottom: 12px;
-  }
-  .infoBoxContent {
-    display: flex;
-    img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-right: 11px;
-    }
-    p {
-      color: #aaaaaa;
-      margin-bottom: 8px;
-    }
-  }
-`;
+
 export default DetailMeetingInfo;

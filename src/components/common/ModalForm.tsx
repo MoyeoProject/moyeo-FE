@@ -1,50 +1,62 @@
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
+import { useRef } from 'react';
 
 import useChangeInputField from '../../hooks/useChangeInputField';
-import { Contents, ModalWrap, Overlay } from '../../styles/ModalFormStyle';
+import useCloseModal from '../../hooks/useCloseModal';
+import { ModalButton } from '../../styles/ButtonStyle';
+import { InputField } from '../../styles/FormStyle';
+import { ButtonsBox, ModalTitle, ModalWrap, Overlay } from '../../styles/ModalStyle';
 
 type ModalFormProps = {
-  name: string;
   password: string | null;
-  meetingId: number | null;
   onClose: () => void;
-  onClickConfirm: any;
-  setValue: UseFormSetValue<FieldValues>;
+  onClickConfirm: (inputField: string) => void;
 };
 
-export default function ModalForm({
-  name,
-  password,
-  meetingId,
-  onClose,
-  onClickConfirm,
-  setValue,
-}: ModalFormProps) {
-  const { inputField, handleChangeInputField } = useChangeInputField();
+export default function ModalForm({ password, onClose, onClickConfirm }: ModalFormProps) {
+  const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
 
-  const handleClickConfirm = () => {
-    setValue('password', inputField);
-    onClose();
+  const modalRef = useRef(null);
+  useCloseModal(modalRef, onClose);
+
+  const handleClickConfirm = (inputField: string) => {
+    if (password === null) {
+      onClickConfirm(inputField);
+    } else {
+      if (inputField === '') {
+        alert('비밀번호를 입력해주세요.');
+      } else {
+        if (inputField === password) {
+          onClickConfirm(inputField);
+        } else {
+          alert('비밀번호를 다시 입력해주세요.');
+          handleClearInputField();
+        }
+      }
+    }
   };
 
   return (
     <Overlay>
-      <ModalWrap>
-        <label htmlFor="password">비밀번호</label>
-        <Contents>
-          <input
+      <ModalWrap ref={modalRef}>
+        <ModalTitle align={'start'}>비밀번호</ModalTitle>
+        <>
+          <InputField
             id="password"
             type="password"
-            maxLength={4}
             value={inputField}
+            maxLength={4}
             onChange={(e) => handleChangeInputField(e)}
-            placeholder={
-              name === '등록하기' ? '최대 4자까지 입력이 가능해요' : '비밀번호를 입력해주세요'
-            }
+            placeholder={'최대 4자까지 입력이 가능해요'}
           />
-          <button onClick={onClose}>취소</button>
-          <button onClick={() => handleClickConfirm()}>{name}</button>
-        </Contents>
+          <ButtonsBox>
+            <ModalButton isColor={false} onClick={onClose}>
+              취소
+            </ModalButton>
+            <ModalButton isColor={true} onClick={() => handleClickConfirm(inputField)}>
+              확인
+            </ModalButton>
+          </ButtonsBox>
+        </>
       </ModalWrap>
     </Overlay>
   );

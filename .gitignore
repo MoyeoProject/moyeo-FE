@@ -5,6 +5,7 @@
 db.json
 .env
 memo.txt
+_Comment.tsx
 
 # production
 /build

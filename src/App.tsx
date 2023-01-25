@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Comment from './components/Comment';
 import KakaoLoginButton from './components/KakaoLoginButton';
 import AuthPage from './pages/AuthPage';
 import DetailPage from './pages/DetailPage';
@@ -15,7 +14,6 @@ export default function App() {
       <Route path="/post" element={<PostPage />} />
       <Route path="/post/:id" element={<PostPage />} />
       <Route path="/detail/:id" element={<DetailPage />} />
-      <Route path="/comment/:id" element={<Comment />} />
       <Route path="/api/users/kakao/callback" element={<KakaoLoginButton />} />
     </Routes>
   );

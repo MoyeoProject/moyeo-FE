@@ -2,52 +2,22 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tansta
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
+import { ReactComponent as SendIcon } from '../assets/send_icon.svg';
 import { addComment, delelteComment, getCommentPage } from '../services/api';
+import { loadItem } from '../services/storage';
+import { CommentBox, CommentItem, CommentViewBox, InputBox } from '../styles/CommentStyle';
 import { CommentTypes } from '../types/DetailTypes';
 
 const Comment = () => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
+  const myUsername = loadItem('username');
   const [comment, setComment] = useState('');
 
-  const { isLoading, data, isError, fetchNextPage } = useInfiniteQuery(
-    ['Comment', id],
-    () => {
-      return getCommentPage(id);
-    },
-    {
-      getNextPageParam: (_lastPage, pages) => {
-        if (pages.length < 4) {
-          return pages.length + 1;
-        } else {
-          return undefined;
-        }
-      },
-    }
-  );
-
-  const handleScroll = () => {
-    // 스크롤 기준이 document라서.. 내가 원하는 곳에서 무한스크롤 안됨
-    // 그럼 어떻게 해야 할까?
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    console.log('top: ', scrollTop, '/ clientHeight: ', clientHeight);
-    console.log('result: ', scrollTop + clientHeight >= 400);
-    if (scrollTop + clientHeight >= 400) {
-      return fetchNextPage();
-    }
-  };
-  // 스크롤 이벤트 감지, 이벤트 한 번 동작 후 제거 ( 반복x )
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+  const { isLoading, data, isError } = useQuery(['Comment', id], () => {
+    return getCommentPage(id);
   });
-
   const useAddComment = () => {
     return useMutation(addComment, {
       onSuccess: () => {
@@ -59,10 +29,13 @@ const Comment = () => {
   const { mutate: addCommentItem } = useAddComment();
   const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (comment === '') {
+      alert('댓글을 작성해주세요.');
+      return;
+    }
     addCommentItem({ id, comment });
     setComment('');
   };
-
   const useDelComment = () => {
     return useMutation(delelteComment, {
       onSuccess: (data) => {
@@ -75,8 +48,10 @@ const Comment = () => {
   };
 
   const { mutate: delCommentItem } = useDelComment();
-  const handleDelComment = (commetnId: any) => {
-    delCommentItem({ id, commetnId });
+  const handleDelComment = (commentId: number) => {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      delCommentItem({ id, commentId });
+    }
   };
 
   return (
@@ -84,64 +59,65 @@ const Comment = () => {
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
       {isError ? <h2>문제가 생겼습니다</h2> : null} */}
       <CommentViewBox>
-        {data?.pages.map((comment) => {
-          return !comment?.data.data
-            ? null
-            : comment?.data.data.map((c: CommentTypes) => {
-                return (
-                  <CommentItem key={c.commentId}>
-                    <img src={c.profileUrl} style={{ width: '30px' }} />
-                    <div>
-                      <p>{c.username}</p>
-                      <p>{c.comment}</p>
-                    </div>
-                    <p>{c.createdAt}</p>
-                    <button
-                      onClick={() => {
-                        handleDelComment(c.commentId);
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </CommentItem>
-                );
-              });
-        })}
+        {!data?.data.data ? (
+          <p>댓글이 없습니다. 첫 댓글을 남겨보세요</p>
+        ) : (
+          data?.data.data.map((c: CommentTypes) => {
+            return (
+              <CommentItem
+                key={c.commentId}
+                align={c.username === myUsername ? 'flex-end' : 'flex-start'}
+                bgColor={c.username === myUsername ? '#9CC8D2' : '#F4F4F4'}
+                color={c.username === myUsername ? '#FFFFFF' : '#222222'}
+              >
+                {c.username === myUsername ? (
+                  <p className="date">{c.createdAt.split('T')[1].split('.')[0]}</p>
+                ) : null}
+
+                <div className="commentMiniBox">
+                  {c.username === myUsername ? null : (
+                    <img src={c.profileUrl} style={{ width: '28px' }} />
+                  )}
+                  <div>
+                    {c.username === myUsername ? null : <p className="username">{c.username}</p>}
+                    {c.username === myUsername ? (
+                      <div
+                        className="userComment"
+                        onClick={() => {
+                          handleDelComment(c.commentId);
+                        }}
+                      >
+                        {c.comment}
+                      </div>
+                    ) : (
+                      <div className="userComment"> {c.comment} </div>
+                    )}
+                  </div>
+                </div>
+
+                {c.username !== myUsername ? (
+                  <p className="date">{c.createdAt.split('T')[1].split('.')[0]}</p>
+                ) : null}
+              </CommentItem>
+            );
+          })
+        )}
       </CommentViewBox>
-      <InputBox onSubmit={handleAddComment}>
-        <input
-          type="text"
-          value={comment}
-          placeholder="댓글을 입력해주세요"
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button type="submit">작성</button>
+      <InputBox>
+        <form onSubmit={handleAddComment}>
+          <input
+            type="text"
+            value={comment}
+            placeholder="댓글 내용을 입력해주세요"
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button type="submit">
+            <SendIcon />
+          </button>
+        </form>
       </InputBox>
     </CommentBox>
   );
 };
-
-const CommentBox = styled.div`
-  height: 500px;
-  position: relative;
-  border: 1px solid blue;
-`;
-const InputBox = styled.form`
-  border: 1px solid gray;
-  padding: 10px 0;
-  box-sizing: border-box;
-  position: absolute;
-  bottom: 0;
-`;
-const CommentViewBox = styled.div`
-  border: 1px solid red;
-  height: 450px;
-  overflow: scroll;
-`;
-const CommentItem = styled.div`
-  /* border: 1px solid black; */
-  display: flex;
-  align-items: center;
-`;
 
 export default Comment;

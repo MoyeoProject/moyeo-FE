@@ -1,147 +1,78 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { createPortal } from 'react-dom';
 
-import { meetingLinkInpitApi } from '../../services/api';
+import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
+import { DetailMeetLinkButton } from '../DetailMeetLinkButton';
 
-const DetailButton = ({ data }: any) => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [link, setLink] = useState('');
-  const [linkInput, setLinkInput] = useState(false);
-  const QueryClient = useQueryClient();
-
-  const useMeetingLinkInput = () => {
-    return useMutation(meetingLinkInpitApi, {
-      onSuccess: (data) => {
-        alert('모임 링크가 개설되었습니다');
-        QueryClient.invalidateQueries(['link', id]);
-        console.log('링크생성', data);
-        window.location.reload();
-      },
-      onError: (data: any) => {
-        alert(data?.response.data.statusMsg);
-      },
-    });
-  };
-
-  const { mutate: meetingLinkInput } = useMeetingLinkInput();
-  const meetingLinkInputBtn = () => {
-    if (link === '') {
-      alert('링크를 입력해주세요');
-      return;
-    }
-    meetingLinkInput({ link, platform: data.platform, id });
-  };
-
+const DetailButton = ({ data, member }: any) => {
+  const [showModal, setShowModal] = useState(false);
   const meetingEntranceBtn = () => {
     if (data.link) {
-      alert(`${data.platform}으로 입장합니다`);
-      window.location.href = `${data.link}`;
+      window.open(`${data?.link}`);
     }
     // else {
-    //   alert('모임 시작 30분 전부터 입장 가능합니다');
+    //  알람기능 되면 test
+    //  alert('모임 시작 30분 전부터 입장 가능합니다');
     // }
   };
-
+  console.log(data);
   return (
     <>
       {data?.master ? (
         <>
-          {linkInput ? (
-            <MasterLinkInput>
-              <input
-                placeholder="입장 링크를 입력해주세요"
-                value={link}
-                onChange={(e) => {
-                  setLink(e.target.value);
-                }}
-              />
-              <button className="enter" onClick={meetingLinkInputBtn}>
-                입력
-              </button>
-              <button
-                className="cancle"
-                onClick={() => {
-                  setLinkInput(false);
-                }}
-              >
-                취소
-              </button>
-            </MasterLinkInput>
-          ) : data?.link !== '' ? (
+          {data?.link !== '' ? (
             <MasterButton>
-              <Button onClick={meetingEntranceBtn}>모임입장</Button>
-              <ButtonEdit
-                onClick={() => {
-                  setLinkInput(true);
-                }}
-              >
+              <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
+                모임입장
+              </ButtonBasic>
+              <ButtonBasic activeBtn={false} cursorAct={true} onClick={() => setShowModal(true)}>
                 입장 링크 수정
-              </ButtonEdit>
+              </ButtonBasic>
+              {showModal &&
+                createPortal(
+                  <DetailMeetLinkButton
+                    platform={data?.platform}
+                    isEdit={true}
+                    onClose={() => setShowModal(false)}
+                  />,
+                  document.body
+                )}
             </MasterButton>
           ) : (
-            <Button
-              onClick={() => {
-                setLinkInput(true);
-              }}
-            >
-              입장 링크를 입력해주세요
-            </Button>
+            <>
+              <ButtonBasic activeBtn={false} onClick={() => setShowModal(true)}>
+                입장 링크를 입력해주세요
+              </ButtonBasic>
+              {showModal &&
+                createPortal(
+                  <DetailMeetLinkButton
+                    platform={data?.platform}
+                    isEdit={false}
+                    onClose={() => setShowModal(false)}
+                  />,
+                  document.body
+                )}
+            </>
           )}
         </>
       ) : data?.attend ? (
-        <Button onClick={meetingEntranceBtn}>모임 입장</Button>
+        !data?.link ? (
+          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={false} cursorAct={false}>
+            링크 개설 전 입니다
+          </ButtonBasic>
+        ) : (
+          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true} cursorAct={true}>
+            모임 입장
+          </ButtonBasic>
+        )
+      ) : member?.length === data?.maxNum ? (
+        <ButtonBasic activeBtn={false}>정원이 다 찼습니다</ButtonBasic>
       ) : (
-        <ButtonDisabled>모임에 참석한 후 입장 가능합니다</ButtonDisabled>
+        <ButtonBasic activeBtn={false}>모임에 참석한 후 입장 가능합니다</ButtonBasic>
       )}
     </>
   );
 };
-const Button = styled.button`
-  width: 100%;
-  height: 54px;
-  border-radius: 8px;
-  background-color: #e2806d;
-  color: white;
-  font-weight: 700;
-`;
-const ButtonDisabled = styled(Button)`
-  background-color: #aaaaaa;
-  cursor: default;
-`;
-const ButtonEdit = styled(Button)`
-  background-color: #aaaaaa;
-`;
-const MasterLinkInput = styled.div`
-  width: 100%;
-  height: 54px;
-  display: flex;
-  justify-content: space-between;
-  input {
-    width: 90%;
-    padding-left: 10px;
-    border: 1px solid #e2806d;
-    border-radius: 8px;
-    :focus {
-      outline: 1px solid #e2806d;
-    }
-  }
-  button {
-    border-radius: 8px;
-    background-color: #e2806d;
-    height: 100%;
-    width: 70px;
-    color: white;
-    font-weight: 700;
-  }
-  .cancle {
-    background-color: #aaaaaa;
-  }
-`;
-const MasterButton = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+
 export default DetailButton;

@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+import left_arrow_icon from '../../assets/left_arrow_icon.svg';
+import logo from '../../assets/logo.svg';
+import plus_icon from '../../assets/plus_icon.svg';
+import profile_icon from '../../assets/profile_icon.svg';
 import { removeItem } from '../../services/storage';
+import { LeftBox, RightBox, TopBar, TopNavBarWrap } from '../../styles/TopNavBarStyle';
+import Categories from './Categories';
+import SearchForm from './SearchForm';
+import SortbyCategories from './SortbyCategories';
 
 export default function TopNavBar({ name }: { name: string }) {
   const { id } = useParams();
-
-  const handleClickLogout = () => {
-    location.assign('/');
-    localStorage.clear();
-  };
 
   const handleClickBack = () => {
     history.back();
@@ -17,35 +20,32 @@ export default function TopNavBar({ name }: { name: string }) {
   };
 
   return name === 'home' ? (
-    <>
-      <Link to="/main">로고</Link>
-      <Link to="/post">모임생성</Link>
-      <Link to="#">프로필</Link>
-      <button type="button" onClick={() => handleClickLogout()}>
-        로그아웃
-      </button>
-    </>
-  ) : name === 'post' ? (
-    id ? (
-      <>
+    <TopNavBarWrap>
+      <TopBar>
+        <Link to="/main">
+          <img src={logo} />
+        </Link>
+        <RightBox>
+          <Link to="/post">
+            <img src={plus_icon} />
+          </Link>
+          <Link to="#">
+            <img src={profile_icon} />
+          </Link>
+        </RightBox>
+      </TopBar>
+      <SortbyCategories />
+      <SearchForm />
+      <Categories />
+    </TopNavBarWrap>
+  ) : (
+    <TopNavBarWrap>
+      <LeftBox>
         <button type="button" onClick={() => handleClickBack()}>
-          {'<'}
+          <img src={left_arrow_icon} />
         </button>
-        <p>모임 수정하기</p>
-        <button type="button" onClick={() => handleClickLogout()}>
-          로그아웃
-        </button>
-      </>
-    ) : (
-      <>
-        <button type="button" onClick={() => handleClickBack()}>
-          {'<'}
-        </button>
-        <p>모임 생성하기</p>
-        <button type="button" onClick={() => handleClickLogout()}>
-          로그아웃
-        </button>
-      </>
-    )
-  ) : null;
+        <p>{id ? '모임 수정하기' : '모임 생성하기'}</p>
+      </LeftBox>
+    </TopNavBarWrap>
+  );
 }

@@ -13,8 +13,8 @@ export const GlobalStyle = createGlobalStyle`
 }
 body{
   width: 375px;
-  /* height: 812px; 세로는 정확히 모르겠어서  */
-  margin: 20px auto;
+  margin: 0 auto;
+  background-color: #E5E5E5;
 }
 a {
   color: #000;
@@ -25,12 +25,14 @@ a {
 button {
   cursor: pointer;
 }
-.user-profile {
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
+input, textarea, button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+}
+.react-datepicker__month-container {
+  width: 100%;
+}
 `;

@@ -1,12 +1,6 @@
 import { useState } from 'react';
 
-type Modal = {
-  name: string;
-  title: string;
-  content: string | null;
-  isOpen: boolean;
-  options: string[] | null;
-};
+import { Modal } from '../types/AppTypes';
 
 const modalData: Modal[] = [
   {
@@ -14,7 +8,16 @@ const modalData: Modal[] = [
     title: '모임주제',
     content: '주제를 선택해주세요',
     isOpen: false,
-    options: ['공부하자', '게임하자', '밥먹자', '수다떨자', '술먹자'],
+    options: [
+      '수다모여',
+      '술모여',
+      '밥모여',
+      '영화모여',
+      '취미모여',
+      '공부모여',
+      '게임모여',
+      '일단모여',
+    ],
   },
   {
     name: 'platform',

@@ -1,46 +1,52 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
+import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
-import { saveItem } from '../../services/storage';
-import { ShareDataTypes } from '../../types/DetailTypes';
+import { loadItem, saveItem } from '../../services/storage';
+import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
+import { DetailMeetPassword } from '../DetailMeetLinkButton';
+
 import KakaoShareButton from '../KakaoShareButton';
 
 const DetailNavBar = ({ data }: any) => {
+  const [showModal, setShowModal] = useState(false);
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const { id } = useParams();
+
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const meetingTitle = data?.title;
   const shareData = {
     link: `detail/${data?.id}`,
     title: data?.title,
     content: data?.content,
   };
 
-  const handleClickMeetingEdit = (id: any) => {
-    alert('모임 수정페이지로 이동 - 연결 준비 중입니다');
-    // navigate('')
+  const handleClickMeetingEdit = (id: string | undefined) => {
+    navigate(`/post/${id}`);
   };
 
   const useMeetAttendExit = () => {
     return useMutation(meetAttendExitApi, {
       onSuccess: (data) => {
         QueryClient.invalidateQueries();
-        data?.data.data !== undefined
-          ? alert(`"${meetingTitle}" 모임에 오신걸 환영합니다!`)
-          : alert('모임을 취소하셨습니다');
+        data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
       },
       onError: (err: any) => {
+        if (kakaoShareUser) {
+          if (confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')) {
+            location.replace('/');
+          }
+        }
         return alert(err.response.data.statusMsg);
       },
     });
   };
-
   const { mutate: meetAttendExit } = useMeetAttendExit();
-  const handleClickAttnedExit = (id: any) => {
+  const handleClickAttnedExit = (id: string | undefined) => {
     meetAttendExit(id);
   };
 
@@ -51,23 +57,29 @@ const DetailNavBar = ({ data }: any) => {
       },
     });
   };
-
   const { mutate: getAlarm } = useGetAlarm();
-  const handleClickAlarm = (id: any) => {
+  const handleClickAlarm = (id: string | undefined) => {
     data?.attend ? getAlarm(id) : alert('모임 참석하기 후, 알람 설정이 가능합니다');
   };
 
   return (
     <NavBox>
-      <NavArrow
+      <div
+        className="navArrow"
         onClick={() => {
-          navigate('/main');
-          saveItem('detailKeyword', 'intro');
+          {
+            kakaoShareUser
+              ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+                ? location.replace('/')
+                : null
+              : navigate('/main');
+            saveItem('detailKeyword', 'intro');
+          }
         }}
       >
-        ◀
-      </NavArrow>
-      <NavTitle>{data?.title}</NavTitle>
+        <ChevronLeft />
+      </div>
+      <p className="navTitle">{data?.title}</p>
       <NavButtonBox>
         <div
           onClick={() => {
@@ -88,45 +100,29 @@ const DetailNavBar = ({ data }: any) => {
         ) : (
           <div
             onClick={() => {
-              handleClickAttnedExit(id);
+              if (!data?.attend && data?.secret) {
+                console.log('비밀번호방');
+                setShowModal(true);
+                return;
+              }
+              if (!data?.attend) {
+                handleClickAttnedExit(id);
+                return;
+              }
+              if (data?.attend && confirm('정말 나가시겠습니까?')) {
+                handleClickAttnedExit(id);
+                return;
+              }
             }}
           >
             {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
           </div>
         )}
+        {showModal &&
+          createPortal(<DetailMeetPassword onClose={() => setShowModal(false)} />, document.body)}
       </NavButtonBox>
     </NavBox>
   );
 };
-const NavBox = styled.div`
-  padding: 16px;
-  box-sizing: border-box;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-`;
-const NavArrow = styled.div`
-  font-size: 20px;
-  cursor: pointer;
-`;
-const NavTitle = styled.p`
-  width: 100%;
-  padding: 0 10px;
-`;
-const NavButtonBox = styled.div`
-  display: flex;
-  align-items: center;
-  div {
-    width: 25px;
-    height: 25px;
-    margin-left: 12px;
-    span {
-      font-size: 20px;
-      cursor: pointer;
-    }
-  }
-`;
 
 export default DetailNavBar;
