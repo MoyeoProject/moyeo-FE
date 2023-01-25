@@ -1,16 +1,15 @@
-import ko from 'date-fns/locale/ko';
 import { useRef, useState } from 'react';
-import DatePicker, { registerLocale } from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
+import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
+import cal_right_arrow_icon from '../../assets/cal_right_arrow_icon.svg';
 import modal_plus_icon from '../../assets/modal_plus_icon.svg';
 import useCloseModal from '../../hooks/useCloseModal';
 import { PostButton } from '../../styles/ButtonStyle';
 import { CalendarBox, ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
-
-registerLocale('ko', ko);
 
 type ModalAccordionProps = {
   name: string;
@@ -33,14 +32,6 @@ export default function ModalAccordion({
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
 
-  const MyContainer = ({ className, children }: { className: any; children: any }) => {
-    return (
-      <div style={{ position: 'relative' }}>
-        <div style={{}}>{children}</div>
-      </div>
-    );
-  };
-
   return (
     <Overlay>
       <ModalWrap ref={modalRef}>
@@ -54,13 +45,40 @@ export default function ModalAccordion({
                 <CalendarBox>
                   <DatePicker
                     inline
-                    locale="ko"
+                    minDate={new Date()}
                     selected={startDate}
                     onChange={(date: Date) => {
                       setStartDate(date);
                     }}
-                    minDate={new Date()}
-                    calendarContainer={MyContainer}
+                    formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
+                    renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
+                      <div>
+                        <button
+                          aria-label="Previous Month"
+                          className={
+                            'react-datepicker__navigation react-datepicker__navigation--previous'
+                          }
+                          onClick={decreaseMonth}
+                        >
+                          <img src={cal_left_arrow_icon} />
+                        </button>
+                        <span className="react-datepicker__current-month">
+                          {monthDate.toLocaleString('ko', {
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </span>
+                        <button
+                          aria-label="Next Month"
+                          className={
+                            'react-datepicker__navigation react-datepicker__navigation--next'
+                          }
+                          onClick={increaseMonth}
+                        >
+                          <img src={cal_right_arrow_icon} />
+                        </button>
+                      </div>
+                    )}
                   />
                   <PostButton
                     type="button"

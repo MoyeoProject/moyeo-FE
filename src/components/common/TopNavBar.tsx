@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-import left_arrow_icon from '../../assets/left_arrow_icon.svg';
+import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
 import profile_icon from '../../assets/profile_icon.svg';
@@ -42,7 +42,7 @@ export default function TopNavBar({ name }: { name: string }) {
     <TopNavBarWrap>
       <LeftBox>
         <button type="button" onClick={() => handleClickBack()}>
-          <img src={left_arrow_icon} />
+          <img src={cal_left_arrow_icon} />
         </button>
         <p>{id ? '모임 수정하기' : '모임 생성하기'}</p>
       </LeftBox>
