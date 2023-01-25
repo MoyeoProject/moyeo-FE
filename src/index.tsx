@@ -22,15 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <QueryErrorResetBoundary>
     {({ reset }) => (
-      <ErrorBoundary
-        onReset={reset}
-        fallbackRender={({ resetErrorBoundary }) => (
-          <>
-            <Lottie animationData={error} />
-            <button onClick={() => resetErrorBoundary()}>다시시도</button>
-          </>
-        )}
-      >
+      <ErrorBoundary onReset={reset} fallbackRender={() => <Lottie animationData={error} />}>
         <React.Suspense fallback={<Lottie animationData={loading} />}>
           <QueryClientProvider client={queryClient}>
             <React.StrictMode>

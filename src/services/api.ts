@@ -18,8 +18,8 @@ const LOGIN = '/users/login';
 export const getSortbyMeetings = async (keyword: string | null) => {
   const query =
     keyword === 'popular' || keyword === 'new'
-      ? `?sortby=${keyword}&category=`
-      : `/search?searchBy=${keyword}&category=`;
+      ? `?sortby=${loadItem('keyword')}&category=${loadItem('category')}`
+      : `/search?searchBy=${loadItem('keyword')}&category=${loadItem('category')}`;
 
   const response = await baseURL.get(MEETINGS + query);
   return response;
@@ -29,7 +29,7 @@ export const getNextMeetings = async ({
   meetingId,
   keyword,
 }: {
-  meetingId: number;
+  meetingId: number | false;
   keyword: string | null;
 }) => {
   const query =
@@ -40,11 +40,6 @@ export const getNextMeetings = async ({
   const response = await baseURL.get(MEETINGS + query);
 
   return response.data;
-};
-
-export const patchJoinMeeting = async (meetingId: number) => {
-  const response = await baseURL.patch(MEETINGS + `/${meetingId}/attendance`);
-  return response;
 };
 
 export const postMeeting = async (postForm: FieldValues) => {
@@ -97,6 +92,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     .then((res) => {
       saveItem('isLogin', res?.headers.authorization as unknown as string);
       saveItem('keyword', 'popular');
+      saveItem('category', '');
       saveItem('detailKeyword', 'intro');
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
