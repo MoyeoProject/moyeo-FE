@@ -14,7 +14,6 @@ import { setDate, setTime } from '../../utils/utils';
 const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
   const time = setTime(data?.startTime);
   const today = setDate(data?.startDate);
-
   return (
     <>
       {/* {isLoading ? <h2>로딩중입니다</h2> : null}
@@ -22,31 +21,24 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
       <DetailInfoBox>
         <MeetingCategoryBox>
           <div className="meetingBox">
-            <div className="FrameIcon">
-              <Frame_category />
-            </div>
-            <div>
-              <p className="meetingTitle">{data?.title}</p>
-              <div className="iconBox">
-                <div>
-                  <GoodIcon />
-                  <p>{data?.likeNum}</p>
-                </div>
-                <div>
-                  <BadIcon />
-                  <p>{data?.hateNum}</p>
-                </div>
+            <div className="meetingPlatform">{data.platform}</div>
+            <p className="meetingTitle">{data?.title}</p>
+            <div className="iconBox">
+              <div>
+                <GoodIcon />
+                <p>{data?.likeNum}</p>
+              </div>
+              <div>
+                <BadIcon />
+                <p>{data?.hateNum}</p>
               </div>
             </div>
           </div>
-          <p className="meetingText">{data?.content}</p>
+          <div className="meetingText">{data?.content}</div>
         </MeetingCategoryBox>
         <MeetingInfoBox>
           <p>{data?.title}</p>
           <div className="infoContentBox">
-            <div className="FrameIcon">
-              <Frame_platform />
-            </div>
             <div className="dateInfo">
               <div>
                 <CalendarDetail />
