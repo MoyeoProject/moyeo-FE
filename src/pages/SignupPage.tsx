@@ -15,7 +15,7 @@ type SignUp = {
   hidePassword?: boolean;
 };
 
-const SignUpForm = () => {
+const SignupPage = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
@@ -185,4 +185,4 @@ const AuthButton = styled.button<{ disabledStyle: boolean }>`
   cursor: ${(props) => (props.disabledStyle ? 'default' : 'pointer')};
 `;
 
-export default SignUpForm;
+export default SignupPage;
