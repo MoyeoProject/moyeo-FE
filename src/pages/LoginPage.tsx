@@ -3,17 +3,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as LoginLogo } from '../assets/Loginlogo.svg';
-import { isSignup } from '../modules/authSlice';
+import { KAKAO_AUTH_URL } from '../components/KakaoLoginButton';
+import LoginButton from '../components/LoginButton';
 import { postLogin } from '../services/api';
-import { useAppDispatch } from '../store';
-import { InputFormBox, LoginButtonBox, LoginFormBox } from '../styles/LoginFormStyle';
+import { AuthButtonBox, AuthFormBox, LoginFormBox } from '../styles/LoginFormStyle';
 import { LoginInputField } from '../types/AppTypes';
-import { KAKAO_AUTH_URL } from './KakaoLoginButton';
-import LoginButton from './LoginButton';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [state, setState] = useState({
     email: '',
@@ -47,9 +44,9 @@ const LoginForm = () => {
         <LoginLogo />
       </div>
       <div className="loginBox">
-        <InputFormBox onKeyUp={handleEnterKey}>
+        <AuthFormBox onKeyUp={handleEnterKey}>
           <div className="inputBox">
-            <label>이메일</label>
+            <p>이메일</p>
             <input
               type="email"
               name="email"
@@ -59,7 +56,7 @@ const LoginForm = () => {
             />
           </div>
           <div className="inputBox">
-            <label>비밀번호</label>
+            <p>비밀번호</p>
             <input
               type="password"
               name="password"
@@ -68,8 +65,8 @@ const LoginForm = () => {
               placeholder="비밀번호를 입력하세요"
             />
           </div>
-        </InputFormBox>
-        <LoginButtonBox>
+        </AuthFormBox>
+        <AuthButtonBox>
           <LoginButton loginInputField={state} onClickLogin={handleClickLogin} />
           <div className="line">
             <hr />
@@ -86,15 +83,9 @@ const LoginForm = () => {
           <div className="moveText">
             <span>비밀번호 재설정</span>
             <span> | </span>
-            <span
-              onClick={() => {
-                dispatch(isSignup(true));
-              }}
-            >
-              회원가입
-            </span>
+            <span onClick={() => navigate('/signup')}>회원가입</span>
           </div>
-        </LoginButtonBox>
+        </AuthButtonBox>
       </div>
     </LoginFormBox>
   );
