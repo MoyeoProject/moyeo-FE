@@ -5,13 +5,13 @@ import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import LoginForm from './pages/LoginPage';
 import PostPage from './pages/PostPage';
-import SignUpForm from './pages/SignupPage';
+import SignupPage from './pages/SignupPage';
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />
-      <Route path="/signup" element={<SignUpForm />} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="/main" element={<HomePage />} />
       <Route path="/post" element={<PostPage />} />
       <Route path="/post/:id" element={<PostPage />} />
