@@ -18,34 +18,38 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
 
   return (
     <MeetingListWrap keyword={loadItem('keyword')}>
-      {currMeetingList.map((meeting) => (
-        <MeetingWrap key={meeting.id}>
-          <ListContent currMeeting={meeting} />
-          {sortbyKeyword === 'calendar' ? null : (
-            <>
-              {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
-                <AttendantsContent attendantsList={meeting.attendantsList} />
-              ) : (
-                <div></div>
-              )}
-            </>
-          )}
-        </MeetingWrap>
-      ))}
-      {nextMeetingList?.map((meeting) => (
-        <MeetingWrap key={meeting.id}>
-          <ListContent currMeeting={meeting} />
-          {sortbyKeyword === 'calendar' ? null : (
-            <div>
-              {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
-                <AttendantsContent attendantsList={meeting.attendantsList} />
-              ) : (
-                <div></div>
-              )}
-            </div>
-          )}
-        </MeetingWrap>
-      ))}
+      {currMeetingList.length === 0 ? (
+        <span>참여한 모임이 없어요!</span>
+      ) : (
+        currMeetingList.map((meeting) => (
+          <MeetingWrap key={meeting.id}>
+            <ListContent currMeeting={meeting} />
+            {sortbyKeyword === 'calendar' ? null : (
+              <>
+                {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
+                  <AttendantsContent attendantsList={meeting.attendantsList} />
+                ) : (
+                  <div></div>
+                )}
+              </>
+            )}
+          </MeetingWrap>
+        ))
+      )}
+      {sortbyKeyword === 'calendar'
+        ? null
+        : nextMeetingList?.map((meeting) => (
+            <MeetingWrap key={meeting.id}>
+              <ListContent currMeeting={meeting} />
+              <>
+                {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
+                  <AttendantsContent attendantsList={meeting.attendantsList} />
+                ) : (
+                  <div></div>
+                )}
+              </>
+            </MeetingWrap>
+          ))}
       <div ref={intersectRef}></div>
     </MeetingListWrap>
   );

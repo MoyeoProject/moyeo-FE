@@ -1,22 +1,24 @@
+import { subMonths } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import cal_right_arrow_icon from '../../assets/cal_right_arrow_icon.svg';
+import { loadItem } from '../../services/storage';
 
 export default function Calendar({
   attendDates,
   startDate,
   setStartDate,
 }: {
-  attendDates: any;
+  attendDates: Array<number | undefined>;
   startDate: Date;
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 }) {
   return (
     <DatePicker
       inline
-      minDate={new Date()}
+      minDate={loadItem('year') !== null ? subMonths(new Date(), 6) : new Date()}
       selected={startDate}
       onChange={(date: Date) => {
         setStartDate(date);
