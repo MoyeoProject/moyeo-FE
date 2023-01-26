@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
-import { CommentTypes, MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
+import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -21,6 +21,12 @@ export const getSortbyMeetings = async (keyword: string | null) => {
       ? `?sortby=${loadItem('keyword')}&category=${loadItem('category')}`
       : `/search?searchBy=${loadItem('keyword')}&category=${loadItem('category')}`;
 
+  const response = await baseURL.get(MEETINGS + query);
+  return response;
+};
+
+export const getMyList = async () => {
+  const query = `/mine?year=${loadItem('year')}&month=${loadItem('month')}`;
   const response = await baseURL.get(MEETINGS + query);
   return response;
 };
