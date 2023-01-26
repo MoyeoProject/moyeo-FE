@@ -52,3 +52,13 @@ export type Modal = {
   isOpen: boolean;
   options: string[] | null;
 };
+
+export type SignUp = {
+  email: string;
+  authNumber?: string;
+  username: string;
+  password: string;
+  passwordCheck?: string;
+  emailAuth?: boolean;
+  hidePassword?: boolean;
+};

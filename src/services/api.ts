@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
-import { CommentTypes, MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
+import { SignUp } from '../types/AppTypes';
+import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -124,6 +125,11 @@ export const emailAuthNumberApi = async ({
   // });
   // console.log(res);
   // return res;
+};
+
+export const signupApi = async ({ email, password, username }: SignUp) => {
+  const res = await baseURL.post('/users/signup', { email, password, username });
+  return res;
 };
 
 export const getDetailPage = async (id: string | undefined) => {

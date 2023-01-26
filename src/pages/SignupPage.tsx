@@ -1,21 +1,20 @@
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
-import { emailAuthNumberApi, emailCheckApi } from '../services/api';
-import { AuthButtonBox, AuthFormBox, SignupBox } from '../styles/LoginFormStyle';
-
-type SignUp = {
-  email: string;
-  authNumber: string;
-  username: string;
-  password: string;
-  passwordCheck?: string;
-  emailAuth?: boolean;
-  hidePassword?: boolean;
-};
+import { handleEmailAlert } from '../hooks/useAlert';
+import { emailAuthNumberApi, emailCheckApi, signupApi } from '../services/api';
+import { emailRegex, passwordRegex, usernameRegex } from '../services/regEx';
+import {
+  AuthButtonBox,
+  AuthFormBox,
+  EmailAuthButton,
+  Label,
+  SignupBox,
+} from '../styles/LoginFormStyle';
 
 const SignupPage = () => {
+  const QueryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
@@ -24,53 +23,86 @@ const SignupPage = () => {
   const [authNumber, setAuthNumber] = useState<string>('');
   const [emailAuthCheck, setEmailAuthCheck] = useState(false);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState('');
+
+  // 정규식 확인
+  const [emailRegExCheck, setEmailRegExCheck] = useState<boolean>(true);
+  const [passwordRegExCheck, setPasswordRegExCheck] = useState<boolean>(true);
+  const [passwordDoubleCheck, setPasswordDoubleCheck] = useState<boolean>(true);
+  const [usernameRegExCheck, setUsernameRegExCheck] = useState<boolean>(true);
 
   const handleEmailCheck = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    // 이메일 정규식 체크 => 이메일 형식인 경우에만 요청가도록
-    if (email === '') {
-      alert('이메일 주소를 입력해주세요.');
+
+    const emailValueCheck = emailRegex.test(email);
+    if (email === '' || !emailValueCheck) {
+      setEmailRegExCheck(false);
       return;
     }
     emailCheckApi(email)
       .then((res) => {
-        alert(`${email}로 인증코드를 발송하였습니다`);
+        setEmailRegExCheck(true);
+        handleEmailAlert(email);
         setEmailCheck(true);
         return res;
       })
       .catch((err) => {
         alert(err.response.data.statusMsg);
         setEmailCheck(false);
-        // 에러 메세지를 자세하게?
       });
   };
 
   const handleClickEamilAuth = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log(authNumber, email);
-    emailAuthNumberApi({ email, authNumber });
+    // 인증email type 찾아야함, 일단 지금은 true로 넘어감
+    // emailAuthNumberApi({ email, authNumber });
     if (!emailCheck) {
-      alert('이메일 인증을 먼저 해주세요.');
+      handleEmailAlert();
       return;
     }
     alert('이메일 인증이 완료되었습니다');
     setEmailAuthCheck(true);
   };
 
-  const handleClickSignup = () => {
-    console.log(email, username, password, passwordCheck);
+  const useSignup = () => {
+    return useMutation(signupApi, {
+      onSuccess: () => {
+        QueryClient.invalidateQueries(['signup']);
+      },
+    });
+  };
 
-    if (email || password === '') {
+  const { mutate: postSignup } = useSignup();
+  const handleClickSignup = () => {
+    if (email && password && username === '') {
       alert('빈칸을 채워주세요.');
       return;
     }
-    // if (!emailAuthCheck) {
-    //   alert('이메일 인증은 필수입니다.');
-    //   return;
-    // }
+    if (!emailAuthCheck) {
+      alert('이메일 인증은 필수입니다.');
+      return;
+    }
+    const passwordValueCheck = passwordRegex.test(password);
+    if (!passwordValueCheck) {
+      setPasswordRegExCheck(false);
+      return;
+    } else {
+      setPasswordRegExCheck(true);
+    }
+    if (password !== passwordCheck) {
+      setPasswordDoubleCheck(false);
+      return;
+    } else {
+      setPasswordDoubleCheck(true);
+    }
+
+    const usernameValueCheck = usernameRegex.test(username);
+    if (!usernameValueCheck) {
+      setUsernameRegExCheck(false);
+    }
+    postSignup({ email, password, username });
   };
 
   const goLogin = () => {
@@ -102,15 +134,16 @@ const SignupPage = () => {
               placeholder="이메일 주소를 입력하세요"
               readOnly={emailAuthCheck ? true : false}
             />
-            <AuthButton
+            <EmailAuthButton
               onClick={handleEmailCheck}
               type="button"
               disabled={emailAuthCheck ? true : false}
               disabledStyle={emailAuthCheck ? true : false}
             >
               {!emailCheck ? '이메일 인증' : emailAuthCheck ? '인증완료' : '재전송'}
-            </AuthButton>
+            </EmailAuthButton>
           </div>
+          {!emailRegExCheck ? <Label warning={true}>이메일 형식을 확인하세요</Label> : null}
         </div>
 
         <div className="inputBox">
@@ -123,14 +156,14 @@ const SignupPage = () => {
               }}
               readOnly={emailAuthCheck ? true : false}
             />
-            <AuthButton
+            <EmailAuthButton
               onClick={handleClickEamilAuth}
               type="button"
               disabled={emailAuthCheck ? true : false}
               disabledStyle={emailAuthCheck ? true : false}
             >
               {emailAuthCheck ? '인증완료' : '인증하기'}
-            </AuthButton>
+            </EmailAuthButton>
           </div>
         </div>
 
@@ -144,8 +177,11 @@ const SignupPage = () => {
             }}
             placeholder="비밀번호를 작성해 주세요"
           />
-          <label>영어 대소문자, 숫자, 특수문자를 포함한 8-16자를 입력하세요</label>
+          <Label warning={passwordRegExCheck ? false : true}>
+            영어 대소문자, 숫자, 특수문자를 포함한 8-16자를 입력하세요
+          </Label>
         </div>
+
         <div className="inputBox">
           <p>비밀번호 재확인 </p>
           <input
@@ -156,8 +192,9 @@ const SignupPage = () => {
             }}
             placeholder="비밀번호를 확인 주세요"
           />
-          <label>동일한 비밀번호를 입력하세요</label>
+          <Label warning={passwordDoubleCheck ? false : true}>동일한 비밀번호를 입력하세요</Label>
         </div>
+
         <div className="inputBox">
           <p>닉네임 </p>
           <input
@@ -168,9 +205,10 @@ const SignupPage = () => {
             }}
             placeholder="닉네임을 작성해주세요"
           />
-          <label>한글, 영어, 대소문자, 숫자, 최대 10자 이내로 입력하세요</label>
+          <Label warning={false}>닉네임은 5-10자를 입력하세요</Label>
         </div>
       </AuthFormBox>
+
       <AuthButtonBox>
         <button onClick={handleClickSignup}>가입하기</button>
         <span className="moveText" onClick={goLogin}>
@@ -180,9 +218,5 @@ const SignupPage = () => {
     </SignupBox>
   );
 };
-const AuthButton = styled.button<{ disabledStyle: boolean }>`
-  background-color: ${(props) => (props.disabledStyle ? '#aaaaaa !important' : '#F4F4F4')};
-  cursor: ${(props) => (props.disabledStyle ? 'default' : 'pointer')};
-`;
 
 export default SignupPage;
