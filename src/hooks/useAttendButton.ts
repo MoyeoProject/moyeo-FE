@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { meetAttendExitApi } from '../services/api';
 import { loadItem } from '../services/storage';
+import { handleAttendAlert } from './useAlert';
 
 export const useMeetAttendExit = () => {
   const QueryClient = useQueryClient();
@@ -11,7 +12,7 @@ export const useMeetAttendExit = () => {
   return useMutation(meetAttendExitApi, {
     onSuccess: (data) => {
       QueryClient.invalidateQueries();
-      data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
+      data?.data.data !== undefined ? handleAttendAlert(true) : handleAttendAlert(false);
     },
     onError: (err: any) => {
       if (kakaoShareUser) {
