@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMeetAttendExit } from '../../hooks/useAttendButton';
 
+import { useMeetAttendExit } from '../../hooks/useAttendButton';
 import { meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
@@ -48,7 +48,7 @@ const DetailButton = ({ data, member }: any) => {
 
   const linkEdit = () => {
     console.log(data);
-    // saveItem(JSON.stringfy('currPost', editData));
+    // saveItem(JSON.stringify('currPost', editData));
     navigate(`/post/${id}`);
   };
 
