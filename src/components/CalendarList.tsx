@@ -41,13 +41,17 @@ export default function CalendarList() {
 
   countDownTimer(closeDate, timerRef);
 
+  const meetingList = data?.data.data.meetingList?.filter((obj: { startDate: string }) => {
+    return new Date(obj.startDate).getDate() === startDate.getDate() && obj;
+  });
+
   return (
     <CalendarListWrap>
       <span ref={timerRef}>00:00:00:00</span>
       <CalendarWrap>
         <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
       </CalendarWrap>
-      <MeetingList currMeetingList={data?.data.data.meetingList} />
+      <MeetingList currMeetingList={meetingList} />
     </CalendarListWrap>
   );
 }
