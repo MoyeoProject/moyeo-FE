@@ -41,7 +41,7 @@ export default function ModalAccordion({
               control={control}
               render={({ field: { onChange } }) => (
                 <>
-                  <Calendar startDate={startDate} setStartDate={setStartDate} />
+                  <Calendar attendDates={[]} startDate={startDate} setStartDate={setStartDate} />
                   <PostButton
                     type="button"
                     onClick={() => {

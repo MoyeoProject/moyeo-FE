@@ -5,9 +5,11 @@ import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import cal_right_arrow_icon from '../../assets/cal_right_arrow_icon.svg';
 
 export default function Calendar({
+  attendDates,
   startDate,
   setStartDate,
 }: {
+  attendDates: any;
   startDate: Date;
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 }) {
@@ -20,6 +22,16 @@ export default function Calendar({
         setStartDate(date);
       }}
       formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
+      renderDayContents={(dayOfMonth: number, date?: Date | undefined) => {
+        return (
+          <>
+            {attendDates.includes(date?.getTime()) ? (
+              <div className="react-datepicker__badge"></div>
+            ) : null}
+            <span>{dayOfMonth}</span>
+          </>
+        );
+      }}
       renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
         <div>
           <button
