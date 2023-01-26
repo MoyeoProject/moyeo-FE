@@ -55,6 +55,11 @@ input, textarea, button {
     border-radius: 50%;
     background-color: #F1F1F1;
   }
+  :focus {
+    border-radius: 50%;
+    color: #fff;
+    background-color: #666666;
+  }
 }
 .react-datepicker__day-names {
   margin-top: 16px;
@@ -67,15 +72,9 @@ input, textarea, button {
 .react-datepicker__day--selected {
   border-radius: 50%;
   background-color: #666666;
-  :hover {
-    color: #000;
-  }
 }
 .react-datepicker__day--keyboard-selected {
   border-radius: 50%;
   background-color: #666666;
-  :hover {
-    color: #000;
-  }
 }
 `;
