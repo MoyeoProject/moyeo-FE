@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import Calendar from '../components/Calendar';
+import CalendarList from '../components/CalendarList';
 import MeetingList from '../components/MeetingList';
 import TopNavBar from '../components/common/TopNavBar';
 import { getSortbyMeetings } from '../services/api';
@@ -17,7 +17,7 @@ export default function HomePage() {
   return (
     <>
       <TopNavBar name={'home'} />
-      {sortbyKeyword === 'calendar' && <Calendar />}
+      {sortbyKeyword === 'calendar' && <CalendarList />}
       {data?.data.data.meetingList && data?.data.data.meetingList.length !== 0 && (
         <MeetingList currMeetingList={data?.data.data.meetingList} />
       )}

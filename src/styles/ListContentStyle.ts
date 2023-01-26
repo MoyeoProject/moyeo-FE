@@ -5,8 +5,6 @@ export const ListContentWrap = styled.div`
     display: flex;
     justify-content: space-between;
     text-align: start;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #f4f4f4;
     background-color: #fff;
   }
 `;
