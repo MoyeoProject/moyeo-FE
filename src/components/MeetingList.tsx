@@ -17,18 +17,18 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
   const intersectRef = useIntersect(onIntersect);
 
   return (
-    <MeetingListWrap>
+    <MeetingListWrap keyword={loadItem('keyword')}>
       {currMeetingList.map((meeting) => (
         <MeetingWrap key={meeting.id}>
           <ListContent currMeeting={meeting} />
           {sortbyKeyword === 'calendar' ? null : (
-            <div>
+            <>
               {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
                 <AttendantsContent attendantsList={meeting.attendantsList} />
               ) : (
                 <div></div>
               )}
-            </div>
+            </>
           )}
         </MeetingWrap>
       ))}

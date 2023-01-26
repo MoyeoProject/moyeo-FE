@@ -49,11 +49,17 @@ input, textarea, button {
   justify-content: space-between;
 }
 .react-datepicker__day {
+  position: relative;
   margin: 8px;
   font-size: 14px;
   :hover {
     border-radius: 50%;
     background-color: #F1F1F1;
+  }
+  :focus {
+    border-radius: 50%;
+    color: #fff;
+    background-color: #666666;
   }
 }
 .react-datepicker__day-names {
@@ -67,15 +73,18 @@ input, textarea, button {
 .react-datepicker__day--selected {
   border-radius: 50%;
   background-color: #666666;
-  :hover {
-    color: #000;
-  }
 }
 .react-datepicker__day--keyboard-selected {
   border-radius: 50%;
   background-color: #666666;
-  :hover {
-    color: #000;
-  }
+}
+.react-datepicker__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #FF8F00;
 }
 `;

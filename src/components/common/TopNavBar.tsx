@@ -5,7 +5,7 @@ import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
 import profile_icon from '../../assets/profile_icon.svg';
-import { removeItem } from '../../services/storage';
+import { loadItem, removeItem } from '../../services/storage';
 import { LeftBox, RightBox, TopBar, TopNavBarWrap } from '../../styles/TopNavBarStyle';
 import Categories from './Categories';
 import SearchForm from './SearchForm';
@@ -36,7 +36,7 @@ export default function TopNavBar({ name }: { name: string }) {
       </TopBar>
       <SortbyCategories />
       <SearchForm />
-      <Categories />
+      {loadItem('keyword') !== 'calendar' && <Categories />}
     </TopNavBarWrap>
   ) : (
     <TopNavBarWrap>

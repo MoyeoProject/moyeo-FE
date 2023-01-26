@@ -26,6 +26,12 @@ export const getSortbyMeetings = async (keyword: string | null) => {
   return response;
 };
 
+export const getMyList = async () => {
+  const query = `/mine?year=${loadItem('year')}&month=${loadItem('month')}`;
+  const response = await baseURL.get(MEETINGS + query);
+  return response;
+};
+
 export const getNextMeetings = async ({
   meetingId,
   keyword,
