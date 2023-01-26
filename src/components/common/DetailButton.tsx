@@ -48,6 +48,7 @@ const DetailButton = ({ data, member }: any) => {
 
   const linkEdit = () => {
     console.log(data);
+    // 수정페이지로 갈때, 타입찾기.
     // saveItem(JSON.stringify('currPost', editData));
     navigate(`/post/${id}`);
   };
@@ -59,7 +60,7 @@ const DetailButton = ({ data, member }: any) => {
           {data?.link !== '' ? (
             <MasterButton>
               <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
-                모임입장
+                입장하기
               </ButtonBasic>
               <ButtonBasic activeBtn={false} cursorAct={true} onClick={linkEdit}>
                 입장 링크 수정
@@ -85,11 +86,11 @@ const DetailButton = ({ data, member }: any) => {
       ) : data?.attend ? (
         !data?.link ? (
           <ButtonBasic activeBtn={false} cursorAct={false}>
-            링크 개설 전 입니다
+            모임이 아직 시작되지 않았습니다
           </ButtonBasic>
         ) : (
           <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true} cursorAct={true}>
-            모임 입장 - 모임 장소로 이동
+            입장하기
           </ButtonBasic>
         )
       ) : member?.length === data?.maxNum ? (
@@ -102,7 +103,7 @@ const DetailButton = ({ data, member }: any) => {
           activeBtn={true}
           cursorAct={true}
         >
-          모임에 참석한 후 입장 가능합니다. 모임참석하기
+          모임 참석하기
         </ButtonBasic>
       )}
     </>
