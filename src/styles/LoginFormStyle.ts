@@ -78,13 +78,21 @@ export const AuthFormBox = styled.form`
         color: white;
       }
     }
-    label {
-      font-size: 12px;
-      font-weight: 500;
-      color: #9c9c9c;
-    }
   }
 `;
+
+export const Label = styled.label<{ warning: boolean }>`
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: ${(props) => (props.warning ? 'red' : '#9c9c9c')};
+`;
+
+export const EmailAuthButton = styled.button<{ disabledStyle: boolean }>`
+  background-color: ${(props) => (props.disabledStyle ? '#aaaaaa !important' : '#F4F4F4')};
+  cursor: ${(props) => (props.disabledStyle ? 'default' : 'pointer')};
+`;
+
 export const AuthButtonBox = styled.div`
   display: flex;
   flex-direction: column;

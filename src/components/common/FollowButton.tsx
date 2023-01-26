@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { makeFollowApi } from '../../services/api';
 import { loadItem } from '../../services/storage';
+import { FollowStyleButton } from '../../styles/DetailButtonStyle';
 import { MemberTypes } from '../../types/DetailTypes';
 
 const FollowButton = ({ userId, followed }: MemberTypes) => {
@@ -40,14 +41,4 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
   );
 };
 
-const FollowStyleButton = styled.button<{ BGcolor: string; color: string; fontWeight: string }>`
-  width: 65px;
-  height: 32px;
-  border-radius: 4px;
-  color: ${(props) => props.color};
-  font-weight: ${(props) => props.fontWeight};
-  font-size: 12px;
-  line-height: 16px;
-  background-color: ${(props) => props.BGcolor};
-`;
 export default FollowButton;
