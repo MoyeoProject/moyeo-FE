@@ -22,10 +22,14 @@ export default function CalendarList() {
     queryFn: getMyList,
   });
 
+  const attendDates = data?.data.data.meetingList?.map((obj: { startDate: string }) => {
+    return new Date(new Date(obj.startDate).setHours(0, 0, 0, 0)).getTime();
+  });
+
   return (
     <CalendarListWrap>
       <CalendarWrap>
-        <Calendar startDate={startDate} setStartDate={setStartDate} />
+        <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
       </CalendarWrap>
       <MeetingList currMeetingList={data?.data.data.meetingList} />
     </CalendarListWrap>
