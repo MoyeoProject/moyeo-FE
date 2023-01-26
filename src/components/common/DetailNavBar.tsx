@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
+import { handleAttendAlert } from '../../hooks/useAlert';
 import { useMeetAttendExit } from '../../hooks/useAttendButton';
 // import { useMeetAttendExit } from '../../hooks/useAttendButton';
 import { getAlarmApi, meetAttendExitApi } from '../../services/api';
@@ -84,11 +85,11 @@ const DetailNavBar = ({ data }: any) => {
           <div
             onClick={() => {
               if (!data?.attend) {
+                handleAttendAlert(true);
                 handleClickAttnedExit(id);
                 return;
-              }
-              if (data?.attend && confirm('정말 나가시겠습니까?')) {
-                handleClickAttnedExit(id);
+              } else {
+                handleAttendAlert(false, id);
                 return;
               }
             }}

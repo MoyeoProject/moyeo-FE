@@ -125,6 +125,7 @@ export const emailAuthNumberApi = async ({
   authNumber: string;
 }) => {
   console.log(email, authNumber);
+  // 타입찾기
   // const res = await baseURL.get(`users/mail-code/confirm?&ePw=${authNumber}`, {
   //   email,
   //   ePw: authNumber,
@@ -184,5 +185,16 @@ export const meetingLinkInpitApi = async ({ platform, link, id }: MeetingLinkAdd
 
 export const makeFollowApi = async ({ userId }: MemberTypes) => {
   const res = await baseURL.post(`/follow/${userId}`);
+  return res;
+};
+
+export const memberOutApi = async ({
+  meetingId,
+  userId,
+}: {
+  meetingId: string | undefined;
+  userId: number;
+}) => {
+  const res = await baseURL.post(`/meetings/${meetingId}/drop/${userId}`);
   return res;
 };

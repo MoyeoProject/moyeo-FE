@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { makeFollowApi } from '../../services/api';
 import { loadItem } from '../../services/storage';
@@ -34,7 +33,7 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
           fontWeight={isFollow ? '500' : '700'}
           onClick={handleClickFollow}
         >
-          {isFollow ? '팔로우취소' : '팔로우'}
+          {isFollow ? '팔로잉' : '팔로우'}
         </FollowStyleButton>
       )}
     </>

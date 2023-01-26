@@ -21,7 +21,7 @@ export type DetailTypes = {
 export type MemberTypes = {
   followed?: boolean;
   profileUrl?: string;
-  userId?: number;
+  userId: number;
   username?: string;
 };
 
