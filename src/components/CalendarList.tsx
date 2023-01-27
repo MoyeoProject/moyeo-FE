@@ -1,39 +1,31 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-import MeetingList from '../components/MeetingList';
-import { getMyList } from '../services/api';
-import { removeItem, saveItem } from '../services/storage';
+import { loadItem } from '../services/storage';
 import { CalendarListWrap, CalendarWrap } from '../styles/CalendarListStyle';
+import { MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
+import { Meeting } from '../types/AppTypes';
 import { countDownTimer } from '../utils/utils';
+import ListContent from './ListContent';
 import Calendar from './common/Calendar';
 
-export default function CalendarList() {
+type ListItemsProps = {
+  currMeetingList: Meeting[];
+};
+
+export default function CalendarList({ currMeetingList }: ListItemsProps) {
   const [startDate, setStartDate] = useState<Date>(new Date());
 
   const timerRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    return () => {
-      removeItem('year');
-      removeItem('month');
-    };
-  }, [saveItem('year', ''), saveItem('month', '')]);
-
-  const { data } = useQuery({
-    queryKey: ['myMeetings'],
-    queryFn: getMyList,
-  });
-
-  const attendDates = data?.data.data.meetingList?.map((obj: { startDate: string }) => {
+  const attendDates = currMeetingList?.map((obj: { startDate: string }) => {
     return new Date(new Date(obj.startDate).setHours(0, 0, 0, 0)).getTime();
   });
 
-  const willAttendDates = data?.data.data.meetingList
+  const willAttendDates = currMeetingList
     ?.map((obj: { startDate: string; startTime: string }) => {
       const [hours, mins, secs] = obj.startTime.split(':');
       const time = new Date(obj.startDate).setHours(+hours, +mins, +secs);
-      return new Date(time);
+      return new Date(time).getTime();
     })
     .filter((time: number) => new Date(time) >= new Date());
 
@@ -41,7 +33,7 @@ export default function CalendarList() {
 
   countDownTimer(closeDate, timerRef);
 
-  const meetingList = data?.data.data.meetingList?.filter((obj: { startDate: string }) => {
+  const meetingList = currMeetingList?.filter((obj: { startDate: string }) => {
     return new Date(obj.startDate).getDate() === startDate.getDate() && obj;
   });
 
@@ -51,7 +43,17 @@ export default function CalendarList() {
       <CalendarWrap>
         <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
       </CalendarWrap>
-      <MeetingList currMeetingList={meetingList} />
+      <MeetingListWrap keyword={loadItem('keyword')}>
+        {meetingList.length === 0 ? (
+          <span>참여한 모임이 없어요!</span>
+        ) : (
+          meetingList.map((meeting) => (
+            <MeetingWrap key={meeting.id}>
+              <ListContent currMeeting={meeting} />
+            </MeetingWrap>
+          ))
+        )}
+      </MeetingListWrap>
     </CalendarListWrap>
   );
 }

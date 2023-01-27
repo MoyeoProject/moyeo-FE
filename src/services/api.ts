@@ -21,14 +21,10 @@ export const getSortbyMeetings = async (keyword: string | null) => {
   const query =
     keyword === 'popular' || keyword === 'new'
       ? `?sortby=${loadItem('keyword')}&category=${loadItem('category')}`
+      : keyword === 'calendar'
+      ? `/mine?year=${loadItem('year')}&month=${loadItem('month')}`
       : `/search?searchBy=${loadItem('keyword')}&category=${loadItem('category')}`;
 
-  const response = await baseURL.get(MEETINGS + query);
-  return response;
-};
-
-export const getMyList = async () => {
-  const query = `/mine?year=${loadItem('year')}&month=${loadItem('month')}`;
   const response = await baseURL.get(MEETINGS + query);
   return response;
 };
@@ -42,11 +38,10 @@ export const getNextMeetings = async ({
 }) => {
   const query =
     keyword === 'popular' || keyword === 'new'
-      ? `?sortby=${keyword}&category=&meetingId=${meetingId}`
-      : `/search?searchBy=${keyword}&category=&meetingId=${meetingId}`;
+      ? `?sortby=${loadItem('keyword')}&category=&meetingId=${meetingId}`
+      : `/search?searchBy=${loadItem('keyword')}&category=&meetingId=${meetingId}`;
 
   const response = await baseURL.get(MEETINGS + query);
-
   return response.data;
 };
 
@@ -104,12 +99,14 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
     .post(LOGIN, userInfo)
     .then((res) => {
       saveItem('isLogin', res?.headers.authorization as unknown as string);
-      saveItem('keyword', 'popular');
-      saveItem('category', '');
       saveItem('detailKeyword', 'intro');
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
+      saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
       location.assign('/main');
     })
     .catch((err) => {
