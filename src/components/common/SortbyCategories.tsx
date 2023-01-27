@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { getSortbyMeetings } from '../../services/api';
-import { loadItem, removeItem, saveItem } from '../../services/storage';
+import { loadItem, saveItem } from '../../services/storage';
 import { SortbyButton, SortbyWrap } from '../../styles/SortbyCategoriesStyle';
 
 const buttons = [
@@ -15,7 +15,8 @@ export default function SortbyCategories() {
 
   const sortMeetings = useMutation({
     mutationFn: getSortbyMeetings,
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
+      variables && saveItem('keyword', variables);
       saveItem('category', '');
       queryClient.invalidateQueries({ queryKey: ['meetings'] });
 

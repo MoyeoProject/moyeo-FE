@@ -15,7 +15,11 @@ export default function SearchForm() {
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       variables && saveItem('keyword', variables);
+      saveItem('category', '');
       queryClient.invalidateQueries({ queryKey: ['meetings'] });
+
+      queryClient.resetQueries({ queryKey: ['nextMeetings'] });
+      queryClient.resetQueries({ queryKey: ['meetings'] });
     },
   });
 
