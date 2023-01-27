@@ -39,3 +39,8 @@ export const RightBox = styled.div`
     margin-left: 12px;
   }
 `;
+
+export const ProfileImg = styled.img`
+  width: 28px;
+  height: 28px;
+`;

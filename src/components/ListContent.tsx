@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import Frame_user from '../assets/Frame_user.svg';
 import calendar_icon from '../assets/calendar_icon.svg';
 import category_img from '../assets/category_img.svg';
 import lock_icon from '../assets/lock_icon.svg';
-import profile_img from '../assets/profile_img.svg';
 import time_icon from '../assets/time_icon.svg';
 import ModalForm from '../components/common/ModalForm';
 import {
@@ -51,7 +51,7 @@ export default function ListContent({ currMeeting }: { currMeeting: Meeting }) {
         >
           <LeftBox>
             <Title>
-              <img src={profile_img} />
+              <img src={Frame_user} />
               <h3>{title}</h3>
               {secret && <img src={lock_icon} />}
               <span>{maxNum === attendantsNum ? '마감' : null}</span>
