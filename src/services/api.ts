@@ -15,6 +15,7 @@ const baseURL = axios.create({
 
 const MEETINGS = '/meetings';
 const LOGIN = '/users/login';
+const MYPAGE = '/users/mypage';
 
 export const getSortbyMeetings = async (keyword: string | null) => {
   const query =
@@ -47,6 +48,11 @@ export const getNextMeetings = async ({
   const response = await baseURL.get(MEETINGS + query);
 
   return response.data;
+};
+
+export const getMyInfo = async () => {
+  const response = await baseURL.get(MYPAGE);
+  return response;
 };
 
 export const postMeeting = async (postForm: FieldValues) => {
