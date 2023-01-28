@@ -6,22 +6,28 @@ import { loadItem } from '../services/storage';
 import { Meeting } from '../types/AppTypes';
 
 export default function useInfiniteScroll(currMeetingList: Meeting[]) {
-  const keyword = loadItem('keyword');
-
   const { fetchNextPage, data } = useInfiniteQuery(
     ['nextMeetings'],
-    ({ pageParam = keyword === 'popular' ? 1 : currMeetingList[currMeetingList.length - 1].id }) =>
+    ({
+      pageParam = loadItem('keyword') === 'popular'
+        ? 1
+        : currMeetingList[currMeetingList.length - 1].id,
+    }) =>
       getNextMeetings({
         meetingId: pageParam,
-        keyword,
+        keyword: loadItem('keyword'),
       }),
     {
       getNextPageParam: (lastPage, allPage) => {
         const lastMeetingList = lastPage.data.meetingList;
 
-        return keyword === 'new'
-          ? lastMeetingList[lastMeetingList.length - 1].id
-          : allPage.length + 1;
+        if (lastPage.data.meetingList.length !== 0) {
+          return loadItem('keyword') === 'popular'
+            ? allPage.length + 1
+            : lastMeetingList[lastMeetingList.length - 1].id;
+        } else {
+          return undefined;
+        }
       },
     }
   );

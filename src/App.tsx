@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import InfoEx from './pages/InfoEX';
 import LoginForm from './pages/LoginPage';
 import PostPage from './pages/PostPage';
+import ProfilePage from './pages/ProfilePage';
 import SignupPage from './pages/SignupPage';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
       <Route path="/main" element={<HomePage />} />
       <Route path="/post" element={<PostPage />} />
       <Route path="/post/:id" element={<PostPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/detail/:id" element={<DetailPage />} />
       <Route path="/api/users/kakao/callback" element={<KakaoLoginButton />} />
       <Route path="/follow/:keyword" element={<FollowPage />} />
