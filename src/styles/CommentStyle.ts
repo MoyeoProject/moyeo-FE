@@ -6,7 +6,6 @@ export const CommentBox = styled.div`
   box-sizing: border-box;
 `;
 export const CommentViewBox = styled.div`
-  /* height: 376px; */
   height: 692px;
   padding-bottom: 36px;
   box-sizing: border-box;

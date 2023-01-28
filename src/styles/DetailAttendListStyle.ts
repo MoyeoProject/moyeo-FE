@@ -15,7 +15,7 @@ export const Box = styled.div`
   }
 `;
 export const MemberBox = styled.div`
-  height: 64px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
