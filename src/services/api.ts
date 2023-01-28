@@ -94,6 +94,12 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
+export const alarmSubscribeApi = async () => {
+  const res = await baseURL.get('/alarm/subscribe');
+  console.log(res);
+  return res;
+};
+
 export const postLogin = async (userInfo: { email: string; password: string }) => {
   await baseURL
     .post(LOGIN, userInfo)
@@ -103,6 +109,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
+      // alarmSubscribeApi();
       saveItem('keyword', 'popular');
       saveItem('category', '');
       saveItem('year', '');
@@ -116,7 +123,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
 };
 
 export const emailCheckApi = async (email: string) => {
-  const res = await baseURL.get(`users/mail-code/create?email=${email}`);
+  const res = await baseURL.get(`/users/mail-code/create?email=${email}`);
   return res;
 };
 
@@ -143,7 +150,7 @@ export const signupApi = async ({ email, password, username }: SignUp) => {
 };
 
 export const getDetailPage = async (id: string | undefined) => {
-  const res = await baseURL.get(`meetings/${id}`);
+  const res = await baseURL.get(`/meetings/${id}`);
   return res;
 };
 export const getAlarmApi = async (id: string | undefined) => {
@@ -199,5 +206,15 @@ export const memberOutApi = async ({
   userId: number;
 }) => {
   const res = await baseURL.post(`/meetings/${meetingId}/drop/${userId}`);
+  return res;
+};
+
+export const getFollowingList = async () => {
+  const res = await baseURL.get('/follow/followingList');
+  return res;
+};
+
+export const getFollowerList = async () => {
+  const res = await baseURL.get('/follow/followerList');
   return res;
 };

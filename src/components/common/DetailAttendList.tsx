@@ -7,7 +7,7 @@ import { handleMemberOutAlert } from '../../hooks/useAlert';
 import { memberOutApi } from '../../services/api';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
-import FollowButton from './FollowButton';
+import { FollowButton } from './FollowButton';
 
 // type DetailAttendType = {
 //   data: DetailTypes[]
