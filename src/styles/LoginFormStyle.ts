@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const LoginFormBox = styled.div`
   position: relative;
-  height: 812px;
+  /* height: 812px; */
+  height: 100vh;
   width: 100%;
   padding: 16px;
   box-sizing: border-box;
@@ -27,18 +28,24 @@ export const LoginFormBox = styled.div`
   }
 `;
 export const SignupBox = styled.div`
-  width: 100%;
-  height: 812px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
+  /* height: 812px; */
+  height: 100vh;
   background-color: white;
-  & > p {
-    margin-bottom: 32px;
-    font-size: 20px;
-    font-weight: 700;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  & > div {
+    position: absolute;
+    top: 44px;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    & > p {
+      margin-bottom: 32px;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    }
   }
 `;
 export const AuthFormBox = styled.form`
