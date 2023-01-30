@@ -24,8 +24,8 @@ const InfoEx = () => {
         팔로워
       </button>
       {/* <InfoDeveloper /> */}
-      {/* <InfoPrivacy /> */}
-      <AlarmList />
+      <InfoPrivacy />
+      {/* <AlarmList /> */}
     </>
   );
 };
