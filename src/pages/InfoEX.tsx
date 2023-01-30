@@ -25,7 +25,7 @@ const InfoEx = () => {
       </button>
       {/* <InfoDeveloper /> */}
       {/* <InfoPrivacy /> */}
-      {/* <AlarmList /> */}
+      <AlarmList />
     </>
   );
 };
