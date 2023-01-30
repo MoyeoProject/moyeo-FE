@@ -4,16 +4,17 @@ import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useMeetAttendExit } from '../../hooks/useAttendButton';
-import { meetAttendExitApi } from '../../services/api';
+import { getEditingMeeting, meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
-import { DetailMeetLinkButton } from '../DetailMeetLinkButton';
+import { DetailMeetLinkButton } from '../DetailButtonModal';
 
 const DetailButton = ({ data, member }: any) => {
   const QueryClient = useQueryClient();
 
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const { id } = useParams();
+  const ids = Number(id);
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
@@ -28,8 +29,8 @@ const DetailButton = ({ data, member }: any) => {
   };
 
   const { mutate: meetAttendExit } = useMeetAttendExit();
-  const handleClickAttnedExit = (id: string | undefined) => {
-    meetAttendExit(id);
+  const handleClickAttnedExit = (ids: number | undefined) => {
+    meetAttendExit(ids);
   };
 
   const editData = {
@@ -47,10 +48,8 @@ const DetailButton = ({ data, member }: any) => {
   };
 
   const linkEdit = () => {
-    console.log(data);
-    // 수정페이지로 갈때, 타입찾기.
-    // saveItem(JSON.stringify('currPost', editData));
     navigate(`/post/${id}`);
+    getEditingMeeting(ids);
   };
 
   return (
@@ -98,7 +97,7 @@ const DetailButton = ({ data, member }: any) => {
       ) : (
         <ButtonBasic
           onClick={() => {
-            handleClickAttnedExit(id);
+            handleClickAttnedExit(ids);
           }}
           activeBtn={true}
           cursorAct={true}

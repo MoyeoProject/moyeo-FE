@@ -65,7 +65,7 @@ export const postMeeting = async (postForm: FieldValues) => {
   return response;
 };
 
-export const getEditingMeeting = async (id: number) => {
+export const getEditingMeeting = async (id: number | undefined) => {
   const response = await baseURL
     .get(MEETINGS + `/${id}/update`)
     .then((res) => {
