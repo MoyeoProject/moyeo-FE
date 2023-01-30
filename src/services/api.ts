@@ -1,3 +1,4 @@
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 
@@ -94,10 +95,21 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
-export const alarmSubscribeApi = async () => {
-  const res = await baseURL.get('/alarm/subscribe');
-  console.log(res);
-  return res;
+const alarmSubscribeApi = async () => {
+  const id = loadItem('userId');
+  const subscribeUrl = `https://sparta-hippo.shop/api/alarm/subscribe/${id}`;
+  if (loadItem('isLogin') != null) {
+    const eventSource = new EventSource(subscribeUrl);
+
+    eventSource.addEventListener('sse', (e) => {
+      console.log('알람연결 성공', e.data);
+      alert(e.data);
+    });
+
+    eventSource.addEventListener('error', function (event) {
+      eventSource.close();
+    });
+  }
 };
 
 export const postLogin = async (userInfo: { email: string; password: string }) => {
@@ -109,11 +121,11 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
-      // alarmSubscribeApi();
       saveItem('keyword', 'popular');
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
+      // alarmSubscribeApi();
       location.assign('/main');
     })
     .catch((err) => {
@@ -168,12 +180,12 @@ export const getAttendList = async (meetingId: string | undefined) => {
   return res;
 };
 export const getCommentPage = async (meetingId: string | undefined) => {
-  const res = await baseURL.get(`/meetings/${meetingId}/comments?commentId=`);
+  const res = await baseURL.get(`/meetings/${meetingId}/comments`);
   return res;
 };
 
 export const addComment = async ({ id, comment }: { id: string | undefined; comment: string }) => {
-  const res = await baseURL.post(`/meetings/${id}/comments?commentId=`, { comment });
+  const res = await baseURL.post(`/meetings/${id}/comments`, { comment });
   return res;
 };
 
@@ -216,5 +228,10 @@ export const getFollowingList = async () => {
 
 export const getFollowerList = async () => {
   const res = await baseURL.get('/follow/followerList');
+  return res;
+};
+
+export const getAlarmList = async () => {
+  const res = await baseURL.get('/alarms');
   return res;
 };
