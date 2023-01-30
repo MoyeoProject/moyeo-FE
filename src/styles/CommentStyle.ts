@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const CommentBox = styled.div`
-  position: relative;
+  height: 100vh;
+  width: 100%;
   padding: 0 8px;
   box-sizing: border-box;
 `;
 export const CommentViewBox = styled.div`
-  height: 692px;
-  padding-bottom: 36px;
   box-sizing: border-box;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -54,9 +53,9 @@ export const CommentItem = styled.div<{ align: string; bgColor: string }>`
 `;
 export const InputBox = styled.div`
   position: fixed;
-  top: 812px;
-  left: 50%;
-  transform: translate(-50%, -100%);
+  bottom: 0;
+  z-index: 10;
+  width: 359px;
   padding: 16px 0;
   box-sizing: border-box;
   background-color: white;
