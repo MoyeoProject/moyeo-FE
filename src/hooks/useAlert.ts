@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 
 import { meetAttendExitApi } from '../services/api';
+import { saveItem } from '../services/storage';
 import './useAlertStyle.css';
 
 export const handleEmailAlert = (email?: string) => {
@@ -38,7 +39,7 @@ const handleClickAttnedExit = (id: string | undefined) => {
 export const handleAttendAlert = (isAttend: boolean, id?: string) => {
   if (isAttend) {
     Swal.fire({
-      position: 'top',
+      position: 'center',
       width: '370px',
       icon: 'success',
       iconColor: '#F1F1F1',
@@ -49,7 +50,7 @@ export const handleAttendAlert = (isAttend: boolean, id?: string) => {
     });
   } else {
     Swal.fire({
-      position: 'top',
+      position: 'center',
       width: '365px',
       title: '모임을 취소하시겠습니까?',
       text: '메인으로 이동합니다.',
@@ -63,8 +64,9 @@ export const handleAttendAlert = (isAttend: boolean, id?: string) => {
     }).then((result) => {
       if (result.isConfirmed) {
         handleClickAttnedExit(id);
+        saveItem('detailKeyword', 'intro');
         Swal.fire({
-          position: 'top',
+          position: 'center',
           width: '370px',
           icon: 'success',
           iconColor: '#F1F1F1',
