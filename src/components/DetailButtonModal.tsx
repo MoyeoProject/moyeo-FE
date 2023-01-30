@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { handleAttendAlert, handleAttendCancleAlert } from '../hooks/useAlert';
+import { handleAttendAlert } from '../hooks/useAlert';
 import { useMeetAttendExit } from '../hooks/useAttendButton';
 import useCloseModal from '../hooks/useCloseModal';
 import { meetingLinkInpitApi } from '../services/api';
