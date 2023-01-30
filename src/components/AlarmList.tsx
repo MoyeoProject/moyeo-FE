@@ -4,12 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { InfoNav } from '../pages/FollowPage';
 import { getAlarmList } from '../services/api';
 import { AlarmBox, InfoBox } from '../styles/InfoBoxStyle';
+import { AlarmType } from '../types/DetailTypes';
 
-type AlarmType = {
-  content: string;
-  createdAt: string;
-  id: number;
-};
 export const AlarmList = () => {
   const { data: alarmLists } = useQuery(['member'], () => {
     return getAlarmList();
@@ -26,6 +22,7 @@ export const AlarmList = () => {
               <div key={alarm.id}>
                 <div className="alarmText">{alarm.content}</div>
                 <div className="alarmTime">{alarm.createdAt.split('T')[0]}</div>
+                <div className="alarmTime">{alarm.createdAt.split('T')[1]}</div>
               </div>
             );
           })}
@@ -33,11 +30,4 @@ export const AlarmList = () => {
       </AlarmBox>
     </InfoBox>
   );
-};
-
-type alarmType = {
-  id: number;
-  content: string;
-  isRead: boolean;
-  createdAd: string;
 };

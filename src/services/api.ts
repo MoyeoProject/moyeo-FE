@@ -1,5 +1,6 @@
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 import { SignUp } from '../types/AppTypes';
@@ -96,14 +97,18 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
 };
 
 const alarmSubscribeApi = async () => {
+  const [data, setData] = useState([]);
   const id = loadItem('userId');
+  const [alarmMsg, setAlarmMsg] = useState([]);
+
   const subscribeUrl = `https://sparta-hippo.shop/api/alarm/subscribe/${id}`;
   if (loadItem('isLogin') != null) {
     const eventSource = new EventSource(subscribeUrl);
 
-    eventSource.addEventListener('sse', (e) => {
-      console.log('알람연결 성공', e.data);
-      alert(e.data);
+    eventSource.addEventListener('sse', async (e) => {
+      // console.log('알람연결 성공', e.data);
+      const result = await e.data;
+      setData(result);
     });
 
     eventSource.addEventListener('error', function (event) {

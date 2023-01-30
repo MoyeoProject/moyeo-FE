@@ -58,3 +58,10 @@ export type MeetingLinkAddType = {
   platform: string;
   id: string | undefined;
 };
+
+export type AlarmType = {
+  id: number;
+  content: string;
+  isRead: boolean;
+  createdAt: string;
+};
