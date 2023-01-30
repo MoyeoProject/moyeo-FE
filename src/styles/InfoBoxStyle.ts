@@ -79,6 +79,9 @@ export const AlarmBox = styled.div`
   .alarmList {
     padding: 16px;
     box-sizing: border-box;
+    & > div {
+      margin-bottom: 10px;
+    }
     .alarmText {
       margin-bottom: 20px;
     }

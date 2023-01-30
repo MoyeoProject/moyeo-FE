@@ -120,101 +120,103 @@ const SignupPage = () => {
 
   return (
     <SignupBox>
-      <p>방구석 모임에 오신걸 환영합니다!</p>
-      <AuthFormBox>
-        <div className="inputBox">
-          <p>이메일 </p>
-          <div className="inputBtnBox">
-            <input
-              type="email"
-              value={email || ''}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              placeholder="이메일 주소를 입력하세요"
-              readOnly={emailAuthCheck ? true : false}
-            />
-            <EmailAuthButton
-              onClick={handleEmailCheck}
-              type="button"
-              disabled={emailAuthCheck ? true : false}
-              disabledStyle={emailAuthCheck ? true : false}
-            >
-              {!emailCheck ? '이메일 인증' : emailAuthCheck ? '인증완료' : '재전송'}
-            </EmailAuthButton>
+      <div>
+        <p>방구석 모임에 오신걸 환영합니다!</p>
+        <AuthFormBox>
+          <div className="inputBox">
+            <p>이메일 </p>
+            <div className="inputBtnBox">
+              <input
+                type="email"
+                value={email || ''}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                placeholder="이메일 주소를 입력하세요"
+                readOnly={emailAuthCheck ? true : false}
+              />
+              <EmailAuthButton
+                onClick={handleEmailCheck}
+                type="button"
+                disabled={emailAuthCheck ? true : false}
+                disabledStyle={emailAuthCheck ? true : false}
+              >
+                {!emailCheck ? '이메일 인증' : emailAuthCheck ? '인증완료' : '재전송'}
+              </EmailAuthButton>
+            </div>
+            {!emailRegExCheck ? <Label warning={true}>이메일 형식을 확인하세요</Label> : null}
           </div>
-          {!emailRegExCheck ? <Label warning={true}>이메일 형식을 확인하세요</Label> : null}
-        </div>
 
-        <div className="inputBox">
-          <div className="inputBtnBox">
+          <div className="inputBox">
+            <div className="inputBtnBox">
+              <input
+                type="text"
+                placeholder="인증번호를 입력하세요"
+                onChange={(e) => {
+                  setAuthNumber(e.target.value);
+                }}
+                readOnly={emailAuthCheck ? true : false}
+              />
+              <EmailAuthButton
+                onClick={handleClickEamilAuth}
+                type="button"
+                disabled={emailAuthCheck ? true : false}
+                disabledStyle={emailAuthCheck ? true : false}
+              >
+                {emailAuthCheck ? '인증완료' : '인증하기'}
+              </EmailAuthButton>
+            </div>
+          </div>
+
+          <div className="inputBox">
+            <p>비밀번호 </p>
+            <input
+              type="password"
+              value={password || ''}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              placeholder="비밀번호를 작성해 주세요"
+            />
+            <Label warning={passwordRegExCheck ? false : true}>
+              영어 대소문자, 숫자, 특수문자를 포함한 8-16자를 입력하세요
+            </Label>
+          </div>
+
+          <div className="inputBox">
+            <p>비밀번호 재확인 </p>
+            <input
+              type="password"
+              value={passwordCheck || ''}
+              onChange={(e) => {
+                setPasswordCheck(e.target.value);
+              }}
+              placeholder="비밀번호를 확인 주세요"
+            />
+            <Label warning={passwordDoubleCheck ? false : true}>동일한 비밀번호를 입력하세요</Label>
+          </div>
+
+          <div className="inputBox">
+            <p>닉네임 </p>
             <input
               type="text"
-              placeholder="인증번호를 입력하세요"
+              value={username || ''}
               onChange={(e) => {
-                setAuthNumber(e.target.value);
+                setUsername(e.target.value);
               }}
-              readOnly={emailAuthCheck ? true : false}
+              placeholder="닉네임을 작성해주세요"
             />
-            <EmailAuthButton
-              onClick={handleClickEamilAuth}
-              type="button"
-              disabled={emailAuthCheck ? true : false}
-              disabledStyle={emailAuthCheck ? true : false}
-            >
-              {emailAuthCheck ? '인증완료' : '인증하기'}
-            </EmailAuthButton>
+            <Label warning={false}>닉네임은 5-10자를 입력하세요</Label>
           </div>
-        </div>
+        </AuthFormBox>
 
-        <div className="inputBox">
-          <p>비밀번호 </p>
-          <input
-            type="password"
-            value={password || ''}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            placeholder="비밀번호를 작성해 주세요"
-          />
-          <Label warning={passwordRegExCheck ? false : true}>
-            영어 대소문자, 숫자, 특수문자를 포함한 8-16자를 입력하세요
-          </Label>
-        </div>
-
-        <div className="inputBox">
-          <p>비밀번호 재확인 </p>
-          <input
-            type="password"
-            value={passwordCheck || ''}
-            onChange={(e) => {
-              setPasswordCheck(e.target.value);
-            }}
-            placeholder="비밀번호를 확인 주세요"
-          />
-          <Label warning={passwordDoubleCheck ? false : true}>동일한 비밀번호를 입력하세요</Label>
-        </div>
-
-        <div className="inputBox">
-          <p>닉네임 </p>
-          <input
-            type="text"
-            value={username || ''}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            placeholder="닉네임을 작성해주세요"
-          />
-          <Label warning={false}>닉네임은 5-10자를 입력하세요</Label>
-        </div>
-      </AuthFormBox>
-
-      <AuthButtonBox>
-        <button onClick={handleClickSignup}>가입하기</button>
-        <span className="moveText" onClick={goLogin}>
-          로그인 하러 가기
-        </span>
-      </AuthButtonBox>
+        <AuthButtonBox>
+          <button onClick={handleClickSignup}>가입하기</button>
+          <span className="moveText" onClick={goLogin}>
+            로그인 하러 가기
+          </span>
+        </AuthButtonBox>
+      </div>
     </SignupBox>
   );
 };
