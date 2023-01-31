@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Comment from '../components/Comment';
@@ -35,7 +36,7 @@ const DetailPage = () => {
   if (!loadItem('isLogin')) {
     saveItem('isLogin', 'kakaoShare');
     saveItem('detailKeyword', 'intro');
-    alert(
+    toast(
       '"모여"에 초대받으셨군요! 환영합니다😊 로그인 / 회원가입이 필요한 페이지가 있을 수 있습니다'
     );
   }

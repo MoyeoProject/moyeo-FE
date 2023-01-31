@@ -1,5 +1,6 @@
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { handleEmailAlert } from '../hooks/useAlert';
@@ -49,7 +50,7 @@ const SignupPage = () => {
         return res;
       })
       .catch((err) => {
-        alert(err.response.data.statusMsg);
+        toast(err.response.data.statusMsg);
         setEmailCheck(false);
       });
   };
@@ -62,7 +63,7 @@ const SignupPage = () => {
       handleEmailAlert();
       return;
     }
-    alert('이메일 인증이 완료되었습니다');
+    toast('이메일 인증이 완료되었습니다');
     setEmailAuthCheck(true);
   };
 
@@ -77,11 +78,11 @@ const SignupPage = () => {
   const { mutate: postSignup } = useSignup();
   const handleClickSignup = () => {
     if (email && password && username === '') {
-      alert('빈칸을 채워주세요.');
+      toast('빈칸을 채워주세요.');
       return;
     }
     if (!emailAuthCheck) {
-      alert('이메일 인증은 필수입니다.');
+      toast('이메일 인증은 필수입니다.');
       return;
     }
     const passwordValueCheck = passwordRegex.test(password);

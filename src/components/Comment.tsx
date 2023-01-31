@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
@@ -31,7 +32,7 @@ const Comment = () => {
   const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment === '') {
-      alert('댓글을 작성해주세요.');
+      toast('댓글을 작성해주세요.');
       return;
     }
     addCommentItem({ id, comment });
@@ -43,7 +44,7 @@ const Comment = () => {
         QueryClient.invalidateQueries(['Comment', id]);
       },
       onError: (data: any) => {
-        alert(data?.response.data.statusMsg);
+        toast(data?.response.data.statusMsg);
       },
     });
   };

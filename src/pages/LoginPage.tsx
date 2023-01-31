@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as LoginLogo } from '../assets/Loginlogo.svg';
@@ -29,7 +30,7 @@ const LoginForm = () => {
   const handleClickLogin = ({ email, password }: LoginInputField) => {
     email && password
       ? mutateLogin.mutate({ email, password })
-      : alert('이메일과 비밀번호를 확인해주세요.');
+      : toast('이메일과 비밀번호를 확인해주세요.');
   };
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLFormElement>) => {

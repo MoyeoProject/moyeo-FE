@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import toast from 'react-hot-toast';
 
 import useChangeInputField from '../../hooks/useChangeInputField';
 import useCloseModal from '../../hooks/useCloseModal';
@@ -23,12 +24,12 @@ export default function ModalForm({ password, onClose, onClickConfirm }: ModalFo
       onClickConfirm(inputField);
     } else {
       if (inputField === '') {
-        alert('비밀번호를 입력해주세요.');
+        toast('비밀번호를 입력해주세요.');
       } else {
         if (inputField === password) {
           onClickConfirm(inputField);
         } else {
-          alert('비밀번호를 다시 입력해주세요.');
+          toast('비밀번호를 다시 입력해주세요.');
           handleClearInputField();
         }
       }
