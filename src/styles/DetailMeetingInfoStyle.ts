@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
-export const DetailInfoBox = styled.div`
-  padding: 0 16px;
-  box-sizing: border-box;
-`;
 export const MeetingCategoryBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   .meetingBox {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    .meetingImg {
+      height: 160px;
+      border: 1px solid red;
+      margin-bottom: 20px;
+    }
+    .meetingInfo {
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
     .meetingPlatform {
       width: fit-content;
       height: 24px;
@@ -51,6 +56,8 @@ export const MeetingCategoryBox = styled.div`
     }
   }
   .meetingText {
+    padding: 0 16px;
+    box-sizing: border-box;
     /* white-space: nowrap;
     overflow: hidden; */
     line-height: 24px;
@@ -60,33 +67,21 @@ export const MeetingCategoryBox = styled.div`
   }
 `;
 export const MeetingInfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 32px;
-  & > p {
-    font-size: 12px;
-    font-weight: 700;
-    color: #666666;
-    margin-bottom: 12px;
-  }
-  .infoContentBox {
-    height: 48px;
+  .infoBox {
+    padding: 0 16px;
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    .dateInfo {
+    flex-direction: column;
+    margin-bottom: 16px;
+    & > p {
+      margin-bottom: 4px;
+      color: #222222;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .infoContentBox {
       font-size: 12px;
-      color: #aaaaaa;
-      div {
-        display: flex;
-        margin-bottom: 8px;
-        p {
-          margin-left: 4px;
-        }
-      }
-      div:last-child {
-        margin-bottom: 0px;
-      }
+      color: #666666;
     }
   }
 `;

@@ -35,9 +35,8 @@ export const FollowButton = ({ userId, followed }: MemberTypes) => {
     <>
       {userId == myId ? null : (
         <FollowStyleButton
-          BGcolor={isFollow ? '#E9E9E9' : '#9CC8D2'}
+          BGcolor={isFollow ? '#E9E9E9' : '#FFA02D'}
           color={isFollow ? '#666666' : '#FFFFFF'}
-          fontWeight={isFollow ? '500' : '700'}
           onClick={handleClickFollow}
         >
           {isFollow ? '팔로잉' : '팔로우'}

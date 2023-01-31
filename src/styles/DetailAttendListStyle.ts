@@ -8,7 +8,7 @@ export const Box = styled.div`
     font-size: 12px;
     color: #666666;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     & > span {
       color: #aaaaaa;
     }
@@ -26,7 +26,7 @@ export const Out = styled.button`
   width: 65px;
   height: 32px;
   margin-right: 8px;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #e9e9e9;
   color: #666666;
   font-size: 12px;

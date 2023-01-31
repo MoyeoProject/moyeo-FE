@@ -15,7 +15,7 @@ export const NavBox = styled.div`
   }
   .navTitle {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 8px;
     font-size: 16px;
     font-weight: 700;
     white-space: nowrap;

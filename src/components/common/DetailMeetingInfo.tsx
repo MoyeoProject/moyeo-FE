@@ -4,23 +4,23 @@ import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
 import { ReactComponent as CalendarDetail } from '../../assets/calendar_detail.svg';
 import { ReactComponent as ClockIcon } from '../../assets/clock_icon.svg';
 import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
-import {
-  DetailInfoBox,
-  MeetingCategoryBox,
-  MeetingInfoBox,
-} from '../../styles/DetailMeetingInfoStyle';
+import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingInfoStyle';
 import { setDate, setTime } from '../../utils/utils';
 
-const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
+const DetailMeetingInfo = ({ data }: any) => {
   const time = setTime(data?.startTime);
   const today = setDate(data?.startDate);
+
+  // console.log(data);
   return (
     <>
-      {/* {isLoading ? <h2>로딩중입니다</h2> : null}
-      {isError ? <h2>문제가 생겼습니다</h2> : null} */}
-      <DetailInfoBox>
-        <MeetingCategoryBox>
-          <div className="meetingBox">
+      <MeetingCategoryBox>
+        <div className="meetingBox">
+          <div className="meetingImg">
+            {/* null이면 기본이미지 */}
+            <img />
+          </div>
+          <div className="meetingInfo">
             <div className="meetingPlatform">{data.platform}</div>
             <p className="meetingTitle">{data?.title}</p>
             <div className="iconBox">
@@ -34,26 +34,23 @@ const DetailMeetingInfo = ({ data, isLoading, isError }: any) => {
               </div>
             </div>
           </div>
-          <div className="meetingText">{data?.content}</div>
-        </MeetingCategoryBox>
+        </div>
         <MeetingInfoBox>
-          <p>{data?.title}</p>
-          <div className="infoContentBox">
-            <div className="dateInfo">
-              <div>
-                <CalendarDetail />
-                <p>{today}</p>
-              </div>
-              <div>
-                <ClockIcon />
-                <p>
-                  {time} ~ {data?.duration}시간
-                </p>
-              </div>
+          <div className="infoBox">
+            <p>일정</p>
+            <div className="infoContentBox">
+              <p>모임 날짜 &nbsp;&nbsp; {today}</p>
+              <p>
+                시작 시간 &nbsp;&nbsp; {time} ~ {data?.duration}시간
+              </p>
             </div>
           </div>
+          <div className="infoBox">
+            <p>소개</p>
+            <div className="infoContentBox">{data?.content}</div>
+          </div>
         </MeetingInfoBox>
-      </DetailInfoBox>
+      </MeetingCategoryBox>
     </>
   );
 };

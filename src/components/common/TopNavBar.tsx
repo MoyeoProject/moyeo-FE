@@ -30,10 +30,10 @@ export default function TopNavBar({ name }: { name: string }) {
             <img src={plus_icon} alt={plus_icon} />
           </Link>
           <Link to="/profile">
-            <ProfileImg
+            {/* <ProfileImg
               src={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
               alt={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
-            />
+            /> */}
           </Link>
         </RightBox>
       </TopBar>
