@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 
+import meeting_img from '../assets/meeting_img.svg';
 import { loadItem } from '../services/storage';
 import { CalendarListWrap, CalendarWrap } from '../styles/CalendarListStyle';
 import { MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
@@ -51,6 +52,7 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
         ) : (
           meetingList.map((meeting) => (
             <MeetingWrap key={meeting.id}>
+              <img src={!meeting.img ? meeting_img : meeting.img} />
               <ListContent currMeeting={meeting} />
             </MeetingWrap>
           ))

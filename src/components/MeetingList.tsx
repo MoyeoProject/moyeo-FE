@@ -1,3 +1,4 @@
+import meeting_img from '../assets/meeting_img.svg';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import useIntersect from '../hooks/useIntersect';
 import { loadItem } from '../services/storage';
@@ -18,26 +19,28 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
     <MeetingListWrap keyword={loadItem('keyword')}>
       {currMeetingList.map((meeting) => (
         <MeetingWrap key={meeting.id}>
-          <ListContent currMeeting={meeting} />
-          <>
+          <img src={!meeting.img ? meeting_img : meeting.img} />
+          <div>
+            <ListContent currMeeting={meeting} />
             {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
               <AttendantsContent attendantsList={meeting.attendantsList} />
             ) : (
               <div></div>
             )}
-          </>
+          </div>
         </MeetingWrap>
       ))}
       {nextMeetingList?.map((meeting) => (
         <MeetingWrap key={meeting.id}>
-          <ListContent currMeeting={meeting} />
-          <>
+          <img src={!meeting.img ? meeting_img : meeting.img} />
+          <div>
+            <ListContent currMeeting={meeting} />
             {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
               <AttendantsContent attendantsList={meeting.attendantsList} />
             ) : (
               <div></div>
             )}
-          </>
+          </div>
         </MeetingWrap>
       ))}
       <div ref={intersectRef}></div>
