@@ -18,6 +18,9 @@ export const NavBox = styled.div`
     padding: 0 10px;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

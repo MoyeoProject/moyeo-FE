@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DetailBox = styled.div`
-  height: 812px;
+  height: 100vh;
   position: relative;
   background-color: white;
   overflow-y: scroll;
@@ -17,13 +17,12 @@ export const DetailBox = styled.div`
     z-index: 10;
   }
   .detailMainBox {
-    position: relative;
     margin-bottom: 85px;
   }
   .buttonBox {
     position: fixed;
-    top: 812px;
-    transform: translateY(-100%);
+    bottom: 0;
+    z-index: 10;
     padding: 16px;
     box-sizing: border-box;
     background-color: white;

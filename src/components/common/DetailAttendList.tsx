@@ -1,11 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
 import { ReactComponent as Frame_user } from '../../assets/Frame_user.svg';
+import { handleMemberOutAlert } from '../../hooks/useAlert';
+import { memberOutApi } from '../../services/api';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
-import FollowButton from './FollowButton';
+import { FollowButton } from './FollowButton';
 
 // type DetailAttendType = {
 //   data: DetailTypes[]
@@ -14,9 +16,28 @@ import FollowButton from './FollowButton';
 // }
 
 const DetailAttendList = ({ data, member }: any) => {
+  const QueryClient = useQueryClient();
   const masterId = data?.masterId;
   const maxNum = data?.maxNum;
   const currentNum = member?.length;
+
+  const useMemberOut = () => {
+    return useMutation(memberOutApi, {
+      onSuccess: (data) => {
+        console.log(data);
+        handleMemberOutAlert();
+        location.reload();
+        QueryClient.invalidateQueries(['memberOut']);
+      },
+    });
+  };
+
+  const { mutate: memberOut } = useMemberOut();
+  const handleMemberOut = (userId: number) => {
+    const meetingId = data?.id;
+    memberOut({ meetingId, userId });
+  };
+
   return (
     <Box>
       <p>
@@ -49,8 +70,13 @@ const DetailAttendList = ({ data, member }: any) => {
                 </Member>
                 {data?.master ? (
                   <div>
-                    <Out>내보내기</Out>
-                    {/* <FollowButton userId={m.userId} followed={m.followed} /> */}
+                    <Out
+                      onClick={() => {
+                        handleMemberOut(m.userId);
+                      }}
+                    >
+                      내보내기
+                    </Out>
                     <FollowButton userId={m.userId} followed={m.followed} />
                   </div>
                 ) : (

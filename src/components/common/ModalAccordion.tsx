@@ -1,16 +1,13 @@
-import ko from 'date-fns/locale/ko';
 import { useRef, useState } from 'react';
-import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
 import modal_plus_icon from '../../assets/modal_plus_icon.svg';
 import useCloseModal from '../../hooks/useCloseModal';
 import { PostButton } from '../../styles/ButtonStyle';
-import { CalendarBox, ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
+import { ModalTitle, ModalWrap, OptionsBox, Overlay } from '../../styles/ModalStyle';
 import { calcStartDate } from '../../utils/utils';
-
-registerLocale('ko', ko);
+import Calendar from '../common/Calendar';
 
 type ModalAccordionProps = {
   name: string;
@@ -33,14 +30,6 @@ export default function ModalAccordion({
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
 
-  const MyContainer = ({ className, children }: { className: any; children: any }) => {
-    return (
-      <div style={{ position: 'relative' }}>
-        <div style={{}}>{children}</div>
-      </div>
-    );
-  };
-
   return (
     <Overlay>
       <ModalWrap ref={modalRef}>
@@ -51,17 +40,8 @@ export default function ModalAccordion({
               name={name}
               control={control}
               render={({ field: { onChange } }) => (
-                <CalendarBox>
-                  <DatePicker
-                    inline
-                    locale="ko"
-                    selected={startDate}
-                    onChange={(date: Date) => {
-                      setStartDate(date);
-                    }}
-                    minDate={new Date()}
-                    calendarContainer={MyContainer}
-                  />
+                <>
+                  <Calendar attendDates={[]} startDate={startDate} setStartDate={setStartDate} />
                   <PostButton
                     type="button"
                     onClick={() => {
@@ -72,7 +52,7 @@ export default function ModalAccordion({
                   >
                     확인
                   </PostButton>
-                </CalendarBox>
+                </>
               )}
             />
           </>

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const ListContentWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f4f4f4;
+  & > button {
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+    background-color: #fff;
+  }
 `;
 
 export const LeftBox = styled.div``;

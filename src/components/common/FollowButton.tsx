@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { makeFollowApi } from '../../services/api';
 import { loadItem } from '../../services/storage';
+import { FollowStyleButton } from '../../styles/DetailButtonStyle';
 import { MemberTypes } from '../../types/DetailTypes';
 
-const FollowButton = ({ userId, followed }: MemberTypes) => {
+export const FollowButton = ({ userId, followed }: MemberTypes) => {
   const [isFollow, setIsFollow] = useState(followed);
   const myId = Number(loadItem('userId'));
 
@@ -19,9 +19,16 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
       },
     });
   };
+
   const { mutate: makeFollow } = useMakeFollow();
   const handleClickFollow = () => {
-    makeFollow({ userId });
+    if (!isFollow) {
+      return makeFollow({ userId });
+    }
+    if (isFollow && confirm('팔로우 취소하시겠습니까?')) {
+      makeFollow({ userId });
+      return;
+    }
   };
 
   return (
@@ -33,21 +40,9 @@ const FollowButton = ({ userId, followed }: MemberTypes) => {
           fontWeight={isFollow ? '500' : '700'}
           onClick={handleClickFollow}
         >
-          {isFollow ? '팔로우취소' : '팔로우'}
+          {isFollow ? '팔로잉' : '팔로우'}
         </FollowStyleButton>
       )}
     </>
   );
 };
-
-const FollowStyleButton = styled.button<{ BGcolor: string; color: string; fontWeight: string }>`
-  width: 65px;
-  height: 32px;
-  border-radius: 4px;
-  color: ${(props) => props.color};
-  font-weight: ${(props) => props.fontWeight};
-  font-size: 12px;
-  line-height: 16px;
-  background-color: ${(props) => props.BGcolor};
-`;
-export default FollowButton;

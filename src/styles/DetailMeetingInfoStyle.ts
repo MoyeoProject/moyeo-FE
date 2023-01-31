@@ -1,15 +1,8 @@
 import styled from 'styled-components';
 
 export const DetailInfoBox = styled.div`
-  height: 240px;
   padding: 0 16px;
   box-sizing: border-box;
-  .FrameIcon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 11px;
-  }
 `;
 export const MeetingCategoryBox = styled.div`
   display: flex;
@@ -17,7 +10,23 @@ export const MeetingCategoryBox = styled.div`
   margin-bottom: 32px;
   .meetingBox {
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+    .meetingPlatform {
+      width: fit-content;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 10px;
+      box-sizing: border-box;
+      margin-bottom: 4px;
+      border-radius: 10000px;
+      font-weight: 500;
+      font-size: 12px;
+      background-color: #f4f4f4;
+      color: #666666;
+    }
     .meetingTitle {
       margin-bottom: 8px;
       line-height: 21px;
@@ -42,8 +51,8 @@ export const MeetingCategoryBox = styled.div`
     }
   }
   .meetingText {
-    white-space: nowrap;
-    overflow: hidden;
+    /* white-space: nowrap;
+    overflow: hidden; */
     line-height: 24px;
     font-size: 12px;
     font-weight: 500;

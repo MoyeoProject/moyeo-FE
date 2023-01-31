@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
 export const MeetingListWrap = styled.ul`
+  flex-grow: 1;
+  width: 100%;
   padding: 0 16px;
-  padding-top: 287px;
+  padding-top: ${(props: { keyword: string | null }) =>
+    props.keyword === 'calendar' ? '40px' : '402px'};
   padding-bottom: 8px;
+  border-top: ${(props: { keyword: string | null }) =>
+    props.keyword === 'calendar' ? '1px solid #F4F4F4' : 'none'};
+  border-radius: ${(props: { keyword: string | null }) =>
+    props.keyword === 'calendar' ? ' 16px 16px 0px 0px' : 'none'};
   background-color: #f9f9f9;
 `;
 
@@ -17,6 +24,5 @@ export const MeetingWrap = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 12px;
   }
 `;

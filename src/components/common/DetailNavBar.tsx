@@ -4,17 +4,21 @@ import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
-import { getAlarmApi, meetAttendExitApi } from '../../services/api';
+import { handleAttendAlert } from '../../hooks/useAlert';
+import { useMeetAttendExit } from '../../hooks/useAttendButton';
+import { getAlarmApi, getEditingMeeting, meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
-import { DetailMeetPassword } from '../DetailMeetLinkButton';
-
+import { DetailMeetingModal } from '../DetailButtonModal';
 import KakaoShareButton from '../KakaoShareButton';
+import ModalForm from './ModalForm';
 
 const DetailNavBar = ({ data }: any) => {
   const [showModal, setShowModal] = useState(false);
+
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const { id } = useParams();
+  const ids = Number(id);
 
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
@@ -25,29 +29,14 @@ const DetailNavBar = ({ data }: any) => {
     content: data?.content,
   };
 
-  const handleClickMeetingEdit = (id: string | undefined) => {
-    navigate(`/post/${id}`);
+  const handleClickMeetingEdit = (ids: number | undefined) => {
+    navigate(`/post/${ids}`);
+    getEditingMeeting(ids);
   };
 
-  const useMeetAttendExit = () => {
-    return useMutation(meetAttendExitApi, {
-      onSuccess: (data) => {
-        QueryClient.invalidateQueries();
-        data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
-      },
-      onError: (err: any) => {
-        if (kakaoShareUser) {
-          if (confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')) {
-            location.replace('/');
-          }
-        }
-        return alert(err.response.data.statusMsg);
-      },
-    });
-  };
   const { mutate: meetAttendExit } = useMeetAttendExit();
-  const handleClickAttnedExit = (id: string | undefined) => {
-    meetAttendExit(id);
+  const handleClickAttnedExit = (ids: number | undefined) => {
+    meetAttendExit(ids);
   };
 
   const useGetAlarm = () => {
@@ -61,67 +50,79 @@ const DetailNavBar = ({ data }: any) => {
   const handleClickAlarm = (id: string | undefined) => {
     data?.attend ? getAlarm(id) : alert('모임 참석하기 후, 알람 설정이 가능합니다');
   };
+  console.log(data);
 
   return (
-    <NavBox>
-      <div
-        className="navArrow"
-        onClick={() => {
-          {
-            kakaoShareUser
-              ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
-                ? location.replace('/')
-                : null
-              : navigate('/main');
-            saveItem('detailKeyword', 'intro');
-          }
-        }}
-      >
-        <ChevronLeft />
-      </div>
-      <p className="navTitle">{data?.title}</p>
-      <NavButtonBox>
+    <>
+      <NavBox>
         <div
+          className="navArrow"
           onClick={() => {
-            handleClickAlarm(id);
+            {
+              kakaoShareUser
+                ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+                  ? location.replace('/')
+                  : null
+                : navigate('/main');
+              saveItem('detailKeyword', 'intro');
+            }
           }}
         >
-          {data?.alarm ? <span>🔔</span> : <span>🔕</span>}
+          <ChevronLeft />
         </div>
-        <KakaoShareButton shareData={shareData} />
-        {data?.master ? (
+
+        <p className="navTitle">{data?.title}</p>
+
+        <NavButtonBox>
           <div
             onClick={() => {
-              handleClickMeetingEdit(id);
+              handleClickAlarm(id);
             }}
           >
-            <span>✒️</span>
+            {data?.alarm ? <span>🔔</span> : <span>🔕</span>}
           </div>
-        ) : (
-          <div
-            onClick={() => {
-              if (!data?.attend && data?.secret) {
-                console.log('비밀번호방');
-                setShowModal(true);
-                return;
-              }
-              if (!data?.attend) {
-                handleClickAttnedExit(id);
-                return;
-              }
-              if (data?.attend && confirm('정말 나가시겠습니까?')) {
-                handleClickAttnedExit(id);
-                return;
-              }
-            }}
-          >
-            {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
-          </div>
+
+          <KakaoShareButton shareData={shareData} />
+
+          {data?.master ? (
+            <div
+              onClick={() => {
+                handleClickMeetingEdit(ids);
+              }}
+            >
+              <span>✒️</span>
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                if (!data?.attend) {
+                  if (data.secret) {
+                    setShowModal(true);
+                  } else {
+                    handleAttendAlert(true);
+                    handleClickAttnedExit(ids);
+                  }
+                } else {
+                  handleAttendAlert(false, id);
+                }
+              }}
+            >
+              {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
+            </div>
+          )}
+        </NavButtonBox>
+      </NavBox>
+
+      {showModal &&
+        createPortal(
+          <DetailMeetingModal
+            onClose={() => setShowModal(false)}
+            passwordCheck={data?.password}
+            id={id}
+          />,
+          document.body
         )}
-        {showModal &&
-          createPortal(<DetailMeetPassword onClose={() => setShowModal(false)} />, document.body)}
-      </NavButtonBox>
-    </NavBox>
+    </>
   );
 };
 

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { isSignup } from '../../modules/authSlice';
 import { loadItem, saveItem } from '../../services/storage';
-import { useAppDispatch } from '../../store';
 
 const DetailCategories = () => {
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';

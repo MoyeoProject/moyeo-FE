@@ -1,19 +1,28 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { meetAttendExitApi, meetingLinkInpitApi } from '../services/api';
+import { handleAttendAlert } from '../hooks/useAlert';
+import { useMeetAttendExit } from '../hooks/useAttendButton';
+import useCloseModal from '../hooks/useCloseModal';
+import { meetingLinkInpitApi } from '../services/api';
 import { ModalButton } from '../styles/ButtonStyle';
 import { InputField } from '../styles/FormStyle';
 import { ButtonsBox, ModalWrap, Overlay } from '../styles/ModalStyle';
 
-type DetailModalFormProps = {
+type DetailMeetLinkType = {
   onClose: () => void;
   platform: string;
   isEdit: boolean;
 };
+type DetailMeetingModalType = {
+  onClose: () => void;
+  id: string | undefined;
+  passwordCheck: string;
+};
 
-export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalFormProps) => {
+//상세페이지 하단 - 링크 입력 모달 버튼
+export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailMeetLinkType) => {
   const QueryClient = useQueryClient();
   const { id } = useParams();
   const [link, setLink] = useState('');
@@ -63,53 +72,47 @@ export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailModalF
   );
 };
 
-type DetailMeetPasswordProps = {
-  onClose: () => void;
-};
+// 상세페이지 상단 - 비밀번호 입력 모달
+export const DetailMeetingModal = ({ onClose, id, passwordCheck }: DetailMeetingModalType) => {
+  const modalRef = useRef(null);
+  useCloseModal(modalRef, onClose);
 
-export const DetailMeetPassword = ({ onClose }: DetailMeetPasswordProps) => {
-  const QueryClient = useQueryClient();
-  const { id } = useParams();
   const [password, setPassword] = useState('');
+  const [check, setCheck] = useState(false);
 
-  const useMeetAttendExit = () => {
-    return useMutation(meetAttendExitApi, {
-      onSuccess: (data) => {
-        QueryClient.invalidateQueries();
-        data?.data.data !== undefined ? alert('참여완료') : alert('모임을 취소하셨습니다.');
-      },
-      onError: (err: any) => {
-        return alert(err.response.data.statusMsg);
-      },
-    });
-  };
   const { mutate: meetAttendExit } = useMeetAttendExit();
-  const handleClickAttnedExit = (id: any) => {
-    if (password === '') {
-      alert('비밀번호를 입력해주세요.');
-      return;
+  const handleClickAttnedExit = (id: string | undefined) => {
+    if (password === passwordCheck) {
+      setCheck(false);
+      meetAttendExit(id);
+      handleAttendAlert(true);
+    } else {
+      setCheck(true);
     }
-    // if (password === )
-    console.log(id)
-    meetAttendExit({ id });
   };
 
   return (
     <Overlay>
-      <ModalWrap>
+      <ModalWrap ref={modalRef}>
         <InputField
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해주세요."
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
+        {check ? <p style={{ color: 'red' }}>비밀번호를 확인해주세요</p> : null}
         <ButtonsBox>
           <ModalButton onClick={onClose} isColor={false}>
             취소
           </ModalButton>
-          <ModalButton onClick={handleClickAttnedExit} isColor={true}>
-            입력
+          <ModalButton
+            onClick={() => {
+              handleClickAttnedExit(id);
+            }}
+            isColor={true}
+          >
+            입장하기
           </ModalButton>
         </ButtonsBox>
       </ModalWrap>

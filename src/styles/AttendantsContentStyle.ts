@@ -4,7 +4,10 @@ export const AttendantsProfileWrap = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  height: 32px;
+  padding-top: 16px;
   margin-top: 12px;
+  border-top: 1px solid #f4f4f4;
   img {
     right: 20px;
     width: 32px;

@@ -32,7 +32,59 @@ input, textarea, button {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
 }
-.react-datepicker__month-container {
+.react-datepicker {
   width: 100%;
+  border: none;
+}
+.react-datepicker__header {
+  border-bottom: none;
+  background-color: #fff;
+}
+.react-datepicker__current-month {
+  font-size: 16px;
+  font-weight: 500;
+}
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+}
+.react-datepicker__day {
+  position: relative;
+  margin: 8px;
+  font-size: 14px;
+  :hover {
+    border-radius: 50%;
+    background-color: #F1F1F1;
+  }
+  :focus {
+    border-radius: 50%;
+    color: #fff;
+    background-color: #666666;
+  }
+}
+.react-datepicker__day-names {
+  margin-top: 16px;
+}
+.react-datepicker__day-name {
+  margin: 8px;
+  font-size: 14px;
+  color: #AAAAAA;
+}
+.react-datepicker__day--selected {
+  border-radius: 50%;
+  background-color: #666666;
+}
+.react-datepicker__day--keyboard-selected {
+  border-radius: 50%;
+  background-color: #666666;
+}
+.react-datepicker__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #FF8F00;
 }
 `;

@@ -1,11 +1,22 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { useMeetAttendExit } from '../../hooks/useAttendButton';
+import { getEditingMeeting, meetAttendExitApi } from '../../services/api';
+import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
-import { DetailMeetLinkButton } from '../DetailMeetLinkButton';
+import { DetailMeetLinkButton } from '../DetailButtonModal';
 
 const DetailButton = ({ data, member }: any) => {
+  const QueryClient = useQueryClient();
+
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+  const { id } = useParams();
+  const ids = Number(id);
+  const navigate = useNavigate();
+
   const [showModal, setShowModal] = useState(false);
   const meetingEntranceBtn = () => {
     if (data.link) {
@@ -16,7 +27,31 @@ const DetailButton = ({ data, member }: any) => {
     //  alert('모임 시작 30분 전부터 입장 가능합니다');
     // }
   };
-  console.log(data);
+
+  const { mutate: meetAttendExit } = useMeetAttendExit();
+  const handleClickAttnedExit = (ids: number | undefined) => {
+    meetAttendExit(ids);
+  };
+
+  const editData = {
+    title: data?.title,
+    category: data.category,
+    startDate: data.startDate,
+    startTime: data.startTime,
+    duration: data.duration,
+    platform: data.platform,
+    link: data.link,
+    content: data.content,
+    maxNum: data.maxNum,
+    secret: data.secret,
+    password: data.password,
+  };
+
+  const linkEdit = () => {
+    navigate(`/post/${id}`);
+    getEditingMeeting(ids);
+  };
+
   return (
     <>
       {data?.master ? (
@@ -24,24 +59,15 @@ const DetailButton = ({ data, member }: any) => {
           {data?.link !== '' ? (
             <MasterButton>
               <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
-                모임입장
+                입장하기
               </ButtonBasic>
-              <ButtonBasic activeBtn={false} cursorAct={true} onClick={() => setShowModal(true)}>
+              <ButtonBasic activeBtn={false} cursorAct={true} onClick={linkEdit}>
                 입장 링크 수정
               </ButtonBasic>
-              {showModal &&
-                createPortal(
-                  <DetailMeetLinkButton
-                    platform={data?.platform}
-                    isEdit={true}
-                    onClose={() => setShowModal(false)}
-                  />,
-                  document.body
-                )}
             </MasterButton>
           ) : (
             <>
-              <ButtonBasic activeBtn={false} onClick={() => setShowModal(true)}>
+              <ButtonBasic activeBtn={false} cursorAct={true} onClick={() => setShowModal(true)}>
                 입장 링크를 입력해주세요
               </ButtonBasic>
               {showModal &&
@@ -58,18 +84,26 @@ const DetailButton = ({ data, member }: any) => {
         </>
       ) : data?.attend ? (
         !data?.link ? (
-          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={false} cursorAct={false}>
-            링크 개설 전 입니다
+          <ButtonBasic activeBtn={false} cursorAct={false}>
+            모임이 아직 시작되지 않았습니다
           </ButtonBasic>
         ) : (
           <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true} cursorAct={true}>
-            모임 입장
+            입장하기
           </ButtonBasic>
         )
       ) : member?.length === data?.maxNum ? (
         <ButtonBasic activeBtn={false}>정원이 다 찼습니다</ButtonBasic>
       ) : (
-        <ButtonBasic activeBtn={false}>모임에 참석한 후 입장 가능합니다</ButtonBasic>
+        <ButtonBasic
+          onClick={() => {
+            handleClickAttnedExit(ids);
+          }}
+          activeBtn={true}
+          cursorAct={true}
+        >
+          모임 참석하기
+        </ButtonBasic>
       )}
     </>
   );

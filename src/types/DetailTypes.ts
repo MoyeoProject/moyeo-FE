@@ -21,7 +21,7 @@ export type DetailTypes = {
 export type MemberTypes = {
   followed?: boolean;
   profileUrl?: string;
-  userId?: number;
+  userId: number;
   username?: string;
 };
 
@@ -57,4 +57,11 @@ export type MeetingLinkAddType = {
   link?: string;
   platform: string;
   id: string | undefined;
+};
+
+export type AlarmType = {
+  id: number;
+  content: string;
+  isRead: boolean;
+  createdAt: string;
 };

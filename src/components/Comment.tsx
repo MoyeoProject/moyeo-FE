@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
 import { ReactComponent as SendIcon } from '../assets/send_icon.svg';
 import { addComment, delelteComment, getCommentPage } from '../services/api';
 import { loadItem } from '../services/storage';
@@ -75,8 +76,10 @@ const Comment = () => {
                 ) : null}
 
                 <div className="commentMiniBox">
-                  {c.username === myUsername ? null : (
+                  {c.username === myUsername ? null : c.profileUrl !== null ? (
                     <img src={c.profileUrl} style={{ width: '28px' }} />
+                  ) : (
+                    <Frame_user style={{ width: '28px' }} />
                   )}
                   <div>
                     {c.username === myUsername ? null : <p className="username">{c.username}</p>}

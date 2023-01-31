@@ -1,13 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-import Calendar from '../components/Calendar';
+import CalendarList from '../components/CalendarList';
 import MeetingList from '../components/MeetingList';
 import TopNavBar from '../components/common/TopNavBar';
 import { getSortbyMeetings } from '../services/api';
-import { loadItem } from '../services/storage';
+import { loadItem, saveItem } from '../services/storage';
 
 export default function HomePage() {
-  const sortbyKeyword = loadItem('keyword');
+  useEffect(() => {
+    return () => {
+      saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
+    };
+  }, []);
 
   const { data } = useQuery({
     queryKey: ['meetings'],
@@ -17,8 +25,9 @@ export default function HomePage() {
   return (
     <>
       <TopNavBar name={'home'} />
-      {sortbyKeyword === 'calendar' && <Calendar />}
-      {data?.data.data.meetingList && data?.data.data.meetingList.length !== 0 && (
+      {loadItem('keyword') === 'calendar' ? (
+        <CalendarList currMeetingList={data?.data.data.meetingList} />
+      ) : (
         <MeetingList currMeetingList={data?.data.data.meetingList} />
       )}
     </>

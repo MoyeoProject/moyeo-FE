@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { getSortbyMeetings } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
-import { Categories, CategoryButton } from '../../styles/SortbyCategoriesStyle';
+import { SortbyButton, SortbyWrap } from '../../styles/SortbyCategoriesStyle';
 
 const buttons = [
   { name: '인기모임', focus: false, keyword: 'popular' },
@@ -17,6 +17,7 @@ export default function SortbyCategories() {
     mutationFn: getSortbyMeetings,
     onSuccess: (data, variables) => {
       variables && saveItem('keyword', variables);
+      saveItem('category', '');
       queryClient.invalidateQueries({ queryKey: ['meetings'] });
 
       queryClient.resetQueries({ queryKey: ['nextMeetings'] });
@@ -24,20 +25,25 @@ export default function SortbyCategories() {
     },
   });
 
+  const handleClickCategory = (keyword: string) => {
+    saveItem('keyword', keyword);
+    sortMeetings.mutate(keyword);
+  };
+
   return (
     <>
-      <Categories>
+      <SortbyWrap>
         {buttons.map((button) => (
-          <CategoryButton
+          <SortbyButton
             key={button.keyword}
             type="button"
-            onClick={() => sortMeetings.mutate(button.keyword)}
+            onClick={() => handleClickCategory(button.keyword)}
             focus={button.keyword === loadItem('keyword') ? !button.focus : button.focus}
           >
             {button.name}
-          </CategoryButton>
+          </SortbyButton>
         ))}
-      </Categories>
+      </SortbyWrap>
     </>
   );
 }
