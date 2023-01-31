@@ -1,15 +1,13 @@
 import { useState } from 'react';
 
-type PostFormData = {
-  title: string;
-  content: string;
-  link: string;
-};
+import { PostFormData } from '../types/AppTypes';
 
 const postFormData: PostFormData = {
   title: '',
   content: '',
   link: '',
+  profileMsg: '',
+  username: '',
 };
 
 export default function useChangePostForm() {

@@ -62,3 +62,11 @@ export type SignUp = {
   emailAuth?: boolean;
   hidePassword?: boolean;
 };
+
+export type PostFormData = {
+  title: string;
+  content: string;
+  link: string;
+  profileMsg: string;
+  username: string;
+};

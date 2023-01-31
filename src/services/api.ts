@@ -1,4 +1,3 @@
-import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
@@ -18,6 +17,8 @@ const baseURL = axios.create({
 const MEETINGS = '/meetings';
 const LOGIN = '/users/login';
 const MYPAGE = '/users/mypage';
+const PROFILE = '/users/profile';
+const PROFILE_URL = '/users/profile-url';
 
 export const getSortbyMeetings = async (keyword: string | null) => {
   const query =
@@ -115,6 +116,33 @@ const alarmSubscribeApi = async () => {
       eventSource.close();
     });
   }
+};
+
+export const editMyInfo = async ({
+  username,
+  profileMsg,
+}: {
+  username: string;
+  profileMsg: string;
+}) => {
+  console.log(username, profileMsg);
+
+  const response = await baseURL.patch(PROFILE, { username, profileMsg });
+  return response;
+};
+
+export const editMyProfile = async (formData: object) => {
+  const response = await baseURL.patch(PROFILE_URL, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+export const deleteMyProfile = async () => {
+  const response = await baseURL.delete(PROFILE_URL);
+  return response;
 };
 
 export const postLogin = async (userInfo: { email: string; password: string }) => {
