@@ -40,6 +40,9 @@ export default function ProfileModalForm({ profileMsg, username, onClose }: Prof
 
   const fetchDeleteMyProfile = useMutation({
     mutationFn: deleteMyProfile,
+    onSuccess: () => {
+      location.reload();
+    },
   });
 
   const { handleSubmit, register } = useForm<FieldValues>({
