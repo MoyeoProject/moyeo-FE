@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { createPortal } from 'react-dom';
+import { Link } from 'react-router-dom';
 
 import Frame_user from '../assets/Frame_user.svg';
 import calendar_icon from '../assets/calendar_icon.svg';
 import category_img from '../assets/category_img.svg';
 import lock_icon from '../assets/lock_icon.svg';
 import time_icon from '../assets/time_icon.svg';
-import ModalForm from '../components/common/ModalForm';
 import {
   Content,
   LeftBox,
@@ -19,36 +17,13 @@ import { Meeting } from '../types/AppTypes';
 import { setDate, setTime } from '../utils/utils';
 
 export default function ListContent({ currMeeting }: { currMeeting: Meeting }) {
-  const [showModal, setShowModal] = useState(false);
-
-  const {
-    title,
-    content,
-    startTime,
-    startDate,
-    duration,
-    attend,
-    secret,
-    maxNum,
-    attendantsNum,
-    password,
-    id,
-  } = currMeeting;
-
-  const handleClickConfirm = (inputField: string | null) => {
-    location.assign(`/detail/${id}`);
-  };
+  const { title, content, startTime, startDate, duration, secret, maxNum, attendantsNum, id } =
+    currMeeting;
 
   return (
     <>
       <ListContentWrap>
-        <button
-          type="button"
-          onClick={() =>
-            !attend && secret ? setShowModal(true) : location.assign(`/detail/${id}`)
-          }
-          disabled={maxNum !== attendantsNum ? false : true}
-        >
+        <Link to={`/detail/${id}`}>
           <LeftBox>
             <Title>
               <img src={Frame_user} />
@@ -71,17 +46,8 @@ export default function ListContent({ currMeeting }: { currMeeting: Meeting }) {
           <RightBox>
             <img src={category_img} />
           </RightBox>
-        </button>
+        </Link>
       </ListContentWrap>
-      {showModal &&
-        createPortal(
-          <ModalForm
-            password={password}
-            onClickConfirm={handleClickConfirm}
-            onClose={() => setShowModal(false)}
-          />,
-          document.body
-        )}
     </>
   );
 }

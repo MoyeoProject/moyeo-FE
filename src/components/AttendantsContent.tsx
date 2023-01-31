@@ -1,3 +1,4 @@
+import Frame_user from '../assets/Frame_user.svg';
 import { AttendantsProfileWrap, ImgWrap } from '../styles/AttendantsContentStyle';
 import { AttendantsList } from '../types/AppTypes';
 
@@ -14,13 +15,7 @@ export default function AttendantsContent({
     <AttendantsProfileWrap>
       {attendantsProfile.map((attendant, index) => (
         <ImgWrap key={attendant.userId} index={index}>
-          <img
-            src={
-              attendant.userProfileImg
-                ? attendant.userProfileImg
-                : 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-            }
-          />
+          <img src={attendant.userProfileImg ? attendant.userProfileImg : Frame_user} />
         </ImgWrap>
       ))}
       <p>{attendantsCount ? '+' + attendantsCount : null}</p>

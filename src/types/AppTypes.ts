@@ -1,4 +1,5 @@
 export type Meeting = {
+  img: null | string;
   id: number;
   masterId: number;
   master: boolean;
