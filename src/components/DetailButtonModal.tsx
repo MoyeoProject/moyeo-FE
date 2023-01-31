@@ -86,6 +86,7 @@ export const DetailMeetingModal = ({ onClose, id, passwordCheck }: DetailMeeting
       setCheck(false);
       meetAttendExit(id);
       handleAttendAlert(true);
+      onClose();
     } else {
       setCheck(true);
     }

@@ -7,7 +7,7 @@ import { useMeetAttendExit } from '../../hooks/useAttendButton';
 import { getEditingMeeting, meetAttendExitApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
-import { DetailMeetLinkButton } from '../DetailButtonModal';
+import { DetailMeetLinkButton, DetailMeetingModal } from '../DetailButtonModal';
 
 const DetailButton = ({ data, member }: any) => {
   const QueryClient = useQueryClient();
@@ -97,7 +97,11 @@ const DetailButton = ({ data, member }: any) => {
       ) : (
         <ButtonBasic
           onClick={() => {
-            handleClickAttnedExit(ids);
+            if (data.secret) {
+              setShowModal(true);
+            } else {
+              handleClickAttnedExit(ids);
+            }
           }}
           activeBtn={true}
           cursorAct={true}
@@ -105,6 +109,15 @@ const DetailButton = ({ data, member }: any) => {
           모임 참석하기
         </ButtonBasic>
       )}
+      {showModal &&
+        createPortal(
+          <DetailMeetingModal
+            onClose={() => setShowModal(false)}
+            passwordCheck={data?.password}
+            id={id}
+          />,
+          document.body
+        )}
     </>
   );
 };

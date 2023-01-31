@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { loadItem, saveItem } from '../../services/storage';
 
-const DetailCategories = () => {
+const DetailCategories = ({ isAttend }: any) => {
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
   const isSelect = loadItem('detailKeyword');
 
@@ -21,14 +21,18 @@ const DetailCategories = () => {
       <Button
         selectButton={isSelect === 'comment' ? true : false}
         onClick={() => {
-          {
-            kakaoShareUser
-              ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
-                ? location.replace('/')
-                : null
-              : saveItem('detailKeyword', 'comment');
-            window.location.reload();
+          if (kakaoShareUser) {
+            confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+              ? location.replace('/')
+              : null;
+            return;
           }
+          if (!isAttend) {
+            alert('모임에 참여한 멤버만 볼 수 있습니다.');
+            return;
+          }
+          saveItem('detailKeyword', 'comment');
+          window.location.reload();
         }}
       >
         댓글
@@ -48,8 +52,8 @@ const Button = styled.button<{ selectButton: boolean }>`
   width: 168px;
   height: 100%;
   margin-right: 8px;
-  border-bottom: ${(props) => (props.selectButton ? '2px solid #FFA02D' : null)};
-  color: #aaaaaa;
+  border-bottom: ${(props) => (props.selectButton ? '2px solid #FFA000' : null)};
+  color: ${(props) => (props.selectButton ? '#FFA000' : '#aaaaaa')};
   font-weight: 700;
   background-color: white;
   button:last-child {
