@@ -4,9 +4,11 @@ export const ButtonBasic = styled.button<{ activeBtn: boolean; cursorAct?: boole
   width: 343px;
   height: 54px;
   border-radius: 8px;
-  background-color: ${(props) => (props.activeBtn ? '#9cc8d2' : '#F4F4F4')};
+  background-color: ${(props) => (props.activeBtn ? '#FFA02D ' : '#F4F4F4')};
   color: ${(props) => (props.activeBtn ? 'white' : '#666666')};
-  font-weight: '700';
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 2px;
   cursor: ${(props) => (props.cursorAct ? 'pointer' : 'default')};
 `;
 export const MasterButton = styled.div`
@@ -51,13 +53,12 @@ export const MasterLinkInput = styled.div`
 export const FollowStyleButton = styled.button<{
   BGcolor: string;
   color: string;
-  fontWeight: string;
 }>`
   width: 65px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: 8px;
   color: ${(props) => props.color};
-  font-weight: ${(props) => props.fontWeight};
+  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   background-color: ${(props) => props.BGcolor};

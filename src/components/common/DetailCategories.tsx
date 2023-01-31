@@ -42,15 +42,13 @@ const DetailCategoriesBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-  /* 블러처리. */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 const Button = styled.button<{ selectButton: boolean }>`
   width: 168px;
   height: 100%;
   margin-right: 8px;
-  border-bottom: ${(props) => (props.selectButton ? '2px solid #9cc8d2' : null)};
+  border-bottom: ${(props) => (props.selectButton ? '2px solid #FFA02D' : null)};
   color: #aaaaaa;
   font-weight: 700;
   background-color: white;

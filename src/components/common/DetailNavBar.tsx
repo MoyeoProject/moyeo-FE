@@ -50,7 +50,6 @@ const DetailNavBar = ({ data }: any) => {
   const handleClickAlarm = (id: string | undefined) => {
     data?.attend ? getAlarm(id) : alert('모임 참석하기 후, 알람 설정이 가능합니다');
   };
-  console.log(data);
 
   return (
     <>
