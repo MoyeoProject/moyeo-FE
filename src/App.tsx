@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import KakaoLoginButton from './components/KakaoLoginButton';
@@ -9,8 +10,11 @@ import LoginForm from './pages/LoginPage';
 import PostPage from './pages/PostPage';
 import ProfilePage from './pages/ProfilePage';
 import SignupPage from './pages/SignupPage';
+import { AlarmConnect } from './services/alarmConnect';
+import { loadItem } from './services/storage';
 
 export default function App() {
+  AlarmConnect();
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />
