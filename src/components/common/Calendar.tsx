@@ -18,7 +18,7 @@ export default function Calendar({
   return (
     <DatePicker
       inline
-      minDate={loadItem('year') !== null ? subMonths(new Date(), 6) : new Date()}
+      minDate={loadItem('year') === null ? new Date() : subMonths(new Date(), 6)}
       selected={startDate}
       onChange={(date: Date) => {
         setStartDate(date);
@@ -36,26 +36,30 @@ export default function Calendar({
       }}
       renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
         <div>
-          <button
-            aria-label="Previous Month"
-            className={'react-datepicker__navigation react-datepicker__navigation--previous'}
-            onClick={decreaseMonth}
-          >
-            <img src={cal_left_arrow_icon} />
-          </button>
+          {loadItem('year') === null ? (
+            <button
+              aria-label="Previous Month"
+              className={'react-datepicker__navigation react-datepicker__navigation--previous'}
+              onClick={decreaseMonth}
+            >
+              <img src={cal_left_arrow_icon} />
+            </button>
+          ) : null}
           <span className="react-datepicker__current-month">
             {monthDate.toLocaleString('ko', {
               month: 'short',
               year: 'numeric',
             })}
           </span>
-          <button
-            aria-label="Next Month"
-            className={'react-datepicker__navigation react-datepicker__navigation--next'}
-            onClick={increaseMonth}
-          >
-            <img src={cal_right_arrow_icon} />
-          </button>
+          {loadItem('year') === null ? (
+            <button
+              aria-label="Next Month"
+              className={'react-datepicker__navigation react-datepicker__navigation--next'}
+              onClick={increaseMonth}
+            >
+              <img src={cal_right_arrow_icon} />
+            </button>
+          ) : null}
         </div>
       )}
     />

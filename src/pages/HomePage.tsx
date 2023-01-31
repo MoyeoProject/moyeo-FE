@@ -5,15 +5,17 @@ import CalendarList from '../components/CalendarList';
 import MeetingList from '../components/MeetingList';
 import TopNavBar from '../components/common/TopNavBar';
 import { getSortbyMeetings } from '../services/api';
-import { loadItem, saveItem } from '../services/storage';
+import { loadItem, removeItem, saveItem } from '../services/storage';
 
 export default function HomePage() {
   useEffect(() => {
+    saveItem('keyword', 'popular');
+    saveItem('category', '');
+    saveItem('year', '');
+    saveItem('month', '');
     return () => {
-      saveItem('keyword', 'popular');
-      saveItem('category', '');
-      saveItem('year', '');
-      saveItem('month', '');
+      removeItem('year');
+      removeItem('month');
     };
   }, []);
 
