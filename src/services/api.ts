@@ -159,7 +159,6 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
-      AlarmConnect()
       location.assign('/main');
     })
     .catch((err) => {
