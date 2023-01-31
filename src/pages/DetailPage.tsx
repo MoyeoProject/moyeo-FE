@@ -29,7 +29,7 @@ const DetailPage = () => {
 
   const detailData = detail?.data.data;
   const memberData = member?.data.data;
-
+  const isAttend = detail?.data.data.attend
   if (isLoading) {
     return <h2>로딩중</h2>;
   }
@@ -40,13 +40,12 @@ const DetailPage = () => {
       '"모여"에 초대받으셨군요! 환영합니다😊 로그인 / 회원가입이 필요한 페이지가 있을 수 있습니다'
     );
   }
-
   return (
     <>
       <DetailBox>
         <div className="detailTopBox">
           <DetailNavBar data={detailData} />
-          <DetailCategories />
+          <DetailCategories isAttend={isAttend} />
         </div>
         <div className="detailMainBox">
           {categories === 'intro' ? (

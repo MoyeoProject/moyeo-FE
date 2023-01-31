@@ -20,6 +20,7 @@ const Comment = () => {
   const { isLoading, data, isError } = useQuery(['Comment', id], () => {
     return getCommentPage(id);
   });
+
   const useAddComment = () => {
     return useMutation(addComment, {
       onSuccess: () => {
@@ -55,11 +56,8 @@ const Comment = () => {
       delCommentItem({ id, commentId });
     }
   };
-
   return (
     <CommentBox>
-      {/* {isLoading ? <h2>로딩중입니다</h2> : null}
-      {isError ? <h2>문제가 생겼습니다</h2> : null} */}
       <CommentViewBox>
         {!data?.data.data ? (
           <p>댓글이 없습니다. 첫 댓글을 남겨보세요</p>
@@ -69,18 +67,27 @@ const Comment = () => {
               <CommentItem
                 key={c.commentId}
                 align={c.username === myUsername ? 'flex-end' : 'flex-start'}
-                bgColor={c.username === myUsername ? '#9CC8D2' : '#F4F4F4'}
+                bgColor={c.username === myUsername ? '#FFA02D' : 'white'}
                 color={c.username === myUsername ? '#FFFFFF' : '#222222'}
+                border={c.username === myUsername ? 'none' : '1px solid #FFE082'}
               >
                 {c.username === myUsername ? (
-                  <p className="date">{c.createdAt.split('T')[1].split('.')[0]}</p>
+                  <p className="date">
+                    {data
+                      ? data?.data.data[0].createdTime.slice(0, 2) > 12
+                        ? '오후'
+                        : '오전'
+                      : null}
+                    &nbsp;
+                    {c.createdAt.split('T')[1].split('.')[0].slice(0, 5)}
+                  </p>
                 ) : null}
 
                 <div className="commentMiniBox">
                   {c.username === myUsername ? null : c.profileUrl !== null ? (
                     <img src={c.profileUrl} style={{ width: '28px' }} />
                   ) : (
-                    <Frame_user style={{ width: '28px' }} />
+                    <Frame_user style={{ width: '28px', marginRight: '9px' }} />
                   )}
                   <div>
                     {c.username === myUsername ? null : <p className="username">{c.username}</p>}
@@ -100,7 +107,15 @@ const Comment = () => {
                 </div>
 
                 {c.username !== myUsername ? (
-                  <p className="date">{c.createdAt.split('T')[1].split('.')[0]}</p>
+                  <p className="date">
+                    {data
+                      ? data?.data.data[0].createdTime.slice(0, 2) > 12
+                        ? '오후'
+                        : '오전'
+                      : null}
+                    &nbsp;
+                    {c.createdAt.split('T')[1].split('.')[0].slice(0, 5)}
+                  </p>
                 ) : null}
               </CommentItem>
             );

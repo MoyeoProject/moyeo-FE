@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CommentBox = styled.div`
   height: 100vh;
   width: 100%;
-  padding: 0 8px;
+  padding: 16px 8px;
   box-sizing: border-box;
 `;
 export const CommentViewBox = styled.div`
@@ -17,7 +17,7 @@ export const CommentViewBox = styled.div`
     color: #aaaaaa;
   }
 `;
-export const CommentItem = styled.div<{ align: string; bgColor: string }>`
+export const CommentItem = styled.div<{ align: string; bgColor: string; border: string }>`
   margin-bottom: 16px;
   display: flex;
   align-items: flex-end;
@@ -34,6 +34,7 @@ export const CommentItem = styled.div<{ align: string; bgColor: string }>`
     }
     .username {
       font-size: 10px;
+      margin-bottom: 4px;
     }
     .userComment {
       max-width: 280px;
@@ -41,6 +42,7 @@ export const CommentItem = styled.div<{ align: string; bgColor: string }>`
       padding: 8px 14px;
       box-sizing: border-box;
       border-radius: 8px;
+      border: ${(props) => props.border};
       color: ${(props) => props.color};
       background-color: ${(props) => props.bgColor};
       cursor: pointer;
