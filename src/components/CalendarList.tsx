@@ -31,7 +31,7 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
 
   const closeDate = new Date(Math.min(...willAttendDates));
 
-  countDownTimer(closeDate, timerRef);
+  closeDate.getTime() && countDownTimer(closeDate, timerRef);
 
   const meetingList = currMeetingList?.filter((obj: { startDate: string }) => {
     return new Date(obj.startDate).getDate() === startDate.getDate() && obj;
@@ -39,7 +39,9 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
 
   return (
     <CalendarListWrap>
-      <span ref={timerRef}>00:00:00:00</span>
+      <span ref={timerRef}>
+        {closeDate.getTime() ? '00:00:00:00' : '이번 달은 더 이상 모임이 없습니다.'}
+      </span>
       <CalendarWrap>
         <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
       </CalendarWrap>
