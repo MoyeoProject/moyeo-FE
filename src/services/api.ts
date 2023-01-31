@@ -4,6 +4,7 @@ import { FieldValues } from 'react-hook-form';
 
 import { SignUp } from '../types/AppTypes';
 import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
+import { AlarmConnect } from './alarmConnect';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -97,26 +98,26 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
-const alarmSubscribeApi = async () => {
-  const [data, setData] = useState([]);
-  const id = loadItem('userId');
-  const [alarmMsg, setAlarmMsg] = useState([]);
+// const alarmSubscribeApi = async () => {
+//   const [data, setData] = useState([]);
+//   const id = loadItem('userId');
+//   const [alarmMsg, setAlarmMsg] = useState([]);
 
-  const subscribeUrl = `https://sparta-hippo.shop/api/alarm/subscribe/${id}`;
-  if (loadItem('isLogin') != null) {
-    const eventSource = new EventSource(subscribeUrl);
+//   const subscribeUrl = `https://sparta-hippo.shop/api/alarm/subscribe/${id}`;
+//   if (loadItem('isLogin') != null) {
+//     const eventSource = new EventSource(subscribeUrl);
 
-    eventSource.addEventListener('sse', async (e) => {
-      // console.log('알람연결 성공', e.data);
-      const result = await e.data;
-      setData(result);
-    });
+//     eventSource.addEventListener('sse', async (e) => {
+//       // console.log('알람연결 성공', e.data);
+//       const result = await e.data;
+//       setData(result);
+//     });
 
-    eventSource.addEventListener('error', function (event) {
-      eventSource.close();
-    });
-  }
-};
+//     eventSource.addEventListener('error', function (event) {
+//       eventSource.close();
+//     });
+//   }
+// };
 
 export const editMyInfo = async ({
   username,
@@ -158,7 +159,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
-      // alarmSubscribeApi();
+      AlarmConnect()
       location.assign('/main');
     })
     .catch((err) => {
