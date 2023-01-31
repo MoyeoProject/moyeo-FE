@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 import { meetAttendExitApi } from '../services/api';
 import { loadItem } from '../services/storage';
@@ -20,7 +21,7 @@ export const useMeetAttendExit = () => {
           location.replace('/');
         }
       }
-      return alert(err.response.data.statusMsg);
+      return toast(err.response.data.statusMsg);
     },
   });
 };

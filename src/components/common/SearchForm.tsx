@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 import search_icon from '../../assets/search_icon.svg';
 import useChangeInputField from '../../hooks/useChangeInputField';
@@ -27,7 +28,7 @@ export default function SearchForm() {
     if (keyword) {
       searchMeetings.mutate(keyword);
     } else {
-      alert('검색어를 입력해주세요.');
+      toast('검색어를 입력해주세요.');
     }
     handleClearInputField();
   };

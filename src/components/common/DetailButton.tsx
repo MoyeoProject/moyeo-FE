@@ -24,7 +24,7 @@ const DetailButton = ({ data, member }: any) => {
     }
     // else {
     //  알람기능 되면 test
-    //  alert('모임 시작 30분 전부터 입장 가능합니다');
+    //  toast('모임 시작 30분 전부터 입장 가능합니다');
     // }
   };
 

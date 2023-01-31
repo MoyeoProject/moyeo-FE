@@ -25,7 +25,7 @@ export const ButtonsBox = styled.div`
 `;
 
 export const Overlay = styled.div`
-  z-index: 9999;
+  z-index: 2;
   position: fixed;
   top: 0;
   bottom: 0;

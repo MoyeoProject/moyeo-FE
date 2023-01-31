@@ -3,6 +3,7 @@ import Lottie from 'lottie-react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
@@ -29,6 +30,7 @@ root.render(
               <BrowserRouter>
                 <GlobalStyle />
                 <App />
+                <Toaster position="bottom-center" reverseOrder={true} />
               </BrowserRouter>
             </React.StrictMode>
           </QueryClientProvider>

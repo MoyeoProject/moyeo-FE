@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { SignUp } from '../types/AppTypes';
 import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
@@ -57,11 +58,11 @@ export const postMeeting = async (postForm: FieldValues) => {
   const response = await baseURL
     .post(MEETINGS, postForm)
     .then((res) => {
-      res.data.data && alert(res.data.statusMsg);
+      res.data.data && toast(res.data.statusMsg);
       history.back();
     })
     .catch((err) => {
-      alert(err.response.data.statusMsg);
+      toast(err.response.data.statusMsg);
     });
 
   return response;
@@ -75,7 +76,7 @@ export const getEditingMeeting = async (id: number | undefined) => {
       location.reload();
     })
     .catch((err) => {
-      alert(err.response.data.statusMsg);
+      toast(err.response.data.statusMsg);
     });
 
   return response;
@@ -85,12 +86,12 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   const response = await baseURL
     .patch(MEETINGS + `/${id}`, postForm)
     .then((res) => {
-      alert(res.data.statusMsg);
+      toast(res.data.statusMsg);
       removeItem('currPost');
       history.back();
     })
     .catch((err) => {
-      alert(err.response.data.statusMsg);
+      toast(err.response.data.statusMsg);
       location.reload();
     });
 
@@ -162,7 +163,7 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       location.assign('/main');
     })
     .catch((err) => {
-      alert(err.response.data.statusMsg);
+      toast(err.response.data.statusMsg);
       location.assign('/');
     });
 };

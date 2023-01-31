@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TopNavBarWrap = styled.div`
-  z-index: 999;
+  z-index: 1;
   position: fixed;
   top: 0;
   display: flex;

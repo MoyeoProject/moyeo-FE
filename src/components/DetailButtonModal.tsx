@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 
 import { handleAttendAlert } from '../hooks/useAlert';
@@ -30,12 +31,12 @@ export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailMeetLi
   const useMeetingLinkInput = () => {
     return useMutation(meetingLinkInpitApi, {
       onSuccess: (data) => {
-        alert('모임 링크가 개설되었습니다.');
+        toast('모임 링크가 개설되었습니다.');
         QueryClient.invalidateQueries(['link', id]);
         window.location.reload();
       },
       onError: (data: any) => {
-        alert(data?.response.data.statusMsg);
+        toast(data?.response.data.statusMsg);
       },
     });
   };
@@ -43,7 +44,7 @@ export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailMeetLi
   const { mutate: meetingLinkInput } = useMeetingLinkInput();
   const meetingLinkInputBtn = () => {
     if (link === '') {
-      alert('링크를 입력해주세요.');
+      toast('링크를 입력해주세요.');
       return;
     }
     meetingLinkInput({ link, id, platform });

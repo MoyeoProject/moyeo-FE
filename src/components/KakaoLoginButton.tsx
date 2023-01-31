@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import { saveItem } from '../services/storage';
 
@@ -31,7 +32,7 @@ const kakaoLogin = (code: string | null) => {
       window.location.href = '/main';
     })
     .catch((err) => {
-      window.alert('로그인에 실패하였습니다.');
+      toast('로그인에 실패하였습니다.');
       window.location.href = '/';
     });
 };
