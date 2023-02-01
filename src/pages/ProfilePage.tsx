@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Frame_user from '../assets/Frame_user.svg';
+import Right_Side from '../assets/Right_Side.svg';
 import black_right_arrow_Icon from '../assets/black_right_arrow_Icon.svg';
 import ProfileModalForm from '../components/ProfileModalForm';
 import TopNavBar from '../components/common/TopNavBar';
 import { getMyInfo } from '../services/api';
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   const { data } = useQuery({
@@ -39,31 +41,35 @@ export default function ProfilePage() {
       <div>
         <span>참여 모임 수</span>
         <div>{myInfo.attendantsNum}</div>
-        <span>팔로우</span>
+        {/* 생각해보니 페이지로 나뉜게 아니네요 이제... 프로필에서 컨트롤 해야될거 같아서
+        저는 더 안건드릴게유.ㅠㅠ 선영님 마무리 부탁!!  */}
+        <span
+          onClick={() => {
+            navigate('/follow/follow');
+          }}
+        >
+          팔로우
+        </span>
         <div>{myInfo.followingsNum}</div>
-        <span>팔로워</span>
+        <span
+          onClick={() => {
+            navigate('/follow/follower');
+          }}
+        >
+          팔로워
+        </span>
         <div>{myInfo.followersNum}</div>
       </div>
+
       <div>
-        <Link to="#">
+        <Link to="a">
           <span>알림</span>
-          <img src={black_right_arrow_Icon} alt={black_right_arrow_Icon} />
+          <img src={Right_Side} alt={Right_Side} />
         </Link>
         <Link to="#">
-          <span>안내</span>
-          <img src={black_right_arrow_Icon} alt={black_right_arrow_Icon} />
+          <span>설정</span>
+          <img src={Right_Side} alt={Right_Side} />
         </Link>
-        <Link to="#">
-          <span>계정</span>
-          <img src={black_right_arrow_Icon} alt={black_right_arrow_Icon} />
-        </Link>
-        <Link to="#">
-          <span>만든이들</span>
-          <img src={black_right_arrow_Icon} alt={black_right_arrow_Icon} />
-        </Link>
-        <button type="button" onClick={() => handleClickLogout()}>
-          로그아웃
-        </button>
       </div>
       {showModal &&
         createPortal(

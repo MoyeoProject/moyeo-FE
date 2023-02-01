@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { loadItem } from './storage';
 
@@ -23,9 +24,9 @@ export const AlarmConnect = () => {
         eventSource.close();
       });
     }
-  }, []);
+  }, [data]);
 
   if (data.split(',')[1] !== undefined) {
-    alert(data.split(',')[1].split(':')[1]);
+    toast(data.split(',')[1].split(':')[1]);
   }
 };

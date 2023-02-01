@@ -1,12 +1,12 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 
-import { InfoNav } from '../pages/FollowPage';
+import { InfoNav } from './FollowPage';
 import { getAlarmList } from '../services/api';
 import { AlarmBox, InfoBox } from '../styles/InfoBoxStyle';
 import { AlarmType } from '../types/DetailTypes';
 
-export const AlarmList = () => {
+export const AlarmListPage = () => {
   const { data: alarmLists } = useQuery(['member'], () => {
     return getAlarmList();
   });
