@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { handleAttendAlert } from '../hooks/useAlert';
 import { useMeetAttendExit } from '../hooks/useAttendButton';
 import useCloseModal from '../hooks/useCloseModal';
-import { meetingLinkInpitApi } from '../services/api';
+import { editImageApi, meetingLinkInpitApi } from '../services/api';
 import { ModalButton } from '../styles/ButtonStyle';
 import { InputField } from '../styles/FormStyle';
 import { ButtonsBox, ModalWrap, Overlay } from '../styles/ModalStyle';
@@ -54,7 +54,7 @@ export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailMeetLi
     <Overlay>
       <ModalWrap>
         <InputField
-          placeholder={isEdit ? '수정된 링크를 입력해주세요.' : '입장 링크를 입력해주세요.'}
+          placeholder="입장링크를 입력해주세요"
           value={link}
           onChange={(e) => {
             setLink(e.target.value);
@@ -65,7 +65,7 @@ export const DetailMeetLinkButton = ({ onClose, platform, isEdit }: DetailMeetLi
             취소
           </ModalButton>
           <ModalButton onClick={meetingLinkInputBtn} isColor={true}>
-            {isEdit ? '수정완료' : '입력'}
+            입력
           </ModalButton>
         </ButtonsBox>
       </ModalWrap>

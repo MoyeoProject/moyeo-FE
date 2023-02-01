@@ -77,7 +77,6 @@ const SignupPage = () => {
     }
     emailAuthNumberApi({ email, authNumber })
       .then((res) => {
-        console.log(res);
         toast('이메일 인증이 완료되었습니다');
         setEmailAuthCheck(true);
       })
@@ -123,7 +122,7 @@ const SignupPage = () => {
     if (!usernameValueCheck) {
       setUsernameRegExCheck(false);
     }
-    postSignup({ email, password, username })
+    postSignup({ email, password, username });
   };
 
   const goLogin = () => {

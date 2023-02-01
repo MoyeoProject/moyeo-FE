@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
@@ -48,7 +47,7 @@ const DetailNavBar = ({ data }: any) => {
   };
   const { mutate: getAlarm } = useGetAlarm();
   const handleClickAlarm = (id: string | undefined) => {
-    data?.attend ? getAlarm(id) : toast('모임 참석하기 후, 알람 설정이 가능합니다');
+    getAlarm(id)
   };
 
   return (
