@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
 
 import KakaoLoginButton from './components/KakaoLoginButton';
-import { AlarmListPage } from './pages/AlarmPage';
+import AlarmListPage from './pages/AlarmListPage';
 import DetailPage from './pages/DetailPage';
 import FollowPage from './pages/FollowPage';
 import HomePage from './pages/HomePage';
 import LoginForm from './pages/LoginPage';
 import PostPage from './pages/PostPage';
 import ProfilePage from './pages/ProfilePage';
-import { RePasswordPage } from './pages/RePasswordPage';
+import RePasswordPage from './pages/RePasswordPage';
 import SearchPage from './pages/SearchPage';
-import { SettingPage } from './pages/SettingPage';
+import SettingPage from './pages/SettingPage';
 import SignupPage from './pages/SignupPage';
-import { AlarmConnect } from './services/alarmConnect';
+import AlarmConnect from './services/alarmConnect';
 
 export default function App() {
   AlarmConnect();

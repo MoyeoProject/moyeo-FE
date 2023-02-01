@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 
 import { loadItem } from './storage';
 
-export const AlarmConnect = () => {
+const AlarmConnect = () => {
   const [listening, setListening] = useState(false);
   const [data, setData] = useState('');
   const id = loadItem('userId');
@@ -30,3 +30,4 @@ export const AlarmConnect = () => {
     toast(data.split(',')[1].split(':')[1]);
   }
 };
+export default AlarmConnect;

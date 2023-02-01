@@ -24,7 +24,6 @@ const DetailAttendList = ({ data, member }: any) => {
   const useMemberOut = () => {
     return useMutation(memberOutApi, {
       onSuccess: (data) => {
-        console.log(data);
         handleMemberOutAlert();
         location.reload();
         QueryClient.invalidateQueries(['memberOut']);

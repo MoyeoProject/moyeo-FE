@@ -29,7 +29,7 @@ const DetailPage = () => {
 
   const detailData = detail?.data.data;
   const memberData = member?.data.data;
-  const isAttend = detail?.data.data.attend
+  const isAttend = detail?.data.data.attend;
   if (isLoading) {
     return <h2>로딩중</h2>;
   }

@@ -15,7 +15,7 @@ import {
   SignupBox,
 } from '../styles/LoginFormStyle';
 
-export const RePasswordPage = () => {
+const RePasswordPage = () => {
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
   const { keyword } = useParams();
@@ -100,7 +100,6 @@ export const RePasswordPage = () => {
     repassword({ email, password });
   };
 
-
   return (
     <SignupBox>
       <div>
@@ -178,7 +177,6 @@ export const RePasswordPage = () => {
             />
             <Label warning={passwordDoubleCheck ? false : true}>동일한 비밀번호를 입력하세요</Label>
           </div>
-
         </AuthFormBox>
         <AuthButtonBox>
           <button onClick={handleClickRepassword}>비밀번호 바꾸기</button>
@@ -187,3 +185,5 @@ export const RePasswordPage = () => {
     </SignupBox>
   );
 };
+
+export default RePasswordPage;
