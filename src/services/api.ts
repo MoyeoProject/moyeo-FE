@@ -164,6 +164,19 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
+//
+export const editImageApi = async ({ image, id }: any) => {
+
+  const formData = new FormData();
+  formData.append('image', image);
+  const res = await baseURL.patch(`/meetings/${id}/image`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res;
+};
+
 export const editMyInfo = async ({
   username,
   profileMsg,
@@ -256,6 +269,7 @@ export const getDetailPage = async (id: string | undefined) => {
   const res = await baseURL.get(`/meetings/${id}`);
   return res;
 };
+
 export const getAlarmApi = async (id: string | undefined) => {
   const res = await baseURL.patch(`/meetings/${id}/alarm`).then((res) => {
     toast(res.data.data ? '알람을 켭니다.' : '알람을 끕니다.');
@@ -271,11 +285,6 @@ export const getAttendList = async (meetingId: string | undefined) => {
   const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
-
-// export const editImageApi = async (id: string) => {
-//   const res = await baseURL.patch(`/meetings/${id}/image`);
-//   return res;
-// };
 
 export const getCommentPage = async (meetingId: string | undefined) => {
   const res = await baseURL.get(`/meetings/${meetingId}/comments`);
