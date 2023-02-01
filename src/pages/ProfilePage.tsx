@@ -62,11 +62,11 @@ export default function ProfilePage() {
       </div>
 
       <div>
-        <Link to="a">
+        <Link to="/alarm">
           <span>알림</span>
           <img src={Right_Side} alt={Right_Side} />
         </Link>
-        <Link to="#">
+        <Link to="/setting">
           <span>설정</span>
           <img src={Right_Side} alt={Right_Side} />
         </Link>

@@ -1,21 +1,28 @@
 import styled from 'styled-components';
 
-export const InfoBox = styled.div`
-  height: 812px;
+export const SubPageBox = styled.div`
+  height: 100%;
   background-color: #ffffff;
 `;
-export const InfoNavBox = styled.div`
+
+export const ProfileSubNavBox = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  height: 56px;
+  width: 375px;
   padding: 16px;
   box-sizing: border-box;
   margin-bottom: 16px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #f4f4f4;
+  background-color: white;
   & > span {
-    margin-left: 8px;
+    margin-left: 16px;
   }
 `;
-export const FollowListBox = styled.div` 
-  /* height: 500px; */
-  height: 100vh;
+
+export const FollowListBox = styled.div`
+  height: 100%;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -81,14 +88,24 @@ export const DeveloperBox = styled.div`
 `;
 
 export const AlarmBox = styled.div`
+  height: 100%;
+  margin-top: 56px;
   .alarmList {
-    padding: 16px;
-    box-sizing: border-box;
     & > div {
+      padding: 16px;
+      box-sizing: border-box;
       margin-bottom: 10px;
+      border-bottom: 1px solid #f4f4f4;
     }
     .alarmText {
       margin-bottom: 20px;
+      font-size: 16px;
+      letter-spacing: -0.5px;
+      color: #222222;
+    }
+    .alarmTime {
+      font-size: 14px;
+      color: #666666;
     }
   }
 `;
