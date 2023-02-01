@@ -33,20 +33,6 @@ const DetailButton = ({ data, member }: any) => {
     meetAttendExit(ids);
   };
 
-  const editData = {
-    title: data?.title,
-    category: data.category,
-    startDate: data.startDate,
-    startTime: data.startTime,
-    duration: data.duration,
-    platform: data.platform,
-    link: data.link,
-    content: data.content,
-    maxNum: data.maxNum,
-    secret: data.secret,
-    password: data.password,
-  };
-
   const linkEdit = () => {
     navigate(`/post/${id}`);
     getEditingMeeting(ids);

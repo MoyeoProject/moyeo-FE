@@ -39,6 +39,7 @@ const Comment = () => {
     addCommentItem({ id, comment });
     setComment('');
   };
+  
   const useDelComment = () => {
     return useMutation(delelteComment, {
       onSuccess: (data) => {
