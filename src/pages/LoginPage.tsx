@@ -84,7 +84,7 @@ const LoginForm = () => {
           <div className="moveText">
             <span
               onClick={() => {
-                navigate('/signup/rewrite');
+                navigate('/repassword');
               }}
             >
               비밀번호 재설정

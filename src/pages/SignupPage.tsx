@@ -123,7 +123,7 @@ const SignupPage = () => {
     if (!usernameValueCheck) {
       setUsernameRegExCheck(false);
     }
-    postSignup({ email, password, username });
+    postSignup({ email, password, username })
   };
 
   const goLogin = () => {

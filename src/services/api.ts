@@ -150,28 +150,39 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
 
 export const emailCheckApi = async (email: string) => {
   const res = await baseURL.get(`/users/mail-code/create?email=${email}`);
-  console.log(res);
   return res;
 };
 
 export const emailAuthNumberApi = async ({ email, authNumber }: EmailAuthType) => {
-  const res = await baseURL.post(`/users/mail-code/confirm?&ePw=${authNumber}`, {
-    email,
-    authNumber,
+  const res = await baseURL.post('/users/mail-code/confirm', {
+    email: email,
+    ePw: authNumber,
   });
-  // // post요청하면 email에러 안뜨는데.  get과 post차이가 있나
-  // console.log(res);
-  // return res;
+  return res;
 };
 
 export const signupApi = async ({ email, password, username }: SignUp) => {
-  const res = await baseURL.post('/users/signup', { email, password, username });
-  return res;
+  const res = await baseURL
+    .post('/users/signup', { email, password, username })
+    .then((res) => {
+      toast('회원가입 성공');
+      location.replace('/');
+    })
+    .catch((err) => {
+      toast(err.response.data.statusMsg);
+    });
 };
 
 export const rePasswordApi = async ({ email, password }: RePasswordType) => {
-  const res = await baseURL.patch('/users/password', { email, password });
-  return res;
+  const res = await baseURL
+    .patch('/users/passwordChange', { email, password })
+    .then((res) => {
+      location.replace('/');
+      toast('비밀번호 변경 성공');
+    })
+    .catch((err) => {
+      toast(err.response.data.statusMsg);
+    });
 };
 
 export const getDetailPage = async (id: string | undefined) => {
