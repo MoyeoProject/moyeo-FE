@@ -14,6 +14,8 @@ export default function HomePage() {
     saveItem('year', '');
     saveItem('month', '');
     return () => {
+      saveItem('keyword', '');
+      saveItem('category', '');
       removeItem('year');
       removeItem('month');
     };

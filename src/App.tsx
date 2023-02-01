@@ -9,6 +9,7 @@ import LoginForm from './pages/LoginPage';
 import PostPage from './pages/PostPage';
 import ProfilePage from './pages/ProfilePage';
 import RePasswordPage from './pages/RePasswordPage';
+import SearchPage from './pages/SearchPage';
 import SettingPage from './pages/SettingPage';
 import SignupPage from './pages/SignupPage';
 import AlarmConnect from './services/alarmConnect';
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/alarm" element={<AlarmListPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/api/users/kakao/callback" element={<KakaoLoginButton />} />
+      <Route path="/search" element={<SearchPage />} />
     </Routes>
   );
 }

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const SearchFormWrap = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding: 12px 16px;
-  background-color: #f9f9f9;
+  width: 100%;
+  background-color: #fff;
 `;
 
 export const InputField = styled.div`
