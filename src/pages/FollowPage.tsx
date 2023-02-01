@@ -1,30 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as FramePlusIcon } from '../assets/Frame_plus.svg';
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
-import { ReactComponent as Cal_right_arrow_icon } from '../assets/cal_left_arrow_icon.svg';
 import { FollowButton } from '../components/common/FollowButton';
 import { getFollowerList, getFollowingList } from '../services/api';
 import { Member, MemberBox } from '../styles/DetailAttendListStyle';
-import { FollowListBox, InfoBox, InfoNavBox } from '../styles/InfoBoxStyle';
+import { FollowListBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { MemberTypes } from '../types/DetailTypes';
-
-type ChildrenProps = {
-  children: React.ReactNode;
-};
-
-export const InfoNav = ({ children }: ChildrenProps) => {
-  return (
-    <InfoNavBox>
-      <Link to="/profile">
-        <Cal_right_arrow_icon />
-      </Link>
-      <span>{children}</span>
-    </InfoNavBox>
-  );
-};
+import { ProfileSubNav } from './AlarmListPage';
 
 const FollowPage = () => {
   const navigate = useNavigate();
@@ -39,8 +24,8 @@ const FollowPage = () => {
   });
 
   return (
-    <InfoBox>
-      <InfoNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
+    <SubPageBox>
+      <ProfileSubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
 
       <FollowListBox>
         <div className="followTitle">
@@ -68,7 +53,7 @@ const FollowPage = () => {
           })}
         </div>
       </FollowListBox>
-    </InfoBox>
+    </SubPageBox>
   );
 };
 export default FollowPage;
