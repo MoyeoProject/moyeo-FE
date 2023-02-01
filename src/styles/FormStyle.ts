@@ -77,3 +77,31 @@ export const ArrowImg = styled.img`
   right: 18px;
   width: 12px;
 `;
+
+export const TextAreaField = styled.textarea`
+  text-align: start;
+  width: 100%;
+  padding: 16px 12px;
+  border: 1px solid #f4f4f4;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  cursor: auto;
+  resize: vertical;
+  :focus {
+    outline: none;
+  }
+  ::placeholder {
+    color: #aaaaaa;
+  }
+`;
+
+export const FileLabel = styled.label`
+  text-align: center;
+  width: 100%;
+  padding: 16px 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ffb300;
+`;

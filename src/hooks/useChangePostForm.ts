@@ -13,7 +13,9 @@ const postFormData: PostFormData = {
 export default function useChangePostForm() {
   const [postForm, setPostForm] = useState(postFormData);
 
-  const handleChangeInputField = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInputField = (
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const {
       target: { value, id },
     } = event;
