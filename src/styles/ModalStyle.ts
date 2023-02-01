@@ -13,6 +13,19 @@ export const ModalWrap = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 `;
 
+export const MiniModalWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: fit-content;
+  padding: 16px;
+  border-radius: 15px;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+`;
+
 export const ModalTitle = styled.p`
   text-align: ${(props: { align: string }) => props.align};
   padding: 16px 0;
