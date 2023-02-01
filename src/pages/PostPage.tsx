@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { TimePicker } from 'antd';
+import { useEffect } from 'react';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -7,21 +8,31 @@ import Toggle from '../components/Toggle';
 import ModalAccordionButton from '../components/common/ModalAccordionButton';
 import TopNavBar from '../components/common/TopNavBar';
 import useChangePostForm from '../hooks/useChangePostForm';
-import { editMeeting, postMeeting } from '../services/api';
-import { loadItem } from '../services/storage';
+import { deleteMeeting, editMeeting, postMeeting } from '../services/api';
+import { loadItem, saveItem } from '../services/storage';
 import { PostButton } from '../styles/ButtonStyle';
 import {
+  FileLabel,
   FormAlert,
   FormContents,
   FormLabel,
   FormTitle,
   FormWrap,
   InputField,
+  TextAreaField,
   TimeInputField,
 } from '../styles/FormStyle';
 import { calcStartTime } from '../utils/utils';
 
 export default function PostPage() {
+  useEffect(() => {
+    return () => {
+      saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
+    };
+  }, []);
   const { id } = useParams();
 
   const tmp = loadItem('currPost');
@@ -45,9 +56,12 @@ export default function PostPage() {
           maxNum: '',
           secret: false,
           password: '',
+          image: null,
         };
 
-  const { handleSubmit, register, control, setValue } = useForm<FieldValues>({ defaultValues });
+  const { handleSubmit, register, control, setValue } = useForm<FieldValues>({
+    defaultValues,
+  });
 
   const mutateEditMeeting = useMutation({
     mutationFn: editMeeting,
@@ -55,6 +69,13 @@ export default function PostPage() {
 
   const mutatePostMeeting = useMutation({
     mutationFn: postMeeting,
+  });
+
+  const mutateDeleteMeeting = useMutation({
+    mutationFn: deleteMeeting,
+    onSuccess: () => {
+      location.assign('/main');
+    },
   });
 
   const onSubmit = (postForm: FieldValues) => {
@@ -80,11 +101,14 @@ export default function PostPage() {
               value={title}
               onChange={(e) => handleChangeInputField(e)}
             />
+            <FormLabel htmlFor="image">배경 이미지</FormLabel>
+            <FileLabel htmlFor="image">이미지 올리기</FileLabel>
+            <InputField {...register('image')} type="file" id="image" accept="image/*" />
             <FormLabel htmlFor="content">소개</FormLabel>
-            <InputField
+            <TextAreaField
               {...register('content', { required: true })}
-              type="text"
               id="content"
+              maxLength={300}
               placeholder={currPost ? currPost.content : '모두가 즐거운 대화를 나눠요!'}
               value={content}
               onChange={(e) => handleChangeInputField(e)}
@@ -133,6 +157,11 @@ export default function PostPage() {
           </FormContents>
 
           <PostButton type="submit">{id ? '수정완료' : '작성완료'}</PostButton>
+          {id && (
+            <PostButton type="button" onClick={() => mutateDeleteMeeting.mutate({ id: +id })}>
+              모임 삭제하기
+            </PostButton>
+          )}
         </form>
       </FormWrap>
     </>

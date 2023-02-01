@@ -32,6 +32,9 @@ input, textarea, button {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
 }
+input[type="file"] {
+  display: none;
+}
 .react-datepicker {
   width: 100%;
   border: none;

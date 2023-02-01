@@ -1,13 +1,11 @@
-import axios, { AxiosInstance } from 'axios';
-import { useState } from 'react';
+import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { SignUp } from '../types/AppTypes';
 import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
 import { EmailAuthType, RePasswordType } from './../types/AppTypes';
-import AlarmConnect from './alarmConnect';
-import { loadItem, removeItem, saveItem } from './storage';
+import { loadItem, saveItem } from './storage';
 
 const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
@@ -57,8 +55,42 @@ export const getMyInfo = async () => {
 };
 
 export const postMeeting = async (postForm: FieldValues) => {
+  const {
+    image,
+    content,
+    category,
+    duration,
+    link,
+    maxNum,
+    password,
+    platform,
+    secret,
+    startDate,
+    startTime,
+    title,
+  } = postForm;
+  const formDataForSubmit = new FormData();
+  image[0] && formDataForSubmit.append('image', image[0]);
+  formDataForSubmit.append('content', content);
+  formDataForSubmit.append('category', category);
+  formDataForSubmit.append('duration', duration);
+  formDataForSubmit.append('link', link);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('password', password);
+  formDataForSubmit.append('platform', platform);
+  formDataForSubmit.append('secret', secret);
+  formDataForSubmit.append('startDate', startDate);
+  formDataForSubmit.append('startTime', startTime);
+  formDataForSubmit.append('title', title);
+
   const response = await baseURL
-    .post(MEETINGS, postForm)
+    .post(MEETINGS, formDataForSubmit, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     .then((res) => {
       res.data.data && toast(res.data.statusMsg);
       history.back();
@@ -85,16 +117,48 @@ export const getEditingMeeting = async (id: number | undefined) => {
 };
 
 export const editMeeting = async ({ id, postForm }: { id: number; postForm: FieldValues }) => {
+  const {
+    image,
+    content,
+    category,
+    duration,
+    link,
+    maxNum,
+    password,
+    platform,
+    secret,
+    startDate,
+    startTime,
+    title,
+  } = postForm;
+  const formDataForSubmit = new FormData();
+  image[0] && formDataForSubmit.append('image', image[0]);
+  formDataForSubmit.append('content', content);
+  formDataForSubmit.append('category', category);
+  formDataForSubmit.append('duration', duration);
+  formDataForSubmit.append('link', link);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('maxNum', maxNum);
+  formDataForSubmit.append('password', password);
+  formDataForSubmit.append('platform', platform);
+  formDataForSubmit.append('secret', secret);
+  formDataForSubmit.append('startDate', startDate);
+  formDataForSubmit.append('startTime', startTime);
+  formDataForSubmit.append('title', title);
+
   const response = await baseURL
-    .patch(MEETINGS + `/${id}`, postForm)
+    .patch(MEETINGS + `/${id}`, formDataForSubmit, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     .then((res) => {
       toast(res.data.statusMsg);
-      removeItem('currPost');
       history.back();
     })
     .catch((err) => {
       toast(err.response.data.statusMsg);
-      location.reload();
     });
 
   return response;
@@ -107,8 +171,6 @@ export const editMyInfo = async ({
   username: string;
   profileMsg: string;
 }) => {
-  console.log(username, profileMsg);
-
   const response = await baseURL.patch(PROFILE, { username, profileMsg });
   return response;
 };
@@ -124,6 +186,11 @@ export const editMyProfile = async (formData: object) => {
 
 export const deleteMyProfile = async () => {
   const response = await baseURL.delete(PROFILE_URL);
+  return response;
+};
+
+export const deleteMeeting = async ({ id }: { id: number }) => {
+  const response = await baseURL.delete(MEETINGS + `/${id}`);
   return response;
 };
 
