@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { InfoNav } from '../pages/FollowPage';
-import { InfoBox } from '../styles/InfoBoxStyle';
+import { ProfileSubNav } from '../pages/AlarmListPage';
+import { SubPageBox } from '../styles/ProfileSubPageStyle';
 
 export const InfoPrivacy = () => {
   return (
     <>
-      <InfoBox>
-        <InfoNav children={'개인정보'} />
-      </InfoBox>
+      <ProfileSubNav>
+        <SubPageBox children={'개인정보'} />
+      </ProfileSubNav>
     </>
   );
 };

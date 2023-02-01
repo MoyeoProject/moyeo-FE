@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { SignUp } from '../types/AppTypes';
 import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
 import { EmailAuthType, RePasswordType } from './../types/AppTypes';
-import { AlarmConnect } from './alarmConnect';
+import AlarmConnect from './alarmConnect';
 import { loadItem, removeItem, saveItem } from './storage';
 
 const baseURL = axios.create({
@@ -152,7 +152,7 @@ export const emailCheckApi = async (email: string) => {
   const res = await baseURL.get(`/users/mail-code/create?email=${email}`);
   console.log(res);
   return res;
-}; 
+};
 
 export const emailAuthNumberApi = async ({ email, authNumber }: EmailAuthType) => {
   const res = await baseURL.post(`/users/mail-code/confirm?&ePw=${authNumber}`, {
@@ -246,5 +246,10 @@ export const getFollowerList = async () => {
 
 export const getAlarmList = async () => {
   const res = await baseURL.get('/alarms');
+  return res;
+};
+
+export const AlarmReadApi = async (id: number) => {
+  const res = await baseURL.delete(`/alarms/${id}`);
   return res;
 };

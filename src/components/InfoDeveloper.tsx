@@ -1,10 +1,10 @@
-import { InfoNav } from '../pages/FollowPage';
-import { DeveloperBox, InfoBox } from '../styles/InfoBoxStyle';
+import { ProfileSubNav } from '../pages/AlarmListPage';
+import { DeveloperBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 
 export const InfoDeveloper = () => {
   return (
-    <InfoBox>
-      <InfoNav children={'만든이들'} />
+    <SubPageBox>
+      <ProfileSubNav children={'만든이들'} />
       <DeveloperBox>
         <p>열심히 제작했어요</p>
         <div className="developer">
@@ -31,6 +31,6 @@ export const InfoDeveloper = () => {
           </div>
         </div>
       </DeveloperBox>
-    </InfoBox>
+    </SubPageBox>
   );
 };
