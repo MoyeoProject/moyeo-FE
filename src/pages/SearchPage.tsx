@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import meeting_img from '../assets/meeting_img.svg';
@@ -10,9 +10,13 @@ import { MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
 import { Meeting } from '../types/AppTypes';
 
 export default function SearchPage() {
+  const queryClient = useQueryClient();
+
   useEffect(() => {
     saveItem('keyword', '');
     saveItem('category', '');
+    queryClient.resetQueries({ queryKey: ['nextMeetings'] });
+    queryClient.resetQueries({ queryKey: ['meetings'] });
   }, []);
 
   const { data } = useQuery({
