@@ -5,7 +5,11 @@ export const MeetingListWrap = styled.ul`
   width: 100%;
   padding: 0 16px;
   padding-top: ${(props: { keyword: string | null }) =>
-    props.keyword === 'calendar' ? '40px' : '402px'};
+    props.keyword === 'calendar'
+      ? '40px'
+      : props.keyword === 'popular' || props.keyword === 'new'
+      ? '514px'
+      : '88px'};
   padding-bottom: 8px;
   border-top: ${(props: { keyword: string | null }) =>
     props.keyword === 'calendar' ? '1px solid #F4F4F4' : 'none'};
