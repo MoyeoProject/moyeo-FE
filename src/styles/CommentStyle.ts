@@ -56,7 +56,7 @@ export const CommentItem = styled.div<{ align: string; bgColor: string; border: 
 export const InputBox = styled.div`
   position: fixed;
   bottom: 0;
-  z-index: 10;
+  z-index: 1;
   width: 359px;
   padding: 16px 0;
   box-sizing: border-box;

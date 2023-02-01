@@ -8,7 +8,7 @@ export const handleEmailAlert = (email?: string) => {
   const emailAlert = `${email}로 인증코드를 발송하였습니다.`;
   const emailWarning = '이메일 주소 확인은 필수입니다.';
   Swal.fire({
-    position: 'top',
+    position: 'bottom',
     icon: 'success',
     iconColor: '#F1F1F1',
     title: email ? emailAlert : emailWarning,
@@ -21,7 +21,7 @@ export const handleEmailAlert = (email?: string) => {
 
 export const handleMemberOutAlert = () => {
   Swal.fire({
-    position: 'top',
+    position: 'bottom',
     icon: 'success',
     iconColor: '#F1F1F1',
     title: '멤버를 내보냈습니다.',
@@ -39,7 +39,7 @@ const handleClickAttnedExit = (id: string | undefined) => {
 export const handleAttendAlert = (isAttend: boolean, id?: string) => {
   if (isAttend) {
     Swal.fire({
-      position: 'center',
+      position: 'bottom',
       width: '370px',
       icon: 'success',
       iconColor: '#F1F1F1',
@@ -66,7 +66,7 @@ export const handleAttendAlert = (isAttend: boolean, id?: string) => {
         handleClickAttnedExit(id);
         saveItem('detailKeyword', 'intro');
         Swal.fire({
-          position: 'center',
+          position: 'bottom',
           width: '370px',
           icon: 'success',
           iconColor: '#F1F1F1',
