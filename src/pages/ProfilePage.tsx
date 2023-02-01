@@ -1,16 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Frame_user from '../assets/Frame_user.svg';
 import Right_Side from '../assets/Right_Side.svg';
-import black_right_arrow_Icon from '../assets/black_right_arrow_Icon.svg';
 import ProfileModalForm from '../components/ProfileModalForm';
 import TopNavBar from '../components/common/TopNavBar';
 import { getMyInfo } from '../services/api';
+import { saveItem } from '../services/storage';
 
 export default function ProfilePage() {
+  useEffect(() => {
+    return () => {
+      saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
+    };
+  }, []);
+
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
@@ -20,7 +29,7 @@ export default function ProfilePage() {
   });
 
   const myInfo = data?.data.data;
-  const { profileMsg, username } = myInfo;
+  const { profileMsg, username, profileUrl } = myInfo;
 
   const handleClickLogout = () => {
     location.assign('/');
@@ -41,8 +50,6 @@ export default function ProfilePage() {
       <div>
         <span>참여 모임 수</span>
         <div>{myInfo.attendantsNum}</div>
-        {/* 생각해보니 페이지로 나뉜게 아니네요 이제... 프로필에서 컨트롤 해야될거 같아서
-        저는 더 안건드릴게유.ㅠㅠ 선영님 마무리 부탁!!  */}
         <span
           onClick={() => {
             navigate('/follow/follow');
@@ -74,6 +81,7 @@ export default function ProfilePage() {
       {showModal &&
         createPortal(
           <ProfileModalForm
+            profileUrl={profileUrl}
             profileMsg={profileMsg}
             username={username}
             onClose={() => setShowModal(false)}
