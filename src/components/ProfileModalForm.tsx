@@ -1,23 +1,33 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
+import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+import Frame_user from '../assets/Frame_user.svg';
 import useChangePostForm from '../hooks/useChangePostForm';
 import useCloseModal from '../hooks/useCloseModal';
-import { deleteMyProfile, editMyInfo, editMyProfile } from '../services/api';
+import { editMyInfo } from '../services/api';
 import { saveItem } from '../services/storage';
 import { ModalButton } from '../styles/ButtonStyle';
 import { InputField } from '../styles/FormStyle';
 import { ButtonsBox, ModalTitle, ModalWrap, Overlay } from '../styles/ModalStyle';
+import MiniModal from './MiniModal';
 
 type ProfileModalFormProps = {
+  profileUrl: string | null;
   profileMsg: string;
   username: string;
   onClose: () => void;
 };
 
-export default function ProfileModalForm({ profileMsg, username, onClose }: ProfileModalFormProps) {
+export default function ProfileModalForm({
+  profileUrl,
+  profileMsg,
+  username,
+  onClose,
+}: ProfileModalFormProps) {
   const { postForm, handleChangeInputField } = useChangePostForm();
+  const [showModal, setShowModal] = useState(false);
 
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
@@ -27,20 +37,6 @@ export default function ProfileModalForm({ profileMsg, username, onClose }: Prof
     onSuccess: (data) => {
       saveItem('isLogin', data?.headers.authorization as unknown as string);
       saveItem('username', data.data.data.username);
-      location.reload();
-    },
-  });
-
-  const fetchEditMyProfile = useMutation({
-    mutationFn: editMyProfile,
-    onSuccess: (data) => {
-      saveItem('profileUrl', data.data.data.profileUrl);
-    },
-  });
-
-  const fetchDeleteMyProfile = useMutation({
-    mutationFn: deleteMyProfile,
-    onSuccess: () => {
       location.reload();
     },
   });
@@ -56,33 +52,18 @@ export default function ProfileModalForm({ profileMsg, username, onClose }: Prof
     onClose();
   };
 
-  const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { files },
-    } = event;
-
-    const formDataForSubmit = new FormData();
-    files && formDataForSubmit.append('file', files[0]);
-
-    fetchEditMyProfile.mutate(formDataForSubmit);
-  };
-
   return (
     <Overlay>
       <ModalWrap ref={modalRef}>
         <ModalTitle align={'center'}>프로필</ModalTitle>
-        <label htmlFor="file">사진</label>
-        <InputField
-          {...register('file', { required: true })}
-          type="file"
-          id="file"
-          accept="image/*"
-          required
-          onChange={(e) => handleChangeImage(e)}
+        <img
+          src={profileUrl === null ? Frame_user : profileUrl}
+          alt={profileUrl === null ? Frame_user : profileUrl}
         />
-        <button type="button" onClick={() => fetchDeleteMyProfile.mutate()}>
-          삭제
+        <button type="button" onClick={() => setShowModal(true)}>
+          수정
         </button>
+        {showModal && <MiniModal onClose={() => setShowModal(false)} />}
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="username">닉네임 변경</label>
           <InputField
