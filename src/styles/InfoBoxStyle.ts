@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { AlarmList } from './../components/AlarmList';
-
 export const InfoBox = styled.div`
   height: 812px;
   background-color: #ffffff;
@@ -15,7 +13,14 @@ export const InfoNavBox = styled.div`
     margin-left: 8px;
   }
 `;
-export const FollowListBox = styled.div`
+export const FollowListBox = styled.div` 
+  /* height: 500px; */
+  height: 100vh;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  background-color: white;
   padding: 16px;
   box-sizing: border-box;
   .followTitle {

@@ -18,7 +18,7 @@ type ChildrenProps = {
 export const InfoNav = ({ children }: ChildrenProps) => {
   return (
     <InfoNavBox>
-      <Link to="#">
+      <Link to="/profile">
         <Cal_right_arrow_icon />
       </Link>
       <span>{children}</span>
@@ -27,6 +27,7 @@ export const InfoNav = ({ children }: ChildrenProps) => {
 };
 
 const FollowPage = () => {
+  const navigate = useNavigate();
   const { keyword } = useParams();
 
   const { data: followList } = useQuery(['follow'], () => {
