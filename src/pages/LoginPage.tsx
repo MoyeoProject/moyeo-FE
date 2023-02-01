@@ -82,8 +82,14 @@ const LoginForm = () => {
             카카오 로그인 하기
           </button>
           <div className="moveText">
-            <span>비밀번호 재설정</span>
-            <span> | </span>
+            <span
+              onClick={() => {
+                navigate('/signup/rewrite');
+              }}
+            >
+              비밀번호 재설정
+            </span>
+            <span>&nbsp;&nbsp; | &nbsp;&nbsp;</span>
             <span onClick={() => navigate('/signup')}>회원가입</span>
           </div>
         </AuthButtonBox>

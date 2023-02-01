@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { SignUp } from '../types/AppTypes';
 import { MeetingLinkAddType, MemberTypes } from '../types/DetailTypes';
+import { EmailAuthType, RePasswordType } from './../types/AppTypes';
 import { AlarmConnect } from './alarmConnect';
 import { loadItem, removeItem, saveItem } from './storage';
 
@@ -99,27 +100,6 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
-// const alarmSubscribeApi = async () => {
-//   const [data, setData] = useState([]);
-//   const id = loadItem('userId');
-//   const [alarmMsg, setAlarmMsg] = useState([]);
-
-//   const subscribeUrl = `https://sparta-hippo.shop/api/alarm/subscribe/${id}`;
-//   if (loadItem('isLogin') != null) {
-//     const eventSource = new EventSource(subscribeUrl);
-
-//     eventSource.addEventListener('sse', async (e) => {
-//       // console.log('알람연결 성공', e.data);
-//       const result = await e.data;
-//       setData(result);
-//     });
-
-//     eventSource.addEventListener('error', function (event) {
-//       eventSource.close();
-//     });
-//   }
-// };
-
 export const editMyInfo = async ({
   username,
   profileMsg,
@@ -170,28 +150,27 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
 
 export const emailCheckApi = async (email: string) => {
   const res = await baseURL.get(`/users/mail-code/create?email=${email}`);
+  console.log(res);
   return res;
-};
+}; 
 
-export const emailAuthNumberApi = async ({
-  email,
-  authNumber,
-}: {
-  email: string;
-  authNumber: string;
-}) => {
-  console.log(email, authNumber);
-  // 타입찾기
-  // const res = await baseURL.get(`users/mail-code/confirm?&ePw=${authNumber}`, {
-  //   email,
-  //   ePw: authNumber,
-  // });
+export const emailAuthNumberApi = async ({ email, authNumber }: EmailAuthType) => {
+  const res = await baseURL.post(`/users/mail-code/confirm?&ePw=${authNumber}`, {
+    email,
+    authNumber,
+  });
+  // // post요청하면 email에러 안뜨는데.  get과 post차이가 있나
   // console.log(res);
   // return res;
 };
 
 export const signupApi = async ({ email, password, username }: SignUp) => {
   const res = await baseURL.post('/users/signup', { email, password, username });
+  return res;
+};
+
+export const rePasswordApi = async ({ email, password }: RePasswordType) => {
+  const res = await baseURL.patch('/users/password', { email, password });
   return res;
 };
 

@@ -33,13 +33,13 @@ export const SignupBox = styled.div`
   height: 100vh;
   background-color: white;
   & > div {
-    position: absolute;
-    top: 44px;
     width: 100%;
-    padding: 16px;
+    height: 744px;
+    padding: 44px 16px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: white;
     & > p {
       margin-bottom: 32px;
       font-size: 20px;
