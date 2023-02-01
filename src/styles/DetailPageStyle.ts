@@ -14,7 +14,7 @@ export const DetailBox = styled.div`
     width: 375px;
     box-sizing: border-box;
     background-color: white;
-    z-index: 10;
+    z-index: 1;
   }
   .detailMainBox {
     margin-bottom: 85px;
@@ -22,7 +22,7 @@ export const DetailBox = styled.div`
   .buttonBox {
     position: fixed;
     bottom: 0;
-    z-index: 10;
+    z-index: 1;
     padding: 16px;
     box-sizing: border-box;
     background-color: white;

@@ -190,8 +190,9 @@ export const getDetailPage = async (id: string | undefined) => {
   return res;
 };
 export const getAlarmApi = async (id: string | undefined) => {
-  const res = await baseURL.patch(`/meetings/${id}/alarm`);
-  return res;
+  const res = await baseURL.patch(`/meetings/${id}/alarm`).then((res) => {
+    toast(res.data.data ? '알람을 켭니다.' : '알람을 끕니다.');
+  });
 };
 
 export const meetAttendExitApi = async (meetingId: any) => {
@@ -203,6 +204,12 @@ export const getAttendList = async (meetingId: string | undefined) => {
   const res = await baseURL.get(`/meetings/${meetingId}/attendants`);
   return res;
 };
+
+// export const editImageApi = async (id: string) => {
+//   const res = await baseURL.patch(`/meetings/${id}/image`);
+//   return res;
+// };
+
 export const getCommentPage = async (meetingId: string | undefined) => {
   const res = await baseURL.get(`/meetings/${meetingId}/comments`);
   return res;

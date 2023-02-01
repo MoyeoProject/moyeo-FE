@@ -8,7 +8,7 @@ export const SubPageBox = styled.div`
 export const ProfileSubNavBox = styled.div`
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: 1;
   height: 56px;
   width: 375px;
   padding: 16px;
