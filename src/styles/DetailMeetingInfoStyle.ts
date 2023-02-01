@@ -9,9 +9,20 @@ export const MeetingCategoryBox = styled.div`
     flex-direction: column;
     margin-bottom: 20px;
     .meetingImg {
+      position: relative;
       height: 160px;
-      border: 1px solid red;
       margin-bottom: 20px;
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      & > p {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        cursor: pointer;
+      }
     }
     .meetingInfo {
       padding: 0 16px;

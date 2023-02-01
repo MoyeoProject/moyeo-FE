@@ -1,8 +1,5 @@
-import { ReactComponent as Frame_category } from '../../assets/Frame_category.svg';
-import { ReactComponent as Frame_platform } from '../../assets/Frame_platform.svg';
 import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
-import { ReactComponent as CalendarDetail } from '../../assets/calendar_detail.svg';
-import { ReactComponent as ClockIcon } from '../../assets/clock_icon.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit_icon.svg';
 import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
 import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingInfoStyle';
 import { setDate, setTime } from '../../utils/utils';
@@ -11,14 +8,16 @@ const DetailMeetingInfo = ({ data }: any) => {
   const time = setTime(data?.startTime);
   const today = setDate(data?.startDate);
 
-  // console.log(data);
   return (
     <>
       <MeetingCategoryBox>
         <div className="meetingBox">
           <div className="meetingImg">
             {/* null이면 기본이미지 */}
-            <img />
+            {data?.image ? <img src={data.image} /> : <img src="#" />}
+            <p>
+              <EditIcon />
+            </p>
           </div>
           <div className="meetingInfo">
             <div className="meetingPlatform">{data.platform}</div>
