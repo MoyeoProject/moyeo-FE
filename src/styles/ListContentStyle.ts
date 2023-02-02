@@ -9,44 +9,31 @@ export const ListContentWrap = styled.div`
   }
 `;
 
-export const LeftBox = styled.div``;
-
-export const RightBox = styled.div`
-  & > img {
-    width: 36px;
-  }
-`;
-
 export const Title = styled.div`
-  display: flex;
-  margin-bottom: 12px;
-  & > img,
-  h3 {
-    margin-right: 8px;
-    font-size: 16px;
-  }
-`;
+  & > h3 {
+    width: 120px;
+    margin: 2px 0;
 
-export const Content = styled.div`
-  margin-bottom: 8px;
-  color: #666666;
-  font-size: 14px;
-  & > p {
-    width: 260px;
+    font-size: 16px;
+    font-weight: 500;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 `;
 
-export const SubContent = styled.div`
+export const Category = styled.div`
   display: flex;
-  margin-top: 8px;
-  & > img {
-    margin-right: 6px;
-  }
-  & > p {
-    color: #aaaaaa;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  font-size: 12px;
+  color: #666666;
+`;
+
+export const Content = styled.div`
+  & > span {
     font-size: 12px;
+    color: #aaaaaa;
   }
 `;

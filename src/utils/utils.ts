@@ -21,12 +21,7 @@ export const setTime = (startTime: string) => {
 };
 
 export const setDate = (startDate: string) => {
-  return startDate
-    .split('-')
-    .map((date, i) => {
-      return i === 0 ? date.slice(2, 4) : date;
-    })
-    .join('.');
+  return startDate.split('-').slice(1).join('.');
 };
 
 export const countDownTimer = (date: Date, targetElement: React.RefObject<HTMLSpanElement>) => {
@@ -46,7 +41,7 @@ export const countDownTimer = (date: Date, targetElement: React.RefObject<HTMLSp
     const secs = String(Math.floor((difference % min) / sec)).padStart(2, '0');
 
     if (targetElement.current) {
-      targetElement.current.innerText = `${days}:${hours}:${mins}:${secs}`;
+      targetElement.current.innerText = `${days} : ${hours} : ${mins} : ${secs}`;
     }
   };
 
