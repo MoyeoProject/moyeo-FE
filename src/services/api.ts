@@ -223,6 +223,8 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
+      saveItem('meetEntrance', 'false');
+      saveItem('reviewAdd', '');
       location.assign('/main');
     })
     .catch((err) => {
@@ -287,6 +289,22 @@ export const editImageApi = async ({ image, id }: any) => {
 export const meetAttendExitApi = async (meetingId: any) => {
   const res = await baseURL.patch(`/meetings/${meetingId}/attendance`);
   return res;
+};
+
+export const meetEntranceApi = async ({ id, link }: { id: string | undefined; link: string }) => {
+  console.log(id, link);
+  const res = await baseURL
+    .patch(`/meetings/${id}/entrance`)
+    .then((res) => {
+      toast('모임 입장합니다.');
+      window.open(`${link}`);
+      saveItem('reviewAdd', '');
+      saveItem('meetEntrance', 'true');
+      location.reload();
+    })
+    .catch((err) => {
+      toast(err.response.data.statusMsg);
+    });
 };
 
 export const getAttendList = async (meetingId: string | undefined) => {
@@ -360,4 +378,17 @@ export const getAlarmList = async () => {
 export const AlarmReadApi = async (id: number) => {
   const res = await baseURL.delete(`/alarms/${id}`);
   return res;
+};
+
+export const addReviewApi = async ({ review, id }: { id: string | undefined; review: boolean }) => {
+  console.log('review', 'review서버');
+  const res = await baseURL
+    .post(`/meetings/${id}/review`, { review })
+    .then((res) => {
+      saveItem('reviewAdd', 'write_review');
+      // location.replace(`/detail/${id}`);
+    })
+    .catch((err) => {
+      toast(err.response.data.statusMsg);
+    });
 };

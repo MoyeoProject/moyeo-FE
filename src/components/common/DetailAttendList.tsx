@@ -15,7 +15,15 @@ import { FollowButton } from './FollowButton';
 //  서로 다른 두 데이터를 props으로 넘길
 // }
 
-const DetailAttendList = ({ data, member }: any) => {
+const DetailAttendList = ({
+  data,
+  member,
+  meetingStart,
+}: {
+  data: any;
+  member: any;
+  meetingStart: boolean;
+}) => {
   const QueryClient = useQueryClient();
   const masterId = data?.masterId;
   const maxNum = data?.maxNum;
@@ -69,13 +77,15 @@ const DetailAttendList = ({ data, member }: any) => {
                 </Member>
                 {data?.master ? (
                   <div>
-                    <Out
-                      onClick={() => {
-                        handleMemberOut(m.userId);
-                      }}
-                    >
-                      내보내기
-                    </Out>
+                    {!meetingStart ? (
+                      <Out
+                        onClick={() => {
+                          handleMemberOut(m.userId);
+                        }}
+                      >
+                        내보내기
+                      </Out>
+                    ) : null}
                     <FollowButton userId={m.userId} followed={m.followed} />
                   </div>
                 ) : (

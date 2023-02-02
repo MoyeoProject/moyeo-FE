@@ -12,7 +12,7 @@ import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
 import { DetailMeetingModal } from '../DetailButtonModal';
 import KakaoShareButton from '../KakaoShareButton';
 
-const DetailNavBar = ({ data }: any) => {
+const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean }) => {
   const [showModal, setShowModal] = useState(false);
 
   const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
@@ -47,7 +47,7 @@ const DetailNavBar = ({ data }: any) => {
   };
   const { mutate: getAlarm } = useGetAlarm();
   const handleClickAlarm = (id: string | undefined) => {
-    getAlarm(id)
+    getAlarm(id);
   };
 
   return (
@@ -72,44 +72,48 @@ const DetailNavBar = ({ data }: any) => {
         <p className="navTitle">{data?.title}</p>
 
         <NavButtonBox>
-          {data?.attend ? (
-            <div
-              onClick={() => {
-                handleClickAlarm(id);
-              }}
-            >
-              {data?.alarm ? <span>🔔 </span> : <span>🔕</span>}
-            </div>
+          {!meetingStart ? (
+            data?.attend ? (
+              <div
+                onClick={() => {
+                  handleClickAlarm(id);
+                }}
+              >
+                {data?.alarm ? <span>🔔 </span> : <span>🔕</span>}
+              </div>
+            ) : null
           ) : null}
 
           <KakaoShareButton shareData={shareData} />
 
-          {data?.master ? (
-            <div
-              onClick={() => {
-                handleClickMeetingEdit(ids);
-              }}
-            >
-              <span>✒️</span>
-            </div>
-          ) : (
-            <div
-              onClick={() => {
-                if (!data?.attend) {
-                  if (data.secret) {
-                    setShowModal(true);
+          {!meetingStart ? (
+            data?.master ? (
+              <div
+                onClick={() => {
+                  handleClickMeetingEdit(ids);
+                }}
+              >
+                <span>✒️</span>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  if (!data?.attend) {
+                    if (data.secret) {
+                      setShowModal(true);
+                    } else {
+                      handleAttendAlert(true);
+                      handleClickAttnedExit(ids);
+                    }
                   } else {
-                    handleAttendAlert(true);
-                    handleClickAttnedExit(ids);
+                    handleAttendAlert(false, id);
                   }
-                } else {
-                  handleAttendAlert(false, id);
-                }
-              }}
-            >
-              {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
-            </div>
-          )}
+                }}
+              >
+                {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
+              </div>
+            )
+          ) : null}
         </NavButtonBox>
       </NavBox>
 

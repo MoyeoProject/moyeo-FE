@@ -9,16 +9,12 @@ import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingIn
 import { setDate, setTime } from '../../utils/utils';
 import { DetailImgEditModal } from '../DetailImgEditModal';
 
-const DetailMeetingInfo = ({ data }: any) => {
+const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: boolean }) => {
   const [showModal, setShowModal] = useState(false);
 
   const time = setTime(data?.startTime);
   const today = setDate(data?.startDate);
 
-  const editImage = () => {
-    // editImageApi()
-    setShowModal(true);
-  };
   return (
     <>
       <MeetingCategoryBox>
@@ -27,24 +23,32 @@ const DetailMeetingInfo = ({ data }: any) => {
             {/* null이면 기본이미지 */}
             {data?.image ? <img src={data.image} /> : <img src="#" />}
             {data?.master ? (
-              <p onClick={editImage}>
-                <EditIcon />
-              </p>
+              !meetingStart ? (
+                <p
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                >
+                  <EditIcon />
+                </p>
+              ) : null
             ) : null}
           </div>
           <div className="meetingInfo">
             <div className="meetingPlatform">{data.platform}</div>
             <p className="meetingTitle">{data?.title}</p>
-            <div className="iconBox">
-              <div>
-                <GoodIcon />
-                <p>{data?.likeNum}</p>
+            {!meetingStart ? null : (
+              <div className="iconBox">
+                <div>
+                  <GoodIcon />
+                  <p>{data?.likeNum}</p>
+                </div>
+                <div>
+                  <BadIcon />
+                  <p>{data?.hateNum}</p>
+                </div>
               </div>
-              <div>
-                <BadIcon />
-                <p>{data?.hateNum}</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
         <MeetingInfoBox>
