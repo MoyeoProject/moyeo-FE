@@ -9,7 +9,7 @@ export const SearchFormWrap = styled.div`
 
 export const InputField = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   padding: 8px;
   border-radius: 4px;
