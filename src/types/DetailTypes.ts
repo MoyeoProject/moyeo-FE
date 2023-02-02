@@ -65,3 +65,7 @@ export type AlarmType = {
   isRead: boolean;
   createdAt: string;
 };
+
+export type MeetingStartType = {
+  meetingStart: boolean;
+};

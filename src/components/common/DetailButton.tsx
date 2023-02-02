@@ -1,32 +1,53 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { toast } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useMeetAttendExit } from '../../hooks/useAttendButton';
-import { getEditingMeeting, meetAttendExitApi } from '../../services/api';
+import { getEditingMeeting, meetAttendExitApi, meetEntranceApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
 import { DetailMeetLinkButton, DetailMeetingModal } from '../DetailButtonModal';
 
-const DetailButton = ({ data, member }: any) => {
-  const QueryClient = useQueryClient();
-
-  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+const DetailButton = ({
+  data,
+  member,
+  meetingStart,
+  meetingTime,
+}: {
+  data: any;
+  member: any;
+  meetingStart: boolean;
+  meetingTime: number;
+}) => {
   const { id } = useParams();
   const ids = Number(id);
   const navigate = useNavigate();
 
+  const QueryClient = useQueryClient();
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+  const entrance = loadItem('meetEntrance');
+  const reviewAdd = loadItem('reviewAdd');
+
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const useEntranceMetting = () => {
+    return useMutation(meetEntranceApi, {
+      onSuccess: () => {
+        QueryClient.invalidateQueries(['detail', id]);
+      },
+    });
+  };
+
+  const { mutate: entranceMetting } = useEntranceMetting();
   const meetingEntranceBtn = () => {
-    if (data.link) {
-      window.open(`${data?.link}`);
+    if (data?.link) {
+      entranceMetting({ id, link: data?.link });
+    } else {
+      toast('아직 링크가 생성되지 않았습니다');
     }
-    // else {
-    //  알람기능 되면 test
-    //  toast('모임 시작 30분 전부터 입장 가능합니다');
-    // }
   };
 
   const { mutate: meetAttendExit } = useMeetAttendExit();
@@ -41,7 +62,23 @@ const DetailButton = ({ data, member }: any) => {
 
   return (
     <>
-      {data?.master ? (
+      {meetingStart && entrance ? (
+        reviewAdd === '' ? (
+          <ButtonBasic
+            activeBtn={false}
+            cursorAct={true}
+            onClick={() => {
+              navigate(`/review/${id}`);
+            }}
+          >
+            모임이 끝났습니다. 후기를 작성해주세요
+          </ButtonBasic>
+        ) : (
+          <ButtonBasic activeBtn={false} cursorAct={false}>
+            모임이 끝났습니다.
+          </ButtonBasic>
+        )
+      ) : data?.master ? (
         <>
           {data?.link !== '' ? (
             <MasterButton>
@@ -100,6 +137,7 @@ const DetailButton = ({ data, member }: any) => {
           모임 참석하기
         </ButtonBasic>
       )}
+
       {showModal &&
         createPortal(
           <DetailMeetingModal

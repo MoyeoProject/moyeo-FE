@@ -10,9 +10,9 @@ import { ReactComponent as SendIcon } from '../assets/send_icon.svg';
 import { addComment, delelteComment, getCommentPage } from '../services/api';
 import { loadItem } from '../services/storage';
 import { CommentBox, CommentItem, CommentViewBox, InputBox } from '../styles/CommentStyle';
-import { CommentTypes } from '../types/DetailTypes';
+import { CommentTypes, MeetingStartType } from '../types/DetailTypes';
 
-const Comment = () => {
+const Comment = ({ meetingStart }: MeetingStartType) => {
   const { id } = useParams();
   const QueryClient = useQueryClient();
   const myUsername = loadItem('username');
@@ -75,7 +75,11 @@ const Comment = () => {
     <CommentBox>
       <CommentViewBox>
         {!data?.data.data ? (
-          <p>댓글이 없습니다. 첫 댓글을 남겨보세요</p>
+          meetingStart ? (
+            <p>이미 끝난 모임입니다. 댓글을 남길 수 없습니다.</p>
+          ) : (
+            <p>댓글이 없습니다. 첫 댓글을 남겨보세요</p>
+          )
         ) : (
           data?.data.data.map((c: CommentTypes) => {
             return (
@@ -137,19 +141,21 @@ const Comment = () => {
           })
         )}
       </CommentViewBox>
-      <InputBox>
-        <form onSubmit={handleAddComment}>
-          <input
-            type="text"
-            value={comment}
-            placeholder="댓글 내용을 입력해주세요"
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button type="submit">
-            <SendIcon />
-          </button>
-        </form>
-      </InputBox>
+      {!meetingStart ? (
+        <InputBox>
+          <form onSubmit={handleAddComment}>
+            <input
+              type="text"
+              value={comment}
+              placeholder="댓글 내용을 입력해주세요"
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button type="submit">
+              <SendIcon />
+            </button>
+          </form>
+        </InputBox>
+      ) : null}
     </CommentBox>
   );
 };
