@@ -15,6 +15,13 @@ const baseURL = axios.create({
   },
 });
 
+const LoginbaseURL = axios.create({
+  baseURL: 'https://sparta-hippo.shop/api',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
+});
+
 const MEETINGS = '/meetings';
 const LOGIN = '/users/login';
 const MYPAGE = '/users/mypage';
@@ -164,19 +171,6 @@ export const editMeeting = async ({ id, postForm }: { id: number; postForm: Fiel
   return response;
 };
 
-//
-export const editImageApi = async ({ image, id }: any) => {
-
-  const formData = new FormData();
-  formData.append('image', image);
-  const res = await baseURL.patch(`/meetings/${id}/image`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return res;
-};
-
 export const editMyInfo = async ({
   username,
   profileMsg,
@@ -208,8 +202,7 @@ export const deleteMeeting = async ({ id }: { id: number }) => {
 };
 
 export const postLogin = async (userInfo: { email: string; password: string }) => {
-  await baseURL
-    .post(LOGIN, userInfo)
+  await LoginbaseURL.post(LOGIN, userInfo)
     .then((res) => {
       saveItem('isLogin', res?.headers.authorization as unknown as string);
       saveItem('detailKeyword', 'intro');
@@ -270,10 +263,15 @@ export const getDetailPage = async (id: string | undefined) => {
   return res;
 };
 
-export const getAlarmApi = async (id: string | undefined) => {
-  const res = await baseURL.patch(`/meetings/${id}/alarm`).then((res) => {
-    toast(res.data.data ? '알람을 켭니다.' : '알람을 끕니다.');
+export const editImageApi = async ({ image, id }: any) => {
+  const formData = new FormData();
+  formData.append('image', image);
+  const res = await baseURL.patch(`/meetings/${id}/image`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
+  return res;
 };
 
 export const meetAttendExitApi = async (meetingId: any) => {
@@ -336,6 +334,12 @@ export const getFollowingList = async () => {
 export const getFollowerList = async () => {
   const res = await baseURL.get('/follow/followerList');
   return res;
+};
+
+export const getAlarmApi = async (id: string | undefined) => {
+  const res = await baseURL.patch(`/meetings/${id}/alarm`).then((res) => {
+    toast(res.data.data ? '알람을 켭니다.' : '알람을 끕니다.');
+  });
 };
 
 export const getAlarmList = async () => {
