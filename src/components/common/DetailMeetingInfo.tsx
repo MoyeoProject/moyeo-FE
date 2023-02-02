@@ -18,7 +18,6 @@ const DetailMeetingInfo = ({ data }: any) => {
   const editImage = () => {
     // editImageApi()
     setShowModal(true);
-    console.log();
   };
   return (
     <>
@@ -27,9 +26,11 @@ const DetailMeetingInfo = ({ data }: any) => {
           <div className="meetingImg">
             {/* null이면 기본이미지 */}
             {data?.image ? <img src={data.image} /> : <img src="#" />}
-            <p onClick={editImage}>
-              <EditIcon />
-            </p>
+            {data?.master ? (
+              <p onClick={editImage}>
+                <EditIcon />
+              </p>
+            ) : null}
           </div>
           <div className="meetingInfo">
             <div className="meetingPlatform">{data.platform}</div>
