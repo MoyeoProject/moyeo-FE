@@ -62,7 +62,7 @@ input[type="file"] {
   :focus {
     border-radius: 50%;
     color: #fff;
-    background-color: #666666;
+    background-color: #FFC107;
   }
 }
 .react-datepicker__day-names {
@@ -75,11 +75,11 @@ input[type="file"] {
 }
 .react-datepicker__day--selected {
   border-radius: 50%;
-  background-color: #666666;
+  background-color: #FFC107;
 }
 .react-datepicker__day--keyboard-selected {
   border-radius: 50%;
-  background-color: #666666;
+  background-color: #FFC107;
 }
 .react-datepicker__badge {
   position: absolute;

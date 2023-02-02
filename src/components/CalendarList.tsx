@@ -2,8 +2,16 @@ import { useRef, useState } from 'react';
 
 import meeting_img from '../assets/meeting_img.svg';
 import { loadItem } from '../services/storage';
-import { CalendarListWrap, CalendarWrap } from '../styles/CalendarListStyle';
-import { MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
+import { CalendarListWrap, CalendarWrap, ExceptionWrap } from '../styles/CalendarListStyle';
+import {
+  Detail,
+  MeetingImg,
+  MeetingListWrap,
+  MeetingWrap,
+  Time,
+  TimerWrap,
+  Title,
+} from '../styles/MeetingListStyle';
 import { Meeting } from '../types/AppTypes';
 import { countDownTimer } from '../utils/utils';
 import ListContent from './ListContent';
@@ -40,19 +48,43 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
 
   return (
     <CalendarListWrap>
-      <span ref={timerRef}>
-        {closeDate.getTime() ? '00:00:00:00' : '이번 달은 더 이상 모임이 없습니다.'}
-      </span>
+      <TimerWrap>
+        <Title>
+          <p>다음 모임까지 남은 시간</p>
+        </Title>
+        <Time>
+          <span ref={timerRef}>
+            {closeDate.getTime() ? '00 : 00 : 00 : 00' : '이번 달은 더 이상 모임이 없습니다.'}
+          </span>
+        </Time>
+        <Detail>
+          <span>DAYS</span>
+          <span>HOURS</span>
+          <span>MIN</span>
+          <span>SEC</span>
+        </Detail>
+      </TimerWrap>
       <CalendarWrap>
         <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
       </CalendarWrap>
       <MeetingListWrap keyword={loadItem('keyword')}>
+        <h2>모임 일정</h2>
         {meetingList.length === 0 ? (
-          <span>참여한 모임이 없어요!</span>
+          <ExceptionWrap>
+            <p>예정 모임이 없습니다</p>
+            <p>모임을 찾으러 가보실래요?</p>
+            <button type="button" onClick={() => location.reload()}>
+              인기 모임 보러가기
+            </button>
+          </ExceptionWrap>
         ) : (
           meetingList.map((meeting) => (
             <MeetingWrap key={meeting.id}>
-              <img src={!meeting.img ? meeting_img : meeting.img} />
+              <MeetingImg
+                keyword={loadItem('keyword')}
+                src={!meeting.img ? meeting_img : meeting.img}
+                alt={!meeting.img ? meeting_img : meeting.img}
+              />
               <ListContent currMeeting={meeting} />
             </MeetingWrap>
           ))
