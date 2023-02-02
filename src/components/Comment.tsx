@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
 import { ReactComponent as SendIcon } from '../assets/send_icon.svg';
@@ -39,7 +40,7 @@ const Comment = () => {
     addCommentItem({ id, comment });
     setComment('');
   };
-  
+
   const useDelComment = () => {
     return useMutation(delelteComment, {
       onSuccess: (data) => {
@@ -53,10 +54,23 @@ const Comment = () => {
 
   const { mutate: delCommentItem } = useDelComment();
   const handleDelComment = (commentId: number) => {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      delCommentItem({ id, commentId });
-    }
+    Swal.fire({
+      position: 'center',
+      width: '365px',
+      title: '정말 삭제하시겠습니까?',
+      confirmButtonText: '네',
+      cancelButtonText: '취소',
+      icon: 'warning',
+      iconColor: '#F1F1F1',
+      showCancelButton: true,
+      confirmButtonColor: '#aaaaaa',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      console.log(result);
+      result.isConfirmed ? delCommentItem({ id, commentId }) : null;
+    });
   };
+
   return (
     <CommentBox>
       <CommentViewBox>
