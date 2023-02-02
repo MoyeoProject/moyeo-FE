@@ -6,6 +6,7 @@ import DetailPage from './pages/DetailPage';
 import FollowPage from './pages/FollowPage';
 import HomePage from './pages/HomePage';
 import LoginForm from './pages/LoginPage';
+import MettingReviewPage from './pages/MettingReviewPage';
 import PostPage from './pages/PostPage';
 import ProfilePage from './pages/ProfilePage';
 import RePasswordPage from './pages/RePasswordPage';
@@ -28,6 +29,7 @@ export default function App() {
       <Route path="/detail/:id" element={<DetailPage />} />
       <Route path="/follow/:keyword" element={<FollowPage />} />
       <Route path="/alarm" element={<AlarmListPage />} />
+      <Route path="/review/:id" element={<MettingReviewPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/api/users/kakao/callback" element={<KakaoLoginButton />} />
       <Route path="/search" element={<SearchPage />} />
