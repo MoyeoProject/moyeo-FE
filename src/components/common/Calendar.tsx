@@ -18,7 +18,7 @@ export default function Calendar({
   return (
     <DatePicker
       inline
-      minDate={loadItem('year') === null ? new Date() : subMonths(new Date(), 6)}
+      minDate={loadItem('keyword') !== 'calendar' ? new Date() : subMonths(new Date(), 6)}
       selected={startDate}
       onChange={(date: Date) => {
         setStartDate(date);
@@ -36,7 +36,7 @@ export default function Calendar({
       }}
       renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
         <div>
-          {loadItem('year') === null ? (
+          {loadItem('keyword') !== 'calendar' ? (
             <button
               aria-label="Previous Month"
               className={'react-datepicker__navigation react-datepicker__navigation--previous'}
@@ -51,7 +51,7 @@ export default function Calendar({
               year: 'numeric',
             })}
           </span>
-          {loadItem('year') === null ? (
+          {loadItem('keyword') !== 'calendar' ? (
             <button
               aria-label="Next Month"
               className={'react-datepicker__navigation react-datepicker__navigation--next'}
