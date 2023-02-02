@@ -1,25 +1,30 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Cal_right_arrow_icon } from '../assets/cal_left_arrow_icon.svg';
 import { AlarmReadApi, getAlarmList } from '../services/api';
-import { AlarmBox, ProfileSubNavBox, SubPageBox } from '../styles/ProfileSubPageStyle';
+import { AlarmBox, SubNavBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { AlarmType } from '../types/DetailTypes';
 
 type ChildrenProps = {
   children: React.ReactNode;
 };
 
-export const ProfileSubNav = ({ children }: ChildrenProps) => {
+export const SubNav = ({ children }: ChildrenProps) => {
+  const navigate = useNavigate();
   return (
-    <ProfileSubNavBox>
-      <Link to="/profile">
+    <SubNavBox>
+      <div
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
         <Cal_right_arrow_icon />
-      </Link>
+      </div>
       <span>{children}</span>
-    </ProfileSubNavBox>
+    </SubNavBox>
   );
 };
 
@@ -47,10 +52,10 @@ const AlarmListPage = () => {
 
   return (
     <SubPageBox>
-      <ProfileSubNav children={'알림'} />
+      <SubNav children={'알림'} />
       <AlarmBox>
         {alarmLists?.data.data === undefined ? (
-          <div className='alarmNull'>알람이 없습니다.</div>
+          <div className="alarmNull">알람이 없습니다.</div>
         ) : (
           <div className="alarmList">
             {alarmLists?.data.data.alarmLists.map((alarm: AlarmType) => {
