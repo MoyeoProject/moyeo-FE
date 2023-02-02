@@ -26,7 +26,7 @@ export default function ListContent({ currMeeting }: { currMeeting: Meeting }) {
           <Category>
             <span>{category}</span>
             {secret && <img src={lock_icon} />}
-            <p>{`${attendantsNum}/${maxNum}`}</p>
+            <p>{attendantsNum && maxNum ? `${attendantsNum}/${maxNum}` : null}</p>
           </Category>
           <Title>
             <h3>{title}</h3>
