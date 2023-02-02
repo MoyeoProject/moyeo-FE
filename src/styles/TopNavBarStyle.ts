@@ -41,6 +41,30 @@ export const RightBox = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+`;
+
+export const BannerImg = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: #f4f4f4;
+  & > img {
+    width: 342px;
+    height: 150px;
+    margin-top: 20px;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+`;
+
+export const Badge = styled.div`
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff8f00;
 `;

@@ -61,6 +61,16 @@ export const getMyInfo = async () => {
   return response;
 };
 
+export const getBanners = async () => {
+  const response = await baseURL.get(MEETINGS + '/banner');
+  return response;
+};
+
+export const getAlarm = async () => {
+  const response = await baseURL.get('/alarms/existence');
+  return response;
+};
+
 export const postMeeting = async (postForm: FieldValues) => {
   const {
     image,

@@ -1,14 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import Frame_user from '../../assets/Frame_user.svg';
-import banner_img from '../../assets/banner_img.svg';
 import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
 import search_icon from '../../assets/search_icon.svg';
+import { getAlarm, getBanners } from '../../services/api';
 import { loadItem, removeItem } from '../../services/storage';
 import {
+  Badge,
   BannerImg,
   LeftBox,
   ProfileImg,
@@ -28,6 +30,21 @@ export default function TopNavBar({ name }: { name: string }) {
     removeItem('currPost');
   };
 
+  const bannerData = useQuery({
+    queryKey: ['banners'],
+    queryFn: getBanners,
+  });
+
+  const alarmData = useQuery({
+    queryKey: ['alarm'],
+    queryFn: getAlarm,
+  });
+
+  const randomBanner =
+    bannerData.data?.data.data[Math.floor(Math.random() * bannerData.data?.data.data.length)];
+
+  const existenceAlarm = alarmData.data?.data.success;
+
   return name === 'home' ? (
     <TopNavBarWrap>
       <TopBar>
@@ -45,6 +62,7 @@ export default function TopNavBar({ name }: { name: string }) {
             <ProfileImg
               src={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
             />
+            {existenceAlarm && <Badge></Badge>}
           </Link>
         </RightBox>
       </TopBar>
@@ -52,7 +70,7 @@ export default function TopNavBar({ name }: { name: string }) {
       {loadItem('keyword') !== 'calendar' && (
         <>
           <BannerImg>
-            <img src={banner_img} alt={banner_img} />
+            <img src={randomBanner} alt={randomBanner} />
           </BannerImg>
           <Categories />
         </>
@@ -73,7 +91,7 @@ export default function TopNavBar({ name }: { name: string }) {
         <button type="button" onClick={() => handleClickBack()}>
           <img src={cal_left_arrow_icon} alt={cal_left_arrow_icon} />
         </button>
-        {name === 'profile' ? <p>프로필</p> : <p>{id ? '모임 수정하기' : '모임 생성하기'}</p>}
+        {name === 'profile' ? <p>프로필</p> : <p>{id ? '모임 수정하기' : '모임 만들기'}</p>}
       </LeftBox>
     </TopNavBarWrap>
   );
