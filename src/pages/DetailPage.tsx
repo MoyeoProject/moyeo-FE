@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -15,6 +16,16 @@ import { DetailBox } from '../styles/DetailPageStyle';
 const DetailPage = () => {
   const categories = loadItem('detailKeyword');
   const { id } = useParams();
+
+  useEffect(() => {
+    return () => {
+      saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
+    };
+  }, []);
+
   const {
     data: detail,
     isLoading,
