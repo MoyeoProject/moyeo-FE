@@ -9,7 +9,7 @@ import { getFollowerList, getFollowingList } from '../services/api';
 import { Member, MemberBox } from '../styles/DetailAttendListStyle';
 import { FollowListBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { MemberTypes } from '../types/DetailTypes';
-import { ProfileSubNav } from './AlarmListPage';
+import { SubNav } from './AlarmListPage';
 
 const FollowPage = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const FollowPage = () => {
   console.log(keyword);
   return (
     <SubPageBox>
-      <ProfileSubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
+      <SubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
 
       <FollowListBox>
         <div className="followTitle">

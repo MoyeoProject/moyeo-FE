@@ -2,15 +2,19 @@ import styled from 'styled-components';
 
 export const SubPageBox = styled.div`
   height: 100vh;
+  position: relative;
   background-color: #ffffff;
 `;
 
-export const ProfileSubNavBox = styled.div`
+export const SubNavBox = styled.div`
   position: fixed;
   top: 0;
   z-index: 1;
   height: 56px;
   width: 375px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   padding: 16px;
   box-sizing: border-box;
   margin-bottom: 16px;
