@@ -15,21 +15,27 @@ const FollowPage = () => {
   const navigate = useNavigate();
   const { keyword } = useParams();
 
-  const { data: followList } = useQuery(['follow'], () => {
-    if (keyword === 'follow') {
-      return getFollowingList();
-    } else {
-      return getFollowerList();
+  const { data: followList } = useQuery(
+    ['follow'],
+    () => {
+      if (keyword === 'follow') {
+        return getFollowingList();
+      } else {
+        return getFollowerList();
+      }
+    },
+    {
+      keepPreviousData: true,
     }
-  });
-
+  );
+  console.log(keyword);
   return (
     <SubPageBox>
       <ProfileSubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
 
       <FollowListBox>
         <div className="followTitle">
-          {keyword === 'follow' ? '팔로우' : '팔로워'}
+          {keyword === 'follow' ? '팔로우ddddd' : '팔로워'}
           <span>{followList?.data.data.followList.length}</span>
         </div>
         <div className="followList">

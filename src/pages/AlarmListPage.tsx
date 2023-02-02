@@ -45,27 +45,30 @@ const AlarmListPage = () => {
     alarmRead(id);
   };
 
-  const alarmList = alarmLists?.data.data.alarmLists;
   return (
     <SubPageBox>
       <ProfileSubNav children={'알림'} />
       <AlarmBox>
-        <div className="alarmList">
-          {alarmList.map((alarm: AlarmType) => {
-            return (
-              <div
-                key={alarm.id}
-                onClick={() => {
-                  handleAlarmRead(alarm.id);
-                }}
-              >
-                <div className="alarmText">{alarm.content}</div>
-                <div className="alarmTime">{alarm.createdAt.split('T')[0]}</div>
-                <div className="alarmTime">{alarm.createdAt.split('T')[1]}</div>
-              </div>
-            );
-          })}
-        </div>
+        {alarmLists?.data.data === undefined ? (
+          <div className='alarmNull'>알람이 없습니다.</div>
+        ) : (
+          <div className="alarmList">
+            {alarmLists?.data.data.alarmLists.map((alarm: AlarmType) => {
+              return (
+                <div
+                  key={alarm.id}
+                  onClick={() => {
+                    handleAlarmRead(alarm.id);
+                  }}
+                >
+                  <div className="alarmText">{alarm.content}</div>
+                  <div className="alarmTime">{alarm.createdAt.split('T')[0]}</div>
+                  <div className="alarmTime">{alarm.createdAt.split('T')[1]}</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </AlarmBox>
     </SubPageBox>
   );

@@ -17,6 +17,7 @@ const DetailButton = ({ data, member }: any) => {
   const ids = Number(id);
   const navigate = useNavigate();
 
+  const [showLinkModal, setShowLinkModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const meetingEntranceBtn = () => {
     if (data.link) {
@@ -53,15 +54,19 @@ const DetailButton = ({ data, member }: any) => {
             </MasterButton>
           ) : (
             <>
-              <ButtonBasic activeBtn={false} cursorAct={true} onClick={() => setShowModal(true)}>
+              <ButtonBasic
+                activeBtn={false}
+                cursorAct={true}
+                onClick={() => setShowLinkModal(true)}
+              >
                 입장 링크를 입력해주세요
               </ButtonBasic>
-              {showModal &&
+              {showLinkModal &&
                 createPortal(
                   <DetailMeetLinkButton
                     platform={data?.platform}
                     isEdit={false}
-                    onClose={() => setShowModal(false)}
+                    onClose={() => setShowLinkModal(false)}
                   />,
                   document.body
                 )}
