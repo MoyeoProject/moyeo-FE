@@ -35,27 +35,25 @@ export default function ModalAccordion({
       <ModalWrap ref={modalRef}>
         <ModalTitle align={'center'}>{title}</ModalTitle>
         {name === 'startDate' ? (
-          <>
-            <Controller
-              name={name}
-              control={control}
-              render={({ field: { onChange } }) => (
-                <>
-                  <Calendar attendDates={[]} startDate={startDate} setStartDate={setStartDate} />
-                  <PostButton
-                    type="button"
-                    onClick={() => {
-                      onChange(calcStartDate(startDate));
-                      onClose();
-                    }}
-                    disabled={!startDate ? true : false}
-                  >
-                    확인
-                  </PostButton>
-                </>
-              )}
-            />
-          </>
+          <Controller
+            name={name}
+            control={control}
+            render={({ field: { onChange } }) => (
+              <>
+                <Calendar attendDates={[]} startDate={startDate} setStartDate={setStartDate} />
+                <PostButton
+                  type="button"
+                  onClick={() => {
+                    onChange(calcStartDate(startDate));
+                    onClose();
+                  }}
+                  disabled={!startDate ? true : false}
+                >
+                  확인
+                </PostButton>
+              </>
+            )}
+          />
         ) : (
           <Controller
             name={name}

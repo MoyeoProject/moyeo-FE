@@ -31,19 +31,17 @@ export default function SortbyCategories() {
   };
 
   return (
-    <>
-      <SortbyWrap>
-        {buttons.map((button) => (
-          <SortbyButton
-            key={button.keyword}
-            type="button"
-            onClick={() => handleClickCategory(button.keyword)}
-            focus={button.keyword === loadItem('keyword') ? !button.focus : button.focus}
-          >
-            {button.name}
-          </SortbyButton>
-        ))}
-      </SortbyWrap>
-    </>
+    <SortbyWrap>
+      {buttons.map((button) => (
+        <SortbyButton
+          key={button.keyword}
+          type="button"
+          onClick={() => handleClickCategory(button.keyword)}
+          focus={button.keyword === loadItem('keyword') ? !button.focus : button.focus}
+        >
+          {button.name}
+        </SortbyButton>
+      ))}
+    </SortbyWrap>
   );
 }
