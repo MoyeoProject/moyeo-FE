@@ -51,8 +51,6 @@ const SignupPage = () => {
     emailCheckApi(email)
       .then((res) => {
         setEmailRegExCheck(true);
-        // toast(`${email}로 인증코드를 발송하였습니다`);
-        // 위치 확인
         handleEmailAlert(email);
         setEmailCheck(true);
         return res;
@@ -66,9 +64,7 @@ const SignupPage = () => {
   const handleClickEamilAuth = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     if (!authNumber) {
-      // alert('인증번호입력');
       setAuthNumberCheck(false);
-      // toast('이메일 인증번호를 입력해주세요.');
       return;
     }
     if (!emailCheck) {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SubPageBox = styled.div`
-  height: 100%;
+  height: 100vh;
   background-color: #ffffff;
 `;
 
@@ -22,15 +22,16 @@ export const ProfileSubNavBox = styled.div`
 `;
 
 export const FollowListBox = styled.div`
+  position: relative;
   height: 100%;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  margin-top: 56px;
   background-color: white;
-  padding: 16px;
-  box-sizing: border-box;
   .followTitle {
+    border: 1px solid red;
+    position: absolute;
+    top: 0;
+    padding: 16px;
+    box-sizing: border-box;
     margin-bottom: 8px;
     color: #222222;
     font-weight: 700;
@@ -42,10 +43,12 @@ export const FollowListBox = styled.div`
   }
   .followList {
     height: 670px;
-    overflow-y: scroll;
+    padding: 16px;
+    box-sizing: border-box;
+    /* overflow-y: scroll;
     ::-webkit-scrollbar {
       display: none;
-    }
+    } */
   }
 `;
 
@@ -88,8 +91,15 @@ export const DeveloperBox = styled.div`
 `;
 
 export const AlarmBox = styled.div`
-  height: 100%;
   margin-top: 56px;
+  .alarmNull {
+    height: 100px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+  }
   .alarmList {
     & > div {
       padding: 16px;
