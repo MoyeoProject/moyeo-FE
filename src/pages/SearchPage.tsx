@@ -6,7 +6,8 @@ import ListContent from '../components/ListContent';
 import TopNavBar from '../components/common/TopNavBar';
 import { getSortbyMeetings } from '../services/api';
 import { loadItem, saveItem } from '../services/storage';
-import { MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
+import { ExceptionWrap } from '../styles/CalendarListStyle';
+import { MeetingImg, MeetingListWrap, MeetingWrap } from '../styles/MeetingListStyle';
 import { Meeting } from '../types/AppTypes';
 
 export default function SearchPage() {
@@ -29,11 +30,17 @@ export default function SearchPage() {
       <TopNavBar name={'search'} />
       <MeetingListWrap keyword={loadItem('keyword')}>
         {data?.data.data.meetingList.length === 0 ? (
-          <span></span>
+          <ExceptionWrap>
+            <p>검색 결과가 없습니다</p>
+          </ExceptionWrap>
         ) : (
           data?.data.data.meetingList.map((meeting: Meeting) => (
             <MeetingWrap key={meeting.id}>
-              <img src={!meeting.img ? meeting_img : meeting.img} />
+              <MeetingImg
+                keyword={loadItem('keyword')}
+                src={!meeting.img ? meeting_img : meeting.img}
+                alt={!meeting.img ? meeting_img : meeting.img}
+              />
               <ListContent currMeeting={meeting} />
             </MeetingWrap>
           ))

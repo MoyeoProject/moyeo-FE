@@ -48,7 +48,7 @@ export default function SearchForm() {
         </button>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="관심사를 검색해보세요!"
           onKeyUp={(e) => handleEnterKey(e, inputField)}
           value={inputField ? inputField : ''}
           onChange={(e) => handleChangeInputField(e)}
