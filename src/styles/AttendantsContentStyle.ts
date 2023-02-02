@@ -6,7 +6,6 @@ export const AttendantsProfileWrap = styled.div`
   align-items: center;
   height: 32px;
   padding-top: 16px;
-  margin-top: 12px;
   img {
     right: 20px;
     width: 32px;
