@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import styled from 'styled-components';
 
 import { loadItem, saveItem } from '../../services/storage';
@@ -28,7 +29,7 @@ const DetailCategories = ({ isAttend }: any) => {
             return;
           }
           if (!isAttend) {
-            alert('모임에 참여한 멤버만 볼 수 있습니다.');
+            toast('모임에 참여한 멤버만 볼 수 있습니다.');
             return;
           }
           saveItem('detailKeyword', 'comment');
