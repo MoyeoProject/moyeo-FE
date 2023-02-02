@@ -60,7 +60,7 @@ export default function TopNavBar({ name }: { name: string }) {
           </Link>
           <Link to="/profile">
             <ProfileImg
-              src={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
+              // src={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
             />
             {existenceAlarm && <Badge></Badge>}
           </Link>
