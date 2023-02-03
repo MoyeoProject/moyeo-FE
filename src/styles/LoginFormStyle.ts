@@ -25,6 +25,9 @@ export const LoginFormBox = styled.div`
     transform: translateX(-50%);
     padding: 16px;
     box-sizing: border-box;
+    input:focus {
+      outline: 2px solid #aaaaaa;
+    }
   }
 `;
 export const SignupBox = styled.div`
