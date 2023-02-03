@@ -66,7 +66,6 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
       confirmButtonColor: '#aaaaaa',
       cancelButtonColor: '#d33',
     }).then((result) => {
-      console.log(result);
       result.isConfirmed ? delCommentItem({ id, commentId }) : null;
     });
   };
