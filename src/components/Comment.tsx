@@ -1,12 +1,11 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
-import { ReactComponent as SendIcon } from '../assets/send_icon.svg';
+import { ReactComponent as Icon_send } from '../assets/n_send.svg';
 import { addComment, delelteComment, getCommentPage } from '../services/api';
 import { loadItem } from '../services/storage';
 import { CommentBox, CommentItem, CommentViewBox, InputBox } from '../styles/CommentStyle';
@@ -18,7 +17,7 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
   const myUsername = loadItem('username');
   const [comment, setComment] = useState('');
 
-  const { isLoading, data, isError } = useQuery(['Comment', id], () => {
+  const { data } = useQuery(['Comment', id], () => {
     return getCommentPage(id);
   });
 
@@ -43,7 +42,7 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
 
   const useDelComment = () => {
     return useMutation(delelteComment, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         QueryClient.invalidateQueries(['Comment', id]);
       },
       onError: (data: any) => {
@@ -85,9 +84,9 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
               <CommentItem
                 key={c.commentId}
                 align={c.username === myUsername ? 'flex-end' : 'flex-start'}
-                bgColor={c.username === myUsername ? '#FFA02D' : 'white'}
-                color={c.username === myUsername ? '#FFFFFF' : '#222222'}
-                border={c.username === myUsername ? 'none' : '1px solid #FFE082'}
+                bgColor={c.username === myUsername ? '#FFFFFF' : '#FFFFFF'}
+                color={c.username === myUsername ? '#222222' : '#222222'}
+                border={c.username === myUsername ? '1px solid #FF9C07' : '1px solid #E9E9E9'}
               >
                 {c.username === myUsername ? (
                   <p className="date">
@@ -140,8 +139,9 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
           })
         )}
       </CommentViewBox>
-      {!meetingStart ? (
-        <InputBox>
+
+      <InputBox>
+        {!meetingStart ? (
           <form onSubmit={handleAddComment}>
             <input
               type="text"
@@ -150,11 +150,13 @@ const Comment = ({ meetingStart }: MeetingStartType) => {
               onChange={(e) => setComment(e.target.value)}
             />
             <button type="submit">
-              <SendIcon />
+              <Icon_send />
             </button>
           </form>
-        </InputBox>
-      ) : null}
+        ) : (
+          <p className="meetingEndText">완료된 모임에는 댓글을 작성할 수 없습니다.</p>
+        )}
+      </InputBox>
     </CommentBox>
   );
 };
