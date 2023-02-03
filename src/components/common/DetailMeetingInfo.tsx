@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
+import { ReactComponent as DetailBasicImg } from '../../assets/detail_basic_img.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit_icon.svg';
 import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
 // import { editImageApi } from '../../services/api';
@@ -21,7 +22,7 @@ const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: bo
         <div className="meetingBox">
           <div className="meetingImg">
             {/* null이면 기본이미지 */}
-            {data?.image ? <img src={data.image} /> : <img src="#" />}
+            {data?.image ? <img src={data.image} /> : <DetailBasicImg />}
             {data?.master ? (
               !meetingStart ? (
                 <p
