@@ -82,3 +82,26 @@ export const handleAttendAlert = (isAttend: boolean, id?: string) => {
     });
   }
 };
+
+export const handlGoLoginAlert = () => {
+  {
+    Swal.fire({
+      position: 'center',
+      width: '365px',
+      text: '작성하신 정보는 지워집니다. 로그인 페이지로 이동하시겠습니까?',
+      confirmButtonText: '네',
+      cancelButtonText: '취소',
+      icon: 'warning',
+      iconColor: '#F1F1F1',
+      showCancelButton: true,
+      confirmButtonColor: '#aaaaaa',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.replace('/');
+      } else {
+        location.replace('/signup');
+      }
+    });
+  }
+};

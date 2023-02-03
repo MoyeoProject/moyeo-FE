@@ -1,18 +1,18 @@
-import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { EmailAuth } from '../components/common/EmailAuth';
-// import { EmailAuth } from '../components/common/EmailAuth';
-import { handleEmailAlert } from '../hooks/useAlert';
+import { ReactComponent as PasswordNoView } from '../assets/n_eye_false.svg';
+import { ReactComponent as PasswordView } from '../assets/n_eye_true.svg';
+import { handlGoLoginAlert, handleEmailAlert } from '../hooks/useAlert';
 import { emailAuthNumberApi, emailCheckApi, signupApi } from '../services/api';
 import { emailRegex, passwordRegex, usernameRegex } from '../services/regEx';
-import { loadItem } from '../services/storage';
 import {
   AuthButtonBox,
   AuthFormBox,
   EmailAuthButton,
+  Eye,
   Label,
   SignupBox,
 } from '../styles/LoginFormStyle';
@@ -20,7 +20,7 @@ import {
 const SignupPage = () => {
   const QueryClient = useQueryClient();
   const navigate = useNavigate();
-  const { keyword } = useParams();
+  const [view, setView] = useState(false);
 
   const [email, setEmail] = useState<string>('');
   const [emailCheck, setEmailCheck] = useState(false);
@@ -122,15 +122,13 @@ const SignupPage = () => {
   };
 
   const goLogin = () => {
-    if (email || username || password === '') {
-      navigate('/');
-    }
     if (email || username || password !== '') {
-      if (confirm('작성하신 정보는 지워집니다. 로그인페이지로 이동하시겠습니까?')) {
-        navigate('/');
-      } else {
-        navigate('/signup');
-      }
+      handlGoLoginAlert();
+      return;
+    }
+    if (email || username || password == '') {
+      navigate('/');
+      return;
     }
   };
 
@@ -194,13 +192,22 @@ const SignupPage = () => {
           <div className="inputBox">
             <p>비밀번호 </p>
             <input
-              type="password"
+              type={view ? 'text' : 'password'}
               value={password || ''}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
               placeholder="비밀번호를 작성해 주세요"
             />
+            <Eye
+              isSignup={true}
+              className="eye_signup"
+              onClick={() => {
+                setView(!view);
+              }}
+            >
+              {view ? <PasswordView /> : <PasswordNoView />}
+            </Eye>
             <Label warning={passwordRegExCheck ? false : true}>
               영어 대소문자, 숫자, 특수문자를 포함한 8-16자를 입력하세요
             </Label>
@@ -209,13 +216,21 @@ const SignupPage = () => {
           <div className="inputBox">
             <p>비밀번호 재확인 </p>
             <input
-              type="password"
+              type={view ? 'text' : 'password'}
               value={passwordCheck || ''}
               onChange={(e) => {
                 setPasswordCheck(e.target.value);
               }}
               placeholder="비밀번호를 확인 주세요"
             />
+            <Eye
+              isSignup={true}
+              onClick={() => {
+                setView(!view);
+              }}
+            >
+              {view ? <PasswordView /> : <PasswordNoView />}
+            </Eye>
             <Label warning={passwordDoubleCheck ? false : true}>동일한 비밀번호를 입력하세요</Label>
           </div>
 
