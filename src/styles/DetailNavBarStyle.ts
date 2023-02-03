@@ -7,6 +7,11 @@ export const NavBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  & > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .navArrow {
     display: flex;
     align-items: center;
@@ -14,7 +19,7 @@ export const NavBox = styled.div`
     cursor: pointer;
   }
   .navTitle {
-    width: 100%;
+    width: 198px;
     padding: 0 8px;
     font-size: 16px;
     font-weight: 700;
@@ -25,6 +30,7 @@ export const NavBox = styled.div`
 `;
 
 export const NavButtonBox = styled.div`
+  /* width: 100%; */
   display: flex;
   align-items: center;
   & > div {
