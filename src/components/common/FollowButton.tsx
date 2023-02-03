@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 import { makeFollowApi } from '../../services/api';
 import { loadItem } from '../../services/storage';
@@ -25,9 +26,24 @@ export const FollowButton = ({ userId, followed }: MemberTypes) => {
     if (!isFollow) {
       return makeFollow({ userId });
     }
-    if (isFollow && confirm('팔로우 취소하시겠습니까?')) {
-      makeFollow({ userId });
-      return;
+    if (isFollow) {
+      Swal.fire({
+        position: 'center',
+        width: '365px',
+        text: '팔로우를 취소하시겠습니까?',
+        confirmButtonText: '네',
+        cancelButtonText: '취소',
+        icon: 'warning',
+        iconColor: '#F1F1F1',
+        showCancelButton: true,
+        confirmButtonColor: '#aaaaaa',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          makeFollow({ userId });
+          return;
+        }
+      });
     }
   };
 
@@ -35,8 +51,8 @@ export const FollowButton = ({ userId, followed }: MemberTypes) => {
     <>
       {userId == myId ? null : (
         <FollowStyleButton
-          BGcolor={isFollow ? '#E9E9E9' : '#FFA02D'}
-          color={isFollow ? '#666666' : '#FFFFFF'}
+          BGcolor={isFollow ? '#F4F4F4' : '#FFF1DB'}
+          color={isFollow ? '#666666' : '#FF9C07'}
           onClick={handleClickFollow}
         >
           {isFollow ? '팔로잉' : '팔로우'}
