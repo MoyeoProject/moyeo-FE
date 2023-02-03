@@ -223,7 +223,6 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
-      saveItem('meetEntrance', 'false');
       saveItem('reviewAdd', '');
       location.assign('/main');
     })
@@ -381,12 +380,11 @@ export const AlarmReadApi = async (id: number) => {
 };
 
 export const addReviewApi = async ({ review, id }: { id: string | undefined; review: boolean }) => {
-  console.log('review', 'review서버');
   const res = await baseURL
     .post(`/meetings/${id}/review`, { review })
     .then((res) => {
       saveItem('reviewAdd', 'write_review');
-      // location.replace(`/detail/${id}`);
+      location.replace(`/detail/${id}`);
     })
     .catch((err) => {
       toast(err.response.data.statusMsg);
