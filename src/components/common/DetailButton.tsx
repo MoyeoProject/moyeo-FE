@@ -62,20 +62,22 @@ const DetailButton = ({
 
   return (
     <>
-      {meetingStart && entrance ? (
-        reviewAdd === '' ? (
+      {meetingStart ? (
+        data?.entrance ? (
+          confirm('모임 참석 하세요') ? null : null
+        ) : reviewAdd === '' ? (
           <ButtonBasic
-            activeBtn={false}
+            activeBtn={true}
             cursorAct={true}
             onClick={() => {
               navigate(`/review/${id}`);
             }}
           >
-            모임이 끝났습니다. 후기를 작성해주세요
+            후기남기기
           </ButtonBasic>
         ) : (
           <ButtonBasic activeBtn={false} cursorAct={false}>
-            모임이 끝났습니다.
+            이미 완료된 모임입니다.
           </ButtonBasic>
         )
       ) : data?.master ? (

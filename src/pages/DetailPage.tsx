@@ -49,7 +49,7 @@ const DetailPage = () => {
   const detailData = detail?.data.data;
   const memberData = member?.data.data;
   const isAttend = detail?.data.data.attend;
-  
+
   if (isLoading) {
     return <h2>로딩중</h2>;
   }
@@ -74,7 +74,12 @@ const DetailPage = () => {
               <DetailMeetingInfo data={detailData} meetingStart={meetingStart} />
               <DetailAttendList data={detailData} member={memberData} meetingStart={meetingStart} />
               <div className="buttonBox">
-                <DetailButton data={detailData} member={memberData} meetingStart={meetingStart} meetingTime={meetingTime} />
+                <DetailButton
+                  data={detailData}
+                  member={memberData}
+                  meetingStart={meetingStart}
+                  meetingTime={meetingTime}
+                />
               </div>
             </>
           ) : (
