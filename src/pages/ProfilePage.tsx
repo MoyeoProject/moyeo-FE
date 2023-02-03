@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Frame_user from '../assets/Frame_user.svg';
-import Right_Side from '../assets/Right_Side.svg';
+import right_arrow_icon from '../assets/right_arrow_icon.svg';
 import ProfileModalForm from '../components/ProfileModalForm';
 import TopNavBar from '../components/common/TopNavBar';
 import { getMyInfo } from '../services/api';
@@ -71,11 +72,25 @@ export default function ProfilePage() {
       <div>
         <Link to="/alarm">
           <span>알림</span>
-          <img src={Right_Side} alt={Right_Side} />
+          <img src={right_arrow_icon} alt={right_arrow_icon} />
         </Link>
-        <Link to="/setting">
-          <span>설정</span>
-          <img src={Right_Side} alt={Right_Side} />
+        <Link to="#">
+          <span
+            onClick={() => {
+              toast('준비중인 페이지입니다.');
+            }}
+          >
+            공지
+          </span>
+          <img src={right_arrow_icon} alt={right_arrow_icon} />
+        </Link>
+        <Link to="/account">
+          <span>계정</span>
+          <img src={right_arrow_icon} alt={right_arrow_icon} />
+        </Link>
+        <Link to="/developer">
+          <span>만든이들</span>
+          <img src={right_arrow_icon} alt={right_arrow_icon} />
         </Link>
       </div>
       {showModal &&
