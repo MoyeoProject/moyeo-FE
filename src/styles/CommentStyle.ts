@@ -3,22 +3,28 @@ import styled from 'styled-components';
 export const CommentBox = styled.div`
   height: 100vh;
   width: 100%;
-  padding: 16px 8px;
-  box-sizing: border-box;
+  .meetingEndText {
+    padding: 16px 0;
+    text-align: center;
+    font-size: 14px;
+  }
 `;
 export const CommentViewBox = styled.div`
+  height: 100vh;
   box-sizing: border-box;
+  padding: 16px 8px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
   }
+  background-color: #f5f5f5;
   & > p {
     text-align: center;
     color: #aaaaaa;
   }
 `;
 export const CommentItem = styled.div<{ align: string; bgColor: string; border: string }>`
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   align-items: flex-end;
   justify-content: ${(props) => props.align};
@@ -37,7 +43,7 @@ export const CommentItem = styled.div<{ align: string; bgColor: string; border: 
       margin-bottom: 4px;
     }
     .userComment {
-      max-width: 280px;
+      max-width: 256px;
       margin-right: 4px;
       padding: 8px 14px;
       box-sizing: border-box;
@@ -57,7 +63,7 @@ export const InputBox = styled.div`
   position: fixed;
   bottom: 0;
   z-index: 1;
-  width: 359px;
+  width: 375px;
   padding: 16px 0;
   box-sizing: border-box;
   background-color: white;
