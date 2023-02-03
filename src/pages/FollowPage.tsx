@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { ReactComponent as FramePlusIcon } from '../assets/Frame_plus.svg';
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
 import { FollowButton } from '../components/common/FollowButton';
 import { getFollowerList, getFollowingList } from '../services/api';
@@ -47,7 +45,6 @@ const FollowPage = () => {
                   </div>
                   <div>
                     <span>{list.username}</span>
-                    {/* <FramePlusIcon /> */}
                   </div>
                 </Member>
                 {keyword === 'follow' ? (

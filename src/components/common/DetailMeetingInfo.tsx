@@ -3,9 +3,8 @@ import { createPortal } from 'react-dom';
 
 import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
 import { ReactComponent as DetailBasicImg } from '../../assets/detail_basic_img.svg';
-import { ReactComponent as EditIcon } from '../../assets/edit_icon.svg';
 import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
-// import { editImageApi } from '../../services/api';
+import { ReactComponent as ImageEditIcon } from '../../assets/n_imgEdit.svg';
 import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingInfoStyle';
 import { setDate, setTime } from '../../utils/utils';
 import { DetailImgEditModal } from '../DetailImgEditModal';
@@ -30,7 +29,7 @@ const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: bo
                     setShowModal(true);
                   }}
                 >
-                  <EditIcon />
+                  <ImageEditIcon />
                 </p>
               ) : null
             ) : null}
