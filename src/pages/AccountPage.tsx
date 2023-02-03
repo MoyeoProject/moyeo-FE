@@ -5,6 +5,11 @@ import { AccountBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { SubNav } from './AlarmListPage';
 
 const AccountPage = () => {
+  const handleClickLogout = () => {
+    location.assign('/');
+    localStorage.clear();
+  };
+
   return (
     <SubPageBox>
       <SubNav children={'계정'} />
@@ -15,8 +20,8 @@ const AccountPage = () => {
           <img src={right_arrow_icon} alt={right_arrow_icon} />
         </div>
         <div>
-          <span>로그아웃</span>
-          <img src={right_arrow_icon} alt={right_arrow_icon} />
+          <span onClick={handleClickLogout}>로그아웃</span>
+          {/* <img src={right_arrow_icon} alt={right_arrow_icon} /> */}
         </div>
       </AccountBox>
     </SubPageBox>

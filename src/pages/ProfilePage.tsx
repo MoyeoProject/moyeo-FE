@@ -32,11 +32,6 @@ export default function ProfilePage() {
   const myInfo = data?.data.data;
   const { profileMsg, username, profileUrl } = myInfo;
 
-  const handleClickLogout = () => {
-    location.assign('/');
-    localStorage.clear();
-  };
-
   return (
     <>
       <TopNavBar name={'profile'} />
