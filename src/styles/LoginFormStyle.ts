@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const LoginFormBox = styled.div`
   position: relative;
-  /* height: 812px; */
   height: 100vh;
   width: 100%;
   padding: 16px;
@@ -11,6 +10,7 @@ export const LoginFormBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+
   .logoBox {
     position: absolute;
     top: 100px;
@@ -46,17 +46,21 @@ export const SignupBox = styled.div`
       font-weight: 700;
       font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     }
+    input:focus {
+      outline: 2px solid #aaaaaa;
+    }
   }
 `;
 export const AuthFormBox = styled.form`
   .inputBox {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
     color: #666666;
     & > p {
       margin-bottom: 8px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
@@ -66,8 +70,12 @@ export const AuthFormBox = styled.form`
       border-radius: 8px;
       background-color: #f9f9f9;
     }
+    input:active {
+      border: 1px solid #aaaaaa;
+    }
     input::placeholder {
       color: #aaaaaa;
+      font-size: 16px;
     }
     .inputBtnBox {
       display: flex;
@@ -76,23 +84,33 @@ export const AuthFormBox = styled.form`
         width: 226px;
         margin-right: 8px;
       }
+      input:focus {
+        outline: 2px solid #aaaaaa;
+      }
       button {
         width: 109px;
         height: 50px;
         font-size: 16px;
         border-radius: 8px;
-        background-color: #ffb300;
-        color: white;
+        background-color: #fff1db;
+        color: #ff9c07;
       }
     }
   }
+`;
+
+export const Eye = styled.span<{ isSignup: boolean }>`
+  position: absolute;
+  bottom: ${(props) => (props.isSignup ? '30px' : '10px')};
+  right: 16px;
+  cursor: pointer;
 `;
 
 export const Label = styled.label<{ warning: boolean }>`
   margin-top: 2px;
   font-size: 12px;
   font-weight: 500;
-  color: ${(props) => (props.warning ? 'red' : '#9c9c9c')};
+  color: ${(props) => (props.warning ? '#F87070' : '#AAAAAA')};
 `;
 
 export const EmailAuthButton = styled.button<{ disabledStyle: boolean }>`
@@ -115,11 +133,17 @@ export const AuthButtonBox = styled.div`
     height: 52px;
     border-radius: 8px;
     letter-spacing: 2px;
-    font-weight: 700;
-    color: #666666;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    background-color: #ff9c07;
+  }
+  .kakaoBtn {
+    background-color: #ffc107;
   }
   .moveText {
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
   }
 `;

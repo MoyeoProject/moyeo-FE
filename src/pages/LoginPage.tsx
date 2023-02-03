@@ -3,16 +3,18 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { ReactComponent as LoginLogo } from '../assets/Loginlogo.svg';
+import { ReactComponent as PasswordNoView } from '../assets/n_eye_false.svg';
+import { ReactComponent as PasswordView } from '../assets/n_eye_true.svg';
+import { ReactComponent as LoginLogo } from '../assets/n_logo.svg';
 import { KAKAO_AUTH_URL } from '../components/KakaoLoginButton';
 import LoginButton from '../components/LoginButton';
 import { postLogin } from '../services/api';
-import { AuthButtonBox, AuthFormBox, LoginFormBox } from '../styles/LoginFormStyle';
+import { AuthButtonBox, AuthFormBox, Eye, LoginFormBox } from '../styles/LoginFormStyle';
 import { LoginInputField } from '../types/AppTypes';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-
+  const [view, setView] = useState(false);
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -59,12 +61,20 @@ const LoginForm = () => {
           <div className="inputBox">
             <p>비밀번호</p>
             <input
-              type="password"
+              type={view ? 'text' : 'password'}
               name="password"
               value={password}
               onChange={onChangeInput}
               placeholder="비밀번호를 입력하세요"
             />
+            <Eye
+              isSignup={false}
+              onClick={() => {
+                setView(!view);
+              }}
+            >
+              {view ? <PasswordView /> : <PasswordNoView />}
+            </Eye>
           </div>
         </AuthFormBox>
         <AuthButtonBox>
@@ -75,11 +85,12 @@ const LoginForm = () => {
             <hr />
           </div>
           <button
+            className="kakaoBtn"
             onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
           >
-            카카오 로그인 하기
+            카카오톡으로 로그인 하기
           </button>
           <div className="moveText">
             <span
