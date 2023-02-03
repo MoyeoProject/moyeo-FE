@@ -28,14 +28,13 @@ const FollowPage = () => {
       keepPreviousData: true,
     }
   );
-  console.log(keyword);
   return (
     <SubPageBox>
       <SubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
 
       <FollowListBox>
         <div className="followTitle">
-          {keyword === 'follow' ? '팔로우ddddd' : '팔로워'}
+          {keyword === 'follow' ? '팔로우' : '팔로워'}
           <span>{followList?.data.data.followList.length}</span>
         </div>
         <div className="followList">
@@ -48,7 +47,7 @@ const FollowPage = () => {
                   </div>
                   <div>
                     <span>{list.username}</span>
-                    <FramePlusIcon />
+                    {/* <FramePlusIcon /> */}
                   </div>
                 </Member>
                 {keyword === 'follow' ? (
