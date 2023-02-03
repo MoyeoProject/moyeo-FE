@@ -60,11 +60,28 @@ const DetailButton = ({
     getEditingMeeting(ids);
   };
 
+  useEffect(() => {
+    MeetingEntranceAlert();
+  }, []);
+
+  const MeetingEntranceAlert = () => {
+    if (meetingStart && !data?.entrance) {
+      toast(`${data?.title}의 모임이 시작되었습니다`);
+      return;
+    }
+  };
+
+  console.log(data);
   return (
     <>
       {meetingStart ? (
-        data?.entrance ? (
-          confirm('모임 참석 하세요') ? null : null
+        // !data?.entrance ? (
+        //   alert(`${data?.title}의 모임이 시작되었습니다`)
+        // ):
+        !data?.entrance ? (
+          <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
+            입장하기
+          </ButtonBasic>
         ) : reviewAdd === '' ? (
           <ButtonBasic
             activeBtn={true}
