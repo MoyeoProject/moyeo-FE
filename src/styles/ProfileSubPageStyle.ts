@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SubPageBox = styled.div`
   height: 100vh;
   position: relative;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 `;
 
 export const SubNavBox = styled.div`
@@ -20,6 +20,11 @@ export const SubNavBox = styled.div`
   margin-bottom: 16px;
   border-bottom: 1px solid #f4f4f4;
   background-color: white;
+  font-size: 18px;
+  font-weight: 700;
+  & > div {
+    cursor: pointer;
+  }
   & > span {
     margin-left: 16px;
   }
@@ -28,12 +33,13 @@ export const SubNavBox = styled.div`
 export const FollowListBox = styled.div`
   position: relative;
   height: 100%;
-  margin-top: 56px;
+  margin-top: 112px;
   background-color: white;
+
   .followTitle {
-    border: 1px solid red;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 56px;
+    width: 375px;
     padding: 16px;
     box-sizing: border-box;
     margin-bottom: 8px;
@@ -41,8 +47,10 @@ export const FollowListBox = styled.div`
     font-weight: 700;
     font-size: 20px;
     line-height: 28px;
+    background-color: white;
     & > span {
       color: #ffab00;
+      padding-left: 4px;
     }
   }
   .followList {
@@ -57,10 +65,16 @@ export const FollowListBox = styled.div`
 `;
 
 export const DeveloperBox = styled.div`
-  padding: 16px;
+  height: 100vh;
+  padding: 88px 16px 16px;
   box-sizing: border-box;
+  background-color: white;
   & > p {
     margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    color: #222222;
   }
   .developer {
     display: flex;
@@ -80,6 +94,14 @@ export const DeveloperBox = styled.div`
         padding-bottom: 12px;
         box-sizing: border-box;
         margin-bottom: 12px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      & > div > p:last-child {
+        margin-top: 12px;
+        color: #666666;
+        font-size: 14px;
+        font-weight: 500;
       }
       button {
         width: 100%;
@@ -96,6 +118,8 @@ export const DeveloperBox = styled.div`
 
 export const AlarmBox = styled.div`
   margin-top: 56px;
+  height: 100vh;
+  background-color: white;
   .alarmNull {
     height: 100px;
     padding-top: 30px;
@@ -123,3 +147,25 @@ export const AlarmBox = styled.div`
     }
   }
 `;
+
+export const AccountBox = styled.div`
+  padding-top: 56px;
+  box-sizing: border-box;
+  background-color: white;
+  & > p {
+    height: 48px;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 12px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+  div {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f4f4f4;
+  }
+`;
+
