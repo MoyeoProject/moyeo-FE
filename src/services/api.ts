@@ -298,7 +298,6 @@ export const meetEntranceApi = async ({ id, link }: { id: string | undefined; li
       toast('모임 입장합니다.');
       window.open(`${link}`);
       saveItem('reviewAdd', '');
-      saveItem('meetEntrance', 'true');
       location.reload();
     })
     .catch((err) => {

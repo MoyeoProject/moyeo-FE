@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import { ReactComponent as Icon_Share } from '../assets/n_share.svg';
+
 const KakaoShareButton = (shareData: any) => {
   useEffect(() => {
     const script = document.createElement('script');
@@ -30,7 +32,9 @@ const KakaoShareButton = (shareData: any) => {
 
   return (
     <div onClick={KakaoShareLink}>
-      <span>🔗</span>
+      <span>
+        <Icon_Share />
+      </span>
     </div>
   );
 };

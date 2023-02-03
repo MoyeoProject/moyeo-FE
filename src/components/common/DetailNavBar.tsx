@@ -3,7 +3,12 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { ReactComponent as ChevronLeft } from '../../assets/chevron-left.svg';
+import { ReactComponent as Icon_ChevronLeft } from '../../assets/chevron-left.svg';
+import { ReactComponent as Icon_AlarmOff } from '../../assets/n_alarm_off.svg';
+import { ReactComponent as Icon_AlarmOn } from '../../assets/n_alarm_on.svg';
+import { ReactComponent as Icon_Enter } from '../../assets/n_enter.svg';
+import { ReactComponent as Icon_Out } from '../../assets/n_out.svg';
+import { ReactComponent as Icon_Pencil } from '../../assets/n_pencil.svg';
 import { handleAttendAlert } from '../../hooks/useAlert';
 import { useMeetAttendExit } from '../../hooks/useAttendButton';
 import { getAlarmApi, getEditingMeeting } from '../../services/api';
@@ -53,23 +58,24 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
   return (
     <>
       <NavBox>
-        <div
-          className="navArrow"
-          onClick={() => {
-            {
-              kakaoShareUser
-                ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
-                  ? location.replace('/')
-                  : null
-                : navigate('/main');
-              saveItem('detailKeyword', 'intro');
-            }
-          }}
-        >
-          <ChevronLeft />
+        <div>
+          <div
+            className="navArrow"
+            onClick={() => {
+              {
+                kakaoShareUser
+                  ? confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?')
+                    ? location.replace('/')
+                    : null
+                  : navigate('/main');
+                saveItem('detailKeyword', 'intro');
+              }
+            }}
+          >
+            <Icon_ChevronLeft />
+          </div>
+          <p className="navTitle">{data?.title}</p>
         </div>
-
-        <p className="navTitle">{data?.title}</p>
 
         <NavButtonBox>
           {!meetingStart ? (
@@ -79,7 +85,15 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
                   handleClickAlarm(id);
                 }}
               >
-                {data?.alarm ? <span>🔔 </span> : <span>🔕</span>}
+                {data?.alarm ? (
+                  <span>
+                    <Icon_AlarmOn />
+                  </span>
+                ) : (
+                  <span>
+                    <Icon_AlarmOff />
+                  </span>
+                )}
               </div>
             ) : null
           ) : null}
@@ -93,7 +107,9 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
                   handleClickMeetingEdit(ids);
                 }}
               >
-                <span>✒️</span>
+                <span>
+                  <Icon_Pencil />
+                </span>
               </div>
             ) : (
               <div
@@ -110,7 +126,15 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
                   }
                 }}
               >
-                {data?.attend ? <span>➡️</span> : <span>⬅️</span>}
+                {data?.attend ? (
+                  <span>
+                    <Icon_Out />
+                  </span>
+                ) : (
+                  <span>
+                    <Icon_Enter />
+                  </span>
+                )}
               </div>
             )
           ) : null}
