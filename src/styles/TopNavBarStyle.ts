@@ -7,8 +7,9 @@ export const TopNavBarWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 375px;
+  border-bottom: 1px solid #e9e9e9;
   background-color: #fff;
-  border-bottom: 1px solid #f4f4f4;
+  box-shadow: 0px 10px 16px rgba(34, 34, 34, 0.05);
 `;
 
 export const TopBar = styled.div`

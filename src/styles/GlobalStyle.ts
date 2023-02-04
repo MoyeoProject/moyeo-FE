@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   list-style: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  outline: none;
 }
 body{
   width: 375px;
