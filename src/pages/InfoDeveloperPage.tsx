@@ -29,7 +29,9 @@ const InfoDeveloperPage = () => {
               <p>윤덕현</p>
               <p>BackEnd</p>
             </div>
-            <button onClick={() => window.open('https://github.com/thdud2262')}>깃허브 가기</button>
+            <button onClick={() => window.open('https://github.com/yundukhyun')}>
+              깃허브 가기
+            </button>
           </div>
           <div className="devPerson">
             <div>
@@ -52,7 +54,9 @@ const InfoDeveloperPage = () => {
               <p>김진아</p>
               <p>Design</p>
             </div>
-            <button onClick={() => window.open('#')}>비헨스 가기</button>
+            <button onClick={() => window.open('https://www.behance.net/valuedefault')}>
+              비헨스 가기
+            </button>
           </div>
         </div>
       </DeveloperBox>

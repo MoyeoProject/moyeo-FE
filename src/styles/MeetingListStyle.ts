@@ -37,8 +37,12 @@ export const MeetingWrap = styled.li`
 `;
 
 export const MeetingImg = styled.img`
-  width: ${(props: { keyword: string | null }) => (props.keyword === 'calendar' ? '62px' : 'auto')};
+  width: ${(props: { keyword: string | null }) => (props.keyword === 'calendar' ? '62px' : '96px')};
+  height: ${(props: { keyword: string | null }) =>
+    props.keyword === 'calendar' ? '62px' : '96px'};
   margin-right: 12px;
+  border-radius: 8px;
+  object-fit: cover;
 `;
 
 export const TimerWrap = styled.div`
@@ -72,7 +76,7 @@ export const Time = styled.div`
   height: 40px;
   margin-top: 16px;
   border-radius: 8px;
-  color: #ecc658;
+  color: #ffab00;
   font-size: 18px;
   font-weight: 700;
   background-color: #fffbf2;

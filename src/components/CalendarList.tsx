@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useEffect } from 'react';
 
 import meeting_img from '../assets/meeting_img.svg';
 import { loadItem } from '../services/storage';
@@ -19,28 +20,21 @@ import Calendar from './common/Calendar';
 
 type ListItemsProps = {
   currMeetingList: Meeting[];
+  refetch: () => void;
 };
 
-export default function CalendarList({ currMeetingList }: ListItemsProps) {
+export default function CalendarList({ currMeetingList, refetch }: ListItemsProps) {
   const [startDate, setStartDate] = useState<Date>(new Date());
 
   const timerRef = useRef<HTMLSpanElement>(null);
 
+  useEffect(() => {
+    countDownTimer(currMeetingList, timerRef);
+  }, []);
+
   const attendDates = currMeetingList?.map((obj: { startDate: string }) => {
     return new Date(new Date(obj.startDate).setHours(0, 0, 0, 0)).getTime();
   });
-
-  const willAttendDates = currMeetingList
-    ?.map((obj: { startDate: string; startTime: string }) => {
-      const [hours, mins, secs] = obj.startTime.split(':');
-      const time = new Date(obj.startDate).setHours(+hours, +mins, +secs);
-      return new Date(time).getTime();
-    })
-    .filter((time: number) => new Date(time) >= new Date());
-
-  const closeDate = new Date(Math.min(...willAttendDates));
-
-  closeDate.getTime() && countDownTimer(closeDate, timerRef);
 
   const meetingList = currMeetingList?.filter((obj: { startDate: string }) => {
     return new Date(obj.startDate).getDate() === startDate.getDate() && obj;
@@ -53,9 +47,11 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
           <p>다음 모임까지 남은 시간</p>
         </Title>
         <Time>
-          <span ref={timerRef}>
-            {closeDate.getTime() ? '00 : 00 : 00 : 00' : '이번 달은 더 이상 모임이 없습니다.'}
-          </span>
+          {currMeetingList.length === 0 ? (
+            <span>이번 달은 더 이상 모임이 없습니다.</span>
+          ) : (
+            <span ref={timerRef}>00 : 00 : 00 : 00</span>
+          )}
         </Time>
         <Detail>
           <span>DAYS</span>
@@ -65,7 +61,7 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
         </Detail>
       </TimerWrap>
       <CalendarWrap>
-        <Calendar attendDates={attendDates} startDate={startDate} setStartDate={setStartDate} />
+        <Calendar refetch={refetch} attendDates={attendDates} setStartDate={setStartDate} />
       </CalendarWrap>
       <MeetingListWrap keyword={loadItem('keyword')}>
         <h2>모임 일정</h2>
@@ -82,8 +78,8 @@ export default function CalendarList({ currMeetingList }: ListItemsProps) {
             <MeetingWrap key={meeting.id}>
               <MeetingImg
                 keyword={loadItem('keyword')}
-                src={!meeting.img ? meeting_img : meeting.img}
-                alt={!meeting.img ? meeting_img : meeting.img}
+                src={!meeting.image ? meeting_img : meeting.image}
+                alt={!meeting.image ? meeting_img : meeting.image}
               />
               <ListContent currMeeting={meeting} />
             </MeetingWrap>

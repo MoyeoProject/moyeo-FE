@@ -153,7 +153,7 @@ const RePasswordPage = () => {
           ) : (
             <>
               <div className="inputBox">
-                <p>비밀번호 </p>
+                <p>새 비밀번호 </p>
                 <input
                   type={view ? 'text' : 'password'}
                   value={password || ''}

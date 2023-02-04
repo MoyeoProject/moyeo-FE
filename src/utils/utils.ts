@@ -7,13 +7,8 @@ export const calcStartDate = (startDate: Date) => {
 };
 
 export const calcStartTime = (startTime: string) => {
-  const [time, modifier] = startTime.split(' ');
-  const [hours, minutes] = time.split(':');
-
-  let newHours = hours === '12' ? '00' : hours;
-  newHours = modifier === 'pm' ? String(parseInt(hours, 10) + 12) : newHours;
-
-  return `${newHours}:${minutes}:00`;
+  const [hours, minutes] = startTime.split(':');
+  return `${hours}:${minutes}:00`;
 };
 
 export const setTime = (startTime: string) => {
@@ -24,8 +19,20 @@ export const setDate = (startDate: string) => {
   return startDate.split('-').slice(1).join('.');
 };
 
-export const countDownTimer = (date: Date, targetElement: React.RefObject<HTMLSpanElement>) => {
-  const targetDate = date.getTime();
+export const countDownTimer = (
+  currMeetingList: any,
+  targetElement: React.RefObject<HTMLSpanElement>
+) => {
+  const willAttendDates = currMeetingList
+    ?.map((obj: { startDate: string; startTime: string }) => {
+      const [hours, mins, secs] = obj.startTime.split(':');
+      const time = new Date(obj.startDate).setHours(+hours, +mins, +secs);
+      return new Date(time).getTime();
+    })
+    .filter((time: number) => new Date(time) >= new Date());
+
+  const closeDate = new Date(Math.min(...willAttendDates));
+  const targetDate = closeDate.getTime();
   const sec = 1000;
   const min = sec * 60;
   const hour = min * 60;

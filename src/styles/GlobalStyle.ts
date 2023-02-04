@@ -55,14 +55,18 @@ input[type="file"] {
   position: relative;
   margin: 8px;
   font-size: 14px;
+  .react-datepicker__day--weekend {
+  color: #7b7b7b;
+}
   :hover {
     border-radius: 50%;
-    background-color: #F1F1F1;
+    color: #FF9C07;
+    background-color: #FFF1DB;
   }
   :focus {
     border-radius: 50%;
-    color: #fff;
-    background-color: #FFC107;
+    color: #FF9C07;
+    background-color: #FFF1DB;
   }
 }
 .react-datepicker__day-names {
@@ -75,19 +79,27 @@ input[type="file"] {
 }
 .react-datepicker__day--selected {
   border-radius: 50%;
-  background-color: #FFC107;
+  color: #FF9C07;
+  background-color: #FFF1DB;
 }
 .react-datepicker__day--keyboard-selected {
   border-radius: 50%;
-  background-color: #FFC107;
+  color: #FF9C07;
+  background-color: #FFF1DB;
 }
-.react-datepicker__badge {
+.react-datepicker__day--outside-month>:first-child {
+  color: #ccc;
+}
+.calendar-sunday {
+  color: #F87070;
+}
+.calendar-badge {
   position: absolute;
   top: 0;
   right: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #FF8F00;
+  background-color: #FF9C07;
 }
 `;

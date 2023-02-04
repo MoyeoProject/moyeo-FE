@@ -12,8 +12,9 @@ export const CalendarListWrap = styled.div`
 export const CalendarWrap = styled.div`
   padding: 16px;
   margin: 20px 0;
-  border-radius: 8px;
+  border-radius: 16px;
   background-color: #fff;
+  box-shadow: 0px 4px 16px rgba(34, 34, 34, 0.05);
 `;
 
 export const ExceptionWrap = styled.div`

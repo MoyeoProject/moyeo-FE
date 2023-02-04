@@ -21,7 +21,7 @@ export default function HomePage() {
     };
   }, []);
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['meetings'],
     queryFn: () => getSortbyMeetings(loadItem('keyword')),
   });
@@ -30,7 +30,7 @@ export default function HomePage() {
     <>
       <TopNavBar name={'home'} />
       {loadItem('keyword') === 'calendar' ? (
-        <CalendarList currMeetingList={data?.data.data.meetingList} />
+        <CalendarList currMeetingList={data?.data.data.meetingList} refetch={refetch} />
       ) : (
         <MeetingList currMeetingList={data?.data.data.meetingList} />
       )}
