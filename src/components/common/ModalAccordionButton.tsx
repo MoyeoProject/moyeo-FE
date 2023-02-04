@@ -32,7 +32,10 @@ export default function ModalAccordionButton({
     <>
       {currModal && (
         <>
-          <FormLabel htmlFor={currModal.name}>{currModal.title}</FormLabel>
+          <FormLabel>
+            <label htmlFor={currModal.name}>{currModal.title}</label>
+            <span>*</span>
+          </FormLabel>
           <Controller
             name={name}
             control={control}
