@@ -9,7 +9,7 @@ import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingIn
 import { setDate, setTime } from '../../utils/utils';
 import { DetailImgEditModal } from '../DetailImgEditModal';
 
-const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: boolean }) => {
+const DetailMeetingInfo = ({ data, meetingAfter }: { data: any; meetingAfter: boolean }) => {
   const [showModal, setShowModal] = useState(false);
 
   const time = setTime(data?.startTime);
@@ -23,7 +23,7 @@ const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: bo
             {/* null이면 기본이미지 */}
             {data?.image ? <img src={data.image} /> : <DetailBasicImg />}
             {data?.master ? (
-              !meetingStart ? (
+              !meetingAfter ? (
                 <p
                   onClick={() => {
                     setShowModal(true);
@@ -37,7 +37,7 @@ const DetailMeetingInfo = ({ data, meetingStart }: { data: any; meetingStart: bo
           <div className="meetingInfo">
             <div className="meetingPlatform">{data.platform}</div>
             <p className="meetingTitle">{data?.title}</p>
-            {!meetingStart ? null : (
+            {!meetingAfter ? null : (
               <div className="iconBox">
                 <div>
                   <GoodIcon />

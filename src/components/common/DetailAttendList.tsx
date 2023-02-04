@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
 import { ReactComponent as Frame_user } from '../../assets/Frame_user.svg';
@@ -18,11 +19,11 @@ import { FollowButton } from './FollowButton';
 const DetailAttendList = ({
   data,
   member,
-  meetingStart,
+  meetingAfter,
 }: {
   data: any;
   member: any;
-  meetingStart: boolean;
+  meetingAfter: boolean;
 }) => {
   const QueryClient = useQueryClient();
   const masterId = data?.masterId;
@@ -42,7 +43,23 @@ const DetailAttendList = ({
   const { mutate: memberOut } = useMemberOut();
   const handleMemberOut = (userId: number) => {
     const meetingId = data?.id;
-    memberOut({ meetingId, userId });
+    Swal.fire({
+      position: 'center',
+      width: '365px',
+      text: '멤버를 내보내기 하시겠습니까? 한번 내보낸 멤버는 다시 입장할 수 없습니다.',
+      confirmButtonText: '네',
+      cancelButtonText: '취소',
+      icon: 'warning',
+      iconColor: '#F1F1F1',
+      showCancelButton: true,
+      confirmButtonColor: '#aaaaaa',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        memberOut({ meetingId, userId });
+        return;
+      }
+    });
   };
 
   return (
@@ -77,7 +94,7 @@ const DetailAttendList = ({
                 </Member>
                 {data?.master ? (
                   <div>
-                    {!meetingStart ? (
+                    {!meetingAfter ? (
                       <Out
                         onClick={() => {
                           handleMemberOut(m.userId);
