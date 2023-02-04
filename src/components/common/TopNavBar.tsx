@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import Frame_user from '../../assets/Frame_user.svg';
 import banner_1 from '../../assets/banner_1.svg';
 import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
+import home_search_icon from '../../assets/home_search_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
-import search_icon from '../../assets/search_icon.svg';
 import { getAlarm } from '../../services/api';
 import { loadItem } from '../../services/storage';
 import {
@@ -41,7 +41,7 @@ export default function TopNavBar({ name }: { name: string }) {
         </Link>
         <RightBox>
           <Link to="/search">
-            <img src={search_icon} alt={search_icon} />
+            <img src={home_search_icon} alt={home_search_icon} />
           </Link>
           <Link to="/post">
             <img src={plus_icon} alt={plus_icon} />

@@ -5,7 +5,12 @@ import search_icon from '../../assets/search_icon.svg';
 import useChangeInputField from '../../hooks/useChangeInputField';
 import { getSortbyMeetings } from '../../services/api';
 import { saveItem } from '../../services/storage';
-import { InputField, SearchFormWrap } from '../../styles/SearchFormStyle';
+import {
+  ClearButton,
+  InputField,
+  SearchButton,
+  SearchFormWrap,
+} from '../../styles/SearchFormStyle';
 
 export default function SearchForm() {
   const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
@@ -30,30 +35,31 @@ export default function SearchForm() {
     } else {
       toast('검색어를 입력해주세요.');
     }
-    handleClearInputField();
   };
 
   const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>, keyword: string) => {
     if (event.keyCode == 13) {
       searchMeetings.mutate(keyword);
-      handleClearInputField();
     }
   };
 
   return (
     <SearchFormWrap>
-      <InputField>
-        <button type="button" onClick={() => handleClickSearch(inputField)}>
-          <img src={search_icon} />
-        </button>
-        <input
-          type="text"
-          placeholder="관심사를 검색해보세요!"
-          onKeyUp={(e) => handleEnterKey(e, inputField)}
-          value={inputField ? inputField : ''}
-          onChange={(e) => handleChangeInputField(e)}
-        />
-      </InputField>
+      <SearchButton type="button" onClick={() => handleClickSearch(inputField)}>
+        <img src={search_icon} />
+      </SearchButton>
+      <InputField
+        type="text"
+        placeholder="관심사를 검색해보세요!"
+        onKeyUp={(e) => handleEnterKey(e, inputField)}
+        value={inputField ? inputField : ''}
+        onChange={(e) => handleChangeInputField(e)}
+      />
+      {inputField.length !== 0 && (
+        <ClearButton type="button" onClick={() => handleClearInputField()}>
+          취소
+        </ClearButton>
+      )}
     </SearchFormWrap>
   );
 }
