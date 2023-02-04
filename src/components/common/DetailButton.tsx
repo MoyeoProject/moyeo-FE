@@ -8,17 +8,19 @@ import { useMeetAttendExit } from '../../hooks/useAttendButton';
 import { getEditingMeeting, meetAttendExitApi, meetEntranceApi } from '../../services/api';
 import { loadItem, saveItem } from '../../services/storage';
 import { ButtonBasic, MasterButton } from '../../styles/DetailButtonStyle';
+import ButtonMeetingMaster from '../ButtonMeetingMaster';
+import ButtonMeetingMember from '../ButtonMeetingMember';
 import { DetailMeetLinkButton, DetailMeetingModal } from '../DetailButtonModal';
 
 const DetailButton = ({
   data,
   member,
-  meetingStart,
+  meetingAfter,
   meetingTime,
 }: {
   data: any;
   member: any;
-  meetingStart: boolean;
+  meetingAfter: boolean;
   meetingTime: number;
 }) => {
   const { id } = useParams();
@@ -40,7 +42,6 @@ const DetailButton = ({
       },
     });
   };
-
   const { mutate: entranceMetting } = useEntranceMetting();
   const meetingEntranceBtn = () => {
     if (data?.link) {
@@ -65,107 +66,18 @@ const DetailButton = ({
   }, []);
 
   const MeetingEntranceAlert = () => {
-    if (meetingStart && !data?.entrance) {
-      toast(`${data?.title}의 모임이 시작되었습니다`);
+    if (meetingAfter && !data?.entrance) {
       return;
     }
   };
 
-  console.log(data);
   return (
     <>
-      {meetingStart ? (
-        // !data?.entrance ? (
-        //   alert(`${data?.title}의 모임이 시작되었습니다`)
-        // ):
-        !data?.entrance ? (
-          <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
-            입장하기
-          </ButtonBasic>
-        ) : reviewAdd === '' ? (
-          <ButtonBasic
-            activeBtn={true}
-            cursorAct={true}
-            onClick={() => {
-              navigate(`/review/${id}`);
-            }}
-          >
-            후기남기기
-          </ButtonBasic>
-        ) : (
-          <ButtonBasic activeBtn={false} cursorAct={false}>
-            이미 완료된 모임입니다.
-          </ButtonBasic>
-        )
-      ) : data?.master ? (
-        <>
-          {data?.link !== '' ? (
-            <MasterButton>
-              <ButtonBasic activeBtn={true} cursorAct={true} onClick={meetingEntranceBtn}>
-                입장하기
-              </ButtonBasic>
-              <ButtonBasic activeBtn={false} cursorAct={true} onClick={linkEdit}>
-                입장 링크 수정
-              </ButtonBasic>
-            </MasterButton>
-          ) : (
-            <>
-              <ButtonBasic
-                activeBtn={false}
-                cursorAct={true}
-                onClick={() => setShowLinkModal(true)}
-              >
-                입장 링크를 입력해주세요
-              </ButtonBasic>
-              {showLinkModal &&
-                createPortal(
-                  <DetailMeetLinkButton
-                    platform={data?.platform}
-                    isEdit={false}
-                    onClose={() => setShowLinkModal(false)}
-                  />,
-                  document.body
-                )}
-            </>
-          )}
-        </>
-      ) : data?.attend ? (
-        !data?.link ? (
-          <ButtonBasic activeBtn={false} cursorAct={false}>
-            모임이 아직 시작되지 않았습니다
-          </ButtonBasic>
-        ) : (
-          <ButtonBasic onClick={meetingEntranceBtn} activeBtn={true} cursorAct={true}>
-            입장하기
-          </ButtonBasic>
-        )
-      ) : member?.length === data?.maxNum ? (
-        <ButtonBasic activeBtn={false}>정원이 다 찼습니다</ButtonBasic>
+      {data.master ? (
+        <ButtonMeetingMaster data={data} />
       ) : (
-        <ButtonBasic
-          onClick={() => {
-            if (data.secret) {
-              setShowModal(true);
-            } else {
-              handleClickAttnedExit(ids);
-            }
-          }}
-          activeBtn={true}
-          cursorAct={true}
-        >
-          모임 참석하기
-        </ButtonBasic>
+        <ButtonMeetingMember data={data} member={member} />
       )}
-
-      {showModal &&
-        createPortal(
-          <DetailMeetingModal
-            onClose={() => setShowModal(false)}
-            passwordCheck={data?.password}
-            id={id}
-          />,
-          document.body
-        )}
     </>
   );
 };
