@@ -29,7 +29,7 @@ export default function SearchPage() {
     <>
       <TopNavBar name={'search'} />
       <MeetingListWrap keyword={loadItem('keyword')}>
-        {data?.data.data.meetingList.length === 0 ? (
+        {data?.data.data.meetingList.length === 0 && loadItem('keyword') !== '' ? (
           <ExceptionWrap>
             <p>검색 결과가 없습니다</p>
           </ExceptionWrap>
@@ -38,8 +38,8 @@ export default function SearchPage() {
             <MeetingWrap key={meeting.id}>
               <MeetingImg
                 keyword={loadItem('keyword')}
-                src={!meeting.img ? meeting_img : meeting.img}
-                alt={!meeting.img ? meeting_img : meeting.img}
+                src={!meeting.image ? meeting_img : meeting.image}
+                alt={!meeting.image ? meeting_img : meeting.image}
               />
               <ListContent currMeeting={meeting} />
             </MeetingWrap>
