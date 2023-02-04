@@ -72,35 +72,13 @@ export const getAlarm = async () => {
 };
 
 export const postMeeting = async (postForm: FieldValues) => {
-  const {
-    image,
-    content,
-    category,
-    duration,
-    link,
-    maxNum,
-    password,
-    platform,
-    secret,
-    startDate,
-    startTime,
-    title,
-  } = postForm;
   const formDataForSubmit = new FormData();
-  image[0] && formDataForSubmit.append('image', image[0]);
-  formDataForSubmit.append('content', content);
-  formDataForSubmit.append('category', category);
-  formDataForSubmit.append('duration', duration);
-  formDataForSubmit.append('link', link);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('password', password);
-  formDataForSubmit.append('platform', platform);
-  formDataForSubmit.append('secret', secret);
-  formDataForSubmit.append('startDate', startDate);
-  formDataForSubmit.append('startTime', startTime);
-  formDataForSubmit.append('title', title);
+
+  Object.entries(postForm).forEach((arr) => {
+    arr[0] !== 'image'
+      ? formDataForSubmit.append(arr[0], arr[1])
+      : arr[1] !== null && formDataForSubmit.append(arr[0], arr[1][0]);
+  });
 
   const response = await baseURL
     .post(MEETINGS, formDataForSubmit, {
@@ -134,35 +112,13 @@ export const getEditingMeeting = async (id: number | undefined) => {
 };
 
 export const editMeeting = async ({ id, postForm }: { id: number; postForm: FieldValues }) => {
-  const {
-    image,
-    content,
-    category,
-    duration,
-    link,
-    maxNum,
-    password,
-    platform,
-    secret,
-    startDate,
-    startTime,
-    title,
-  } = postForm;
   const formDataForSubmit = new FormData();
-  image[0] && formDataForSubmit.append('image', image[0]);
-  formDataForSubmit.append('content', content);
-  formDataForSubmit.append('category', category);
-  formDataForSubmit.append('duration', duration);
-  formDataForSubmit.append('link', link);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('maxNum', maxNum);
-  formDataForSubmit.append('password', password);
-  formDataForSubmit.append('platform', platform);
-  formDataForSubmit.append('secret', secret);
-  formDataForSubmit.append('startDate', startDate);
-  formDataForSubmit.append('startTime', startTime);
-  formDataForSubmit.append('title', title);
+
+  Object.entries(postForm).forEach((arr) => {
+    arr[0] !== 'image'
+      ? formDataForSubmit.append(arr[0], arr[1])
+      : arr[1] !== null && formDataForSubmit.append(arr[0], arr[1][0]);
+  });
 
   const response = await baseURL
     .patch(MEETINGS + `/${id}`, formDataForSubmit, {
