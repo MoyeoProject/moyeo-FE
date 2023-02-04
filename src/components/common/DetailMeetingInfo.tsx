@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { ReactComponent as BadIcon } from '../../assets/bad_icon.svg';
+import { ReactComponent as IconBad } from '../../assets/bad_icon.svg';
 import { ReactComponent as DetailBasicImg } from '../../assets/detail_basic_img.svg';
-import { ReactComponent as GoodIcon } from '../../assets/good_icon.svg';
+import { ReactComponent as IconGood } from '../../assets/good_icon.svg';
 import { ReactComponent as ImageEditIcon } from '../../assets/n_imgEdit.svg';
 import { MeetingCategoryBox, MeetingInfoBox } from '../../styles/DetailMeetingInfoStyle';
 import { setDate, setTime } from '../../utils/utils';
@@ -20,7 +20,6 @@ const DetailMeetingInfo = ({ data, meetingAfter }: { data: any; meetingAfter: bo
       <MeetingCategoryBox>
         <div className="meetingBox">
           <div className="meetingImg">
-            {/* null이면 기본이미지 */}
             {data?.image ? <img src={data.image} /> : <DetailBasicImg />}
             {data?.master ? (
               !meetingAfter ? (
@@ -40,11 +39,11 @@ const DetailMeetingInfo = ({ data, meetingAfter }: { data: any; meetingAfter: bo
             {!meetingAfter ? null : (
               <div className="iconBox">
                 <div>
-                  <GoodIcon />
+                  <IconGood />
                   <p>{data?.likeNum}</p>
                 </div>
                 <div>
-                  <BadIcon />
+                  <IconBad />
                   <p>{data?.hateNum}</p>
                 </div>
               </div>

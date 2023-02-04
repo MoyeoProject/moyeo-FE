@@ -46,7 +46,7 @@ export const MeetingCategoryBox = styled.div`
     .meetingTitle {
       margin-bottom: 8px;
       line-height: 21px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
     }
     .iconBox {
@@ -69,8 +69,6 @@ export const MeetingCategoryBox = styled.div`
   .meetingText {
     padding: 0 16px;
     box-sizing: border-box;
-    /* white-space: nowrap;
-    overflow: hidden; */
     line-height: 24px;
     font-size: 12px;
     font-weight: 500;
@@ -91,7 +89,7 @@ export const MeetingInfoBox = styled.div`
       font-weight: 700;
     }
     .infoContentBox {
-      font-size: 12px;
+      font-size: 14px;
       color: #666666;
     }
   }
