@@ -10,6 +10,7 @@ import App from './App';
 import error from './assets/error.json';
 import loading from './assets/loading.json';
 import { GlobalStyle } from './styles/GlobalStyle';
+import { Loading } from './styles/LoadingStyle';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,13 +25,28 @@ root.render(
   <QueryErrorResetBoundary>
     {({ reset }) => (
       <ErrorBoundary onReset={reset} fallbackRender={() => <Lottie animationData={error} />}>
-        <React.Suspense fallback={<Lottie animationData={loading} />}>
+        <React.Suspense
+          fallback={
+            <Loading>
+              <Lottie animationData={loading} />
+            </Loading>
+          }
+        >
           <QueryClientProvider client={queryClient}>
             <React.StrictMode>
               <BrowserRouter>
                 <GlobalStyle />
                 <App />
-                <Toaster position="bottom-center" reverseOrder={true} />
+                <Toaster
+                  toastOptions={{
+                    style: {
+                      color: '#fff',
+                      backgroundColor: '#000',
+                    },
+                  }}
+                  position="bottom-center"
+                  reverseOrder={true}
+                />
               </BrowserRouter>
             </React.StrictMode>
           </QueryClientProvider>

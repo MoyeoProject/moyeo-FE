@@ -10,11 +10,13 @@ export const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   list-style: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  outline: none;
 }
 body{
   width: 375px;
   margin: 0 auto;
   background-color: #E5E5E5;
+  box-shadow: 0px 4px 16px rgba(34, 34, 34, 0.05);
 }
 a {
   color: #000;
@@ -97,8 +99,8 @@ input[type="file"] {
   position: absolute;
   top: 0;
   right: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: #FF9C07;
 }

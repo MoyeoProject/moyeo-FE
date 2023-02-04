@@ -54,6 +54,7 @@ export const FollowButton = ({ userId, followed }: MemberTypes) => {
           BGcolor={isFollow ? '#F4F4F4' : '#FFF1DB'}
           color={isFollow ? '#666666' : '#FF9C07'}
           onClick={handleClickFollow}
+          hover={isFollow ? true : false}
         >
           {isFollow ? '팔로잉' : '팔로우'}
         </FollowStyleButton>

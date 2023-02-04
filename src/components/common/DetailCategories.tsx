@@ -56,9 +56,13 @@ const Button = styled.button<{ selectButton: boolean }>`
   border-bottom: ${(props) => (props.selectButton ? '2px solid #FFA000' : null)};
   color: ${(props) => (props.selectButton ? '#FFA000' : '#aaaaaa')};
   font-weight: 700;
+  font-size: 16px;
   background-color: white;
   button:last-child {
     margin-right: 0;
+  }
+  :hover {
+    color: #ffb300;
   }
 `;
 

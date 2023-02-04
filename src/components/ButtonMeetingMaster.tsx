@@ -67,10 +67,9 @@ const ButtonMeetingMaster = ({ data }: any) => {
       </>
     );
   };
-  console.log(data);
+
   const MasterMeetingStart = () => {
     return (
-      // 10283
       <>
         {!data?.link ? (
           <ButtonBasic activeBtn={true} cursorAct={true} onClick={() => setShowLinkModal(true)}>

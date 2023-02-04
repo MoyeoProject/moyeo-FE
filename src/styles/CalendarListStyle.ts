@@ -22,7 +22,12 @@ export const ExceptionWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 62px 0;
+  width: 342px;
+  height: 174px;
+  margin-bottom: 30px;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0px 4px 16px rgba(34, 34, 34, 0.05);
   & > p {
     color: #666666;
   }
@@ -34,6 +39,6 @@ export const ExceptionWrap = styled.div`
     font-size: 16px;
     font-weight: 500;
     color: #fff;
-    background: #aaaaaa;
+    background: #ff9c07;
   }
 `;

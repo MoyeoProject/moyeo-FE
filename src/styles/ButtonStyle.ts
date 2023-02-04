@@ -16,7 +16,11 @@ export const ModalButton = styled.button`
   border-radius: 8px;
   font-size: 16px;
   color: ${(props: { isColor: boolean }) => (props.isColor ? '#fff' : '#aaaaaa')};
-  background-color: ${(props: { isColor: boolean }) => (props.isColor ? '#D9D9D9' : '#F1F1F1')};
+  background-color: ${(props: { isColor: boolean }) => (props.isColor ? '#FF9C07' : '#F1F1F1')};
+  :hover {
+    color: #fff;
+    background-color: ${(props: { isColor: boolean }) => (props.isColor ? '#FF6F00' : '#666666')};
+  }
 `;
 
 export const PostButton = styled.button`

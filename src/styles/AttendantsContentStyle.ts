@@ -4,9 +4,27 @@ export const AttendantsProfileWrap = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  width: 210px;
   height: 32px;
   padding-top: 16px;
-  img {
+  & > img {
+    position: absolute;
+    left: 88px;
+    font-size: 12px;
+    color: #aaaaaa;
+  }
+  & > p {
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    color: #666666;
+  }
+`;
+
+export const ImgWrap = styled.div`
+  position: absolute;
+  left: ${(props: { index: number }) => `${props.index * 28}px`};
+  & > img {
     right: 20px;
     width: 32px;
     height: 32px;
@@ -14,15 +32,4 @@ export const AttendantsProfileWrap = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-  & > p {
-    position: absolute;
-    left: 94px;
-    font-size: 12px;
-    color: #aaaaaa;
-  }
-`;
-
-export const ImgWrap = styled.div`
-  position: absolute;
-  left: ${(props: { index: number }) => `${props.index * 28}px`};
 `;

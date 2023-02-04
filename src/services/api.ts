@@ -61,11 +61,6 @@ export const getMyInfo = async () => {
   return response;
 };
 
-export const getBanners = async () => {
-  const response = await baseURL.get(MEETINGS + '/banner');
-  return response;
-};
-
 export const getAlarm = async () => {
   const response = await baseURL.get('/alarms/existence');
   return response;
@@ -247,7 +242,6 @@ export const meetAttendExitApi = async (meetingId: any) => {
 };
 
 export const meetEntranceApi = async ({ id, link }: { id: string | undefined; link: string }) => {
-  console.log(id, link);
   const res = await baseURL
     .patch(`/meetings/${id}/entrance`)
     .then((res) => {
@@ -331,6 +325,11 @@ export const getAlarmList = async () => {
 
 export const AlarmReadApi = async (id: number) => {
   const res = await baseURL.delete(`/alarms/${id}`);
+  return res;
+};
+
+export const AlarmAllDeleteApi = async () => {
+  const res = await baseURL.delete('/alarms');
   return res;
 };
 

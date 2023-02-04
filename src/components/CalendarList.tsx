@@ -5,11 +5,11 @@ import meeting_img from '../assets/meeting_img.svg';
 import { loadItem } from '../services/storage';
 import { CalendarListWrap, CalendarWrap, ExceptionWrap } from '../styles/CalendarListStyle';
 import {
-  Detail,
   MeetingImg,
   MeetingListWrap,
   MeetingWrap,
-  Time,
+  TimeDetail,
+  TimeWrap,
   TimerWrap,
   Title,
 } from '../styles/MeetingListStyle';
@@ -46,19 +46,19 @@ export default function CalendarList({ currMeetingList, refetch }: ListItemsProp
         <Title>
           <p>다음 모임까지 남은 시간</p>
         </Title>
-        <Time>
+        <TimeWrap>
           {currMeetingList.length === 0 ? (
             <span>이번 달은 더 이상 모임이 없습니다.</span>
           ) : (
             <span ref={timerRef}>00 : 00 : 00 : 00</span>
           )}
-        </Time>
-        <Detail>
+        </TimeWrap>
+        <TimeDetail>
           <span>DAYS</span>
           <span>HOURS</span>
           <span>MIN</span>
           <span>SEC</span>
-        </Detail>
+        </TimeDetail>
       </TimerWrap>
       <CalendarWrap>
         <Calendar refetch={refetch} attendDates={attendDates} setStartDate={setStartDate} />
