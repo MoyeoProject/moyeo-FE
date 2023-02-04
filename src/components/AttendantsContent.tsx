@@ -1,11 +1,16 @@
 import Frame_user from '../assets/Frame_user.svg';
+import more_icon from '../assets/more_icon.svg';
 import { AttendantsProfileWrap, ImgWrap } from '../styles/AttendantsContentStyle';
 import { AttendantsList } from '../types/AppTypes';
 
 export default function AttendantsContent({
   attendantsList,
+  attendantsNum,
+  maxNum,
 }: {
   attendantsList: AttendantsList[];
+  attendantsNum: number;
+  maxNum: number;
 }) {
   const attendantsProfile = attendantsList.length > 3 ? attendantsList.slice(0, 3) : attendantsList;
   const attendantsCount =
@@ -18,7 +23,8 @@ export default function AttendantsContent({
           <img src={attendant.userProfileImg ? attendant.userProfileImg : Frame_user} />
         </ImgWrap>
       ))}
-      <p>{attendantsCount ? '+' + attendantsCount : null}</p>
+      {attendantsCount && <img src={more_icon} alt={more_icon} />}
+      <p>{attendantsNum && maxNum && `인원 ${attendantsNum} / ${maxNum}`}</p>
     </AttendantsProfileWrap>
   );
 }
