@@ -1,20 +1,13 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 
-import { ReactComponent as FramePlusIcon } from '../../assets/Frame_plus.svg';
 import { ReactComponent as Frame_user } from '../../assets/Frame_user.svg';
+import { ReactComponent as Icon_Master } from '../../assets/n_master.svg';
 import { handleMemberOutAlert } from '../../hooks/useAlert';
 import { memberOutApi } from '../../services/api';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';
 import { MemberTypes } from '../../types/DetailTypes';
 import { FollowButton } from './FollowButton';
-
-// type DetailAttendType = {
-//   data: DetailTypes[]
-//   member: MemberTypes[]
-//  서로 다른 두 데이터를 props으로 넘길
-// }
 
 const DetailAttendList = ({
   data,
@@ -79,7 +72,7 @@ const DetailAttendList = ({
                   </div>
                   <div>
                     <span>{m.username}</span>
-                    <FramePlusIcon />
+                    <Icon_Master />
                   </div>
                 </Member>
                 <FollowButton userId={m.userId} followed={m.followed} />

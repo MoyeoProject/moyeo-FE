@@ -23,7 +23,6 @@ const ButtonMeetingMember = ({ data, member }: any) => {
   const startDate = data?.startDate;
   const startTime = data?.startTime;
   const meetingTime = new Date(startDate + 'T' + startTime).getTime();
-  console.log(data);
 
   const useEntranceMetting = () => {
     return useMutation(meetEntranceApi, {
