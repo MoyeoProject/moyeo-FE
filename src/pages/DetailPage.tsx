@@ -40,11 +40,14 @@ const DetailPage = () => {
 
   const today = new Date();
   const todayTime = today.getTime();
+  const durationTime = detail?.data.data.duration * 3600000;
 
   const startDate = detail?.data.data.startDate;
   const startTime = detail?.data.data.startTime;
   const meetingTime = new Date(startDate + 'T' + startTime).getTime();
-  const meetingStart = todayTime > meetingTime;
+  const meetingAfter = todayTime > meetingTime + durationTime
+
+  
 
   const detailData = detail?.data.data;
   const memberData = member?.data.data;
@@ -65,26 +68,26 @@ const DetailPage = () => {
     <>
       <DetailBox>
         <div className="detailTopBox">
-          <DetailNavBar data={detailData} meetingStart={meetingStart} />
-          <DetailCategories isAttend={isAttend} meetingStart={meetingStart} />
+          <DetailNavBar data={detailData} member={memberData} meetingAfter={meetingAfter} />
+          <DetailCategories isAttend={isAttend} meetingAfter={meetingAfter} />
         </div>
         <div className="detailMainBox">
           {categories === 'intro' ? (
             <>
-              <DetailMeetingInfo data={detailData} meetingStart={meetingStart} />
-              <DetailAttendList data={detailData} member={memberData} meetingStart={meetingStart} />
+              <DetailMeetingInfo data={detailData} meetingAfter={meetingAfter} />
+              <DetailAttendList data={detailData} member={memberData} meetingAfter={meetingAfter} />
               <div className="buttonBox">
                 <DetailButton
                   data={detailData}
                   member={memberData}
-                  meetingStart={meetingStart}
+                  meetingAfter={meetingAfter}
                   meetingTime={meetingTime}
                 />
               </div>
             </>
           ) : (
             <>
-              <Comment meetingStart={meetingStart} />
+              <Comment meetingAfter={meetingAfter} />
             </>
           )}
         </div>

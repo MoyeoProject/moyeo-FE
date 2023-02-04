@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { toast } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as Icon_ChevronLeft } from '../../assets/chevron-left.svg';
@@ -17,15 +18,23 @@ import { NavBox, NavButtonBox } from '../../styles/DetailNavBarStyle';
 import { DetailMeetingModal } from '../DetailButtonModal';
 import KakaoShareButton from '../KakaoShareButton';
 
-const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+const DetailNavBar = ({
+  data,
+  member,
+  meetingAfter,
+}: {
+  data: any;
+  member: any;
+  meetingAfter: boolean;
+}) => {
+  const QueryClient = useQueryClient();
+  const navigate = useNavigate();
   const { id } = useParams();
   const ids = Number(id);
 
-  const QueryClient = useQueryClient();
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const kakaoShareUser = loadItem('isLogin') === 'kakaoShare';
+  const meetingMaxNum = member?.length === data?.maxNum;
 
   const shareData = {
     link: `detail/${data?.id}`,
@@ -78,7 +87,7 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
         </div>
 
         <NavButtonBox>
-          {!meetingStart ? (
+          {!meetingAfter ? (
             data?.attend ? (
               <div
                 onClick={() => {
@@ -100,7 +109,7 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
 
           <KakaoShareButton shareData={shareData} />
 
-          {!meetingStart ? (
+          {!meetingAfter ? (
             data?.master ? (
               <div
                 onClick={() => {
@@ -115,6 +124,10 @@ const DetailNavBar = ({ data, meetingStart }: { data: any; meetingStart: boolean
               <div
                 onClick={() => {
                   if (!data?.attend) {
+                    if (meetingMaxNum) {
+                      toast('정원이 다 찼습니다.');
+                      return;
+                    }
                     if (data.secret) {
                       setShowModal(true);
                     } else {

@@ -66,6 +66,6 @@ export type AlarmType = {
   createdAt: string;
 };
 
-export type MeetingStartType = {
-  meetingStart: boolean;
+export type meetingAfterType = {
+  meetingAfter: boolean;
 };

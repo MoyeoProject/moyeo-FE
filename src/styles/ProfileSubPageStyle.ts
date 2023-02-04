@@ -166,6 +166,8 @@ export const AccountBox = styled.div`
     padding: 16px;
     box-sizing: border-box;
     border-bottom: 1px solid #f4f4f4;
+    span {
+      cursor: pointer;
+    }
   }
 `;
-
