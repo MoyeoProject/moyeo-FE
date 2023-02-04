@@ -28,7 +28,11 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
           <div>
             <ListContent currMeeting={meeting} />
             {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
-              <AttendantsContent attendantsList={meeting.attendantsList} />
+              <AttendantsContent
+                attendantsList={meeting.attendantsList}
+                attendantsNum={meeting.attendantsNum}
+                maxNum={meeting.maxNum}
+              />
             ) : (
               <div></div>
             )}
@@ -45,7 +49,11 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
           <div>
             <ListContent currMeeting={meeting} />
             {meeting.attendantsList && meeting.attendantsList.length !== 0 ? (
-              <AttendantsContent attendantsList={meeting.attendantsList} />
+              <AttendantsContent
+                attendantsList={meeting.attendantsList}
+                attendantsNum={meeting.attendantsNum}
+                maxNum={meeting.maxNum}
+              />
             ) : (
               <div></div>
             )}

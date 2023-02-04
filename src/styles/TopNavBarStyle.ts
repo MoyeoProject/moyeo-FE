@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TopNavBarWrap = styled.div`
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   top: 0;
   display: flex;
@@ -28,7 +28,7 @@ export const LeftBox = styled.div`
   }
   & > p {
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 
@@ -50,6 +50,7 @@ export const BannerImg = styled.div`
   display: flex;
   justify-content: center;
   background-color: #f4f4f4;
+  box-shadow: 0px 4px 16px rgba(34, 34, 34, 0.05);
   & > img {
     width: 342px;
     height: 150px;
