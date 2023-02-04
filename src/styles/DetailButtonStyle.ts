@@ -10,6 +10,10 @@ export const ButtonBasic = styled.button<{ activeBtn: boolean; cursorAct?: boole
   font-size: 16px;
   letter-spacing: 2px;
   cursor: ${(props) => (props.cursorAct ? 'pointer' : 'default')};
+  :hover {
+    background-color: ${(props) => (props.activeBtn ? '#FF6F00' : '#666666')};
+    color: #fff;
+  }
 `;
 export const MasterButton = styled.div`
   width: 343px;
@@ -41,7 +45,6 @@ export const MasterLinkInput = styled.div`
     height: 100%;
     width: 70px;
     color: white;
-    font-weight: 700;
   }
   .cancle {
     color: #666666;
@@ -53,6 +56,7 @@ export const MasterLinkInput = styled.div`
 export const FollowStyleButton = styled.button<{
   BGcolor: string;
   color: string;
+  hover: boolean;
 }>`
   width: 65px;
   height: 32px;
@@ -62,4 +66,8 @@ export const FollowStyleButton = styled.button<{
   font-size: 12px;
   line-height: 16px;
   background-color: ${(props) => props.BGcolor};
+  :hover {
+    background-color: ${(props) => (props.hover ? '#666666' : '#ffb300')};
+    color: ${(props) => (props.hover ? '#fff' : 'white')};
+  }
 `;

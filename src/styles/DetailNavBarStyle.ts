@@ -21,7 +21,7 @@ export const NavBox = styled.div`
   .navTitle {
     width: 198px;
     padding: 0 8px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
@@ -40,6 +40,9 @@ export const NavButtonBox = styled.div`
     & > span {
       font-size: 20px;
       cursor: pointer;
+      :hover {
+        color: red;
+      }
     }
   }
 `;

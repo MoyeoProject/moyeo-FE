@@ -5,7 +5,7 @@ export const Box = styled.div`
   padding: 0 16px;
   box-sizing: border-box;
   & > p {
-    font-size: 12px;
+    font-size: 14px;
     color: #666666;
     font-weight: 700;
     margin-bottom: 8px;

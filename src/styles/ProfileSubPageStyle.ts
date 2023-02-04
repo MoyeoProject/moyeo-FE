@@ -12,10 +12,10 @@ export const SubNavBox = styled.div`
   z-index: 1;
   height: 56px;
   width: 375px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
   margin-bottom: 16px;
   border-bottom: 1px solid #f4f4f4;
@@ -23,10 +23,18 @@ export const SubNavBox = styled.div`
   font-size: 18px;
   font-weight: 700;
   & > div {
-    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    & > p {
+      cursor: pointer;
+    }
+    & > span {
+      margin-left: 16px;
+    }
   }
   & > span {
-    margin-left: 16px;
+    cursor: pointer;
   }
 `;
 
@@ -57,10 +65,6 @@ export const FollowListBox = styled.div`
     height: 670px;
     padding: 16px;
     box-sizing: border-box;
-    /* overflow-y: scroll;
-    ::-webkit-scrollbar {
-      display: none;
-    } */
   }
 `;
 
@@ -118,7 +122,6 @@ export const DeveloperBox = styled.div`
 
 export const AlarmBox = styled.div`
   margin-top: 56px;
-  /* height: 100vh; */
   background-color: white;
   .alarmNull {
     height: 100px;
@@ -134,6 +137,17 @@ export const AlarmBox = styled.div`
       box-sizing: border-box;
       margin-bottom: 10px;
       border-bottom: 1px solid #f4f4f4;
+      :hover {
+        background-color: #f4f4f4;
+      }
+    }
+    & > p {
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+      box-sizing: border-box;
     }
     .alarmText {
       margin-bottom: 20px;
@@ -149,6 +163,13 @@ export const AlarmBox = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      & > div {
+        display: flex;
+        justify-content: flex-start;
+        p {
+          margin-right: 8px;
+        }
+      }
       p {
         cursor: pointer;
       }
