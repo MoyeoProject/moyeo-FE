@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
 import { FollowButton } from '../components/common/FollowButton';
 import { getFollowerList, getFollowingList } from '../services/api';
+import { loadItem } from '../services/storage';
 import { Member, MemberBox } from '../styles/DetailAttendListStyle';
 import { FollowListBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { MemberTypes } from '../types/DetailTypes';
@@ -12,6 +13,7 @@ import { SubNav } from './AlarmListPage';
 const FollowPage = () => {
   const navigate = useNavigate();
   const { keyword } = useParams();
+  const username = loadItem('username');
 
   const { data: followList } = useQuery(
     ['follow'],
@@ -26,13 +28,13 @@ const FollowPage = () => {
       keepPreviousData: true,
     }
   );
+
   return (
     <SubPageBox>
-      <SubNav children={keyword === 'follow' ? '팔로우' : '팔로워'} />
-
+      <SubNav children={username} />
       <FollowListBox>
         <div className="followTitle">
-          {keyword === 'follow' ? '팔로우' : '팔로워'}
+          {keyword === 'follow' ? '팔로잉' : '팔로워'}
           <span>{followList?.data.data.followList.length}</span>
         </div>
         <div className="followList">
@@ -41,7 +43,7 @@ const FollowPage = () => {
               <MemberBox key={list.userId}>
                 <Member>
                   <div className="imgBox">
-                    <Frame_user />
+                    {list.profileUrl ? <img src={list.profileUrl} /> : <Frame_user />}
                   </div>
                   <div>
                     <span>{list.username}</span>

@@ -105,3 +105,25 @@ export const handlGoLoginAlert = () => {
     });
   }
 };
+
+export const handleClickLogoutAlert = () => {
+  {
+    Swal.fire({
+      position: 'center',
+      width: '365px',
+      text: '로그아웃 하시겠습니까?',
+      confirmButtonText: '네',
+      cancelButtonText: '취소',
+      icon: 'warning',
+      iconColor: '#F1F1F1',
+      showCancelButton: true,
+      confirmButtonColor: '#aaaaaa',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.assign('/');
+        localStorage.clear();
+      }
+    });
+  }
+};
