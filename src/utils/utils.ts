@@ -7,13 +7,8 @@ export const calcStartDate = (startDate: Date) => {
 };
 
 export const calcStartTime = (startTime: string) => {
-  const [time, modifier] = startTime.split(' ');
-  const [hours, minutes] = time.split(':');
-
-  let newHours = hours === '12' ? '00' : hours;
-  newHours = modifier === 'pm' ? String(parseInt(hours, 10) + 12) : newHours;
-
-  return `${newHours}:${minutes}:00`;
+  const [hours, minutes] = startTime.split(':');
+  return `${hours}:${minutes}:00`;
 };
 
 export const setTime = (startTime: string) => {
