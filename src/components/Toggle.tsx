@@ -15,16 +15,19 @@ import {
 import ModalForm from './common/ModalForm';
 
 export default function Toggle({
+  isSecret,
   register,
   setValue,
 }: {
+  isSecret: boolean;
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
 }) {
-  const [secret, setSecret] = useState(false);
+  const [secret, setSecret] = useState(isSecret);
   const [showModal, setShowModal] = useState(false);
 
   const handleClickToggle = () => {
+    !secret && setShowModal(true);
     setSecret((prev) => !prev);
     setValue('secret', !secret);
     setValue('password', '');
@@ -38,7 +41,7 @@ export default function Toggle({
   return (
     <>
       <ToggleContents isInput={false}>
-        <ToggleLabel htmlFor="secret">공개 설정</ToggleLabel>
+        <ToggleLabel htmlFor="secret">비공개 설정</ToggleLabel>
         <input {...register('secret')} />
         <ToggleButton type="button" secret={secret} onClick={() => handleClickToggle()}>
           <Circle secret={secret} />
@@ -48,10 +51,10 @@ export default function Toggle({
       <ToggleContents isInput={true}>
         <ToggleLabel htmlFor="secret">비밀번호</ToggleLabel>
         <InputFieldBox>
+          <span>{!secret && '없음'}</span>
           <InputField
             type="button"
             onClick={() => setShowModal(true)}
-            value={secret ? '입력' : '없음'}
             disabled={secret ? false : true}
             {...register('password', {
               required: secret ? true : false,
@@ -62,11 +65,7 @@ export default function Toggle({
 
         {showModal &&
           createPortal(
-            <ModalForm
-              password={null}
-              onClickConfirm={handleClickConfirm}
-              onClose={() => setShowModal(false)}
-            />,
+            <ModalForm onClickConfirm={handleClickConfirm} onClose={() => setShowModal(false)} />,
             document.body
           )}
       </ToggleContents>

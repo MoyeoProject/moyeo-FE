@@ -7,32 +7,25 @@ import { ModalButton } from '../../styles/ButtonStyle';
 import { InputField } from '../../styles/FormStyle';
 import { ButtonsBox, ModalTitle, ModalWrap, Overlay } from '../../styles/ModalStyle';
 
-type ModalFormProps = {
-  password: string | null;
+export default function ModalForm({
+  onClose,
+  onClickConfirm,
+}: {
   onClose: () => void;
   onClickConfirm: (inputField: string) => void;
-};
-
-export default function ModalForm({ password, onClose, onClickConfirm }: ModalFormProps) {
-  const { inputField, handleChangeInputField, handleClearInputField } = useChangeInputField();
+}) {
+  const { inputField, handleChangeInputField } = useChangeInputField();
 
   const modalRef = useRef(null);
   useCloseModal(modalRef, onClose);
 
   const handleClickConfirm = (inputField: string) => {
-    if (password === null) {
-      onClickConfirm(inputField);
+    if (inputField === '') {
+      toast('비밀번호를 입력해주세요.');
+    } else if (inputField.length < 4) {
+      toast('비밀번호를 최소 4자 입력해주세요.');
     } else {
-      if (inputField === '') {
-        toast('비밀번호를 입력해주세요.');
-      } else {
-        if (inputField === password) {
-          onClickConfirm(inputField);
-        } else {
-          toast('비밀번호를 다시 입력해주세요.');
-          handleClearInputField();
-        }
-      }
+      onClickConfirm(inputField);
     }
   };
 
@@ -47,7 +40,7 @@ export default function ModalForm({ password, onClose, onClickConfirm }: ModalFo
             value={inputField}
             maxLength={4}
             onChange={(e) => handleChangeInputField(e)}
-            placeholder={'최대 4자까지 입력이 가능해요'}
+            placeholder={'비밀번호를 입력하세요'}
           />
           <ButtonsBox>
             <ModalButton isColor={false} onClick={onClose}>
