@@ -118,7 +118,7 @@ export const DeveloperBox = styled.div`
 
 export const AlarmBox = styled.div`
   margin-top: 56px;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: white;
   .alarmNull {
     height: 100px;
@@ -144,6 +144,14 @@ export const AlarmBox = styled.div`
     .alarmTime {
       font-size: 14px;
       color: #666666;
+    }
+    .minibox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        cursor: pointer;
+      }
     }
   }
 `;
