@@ -22,8 +22,8 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
         <MeetingWrap key={meeting.id}>
           <MeetingImg
             keyword={loadItem('keyword')}
-            src={!meeting.img ? meeting_img : meeting.img}
-            alt={!meeting.img ? meeting_img : meeting.img}
+            src={!meeting.image ? meeting_img : meeting.image}
+            alt={!meeting.image ? meeting_img : meeting.image}
           />
           <div>
             <ListContent currMeeting={meeting} />
@@ -39,8 +39,8 @@ export default function MeetingList({ currMeetingList }: ListItemsProps) {
         <MeetingWrap key={meeting.id}>
           <MeetingImg
             keyword={loadItem('keyword')}
-            src={!meeting.img ? meeting_img : meeting.img}
-            alt={!meeting.img ? meeting_img : meeting.img}
+            src={!meeting.image ? meeting_img : meeting.image}
+            alt={!meeting.image ? meeting_img : meeting.image}
           />
           <div>
             <ListContent currMeeting={meeting} />
