@@ -94,8 +94,14 @@ export default function PostPage() {
 
   const disabledHours = () => {
     const hours = range(0, 24);
-    const availableHours = hours.filter((hour) => hour < new Date().getHours() + 2);
+    const availableHours = hours.filter((hour) => hour < new Date().getHours() + 1);
     return availableHours;
+  };
+
+  const disabledMinutes = () => {
+    const mins = [0, 10, 20, 30, 40, 50];
+    const availableMins = mins.filter((min) => min < new Date().getMinutes());
+    return availableMins;
   };
 
   return (
@@ -194,6 +200,7 @@ export default function PostPage() {
                       showNow={false}
                       placeholder="시간을 선택해주세요"
                       disabledHours={disabledHours}
+                      disabledMinutes={disabledMinutes}
                       onChange={(value, dateString) => {
                         onChange(calcStartTime(dateString));
                       }}
