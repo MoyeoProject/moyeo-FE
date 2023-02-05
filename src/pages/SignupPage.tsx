@@ -44,7 +44,6 @@ const SignupPage = () => {
 
     const emailValueCheck = emailRegex.test(email);
     if (email === '' || !emailValueCheck) {
-      toast('이메일을 입력하세요');
       setEmailRegExCheck(false);
       return;
     }

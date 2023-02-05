@@ -32,7 +32,6 @@ export const LoginFormBox = styled.div`
 `;
 export const SignupBox = styled.div`
   position: relative;
-  /* height: 812px; */
   height: 100vh;
   background-color: white;
   & > div {
@@ -119,6 +118,10 @@ export const Label = styled.label<{ warning: boolean }>`
 export const EmailAuthButton = styled.button<{ disabledStyle: boolean }>`
   background-color: ${(props) => (props.disabledStyle ? '#aaaaaa !important' : '#F4F4F4')};
   cursor: ${(props) => (props.disabledStyle ? 'default' : 'pointer')};
+  :hover {
+    background-color: #ff9c07 !important;
+    color: #fff !important;
+  }
 `;
 
 export const AuthButtonBox = styled.div`
@@ -141,9 +144,21 @@ export const AuthButtonBox = styled.div`
     letter-spacing: -0.5px;
     color: #ffffff;
     background-color: #ff9c07;
+    :hover {
+      background-color: #ff6f00;
+      color: #fff;
+    }
   }
+  button:last-child {
+    background-color: red;
+  }
+
   .kakaoBtn {
     background-color: #ffc107;
+    :hover {
+      background-color: #ff9c07;
+      color: #fff;
+    }
   }
   .moveText {
     font-size: 14px;
