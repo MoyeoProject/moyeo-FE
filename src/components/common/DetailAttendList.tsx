@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 
-import { ReactComponent as Frame_user } from '../../assets/Frame_user.svg';
 import { ReactComponent as Icon_Master } from '../../assets/n_master.svg';
+import { ReactComponent as Frame_user } from '../../assets/user_img.svg';
 import { handleMemberOutAlert } from '../../hooks/useAlert';
 import { memberOutApi } from '../../services/api';
 import { Box, Member, MemberBox, Out } from '../../styles/DetailAttendListStyle';

@@ -4,8 +4,8 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
 import { ReactComponent as Icon_send } from '../assets/n_send.svg';
+import { ReactComponent as Frame_user } from '../assets/user_img.svg';
 import { addComment, delelteComment, getCommentPage } from '../services/api';
 import { loadItem } from '../services/storage';
 import { CommentBox, CommentItem, CommentViewBox, InputBox } from '../styles/CommentStyle';

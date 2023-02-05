@@ -53,7 +53,7 @@ export default function ModalAccordionButton({
                   onClick={() => handleShowModal(currModal.name)}
                   {...register(name, { required: true })}
                 />
-                <ArrowImg src={bottom_arrow_icon} />
+                <ArrowImg src={bottom_arrow_icon} alt={bottom_arrow_icon} />
               </InputFieldBox>
             )}
           />

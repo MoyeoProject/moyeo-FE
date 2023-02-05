@@ -41,17 +41,21 @@ export const Member = styled.div`
     display: flex;
     align-items: center;
   }
+  & > span {
+    margin-right: 4px;
+    font-size: 14px;
+    line-height: 20px;
+  }
   .imgBox {
     margin-right: 11px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     & > img {
+      margin-right: 11px;
       width: 48px;
       height: 48px;
       border-radius: 50%;
     }
-  }
-  span {
-    margin-right: 4px;
-    font-size: 14px;
-    line-height: 20px;
   }
 `;

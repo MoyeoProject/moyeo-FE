@@ -1,8 +1,6 @@
-import React from 'react';
 import { toast } from 'react-hot-toast';
-import Swal from 'sweetalert2';
 
-import right_arrow_icon from '../assets/right_arrow_icon.svg';
+import black_right_arrow_icon from '../assets/black_right_arrow_icon.svg';
 import { handleClickLogoutAlert } from '../hooks/useAlert';
 import { AccountBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { SubNav } from './AlarmListPage';
@@ -25,11 +23,11 @@ const AccountPage = () => {
           >
             계정 관리
           </span>
-          <img src={right_arrow_icon} alt={right_arrow_icon} />
+          <img src={black_right_arrow_icon} alt={black_right_arrow_icon} />
         </div>
         <div>
-          <span onClick={handleClickLogout}>로그아웃</span>
-          <img src={right_arrow_icon} alt={right_arrow_icon} />
+          <span onClick={() => handleClickLogout()}>로그아웃</span>
+          <img src={black_right_arrow_icon} alt={black_right_arrow_icon} />
         </div>
       </AccountBox>
     </SubPageBox>

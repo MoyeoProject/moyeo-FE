@@ -1,19 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { ReactComponent as Frame_user } from '../assets/Frame_user.svg';
+import { ReactComponent as Frame_user } from '../assets/user_img.svg';
 import { FollowButton } from '../components/common/FollowButton';
 import { getFollowerList, getFollowingList } from '../services/api';
-import { loadItem } from '../services/storage';
 import { Member, MemberBox } from '../styles/DetailAttendListStyle';
 import { FollowListBox, SubPageBox } from '../styles/ProfileSubPageStyle';
 import { MemberTypes } from '../types/DetailTypes';
 import { SubNav } from './AlarmListPage';
 
 const FollowPage = () => {
-  const navigate = useNavigate();
   const { keyword } = useParams();
-  const username = loadItem('username');
 
   const { data: followList } = useQuery(
     ['follow'],
@@ -28,10 +25,10 @@ const FollowPage = () => {
       keepPreviousData: true,
     }
   );
-
   return (
     <SubPageBox>
-      <SubNav children={username} />
+      <SubNav children={keyword === 'follow' ? '팔로잉' : '팔로워'} />
+
       <FollowListBox>
         <div className="followTitle">
           {keyword === 'follow' ? '팔로잉' : '팔로워'}
@@ -43,7 +40,7 @@ const FollowPage = () => {
               <MemberBox key={list.userId}>
                 <Member>
                   <div className="imgBox">
-                    {list.profileUrl ? <img src={list.profileUrl} /> : <Frame_user />}
+                    <Frame_user />
                   </div>
                   <div>
                     <span>{list.username}</span>
