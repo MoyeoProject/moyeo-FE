@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
 body{
   width: 375px;
   margin: 0 auto;
+  color: #222222;
   background-color: #E5E5E5;
   box-shadow: 0px 4px 16px rgba(34, 34, 34, 0.05);
 }
@@ -33,6 +33,17 @@ input, textarea, button {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+}
+input, textarea {
+  :focus {
+    border: 1px solid #84bdf9;
+    ::placeholder {
+      color: #222222;
+    }
+  }
+  ::placeholder {
+    color: #aaaaaa;
+  }
 }
 input[type="file"] {
   display: none;
@@ -103,5 +114,18 @@ input[type="file"] {
   height: 6px;
   border-radius: 50%;
   background-color: #FF9C07;
+}
+.ant-picker-panel {
+  width: 342px;
+}
+.ant-picker-time-panel-column {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.ant-picker-time-panel-cell {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
 }
 `;

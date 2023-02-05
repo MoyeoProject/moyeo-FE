@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-export const HomeButton = styled.button`
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  background-color: #aaaaaa;
-`;
-
 export const ModalButton = styled.button`
   width: 48%;
   padding: 16px 0;
@@ -26,10 +17,39 @@ export const ModalButton = styled.button`
 export const PostButton = styled.button`
   width: 100%;
   padding: 16px 0;
-  margin-top: 16px;
   border-radius: 8px;
   font-size: 16px;
-  font-weight: 700;
-  color: '#fff';
-  background-color: '#D9D9D9';
+  font-weight: 500;
+  color: #fff;
+  background-color: #ff9c07;
+  :hover {
+    background-color: #ff6f00;
+  }
+`;
+
+export const DeleteButton = styled.button`
+  width: 100%;
+  padding: 16px 0;
+  margin-top: 12px;
+  border: 1px solid #f87070;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f87070;
+  background-color: #fff;
+  :hover {
+    color: #fff;
+    background-color: #f87070;
+  }
+`;
+
+export const ButtonWrap = styled.div`
+  background-color: #fff;
+  & > div {
+    padding: 0 16px;
+    padding-top: 12px;
+    padding-bottom: 32px;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px 8px 0px 0px;
+  }
 `;

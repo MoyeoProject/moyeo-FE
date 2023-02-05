@@ -16,15 +16,6 @@ export const InputField = styled.input`
   border-radius: 8px;
   font-size: 14px;
   background-color: #f9f9f9;
-  :focus {
-    border: 1px solid #84bdf9;
-    ::placeholder {
-      color: #222222;
-    }
-  }
-  ::placeholder {
-    color: #aaaaaa;
-  }
 `;
 
 export const SearchButton = styled.button`

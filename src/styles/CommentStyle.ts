@@ -80,9 +80,15 @@ export const InputBox = styled.div`
       padding-left: 16px;
       background-color: #f1f1f1;
       outline: none;
-    }
-    & > input::placeholder {
-      color: #aaaaaa;
+      :focus {
+        border: none;
+        ::placeholder {
+          color: #222222;
+        }
+      }
+      ::placeholder {
+        color: #aaaaaa;
+      }
     }
   }
 `;
