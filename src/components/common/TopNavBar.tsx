@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-import Frame_user from '../../assets/Frame_user.svg';
 import banner_1 from '../../assets/banner_1.svg';
 import cal_left_arrow_icon from '../../assets/cal_left_arrow_icon.svg';
 import home_search_icon from '../../assets/home_search_icon.svg';
 import logo from '../../assets/logo.svg';
 import plus_icon from '../../assets/plus_icon.svg';
+import user_img from '../../assets/user_img.svg';
 import { getAlarm } from '../../services/api';
-import { loadItem } from '../../services/storage';
+import { loadItem, saveItem } from '../../services/storage';
 import {
-  Badge,
+  Badge2,
   BannerImg,
   LeftBox,
   ProfileImg,
@@ -26,12 +26,13 @@ import SortbyCategories from './SortbyCategories';
 export default function TopNavBar({ name }: { name: string }) {
   const { id } = useParams();
 
-  const alarmData = useQuery({
+  useQuery({
     queryKey: ['alarm'],
     queryFn: getAlarm,
+    onSuccess: (data) => {
+      saveItem('existenceAlarm', data?.data.success);
+    },
   });
-
-  const existenceAlarm = alarmData.data?.data.success;
 
   return name === 'home' ? (
     <TopNavBarWrap>
@@ -48,9 +49,9 @@ export default function TopNavBar({ name }: { name: string }) {
           </Link>
           <Link to="/profile">
             <ProfileImg
-              src={loadItem('profileUrl') === 'null' ? Frame_user : loadItem('profileUrl')}
+              src={loadItem('profileUrl') === 'null' ? user_img : loadItem('profileUrl')}
             />
-            {existenceAlarm && <Badge></Badge>}
+            {loadItem('existenceAlarm') === 'true' && <Badge2></Badge2>}
           </Link>
         </RightBox>
       </TopBar>
@@ -79,7 +80,7 @@ export default function TopNavBar({ name }: { name: string }) {
         <button type="button" onClick={() => history.back()}>
           <img src={cal_left_arrow_icon} alt={cal_left_arrow_icon} />
         </button>
-        {name === 'profile' ? <p>프로필</p> : <p>{id ? '모임 수정하기' : '모임 만들기'}</p>}
+        {name === 'profile' ? <p>나의 프로필</p> : <p>{id ? '모임 수정하기' : '모임 만들기'}</p>}
       </LeftBox>
     </TopNavBarWrap>
   );
