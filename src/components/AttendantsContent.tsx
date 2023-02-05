@@ -1,5 +1,5 @@
-import Frame_user from '../assets/Frame_user.svg';
 import more_icon from '../assets/more_icon.svg';
+import user_img from '../assets/user_img.svg';
 import { AttendantsProfileWrap, ImgWrap } from '../styles/AttendantsContentStyle';
 import { AttendantsList } from '../types/AppTypes';
 
@@ -20,7 +20,7 @@ export default function AttendantsContent({
     <AttendantsProfileWrap>
       {attendantsProfile.map((attendant, index) => (
         <ImgWrap key={attendant.userId} index={index}>
-          <img src={attendant.userProfileImg ? attendant.userProfileImg : Frame_user} />
+          <img src={attendant.userProfileImg ? attendant.userProfileImg : user_img} />
         </ImgWrap>
       ))}
       {attendantsCount && <img src={more_icon} alt={more_icon} />}

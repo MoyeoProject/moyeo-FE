@@ -4,7 +4,6 @@ import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import right_arrow_icon from '../assets/right_arrow_icon.svg';
 import {
-  ArrowImg,
   Circle,
   InputField,
   InputFieldBox,
@@ -60,7 +59,7 @@ export default function Toggle({
               required: secret ? true : false,
             })}
           />
-          <ArrowImg src={right_arrow_icon} />
+          <img src={right_arrow_icon} alt={right_arrow_icon} />
         </InputFieldBox>
 
         {showModal &&

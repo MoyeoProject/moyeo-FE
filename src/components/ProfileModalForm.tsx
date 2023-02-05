@@ -3,14 +3,16 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import Frame_user from '../assets/Frame_user.svg';
+import profile_camera_icon from '../assets/profile_camera_icon.svg';
+import user_img from '../assets/user_img.svg';
 import useChangePostForm from '../hooks/useChangePostForm';
 import useCloseModal from '../hooks/useCloseModal';
 import { editMyInfo } from '../services/api';
 import { saveItem } from '../services/storage';
 import { ModalButton } from '../styles/ButtonStyle';
-import { InputField } from '../styles/FormStyle';
-import { ButtonsBox, ModalTitle, ModalWrap, Overlay } from '../styles/ModalStyle';
+import { FormLabel, InputField } from '../styles/FormStyle';
+import { ButtonsBox, ModalProfile, ModalTitle, ModalWrap, Overlay } from '../styles/ModalStyle';
+import { ProfileButton, ProfileIcon, ProfileImg } from '../styles/ProfileStyle';
 import MiniModal from './MiniModal';
 
 type ProfileModalFormProps = {
@@ -56,16 +58,22 @@ export default function ProfileModalForm({
     <Overlay>
       <ModalWrap ref={modalRef}>
         <ModalTitle align={'center'}>프로필</ModalTitle>
-        <img
-          src={profileUrl === null ? Frame_user : profileUrl}
-          alt={profileUrl === null ? Frame_user : profileUrl}
-        />
-        <button type="button" onClick={() => setShowModal(true)}>
-          수정
-        </button>
-        {showModal && <MiniModal onClose={() => setShowModal(false)} />}
+
+        <ModalProfile>
+          <ProfileButton type="button" onClick={() => setShowModal(true)}>
+            <ProfileImg
+              isModal={true}
+              src={profileUrl === null ? user_img : profileUrl}
+              alt={profileUrl === null ? user_img : profileUrl}
+            />
+            <ProfileIcon src={profile_camera_icon} alt={profile_camera_icon} />
+          </ProfileButton>
+        </ModalProfile>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="username">닉네임 변경</label>
+          <FormLabel>
+            <label htmlFor="username">닉네임 변경</label>
+          </FormLabel>
           <InputField
             {...register('username', { required: true })}
             type="text"
@@ -75,13 +83,15 @@ export default function ProfileModalForm({
             value={postForm.username}
             onChange={(e) => handleChangeInputField(e)}
           />
-          <label htmlFor="profileMsg">나를 소개해주세요</label>
+          <FormLabel>
+            <label htmlFor="profileMsg">소개글</label>
+          </FormLabel>
           <InputField
             {...register('profileMsg')}
             type="text"
             id="profileMsg"
             maxLength={60}
-            placeholder={profileMsg ? profileMsg : '최대 20자까지 입력이 가능해요'}
+            placeholder={profileMsg ? profileMsg : '나를 소개해주세요'}
             value={postForm.profileMsg}
             onChange={(e) => handleChangeInputField(e)}
           />
@@ -94,6 +104,8 @@ export default function ProfileModalForm({
             </ModalButton>
           </ButtonsBox>
         </form>
+
+        {showModal && <MiniModal onClose={() => setShowModal(false)} />}
       </ModalWrap>
     </Overlay>
   );

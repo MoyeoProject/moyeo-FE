@@ -24,6 +24,23 @@ export const MiniModalWrap = styled.div`
   background-color: #fff;
   transform: translate(-50%, -50%);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  & > label {
+    padding: 16px 0;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  & > button {
+    padding: 16px 0;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: transparent;
+    cursor: auto;
+  }
+`;
+
+export const ModalProfile = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const ModalTitle = styled.p`
