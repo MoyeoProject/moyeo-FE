@@ -7,9 +7,7 @@ export const TopNavBarWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 375px;
-  border-bottom: 1px solid #e9e9e9;
   background-color: #fff;
-  box-shadow: 0px 10px 16px rgba(34, 34, 34, 0.05);
 `;
 
 export const TopBar = styled.div`
@@ -23,6 +21,7 @@ export const LeftBox = styled.div`
   display: flex;
   align-items: center;
   padding: 16px;
+  border-bottom: 1px solid #e9e9e9;
   & > button {
     margin-right: 26px;
     background-color: #fff;
@@ -37,6 +36,7 @@ export const RightBox = styled.div`
   display: flex;
   align-items: center;
   & > a {
+    position: relative;
     margin-left: 12px;
   }
 `;
@@ -45,6 +45,7 @@ export const ProfileImg = styled.img`
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const BannerImg = styled.div`
@@ -63,8 +64,19 @@ export const BannerImg = styled.div`
 
 export const Badge = styled.div`
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 0;
+  left: 32px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff8f00;
+`;
+
+export const Badge2 = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
