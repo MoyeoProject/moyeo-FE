@@ -26,7 +26,7 @@ export const ToggleButton = styled.button`
   border: none;
   border-radius: 10000px;
   transition: all 0.5s ease-in-out;
-  background-color: ${(props: { secret: boolean }) => (!props.secret ? 'none' : '#D9D9D9')};
+  background-color: ${(props: { secret: boolean }) => (!props.secret ? '#AAAAAA' : '#FF9C07')};
 `;
 
 export const Circle = styled.div`
@@ -48,12 +48,18 @@ export const Circle = styled.div`
 
 export const InputFieldBox = styled.div`
   display: flex;
+  align-items: center;
+  & > span {
+    color: #666666;
+  }
+  & > input {
+    color: #666666;
+  }
 `;
 
 export const InputField = styled.input`
   width: auto;
+  font-size: 16px;
   color: #aaaaaa;
   background-color: transparent;
 `;
-
-export const ArrowImg = styled.img``;

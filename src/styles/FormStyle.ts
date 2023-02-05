@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const FormWrap = styled.div`
   padding: 0 16px;
   padding-top: 84px;
-  padding-bottom: 32px;
   background-color: #fff;
 `;
 
@@ -12,24 +11,29 @@ export const FormTitle = styled.h2`
   font-size: 20px;
 `;
 
-export const FormLabel = styled.label`
+export const FormLabel = styled.div`
   margin-top: 16px;
   margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  color: #666666;
+  & > label {
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+  }
+  & > span {
+    color: #f87070;
+  }
 `;
 
 export const FormContents = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 80px;
+  padding-bottom: 80px;
 `;
 
 export const FormAlert = styled.p`
   margin-top: 8px;
   font-size: 12px;
-  color: #aaaaaa;
+  color: #f87070;
 `;
 
 export const InputFieldBox = styled.div`
@@ -46,7 +50,7 @@ export const InputField = styled.input`
   border: 1px solid #f4f4f4;
   border-radius: 10px;
   font-size: 16px;
-  background-color: #f9f9f9;
+  background-color: #f4f4f4;
   cursor: auto;
   :focus {
     outline: none;
@@ -63,7 +67,7 @@ export const TimeInputField = styled.div`
     border: 1px solid #f4f4f4;
     border-radius: 10px;
     font-size: 16px;
-    background-color: #f9f9f9;
+    background-color: #f4f4f4;
     .ant-picker-input {
       input {
         font-size: 16px;
@@ -80,18 +84,20 @@ export const ArrowImg = styled.img`
 
 export const TextAreaField = styled.textarea`
   text-align: start;
+  line-height: 1.5;
   width: 100%;
   padding: 16px 12px;
   border: 1px solid #f4f4f4;
   border-radius: 10px;
   font-size: 16px;
-  background-color: #f9f9f9;
+  background-color: #f4f4f4;
   cursor: auto;
   resize: vertical;
   :focus {
     outline: none;
   }
   ::placeholder {
+    font-size: 16px;
     color: #aaaaaa;
   }
 `;
@@ -102,6 +108,22 @@ export const FileLabel = styled.label`
   padding: 16px 12px;
   border-radius: 10px;
   font-size: 16px;
-  color: #fff;
-  background-color: #ffb300;
+  color: #ff9c07;
+  background-color: #fff1db;
+`;
+
+export const FieldWrap = styled.div`
+  position: relative;
+`;
+
+export const TextLength = styled.div`
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding-top: 4px;
+  padding-left: 4px;
+  background-color: #f4f4f4;
+  & > span {
+    color: #aaaaaa;
+  }
 `;
