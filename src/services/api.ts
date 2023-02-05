@@ -44,12 +44,12 @@ export const getNextMeetings = async ({
   meetingId,
   keyword,
 }: {
-  meetingId: number | false;
+  meetingId: number;
   keyword: string | null;
 }) => {
   const query =
     keyword === 'popular' || keyword === 'new'
-      ? `?sortby=${loadItem('keyword')}&category=&meetingId=${meetingId}`
+      ? `?sortby=${loadItem('keyword')}&category=${loadItem('category')}&meetingId=${meetingId}`
       : `/search?searchBy=${loadItem('keyword')}&category=&meetingId=${meetingId}`;
 
   const response = await baseURL.get(MEETINGS + query);

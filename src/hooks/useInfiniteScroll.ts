@@ -29,6 +29,7 @@ export default function useInfiniteScroll(currMeetingList: Meeting[]) {
           return undefined;
         }
       },
+      enabled: false,
     }
   );
 

@@ -1,8 +1,10 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import meeting_img from '../assets/meeting_img.svg';
-import { loadItem } from '../services/storage';
+import { loadItem, saveItem } from '../services/storage';
 import { CalendarListWrap, CalendarWrap, ExceptionWrap } from '../styles/CalendarListStyle';
 import {
   MeetingImg,
@@ -40,6 +42,14 @@ export default function CalendarList({ currMeetingList, refetch }: ListItemsProp
     return new Date(obj.startDate).getDate() === startDate.getDate() && obj;
   });
 
+  const QueryClient = useQueryClient();
+
+  const handleClickPopular = () => {
+    saveItem('keyword', 'popular');
+    saveItem('category', '');
+    QueryClient.invalidateQueries(['meetings']);
+  };
+
   return (
     <CalendarListWrap>
       <TimerWrap>
@@ -69,20 +79,22 @@ export default function CalendarList({ currMeetingList, refetch }: ListItemsProp
           <ExceptionWrap>
             <p>예정 모임이 없습니다</p>
             <p>모임을 찾으러 가보실래요?</p>
-            <button type="button" onClick={() => location.reload()}>
+            <button type="button" onClick={() => handleClickPopular()}>
               인기 모임 보러가기
             </button>
           </ExceptionWrap>
         ) : (
           meetingList.map((meeting) => (
-            <MeetingWrap key={meeting.id}>
-              <MeetingImg
-                keyword={loadItem('keyword')}
-                src={!meeting.image ? meeting_img : meeting.image}
-                alt={!meeting.image ? meeting_img : meeting.image}
-              />
-              <ListContent currMeeting={meeting} />
-            </MeetingWrap>
+            <Link key={meeting.id} to={`/detail/${meeting.id}`}>
+              <MeetingWrap>
+                <MeetingImg
+                  keyword={loadItem('keyword')}
+                  src={!meeting.image ? meeting_img : meeting.image}
+                  alt={!meeting.image ? meeting_img : meeting.image}
+                />
+                <ListContent currMeeting={meeting} />
+              </MeetingWrap>
+            </Link>
           ))
         )}
       </MeetingListWrap>
