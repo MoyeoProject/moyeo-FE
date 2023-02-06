@@ -52,7 +52,7 @@ const InfoDeveloperPage = () => {
           <div className="devPerson">
             <div>
               <p>김진아</p>
-              <p>Design</p>
+              <p>UXUI Design</p>
             </div>
             <button onClick={() => window.open('https://www.behance.net/valuedefault')}>
               비헨스 가기
