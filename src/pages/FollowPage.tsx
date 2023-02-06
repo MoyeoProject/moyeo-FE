@@ -25,6 +25,7 @@ const FollowPage = () => {
       keepPreviousData: true,
     }
   );
+  console.log(followList);
   return (
     <SubPageBox>
       <SubNav children={keyword === 'follow' ? '팔로잉' : '팔로워'} />
@@ -40,7 +41,7 @@ const FollowPage = () => {
               <MemberBox key={list.userId}>
                 <Member>
                   <div className="imgBox">
-                    <Frame_user />
+                    {list.profileUrl === null ? <Frame_user /> : <img src={list.profileUrl} />}
                   </div>
                   <div>
                     <span>{list.username}</span>
