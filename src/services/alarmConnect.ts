@@ -6,7 +6,7 @@ import { loadItem } from './storage';
 const AlarmConnect = () => {
   const [listening, setListening] = useState(false);
   const [data, setData] = useState('');
-  const id = loadItem('userId');
+  // const id = loadItem('userId');
   const token = loadItem('isLogin');
   const tokens = token?.substring(7);
 
@@ -17,17 +17,13 @@ const AlarmConnect = () => {
       const eventSource = new EventSource(subscribeUrl);
 
       eventSource.addEventListener('sse', async (e: any) => {
-        const result = await e.data;
-        console.log('sse연결 확인용', result);
-        // setData(result);
+        const connect = await e.data;
         setListening(true);
       });
 
       eventSource.addEventListener('alarm', async (e: any) => {
         const result = await e.data;
-        console.log('alarm모든알람', result);
         setData(result);
-        setListening(true);
       });
 
       eventSource.addEventListener('error', function () {
@@ -36,7 +32,6 @@ const AlarmConnect = () => {
     }
   }, [data]);
 
-  console.log(data);
   if (data.split(',')[1] !== undefined) {
     toast(data.split(',')[1].split(':')[1]);
   }
