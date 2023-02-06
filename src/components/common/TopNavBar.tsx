@@ -48,7 +48,7 @@ export default function TopNavBar({ name }: { name: string }) {
             <img src={plus_icon} alt={plus_icon} />
           </Link>
           <Link to="/profile">
-            <ProfileImg src={!loadItem('profileUrl') ? user_img : loadItem('profileUrl')} />
+            {/* <ProfileImg src={!loadItem('profileUrl') ? user_img : loadItem('profileUrl')} /> */}
             {loadItem('existenceAlarm') === 'true' && <Badge2></Badge2>}
           </Link>
         </RightBox>
