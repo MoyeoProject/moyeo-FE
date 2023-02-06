@@ -24,11 +24,14 @@ const kakaoLogin = (code: string | null) => {
     .then((res) => {
       const accessToken = res.headers.authorization;
       setAccessToken(accessToken);
+      saveItem('detailKeyword', 'intro');
       saveItem('userId', res.data.data.id);
       saveItem('username', res.data.data.username);
       saveItem('profileUrl', res.data.data.profileUrl);
-      saveItem('detailKeyword', 'intro');
       saveItem('keyword', 'popular');
+      saveItem('category', '');
+      saveItem('year', '');
+      saveItem('month', '');
       window.location.href = '/main';
     })
     .catch((err) => {

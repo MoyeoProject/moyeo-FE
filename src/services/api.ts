@@ -174,7 +174,6 @@ export const postLogin = async (userInfo: { email: string; password: string }) =
       saveItem('category', '');
       saveItem('year', '');
       saveItem('month', '');
-      saveItem('reviewAdd', '');
       location.assign('/main');
     })
     .catch((err) => {
