@@ -104,7 +104,7 @@ const Comment = ({ meetingAfter }: meetingAfterType) => {
                   {c.username === myUsername ? null : c.profileUrl !== null ? (
                     <img src={c.profileUrl} style={{ width: '28px' }} />
                   ) : (
-                    <Frame_user style={{ width: '28px', marginRight: '9px' }} />
+                    <Frame_user style={{ width: '28px', height: '28px', marginRight: '9px' }} />
                   )}
                   <div>
                     {c.username === myUsername ? null : <p className="username">{c.username}</p>}
