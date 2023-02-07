@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import ButtonMeetingMaster from '../components/ButtonMeetingMaster';
+import ButtonMeetingMember from '../components/ButtonMeetingMember';
 import Comment from '../components/Comment';
 import DetailAttendList from '../components/common/DetailAttendList';
-import DetailButton from '../components/common/DetailButton';
 import DetailCategories from '../components/common/DetailCategories';
 import DetailMeetingInfo from '../components/common/DetailMeetingInfo';
 import DetailNavBar from '../components/common/DetailNavBar';
@@ -45,9 +46,7 @@ const DetailPage = () => {
   const startDate = detail?.data.data.startDate;
   const startTime = detail?.data.data.startTime;
   const meetingTime = new Date(startDate + 'T' + startTime).getTime();
-  const meetingAfter = todayTime > meetingTime + durationTime
-
-  
+  const meetingAfter = todayTime > meetingTime + durationTime;
 
   const detailData = detail?.data.data;
   const memberData = member?.data.data;
@@ -77,12 +76,11 @@ const DetailPage = () => {
               <DetailMeetingInfo data={detailData} meetingAfter={meetingAfter} />
               <DetailAttendList data={detailData} member={memberData} meetingAfter={meetingAfter} />
               <div className="buttonBox">
-                <DetailButton
-                  data={detailData}
-                  member={memberData}
-                  meetingAfter={meetingAfter}
-                  meetingTime={meetingTime}
-                />
+                {detailData.master ? (
+                  <ButtonMeetingMaster data={detailData} />
+                ) : (
+                  <ButtonMeetingMember data={detailData} member={member} />
+                )}
               </div>
             </>
           ) : (
