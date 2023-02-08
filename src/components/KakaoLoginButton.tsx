@@ -1,7 +1,10 @@
 import axios from 'axios';
+import Lottie from 'lottie-react';
 import toast from 'react-hot-toast';
 
+import loading from '../assets/loading.json';
 import { saveItem } from '../services/storage';
+import { Loading } from '../styles/LoadingStyle';
 
 const baseURL = axios.create({
   baseURL: 'https://sparta-hippo.shop/api',
@@ -44,7 +47,13 @@ const KakaoLoginButton = () => {
   // 인가코드
   const code: string | null = new URL(window.location.href).searchParams.get('code');
   kakaoLogin(code);
-  return <div>카카오 로그인 처리중...</div>;
+  return (
+    <div>
+      <Loading>
+        <Lottie animationData={loading} />
+      </Loading>
+    </div>
+  );
 };
 
 export default KakaoLoginButton;
